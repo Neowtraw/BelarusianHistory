@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- basic colors -->
+    <color name="bg">#191919</color>
+
+    <!-- gradient splash colors -->
+    <color name='gradientStartColor'>#2E2B4E</color>
+    <color name='gradientEndColor'>#191919</color>
 </resources>
