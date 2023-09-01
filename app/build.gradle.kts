@@ -4,6 +4,10 @@ plugins {
 
     //binding
     id ("kotlin-parcelize")
+
+    //Hilt
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -55,4 +59,13 @@ dependencies {
 
     //splash screen
     implementation("androidx.core:core-splashscreen:1.0.0-beta02")
+
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+}
+
+//Hilt
+kapt {
+    correctErrorTypes = true
 }

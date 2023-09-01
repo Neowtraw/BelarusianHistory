@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- MainFragment -->
+    <dimen name="corner_icon_radius">27dp</dimen>
+    <dimen name="text_main_indent">10dp</dimen>
+    <dimen name="internal_main_indent">8dp</dimen>
+
+    <dimen name="img_size">90dp</dimen>
+
+    <dimen name="main_sample">160dp</dimen>
+    <dimen name="main_vertical_height">336dp</dimen>
+    <dimen name="main_indent">16dp</dimen>
+    <dimen name="icon_margin">10dp</dimen>
+
+</resources>
