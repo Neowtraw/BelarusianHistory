@@ -6,22 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentMenuBinding
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainHorizontalView
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainSquareView
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainVerticalView
+import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.extension.dp
 
 
 class MenuFragment : Fragment() {
 
     private lateinit var binding: FragmentMenuBinding
+    private lateinit var menuEvents: MainHorizontalView
+    private lateinit var menuPractice: MainSquareView
+    private lateinit var menuTickets: MainSquareView
+    private lateinit var menuAchieves: MainVerticalView
 
-    private lateinit var rl : RelativeLayout
-    private lateinit var mainEvents: MainHorizontalView
-    private lateinit var mainPractice: MainSquareView
-    private lateinit var mainTickets: MainSquareView
-    private lateinit var mainAchieves: MainVerticalView
+    private val menuMargin = 10.dp
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +36,90 @@ class MenuFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        createMenuView()
+
+        //необходима логика для передачи количества
+        // полученных и всех достижений в определенном меню
+
+        createMenuEvents()
+        createMenuPractice()
+        createMenuTickets()
+        createMenuAchieves()
+
+        binding.tvHeader.typeface = Font.EXTRABOLD
+
     }
 
     //Creation
-    fun createMenuView(){
+    private fun createMenuEvents(){
+        menuEvents = MainHorizontalView(
+            context = requireContext(), src = R.drawable.events,
+            textName = resources.getString(R.string.events),
+            textInfo = resources.getString(R.string.events_info),
+            textAchieves = "0/1").apply {
+            id =View.generateViewId()
+        }
 
+        binding.rlMenu.addView(menuEvents, RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams.MATCH_PARENT,
+            160.dp
+        ).apply {
+            setMargins(0,0,0, menuMargin)
+        })
+
+    }
+
+    private fun createMenuPractice(){
+        menuPractice = MainSquareView(
+            context = requireContext(), src = R.drawable.practice,
+            textName = resources.getString(R.string.practice),
+            textAchieves = "0/1", R.color.top_color_practice,
+            R.color.bottom_color_practice).apply {
+            id =View.generateViewId()
+        }
+
+        binding.rlMenu.addView(menuPractice,RelativeLayout.LayoutParams(
+            160.dp,
+            160.dp
+        ).apply {
+            addRule(RelativeLayout.BELOW, menuEvents.id)
+            setMargins(0,0,menuMargin,menuMargin)
+        })
+    }
+
+    private fun createMenuTickets(){
+        menuTickets = MainSquareView(
+            context = requireContext(), src = R.drawable.tickets,
+            textName = resources.getString(R.string.tickets),
+            textAchieves = "0/1", R.color.top_color_tickets,
+            R.color.bottom_color_tickets).apply {
+            id =View.generateViewId()
+        }
+
+        binding.rlMenu.addView(menuTickets, RelativeLayout.LayoutParams(
+            160.dp,
+            160.dp
+        ).apply {
+            addRule(RelativeLayout.BELOW, menuPractice.id)
+            setMargins(0,0,menuMargin,0)
+        })
+
+    }
+
+    private fun createMenuAchieves(){
+        menuAchieves = MainVerticalView(
+            context = requireContext(), src = R.drawable.achieves,
+            textName = resources.getString(R.string.achieves),
+            textAchieves = "0/1",
+            textInfo = resources.getString(R.string.achieves_info)).apply {
+            id =View.generateViewId()
+        }
+        binding.rlMenu.addView(menuAchieves,  RelativeLayout.LayoutParams(
+            160.dp,
+            330.dp
+        ).apply {
+            addRule(RelativeLayout.BELOW, menuEvents.id)
+            addRule(RelativeLayout.RIGHT_OF, menuPractice.id)
+        })
     }
 
 }

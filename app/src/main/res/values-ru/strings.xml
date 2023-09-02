@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Гісторыя Беларусі</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ru">
+    <string name="app_name">История Беларуси</string>
 
     <string name="practice">Практика</string>
     <string name="tickets">Билеты</string>

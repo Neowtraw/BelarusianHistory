@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.utils.DrawableUtil
+import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.textSizeDp
 
@@ -43,8 +44,9 @@ class MainVerticalView(
 
         tvName = TextView(context).apply {
             text = textName
-            textSizeDp = 20f
+            textSizeDp = 17f
             gravity = Gravity.CENTER
+            typeface = Font.EXTRABOLD
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
         addView(tvName, LayoutParams(
@@ -58,6 +60,7 @@ class MainVerticalView(
             text = textInfo
             textSizeDp = 15f
             gravity = Gravity.CENTER
+            typeface = Font.LIGHT
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
         addView(tvInfo, LayoutParams(
@@ -68,7 +71,7 @@ class MainVerticalView(
 
         img = AppCompatImageView(context).apply {
             setImageResource(src)
-            scaleType = ImageView.ScaleType.CENTER_CROP
+            scaleType = ImageView.ScaleType.FIT_CENTER
         }
         addView(img, LayoutParams(
             LayoutParams.WRAP_CONTENT,
@@ -82,6 +85,7 @@ class MainVerticalView(
             text = textAchieves
             textSizeDp = 20f
             gravity = Gravity.CENTER
+            typeface = Font.REGULAR
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
         addView(tvAchieves, LayoutParams(

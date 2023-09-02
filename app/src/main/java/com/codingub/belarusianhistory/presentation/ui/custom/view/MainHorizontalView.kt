@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.utils.DrawableUtil
+import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.textSizeDp
 
@@ -42,14 +43,15 @@ class MainHorizontalView(
 
         img = AppCompatImageView(context).apply {
             setImageResource(src)
-            scaleType = ImageView.ScaleType.CENTER_CROP
+            scaleType = ImageView.ScaleType.FIT_CENTER
         }
         addView(img)
 
         tvName = TextView(context).apply {
             text = textName
-            textSizeDp = 20f
+            textSizeDp = 17f
             gravity = Gravity.CENTER
+            typeface = Font.EXTRABOLD
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
         addView(tvName)
@@ -58,6 +60,7 @@ class MainHorizontalView(
             text = textInfo
             textSizeDp = 15f
             gravity = Gravity.CENTER
+            typeface = Font.LIGHT
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
         addView(tvInfo)
@@ -66,6 +69,8 @@ class MainHorizontalView(
             //изменяем
             text = textAchieves
             textSizeDp = 20f
+            gravity = Gravity.END
+            typeface = Font.REGULAR
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
         addView(tvAchieves)
@@ -79,12 +84,12 @@ class MainHorizontalView(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val w = MeasureSpec.getSize(widthMeasureSpec)
 
-        val imgSize = 90.dp
+        val imgSize = 120.dp
         var spec = MeasureSpec.makeMeasureSpec(imgSize, MeasureSpec.EXACTLY)
         img.measure(spec, spec)
 
         val textSize = w - (paddingLeft + imgSize + indent + paddingRight)
-        spec = MeasureSpec.makeMeasureSpec(textSize, MeasureSpec.AT_MOST)
+        spec = MeasureSpec.makeMeasureSpec(textSize, MeasureSpec.EXACTLY)
         tvName.measure(spec, 0)
         tvInfo.measure(spec, 0)
         tvAchieves.measure(spec, 0)
@@ -102,10 +107,10 @@ class MainHorizontalView(
         tvName.layout(l, t, l + tvName.measuredWidth, t + tvName.measuredHeight)
 
         t = tvName.bottom + textIndent
-        l = img.right + textIndent + (tvInfo.measuredWidth  / 3.5).toInt()
+        l = img.right + textIndent
         tvInfo.layout(l, t, l + tvInfo.measuredWidth, t + tvInfo.measuredHeight)
 
-        l = right - (tvAchieves.measuredWidth + paddingRight)
+        l = right - (tvAchieves.measuredWidth + paddingRight*2)
         t = tvInfo.bottom + textIndent
         tvAchieves.layout(l, t, l + tvAchieves.measuredWidth, t + tvAchieves.measuredHeight)
     }

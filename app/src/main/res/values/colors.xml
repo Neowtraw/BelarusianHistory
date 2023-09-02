@@ -6,7 +6,8 @@
     <!-- basic colors -->
     <color name="bg">#1A182C</color>
     <color name="toolbar">#161525</color>
-    <color name="statusbar">#130F1E</color>
+    <color name="stbar">#130F1E</color>
+    <color name="navbar">#130F1E</color>
 
     <!-- custom -->
     <color name="top_color_events">#B649C8</color>

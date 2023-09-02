@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="be">
+    <string name="app_name">Гісторыя Беларусі</string>
+
+    <string name="practice">Практыка</string>
+    <string name="tickets">Білеты</string>
+
+    <string name="events">Асноўныя даты і падзеі</string>
+    <string name="events_info">Хутка з\'явіцца</string>
+
+    <string name="achieves">Дасягненні</string>
+    <string name="achieves_info">Атрымлівай розныя дасягненні за вывучэнне матэрыялу і праходжанне практыкі</string>
+
+
+</resources>
