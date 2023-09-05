@@ -63,6 +63,13 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
+
+    //RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
 }
 
 //Hilt

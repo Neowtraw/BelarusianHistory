@@ -1,12 +1,13 @@
 package com.codingub.belarusianhistory.presentation.ui.menu
 
+import android.content.res.AssetManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import androidx.core.content.ContextCompat
+import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentMenuBinding
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainHorizontalView
@@ -32,27 +33,30 @@ class MenuFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMenuBinding.inflate(inflater, container, false)
+
+        createMenuEvents()
+        createMenuPractice()
+        createMenuTickets()
+        createMenuAchieves()
+        binding.tvHeader.typeface = Font.EXTRABOLD
+
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //необходима логика для передачи количества
         // полученных и всех достижений в определенном меню
 
-        createMenuEvents()
-        createMenuPractice()
-        createMenuTickets()
-        createMenuAchieves()
 
-        binding.tvHeader.typeface = Font.EXTRABOLD
 
     }
 
     //Creation
     private fun createMenuEvents(){
         menuEvents = MainHorizontalView(
-            context = requireContext(), src = R.drawable.events,
+            context = requireContext(), src = "events",
             textName = resources.getString(R.string.events),
             textInfo = resources.getString(R.string.events_info),
             textAchieves = "0/1").apply {
@@ -70,7 +74,7 @@ class MenuFragment : Fragment() {
 
     private fun createMenuPractice(){
         menuPractice = MainSquareView(
-            context = requireContext(), src = R.drawable.practice,
+            context = requireContext(), src = "practice",
             textName = resources.getString(R.string.practice),
             textAchieves = "0/1", R.color.top_color_practice,
             R.color.bottom_color_practice).apply {
@@ -88,7 +92,7 @@ class MenuFragment : Fragment() {
 
     private fun createMenuTickets(){
         menuTickets = MainSquareView(
-            context = requireContext(), src = R.drawable.tickets,
+            context = requireContext(), src = "tickets",
             textName = resources.getString(R.string.tickets),
             textAchieves = "0/1", R.color.top_color_tickets,
             R.color.bottom_color_tickets).apply {
@@ -107,7 +111,7 @@ class MenuFragment : Fragment() {
 
     private fun createMenuAchieves(){
         menuAchieves = MainVerticalView(
-            context = requireContext(), src = R.drawable.achieves,
+            context = requireContext(), src = "achieves",
             textName = resources.getString(R.string.achieves),
             textAchieves = "0/1",
             textInfo = resources.getString(R.string.achieves_info)).apply {
@@ -120,6 +124,16 @@ class MenuFragment : Fragment() {
             addRule(RelativeLayout.BELOW, menuEvents.id)
             addRule(RelativeLayout.RIGHT_OF, menuPractice.id)
         })
+    }
+
+
+
+    fun replaceFragment(fragment: Fragment, stack: String?){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, fragment)
+            .addToBackStack(stack)
+            .commit()
+
     }
 
 }

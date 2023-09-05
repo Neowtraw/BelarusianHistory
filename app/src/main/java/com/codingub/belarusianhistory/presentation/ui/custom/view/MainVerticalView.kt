@@ -12,15 +12,17 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.DrawableUtil
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ImageUtil
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.textSizeDp
 
 @SuppressLint("ViewConstructor")
 class MainVerticalView(
     context: Context,
-    src: Int,
+    src: String,
     textName: String,
     textInfo: String,
     textAchieves: String
@@ -70,7 +72,6 @@ class MainVerticalView(
         ))
 
         img = AppCompatImageView(context).apply {
-            setImageResource(src)
             scaleType = ImageView.ScaleType.FIT_CENTER
         }
         addView(img, LayoutParams(
@@ -78,6 +79,13 @@ class MainVerticalView(
             0,
             2f
         ))
+
+        ImageUtil.load(AssetUtil.menuImageUri(src)){
+            img.apply {
+                setImageDrawable(it)
+                this@MainVerticalView.invalidate()
+            }
+        }
 
 
         tvAchieves = TextView(context).apply {

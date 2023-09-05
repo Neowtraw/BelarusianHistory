@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    tools:context=".presentation.ui.tickets.TicketsFragment"
     android:padding="@dimen/main_padding"
-    tools:context=".presentation.ui.menu.MenuFragment">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:text="@string/tickets"
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"
         android:textSize="@dimen/header_text" />
 
-    <RelativeLayout
-        android:id="@+id/rlMenu"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTicket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp" />
-
+        />
 
 </LinearLayout>

@@ -12,15 +12,17 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.DrawableUtil
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ImageUtil
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.textSizeDp
 
 @SuppressLint("ViewConstructor")
 class MainSquareView(
     context: Context,
-    src: Int,
+    src: String,
     textName: String,
     textAchieves: String,
     topColor: Int,
@@ -42,9 +44,15 @@ class MainSquareView(
         gravity = Gravity.CENTER_VERTICAL
 
         img = AppCompatImageView(context).apply {
-            setImageResource(src)
             scaleType = ImageView.ScaleType.FIT_CENTER
         }
+        ImageUtil.load(AssetUtil.menuImageUri(src)){
+            img.apply {
+                setImageDrawable(it)
+                this@MainSquareView.invalidate()
+            }
+        }
+
         addView(img, LayoutParams(
             LayoutParams.WRAP_CONTENT,
             0,

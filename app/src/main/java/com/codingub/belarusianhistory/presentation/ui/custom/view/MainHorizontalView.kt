@@ -3,6 +3,7 @@ package com.codingub.belarusianhistory.presentation.ui.custom.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.ViewGroup
@@ -12,15 +13,17 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.DrawableUtil
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ImageUtil
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.textSizeDp
 
 @SuppressLint("ViewConstructor")
 class MainHorizontalView(
     context: Context,
-    src: Int,
+    src: String,
     textName: String,
     textInfo: String,
     textAchieves: String
@@ -42,8 +45,14 @@ class MainHorizontalView(
         setWillNotDraw(false)
 
         img = AppCompatImageView(context).apply {
-            setImageResource(src)
             scaleType = ImageView.ScaleType.FIT_CENTER
+        }
+
+        ImageUtil.load(AssetUtil.menuImageUri(src)){
+            img.apply {
+                setImageDrawable(it)
+                this@MainHorizontalView.invalidate()
+            }
         }
         addView(img)
 
