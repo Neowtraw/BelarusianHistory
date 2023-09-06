@@ -1,6 +1,7 @@
 package com.codingub.belarusianhistory.presentation.ui
 
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
@@ -13,10 +14,13 @@ import com.codingub.belarusianhistory.presentation.ui.menu.MenuFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        private var Instance: MainActivity? = null
+        fun getInstance(): MainActivity = Instance!!
+    }
 
-        // Handle the splash screen transition.
-        val splashScreen = installSplashScreen()
+    override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -30,25 +34,25 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        setupToolbar()
+       // setupToolbar()
 
 
     }
 
-    //позже поменяю
-    fun setupToolbar(){
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.apply {
-            val logo = ContextCompat.getDrawable(applicationContext, R.drawable.ic_launcher_icon)
-            setDisplayShowHomeEnabled(true)
-            setDisplayHomeAsUpEnabled(false)
-            setLogo(logo)
-            setDisplayUseLogoEnabled(true)
-            setDisplayShowTitleEnabled(false)
-        }
-    }
+//    //позже поменяю
+//    fun setupToolbar(){
+//        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+//        setSupportActionBar(toolbar)
+//
+//        supportActionBar?.apply {
+//            val logo = ContextCompat.getDrawable(applicationContext, R.drawable.ic_launcher_icon)
+//            setDisplayShowHomeEnabled(true)
+//            setDisplayHomeAsUpEnabled(false)
+//            setLogo(logo)
+//            setDisplayUseLogoEnabled(true)
+//            setDisplayShowTitleEnabled(false)
+//        }
+//    }
 
 
 

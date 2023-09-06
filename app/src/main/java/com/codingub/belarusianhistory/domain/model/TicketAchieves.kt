@@ -1,9 +1,9 @@
 package com.codingub.belarusianhistory.domain.model
 
-data class Ticket(
+data class TicketAchieves(
     val id: Int,
     val name: String,
+    val info: String,
     var isPassed: Boolean,
-    val questionList: List<TicketQuestion>,
-    val achievement: TicketAchieves
+    val ticketId: Long
 )

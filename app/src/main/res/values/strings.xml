@@ -10,6 +10,4 @@
 
     <string name="achieves">Достижения</string>
     <string name="achieves_info">Получай различные достижения за изучение материала и прохождение практики</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
