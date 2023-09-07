@@ -1,23 +1,22 @@
 package com.codingub.belarusianhistory.presentation.ui.menu
 
-import android.content.res.AssetManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentMenuBinding
+import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainHorizontalView
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainSquareView
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainVerticalView
+import com.codingub.belarusianhistory.sdk.FragmentType
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
 
 
-class MenuFragment : Fragment() {
+class MenuFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMenuBinding
     private lateinit var menuEvents: MainHorizontalView
@@ -27,12 +26,9 @@ class MenuFragment : Fragment() {
 
     private val menuMargin = 10.dp
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         // Inflate the layout for this fragment
-        binding = FragmentMenuBinding.inflate(inflater, container, false)
+        binding = FragmentMenuBinding.inflate(inf, con, false)
 
         createMenuEvents()
         createMenuPractice()
@@ -40,17 +36,19 @@ class MenuFragment : Fragment() {
         createMenuAchieves()
         binding.tvHeader.typeface = Font.EXTRABOLD
 
+
+
         return binding.root
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun viewCreated() {
+        super.viewCreated()
 
         //необходима логика для передачи количества
         // полученных и всех достижений в определенном меню
 
 
-
+        replaceFragment()
     }
 
     //Creation
@@ -114,7 +112,8 @@ class MenuFragment : Fragment() {
             context = requireContext(), src = "achieves",
             textName = resources.getString(R.string.achieves),
             textAchieves = "0/1",
-            textInfo = resources.getString(R.string.achieves_info)).apply {
+            textInfo = resources.getString(R.string.achieves_info)
+        ).apply {
             id =View.generateViewId()
         }
         binding.rlMenu.addView(menuAchieves,  RelativeLayout.LayoutParams(
@@ -126,14 +125,24 @@ class MenuFragment : Fragment() {
         })
     }
 
+    /*
+            Action
+         */
 
 
-    fun replaceFragment(fragment: Fragment, stack: String?){
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, fragment)
-            .addToBackStack(stack)
-            .commit()
-
+    fun replaceFragment(){
+        menuEvents.setOnClickListener{
+            pushFragment(FragmentType.EVENTS.getFragment(), "events")
+        }
+        menuAchieves.setOnClickListener{
+            pushFragment(FragmentType.ACHIEVES.getFragment(), "achieves")
+        }
+        menuPractice.setOnClickListener{
+            pushFragment(FragmentType.PRACTICE.getFragment(), "practice")
+        }
+        menuTickets.setOnClickListener{
+            pushFragment(FragmentType.TICKETS.getFragment(), "tickets")
+        }
     }
 
 }

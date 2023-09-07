@@ -6,20 +6,23 @@ import com.codingub.belarusianhistory.data.local.db.entity.questions.PracticeQue
 import com.codingub.belarusianhistory.data.local.db.entity.questions.TicketQuestionRef
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 
+
 data class TicketQuestionEntity(
     @Embedded val tQuestion: TicketQuestionRef,
     @Relation(
         parentColumn = "tqId",
         entityColumn = "tqId",
-    ) val practiceList : List<PracticeQuestionEntity>? = null
+        entity = PracticeQuestionRef::class
+    ) val practiceList : List<PracticeQuestionRef>
 ){
     fun toTicketQuestion(): TicketQuestion{
+
         return TicketQuestion(
             id = tQuestion.tqId,
             name = tQuestion.tqName,
             info = tQuestion.tqInfo,
             isPassed = tQuestion.isPassed,
-            practiceList = practiceList!!.map { it.toPracticeQuestion() }
+            practiceList = emptyList()
         )
     }
 }

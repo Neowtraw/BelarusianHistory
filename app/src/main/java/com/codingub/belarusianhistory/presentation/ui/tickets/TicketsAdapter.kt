@@ -23,7 +23,7 @@ class TicketsAdapter(
             binding.tvTicket.text = item.name
             binding.tvContent.text = TicketUtil.groupQuestions(item.questionList)
             binding.ivPassed.setImageResource(
-                if(item.isPassed){
+                if(item.isPassed == 0){
                     R.drawable.passed.apply {
 
                     }

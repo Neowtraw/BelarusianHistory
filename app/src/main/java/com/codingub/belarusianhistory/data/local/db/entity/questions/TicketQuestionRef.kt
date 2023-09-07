@@ -9,6 +9,6 @@ data class TicketQuestionRef(
     val tqId : Int,
     val tqName : String,
     val tqInfo: String,
-    var isPassed: Boolean,
-    val ticketId: Long //много к одному c Ticket
+    var isPassed: Int,
+    val ticketId: Int //много к одному c Ticket
 )

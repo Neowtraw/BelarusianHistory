@@ -4,6 +4,6 @@ data class TicketQuestion(
     val id: Int,
     val name: String,
     val info: String,
-    var isPassed: Boolean,
+    var isPassed: Int,
     val practiceList: List<PracticeQuestion>
 )

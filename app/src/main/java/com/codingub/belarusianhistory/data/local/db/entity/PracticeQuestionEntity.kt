@@ -6,13 +6,15 @@ import com.codingub.belarusianhistory.data.local.db.entity.achieves.PracticeAchi
 import com.codingub.belarusianhistory.data.local.db.entity.questions.PracticeQuestionRef
 import com.codingub.belarusianhistory.domain.model.PracticeQuestion
 
+
 data class PracticeQuestionEntity(
 
     //один к одному
     @Embedded val pQuestion: PracticeQuestionRef,
     @Relation(
         parentColumn = "pqId",
-        entityColumn = "pqId"
+        entityColumn = "pqId",
+        entity = PracticeAchievesRef::class
     ) val achievementId : PracticeAchievesRef
 ){
     fun toPracticeQuestion() : PracticeQuestion{

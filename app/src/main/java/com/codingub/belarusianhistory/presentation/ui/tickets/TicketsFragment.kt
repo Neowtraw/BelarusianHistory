@@ -1,24 +1,21 @@
 package com.codingub.belarusianhistory.presentation.ui.tickets
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.codingub.belarusianhistory.databinding.FragmentTicketsBinding
+import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 
 
-class TicketsFragment : Fragment() {
+class TicketsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTicketsBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+
+    override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         // Inflate the layout for this fragment
-        binding = FragmentTicketsBinding.inflate(inflater, container, false)
+        binding = FragmentTicketsBinding.inflate(inf, con, false)
         return binding.root
     }
-    
 }

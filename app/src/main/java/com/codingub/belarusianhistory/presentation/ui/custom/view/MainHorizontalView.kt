@@ -3,7 +3,6 @@ package com.codingub.belarusianhistory.presentation.ui.custom.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.sdk.FragmentType
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.DrawableUtil
 import com.codingub.belarusianhistory.utils.Font

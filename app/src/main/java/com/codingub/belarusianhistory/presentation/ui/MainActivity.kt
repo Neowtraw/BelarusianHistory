@@ -10,7 +10,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
 import com.codingub.belarusianhistory.presentation.ui.menu.MenuFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Instance = this
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,25 +37,8 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-       // setupToolbar()
-
-
     }
 
-//    //позже поменяю
-//    fun setupToolbar(){
-//        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-//
-//        supportActionBar?.apply {
-//            val logo = ContextCompat.getDrawable(applicationContext, R.drawable.ic_launcher_icon)
-//            setDisplayShowHomeEnabled(true)
-//            setDisplayHomeAsUpEnabled(false)
-//            setLogo(logo)
-//            setDisplayUseLogoEnabled(true)
-//            setDisplayShowTitleEnabled(false)
-//        }
-//    }
 
 
 
