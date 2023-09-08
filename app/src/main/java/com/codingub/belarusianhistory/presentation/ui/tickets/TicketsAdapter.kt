@@ -8,12 +8,15 @@ import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.TicketViewElementBinding
 import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.utils.TicketUtil
+import com.codingub.belarusianhistory.utils.extension.dp
 
 class TicketsAdapter(
     private var ticketList: List<Ticket>
 ) : RecyclerView.Adapter<TicketsAdapter.TicketsViewHolder>(){
 
     private lateinit var binding: TicketViewElementBinding
+    private val TYPE_NORMAL = 0
+    private val TYPE_THIRD_ITEM = 1
 
     inner class TicketsViewHolder(private val binding: TicketViewElementBinding) : RecyclerView.ViewHolder(binding.root){
         var granted = false
@@ -26,7 +29,9 @@ class TicketsAdapter(
 
                     }
                 } else{
-                    R.drawable.not_passed
+                    R.drawable.not_passed.apply {
+
+                    }
                 }
             )
         }
@@ -55,9 +60,23 @@ class TicketsAdapter(
     override fun onBindViewHolder(holder: TicketsViewHolder, position: Int) {
         holder.binding(ticketList[position])
         holder.update(position)
+
+        if (getItemViewType(position) == TYPE_THIRD_ITEM) {
+            val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
+            layoutParams.setMargins(0, 0, 0, 20.dp) // Установите необходимые значения отступа
+            holder.itemView.layoutParams = layoutParams
+        }
     }
 
     override fun getItemCount(): Int {
         return ticketList.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if ((position + 1) % 3 == 0) {
+            TYPE_THIRD_ITEM
+        } else {
+            TYPE_NORMAL
+        }
     }
 }

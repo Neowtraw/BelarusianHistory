@@ -35,8 +35,18 @@ class TicketsFragment : BaseFragment() {
         questList2.add(TicketQuestion(4, "А может и не передумала", "", 1, emptyList()))
         questList2.add(TicketQuestion(5, "А может и не передумала", "", 1, emptyList()))
 
+        questList2.add(TicketQuestion(6, "А может и не передумала", "", 1, emptyList()))
+        questList2.add(TicketQuestion(7, "А может и не передумала", "", 1, emptyList()))
+
         ticketList1.add(Ticket(1,"хуйня первая", 1,questList1, TicketAchieves(1,"","",1)))
         ticketList1.add(Ticket(2,"хуйня вторая", 0,questList2, TicketAchieves(2,"","",1)))
+        ticketList1.add(Ticket(3,"хуйня вторая", 0,questList2, TicketAchieves(2,"","",1)))
+        ticketList1.add(Ticket(4,"хуйня вторая", 0,questList2, TicketAchieves(2,"","",1)))
+        ticketList1.add(Ticket(5,"хуйня вторая", 0,questList2, TicketAchieves(2,"","",1)))
+        ticketList1.add(Ticket(6,"хуйня вторая", 0,questList2, TicketAchieves(2,"","",1)))
+        ticketList1.add(Ticket(7,"хуйня вторая", 0,questList2, TicketAchieves(2,"","",1)))
+        ticketList1.add(Ticket(8,"хуйня вторая", 0,questList2, TicketAchieves(2,"","",1)))
+        ticketList1.add(Ticket(9,"хуйня вторая", 0,questList2, TicketAchieves(2,"","",1)))
     }
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {

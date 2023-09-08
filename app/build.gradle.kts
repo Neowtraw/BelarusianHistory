@@ -90,7 +90,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.1")
 
     //Room
-    val room_version = "2.5.2"
+    val room_version = "2.6.0-alpha02"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version") //для работы корутин
     annotationProcessor("androidx.room:room-compiler:$room_version")

@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.room.Room
 import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.data.local.db.AppDatabase
+import com.codingub.belarusianhistory.data.repository.AppRepositoryImpl
+import com.codingub.belarusianhistory.domain.repository.AppRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +18,11 @@ import javax.inject.Singleton
 object AppModule {
 
 
-
+    @Provides
+    @Singleton
+    fun provideDbRepository(db: AppDatabase): AppRepository {
+        return AppRepositoryImpl(db.dao)
+    }
 
     @Provides
     @Singleton

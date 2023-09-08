@@ -20,7 +20,7 @@ interface AppDao{
     //необходимо для "Практика"
     @Transaction
     @Query("SELECT * FROM TicketQuestion")
-    fun getAllTicketQuestions() : Flow<List<TicketQuestionEntity>>
+    suspend fun getAllTicketQuestions() : List<TicketQuestionEntity>
 
     //Получение отдельно теоретических достижений
     @Transaction
@@ -35,7 +35,7 @@ interface AppDao{
     //Необходимо для "Теория"
     @Transaction
     @Query("SELECT * FROM Ticket")
-    fun getAllTickets() : List<TicketEntity>
+    suspend fun getAllTickets() : List<TicketEntity>
 
     //чтение определенного Ticket
     @Transaction
@@ -45,7 +45,7 @@ interface AppDao{
     //прохождение практики определенного TicketQuestion
     @Transaction
     @Query("SELECT * FROM TicketQuestion WHERE tqId = :id")
-    fun getTicketQuestionsById(id: Int) : TicketQuestionEntity
+    suspend fun getTicketQuestionsById(id: Int) : TicketQuestionEntity
 
 
 //    //для обновления данных о прохождении достижений/билетов/практики
