@@ -109,7 +109,7 @@ class MainVerticalView(
         }
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         gradient.setBounds(0, 0, width, height)
         if (canvas != null) {
             gradient.draw(canvas)

@@ -8,6 +8,7 @@
     <color name="toolbar">#161525</color>
     <color name="stbar">#130F1E</color>
     <color name="navbar">#130F1E</color>
+    <color name="bg_btn">#2E2B4C</color>
 
     <!-- custom -->
     <color name="top_color_events">#B649C8</color>

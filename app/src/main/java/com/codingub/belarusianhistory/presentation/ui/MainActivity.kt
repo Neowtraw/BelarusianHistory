@@ -4,9 +4,6 @@ package com.codingub.belarusianhistory.presentation.ui
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
 import com.codingub.belarusianhistory.presentation.ui.menu.MenuFragment
@@ -20,10 +17,11 @@ class MainActivity : AppCompatActivity() {
         @SuppressLint("StaticFieldLeak")
         private var Instance: MainActivity? = null
         fun getInstance(): MainActivity = Instance!!
+
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        Instance = this
+        override fun onCreate(savedInstanceState: Bundle?) {
+            Instance = this
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

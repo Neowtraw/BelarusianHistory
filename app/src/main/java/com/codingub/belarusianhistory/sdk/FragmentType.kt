@@ -7,25 +7,25 @@ import com.codingub.belarusianhistory.presentation.ui.tickets.TicketsFragment
 //для перехода на иной фрагмент
 sealed class FragmentType {
 
-    data object ACHIEVES : FragmentType() {
+    object ACHIEVES : FragmentType() {
         fun getFragment(): BaseFragment {
             return MenuFragment()
         }
     }
 
-    data object EVENTS : FragmentType() {
+    object EVENTS : FragmentType() {
         fun getFragment(): BaseFragment {
             return MenuFragment()
         }
     }
 
-    data object TICKETS : FragmentType(){
+    object TICKETS : FragmentType(){
         fun getFragment(): BaseFragment {
             return TicketsFragment()
         }
     }
 
-    data object PRACTICE : FragmentType(){
+    object PRACTICE : FragmentType(){
         fun getFragment(): BaseFragment {
             return MenuFragment()
         }

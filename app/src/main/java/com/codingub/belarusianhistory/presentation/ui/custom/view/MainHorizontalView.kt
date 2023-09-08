@@ -124,7 +124,7 @@ class MainHorizontalView(
         tvAchieves.layout(l, t, l + tvAchieves.measuredWidth, t + tvAchieves.measuredHeight)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
 
         gradient.setBounds(0, 0, width, height)
         if (canvas != null) {

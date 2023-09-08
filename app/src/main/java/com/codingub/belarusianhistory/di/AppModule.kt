@@ -22,8 +22,8 @@ object AppModule {
     @Singleton
     fun provideItemDatabase(app: App): AppDatabase{
         return Room.databaseBuilder(
-            app, AppDatabase::class.java, "history" //вот здесь
-        ).createFromAsset("data/history") //и вот здесь
+            app, AppDatabase::class.java, "history"
+        ).createFromAsset("data/history")
             .fallbackToDestructiveMigration()
             .build()
     }

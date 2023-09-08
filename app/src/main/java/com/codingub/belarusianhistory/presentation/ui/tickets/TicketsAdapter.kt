@@ -16,9 +16,7 @@ class TicketsAdapter(
     private lateinit var binding: TicketViewElementBinding
 
     inner class TicketsViewHolder(private val binding: TicketViewElementBinding) : RecyclerView.ViewHolder(binding.root){
-
-        private var granted = false
-
+        var granted = false
         fun binding(item: Ticket){
             binding.tvTicket.text = item.name
             binding.tvContent.text = TicketUtil.groupQuestions(item.questionList)
@@ -37,11 +35,9 @@ class TicketsAdapter(
             itemView.setOnClickListener{
                 if(!granted) {
                     binding.flTicket.layoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT
-                    notifyItemChanged(pos)
                     granted = true
                 } else{
                     binding.flTicket.layoutParams.height = 0
-                    notifyItemChanged(pos)
                     granted = false
                 }
                 notifyItemChanged(pos)
