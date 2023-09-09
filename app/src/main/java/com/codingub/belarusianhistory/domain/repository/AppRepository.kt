@@ -12,16 +12,16 @@ interface AppRepository {
     suspend fun getAllTicketQuestions() : List<TicketQuestion>
 
     //Получение отдельно теоретических достижений
-    suspend fun getAllTicketAchieves() : Flow<List<TicketAchieves>>
+    fun getAllTicketAchieves() : Flow<List<TicketAchieves>>
 
     //Получение отдельно практических достижений
-    suspend fun getAllPracticeAchieves() : Flow<List<PracticeAchieves>>
+    fun getAllPracticeAchieves() : Flow<List<PracticeAchieves>>
 
     //Необходимо для "Теория"
     suspend fun getAllTickets() : List<Ticket>
 
     //чтение определенного Ticket
-    suspend fun getTicketById(id: Int) : Flow<Ticket>
+    fun getTicketById(id: Int) : Flow<Ticket>
 
     //прохождение практики определенного TicketQuestion
     suspend fun getTicketQuestionsById(id: Int) : TicketQuestion

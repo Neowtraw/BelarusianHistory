@@ -13,7 +13,7 @@ data class TicketQuestionEntity(
         parentColumn = "tqId",
         entityColumn = "tqId",
         entity = PracticeQuestionRef::class
-    ) val practiceList : List<PracticeQuestionRef>
+    ) val practiceList : List<PracticeQuestionEntity>
 ){
     fun toTicketQuestion(): TicketQuestion{
 
@@ -22,7 +22,9 @@ data class TicketQuestionEntity(
             name = tQuestion.tqName,
             info = tQuestion.tqInfo,
             isPassed = tQuestion.isPassed,
-            practiceList = emptyList()
+            practiceList = practiceList.map {
+                it.toPracticeQuestion()
+            }
         )
     }
 }

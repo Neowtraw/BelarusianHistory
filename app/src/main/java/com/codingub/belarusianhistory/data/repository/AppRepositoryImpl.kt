@@ -15,30 +15,40 @@ class AppRepositoryImpl @Inject constructor(
 ) : AppRepository{
 
     override suspend fun getAllTicketQuestions(): List<TicketQuestion> {
-        TODO("Not yet implemented")
+        return dao.getAllTicketQuestions().map {
+            it.toTicketQuestion()
+        }
     }
 
-    override suspend fun getAllTicketAchieves(): Flow<List<TicketAchieves>> {
-        return dao.getAllTicketAchieves().map {
-            it.map{ list ->
-                list.toTicketAchieves()
+    override fun getAllTicketAchieves(): Flow<List<TicketAchieves>> {
+        return dao.getAllTicketAchieves().map {list ->
+            list.map{
+                it.toTicketAchieves()
             }
         }
     }
 
-    override suspend fun getAllPracticeAchieves(): Flow<List<PracticeAchieves>> {
-        TODO("Not yet implemented")
+    override fun getAllPracticeAchieves(): Flow<List<PracticeAchieves>> {
+        return dao.getAllPracticeAchieves().map { list ->
+            list.map {
+                it.toPracticeAchieves()
+            }
+        }
     }
 
     override suspend fun getAllTickets(): List<Ticket> {
-        TODO("Not yet implemented")
+        return dao.getAllTickets().map {
+            it.toTicket()
+        }
     }
 
-    override suspend fun getTicketById(id: Int): Flow<Ticket> {
-        TODO("Not yet implemented")
+    override fun getTicketById(id: Int): Flow<Ticket> {
+        return dao.getTicketById(id).map {
+            it.toTicket()
+        }
     }
 
     override suspend fun getTicketQuestionsById(id: Int): TicketQuestion {
-        TODO("Not yet implemented")
+        return dao.getTicketQuestionsById(id).toTicketQuestion()
     }
 }
