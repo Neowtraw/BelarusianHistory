@@ -51,4 +51,16 @@ class AppRepositoryImpl @Inject constructor(
     override suspend fun getTicketQuestionsById(id: Int): TicketQuestion {
         return dao.getTicketQuestionsById(id).toTicketQuestion()
     }
+
+    override suspend fun getTicketAchievesByPassed(isPassed: Int): List<TicketAchieves> {
+        return dao.getTicketAchievesByPassed(isPassed).map {
+            it.toTicketAchieves()
+        }
+    }
+
+    override suspend fun getPracticeAchievesByPassed(isPassed: Int): List<PracticeAchieves> {
+        return dao.getPracticeAchievesByPassed(isPassed).map {
+            it.toPracticeAchieves()
+        }
+    }
 }

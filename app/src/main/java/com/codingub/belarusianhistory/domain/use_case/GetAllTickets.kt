@@ -4,7 +4,7 @@ import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.domain.repository.AppRepository
 import javax.inject.Inject
 
-class getAllTickets @Inject constructor(
+class GetAllTickets  @Inject constructor(
     private val repository: AppRepository
 ) {
 

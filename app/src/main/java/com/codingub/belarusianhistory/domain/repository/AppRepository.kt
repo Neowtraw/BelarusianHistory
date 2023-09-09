@@ -26,4 +26,8 @@ interface AppRepository {
     //прохождение практики определенного TicketQuestion
     suspend fun getTicketQuestionsById(id: Int) : TicketQuestion
 
+    //получение количества пройденной практики и билетов
+    suspend fun getTicketAchievesByPassed(isPassed: Int) : List<TicketAchieves>
+    suspend fun getPracticeAchievesByPassed(isPassed: Int) : List<PracticeAchieves>
+
 }

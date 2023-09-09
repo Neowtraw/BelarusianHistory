@@ -3,13 +3,10 @@ package com.codingub.belarusianhistory.data.local.db.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Update
-import com.codingub.belarusianhistory.data.local.db.entity.PracticeQuestionEntity
 import com.codingub.belarusianhistory.data.local.db.entity.TicketEntity
 import com.codingub.belarusianhistory.data.local.db.entity.TicketQuestionEntity
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.PracticeAchievesRef
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.TicketAchievesRef
-import com.codingub.belarusianhistory.data.local.db.entity.ticket.TicketRef
 import kotlinx.coroutines.flow.Flow
 
 
@@ -47,19 +44,15 @@ interface AppDao{
     @Query("SELECT * FROM TicketQuestion WHERE tqId = :id")
     suspend fun getTicketQuestionsById(id: Int) : TicketQuestionEntity
 
+    //получение количества пройденных билетов
+    @Transaction
+    @Query("SELECT * FROM TicketAchieves WHERE isPassed = :isPassed")
+    suspend fun getTicketAchievesByPassed(isPassed: Int) : List<TicketAchievesRef>
 
-//    //для обновления данных о прохождении достижений/билетов/практики
-//    @Update
-//    suspend fun setTicketAchievePassed(vararg achieves: TicketAchievesRef)
-//
-//    @Update
-//    fun setPracticeAchievePassed(vararg achieves: PracticeAchievesRef)
-//
-//    @Update
-//    fun setTicketPassed(vararg tickets: TicketRef)
-//
-//    @Update
-//    fun setTicketQuestionPassed(vararg achieves: PracticeAchievesRef)
+    //получение количества пройденной практики
+    @Transaction
+    @Query("SELECT * FROM PracticeAchieves WHERE isPassed = :isPassed")
+    suspend fun getPracticeAchievesByPassed(isPassed: Int) : List<PracticeAchievesRef>
 
 
 }
