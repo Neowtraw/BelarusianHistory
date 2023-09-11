@@ -79,8 +79,8 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
-    //kapt("androidx.hilt:hilt-compiler:1.0.0")
-    //implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    // kapt("androidx.hilt:hilt-compiler:1.0.0")
+   // implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.15.1")

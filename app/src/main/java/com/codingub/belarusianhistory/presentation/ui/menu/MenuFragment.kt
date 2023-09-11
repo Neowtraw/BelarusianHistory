@@ -1,10 +1,13 @@
 package com.codingub.belarusianhistory.presentation.ui.menu
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentMenuBinding
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
@@ -14,9 +17,12 @@ import com.codingub.belarusianhistory.presentation.ui.custom.view.MainVerticalVi
 import com.codingub.belarusianhistory.sdk.FragmentType
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MenuFragment : BaseFragment() {
+
+    private val vm: MenuViewModel by viewModels()
 
     private lateinit var binding: FragmentMenuBinding
     private lateinit var menuEvents: MainHorizontalView
@@ -34,9 +40,10 @@ class MenuFragment : BaseFragment() {
         createMenuPractice()
         createMenuTickets()
         createMenuAchieves()
+
+        observeChanges()
+
         binding.tvHeader.typeface = Font.EXTRABOLD
-
-
 
         return binding.root
     }
@@ -46,7 +53,6 @@ class MenuFragment : BaseFragment() {
 
         //необходима логика для передачи количества
         // полученных и всех достижений в определенном меню
-
 
         replaceFragment()
     }
@@ -74,7 +80,8 @@ class MenuFragment : BaseFragment() {
         menuPractice = MainSquareView(
             context = requireContext(), src = "practice",
             textName = resources.getString(R.string.practice),
-            textAchieves = "0/1", R.color.top_color_practice,
+            textAchieves = "",
+            R.color.top_color_practice,
             R.color.bottom_color_practice).apply {
             id =View.generateViewId()
         }
@@ -92,7 +99,8 @@ class MenuFragment : BaseFragment() {
         menuTickets = MainSquareView(
             context = requireContext(), src = "tickets",
             textName = resources.getString(R.string.tickets),
-            textAchieves = "0/1", R.color.top_color_tickets,
+            textAchieves = "",
+            R.color.top_color_tickets,
             R.color.bottom_color_tickets).apply {
             id =View.generateViewId()
         }
@@ -111,7 +119,7 @@ class MenuFragment : BaseFragment() {
         menuAchieves = MainVerticalView(
             context = requireContext(), src = "achieves",
             textName = resources.getString(R.string.achieves),
-            textAchieves = "0/1",
+            textAchieves = "",
             textInfo = resources.getString(R.string.achieves_info)
         ).apply {
             id =View.generateViewId()
@@ -129,6 +137,29 @@ class MenuFragment : BaseFragment() {
             Action
          */
 
+    override fun observeChanges() {
+        with(vm){
+            ticketAchieves.observe(this@MenuFragment){
+                menuTickets.infoText = it.toString()
+            }
+            practiceAchieves.observe(this@MenuFragment){
+                menuPractice.infoText = it.toString()
+            }
+            ticketAchievesPassed.observe(this@MenuFragment){
+                menuTickets.infoTextPassed = it.toString()
+            }
+            practiceAchievesPassed.observe(this@MenuFragment){
+                menuPractice.infoTextPassed = it.toString()
+            }
+            allAchieves.observe(this@MenuFragment){
+                menuAchieves.infoText = it.toString()
+            }
+            allAchievesPassed.observe(this@MenuFragment){
+                menuAchieves.infoTextPassed = it.toString()
+            }
+        }
+
+    }
 
     fun replaceFragment(){
         menuEvents.setOnClickListener{
@@ -144,5 +175,6 @@ class MenuFragment : BaseFragment() {
             pushFragment(FragmentType.TICKETS.getFragment(), "tickets")
         }
     }
+
 
 }

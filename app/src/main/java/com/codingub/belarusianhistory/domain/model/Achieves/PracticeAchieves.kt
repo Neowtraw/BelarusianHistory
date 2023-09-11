@@ -4,5 +4,6 @@ data class PracticeAchieves(
     val id: Int,
     val name: String,
     val info: String,
-    var isPassed: Int
+    var isPassed: Int,
+    val pqId: Int
 )

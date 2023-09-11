@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.tickets_practice.TicketsFragment"
+    tools:context=".presentation.ui.tickets_practice.PracticeFragment"
     android:padding="@dimen/main_padding"
     android:orientation="vertical">
 
@@ -12,15 +11,15 @@
         android:id="@+id/tvHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tickets"
+        android:text="@string/practice"
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"
         android:textSize="@dimen/header_text" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTicket"
+        android:id="@+id/rvPractice"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
 
-</LinearLayout>
+</FrameLayout>

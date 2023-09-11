@@ -4,5 +4,6 @@ data class TicketAchieves(
     val id: Int,
     val name: String,
     val info: String,
-    var isPassed: Int
+    var isPassed: Int,
+    val ticketId: Int
 )

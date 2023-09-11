@@ -34,6 +34,12 @@ object AppModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    fun provideApp(): App {
+        return App.getInstance()
+    }
+
 
 }
 

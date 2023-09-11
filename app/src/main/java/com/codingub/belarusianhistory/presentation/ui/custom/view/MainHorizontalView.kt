@@ -32,13 +32,27 @@ class MainHorizontalView(
 
     private val img: AppCompatImageView
     private val tvName: TextView
-    private val tvInfo: TextView
     private val tvAchieves: TextView
 
     private val indent: Int = 16.dp
     private val textIndent: Int = 8.dp
 
     private val gradient: GradientDrawable
+
+    private var tvInfo: TextView
+
+    var infoTextPassed: String
+        get() = tvAchieves.text.toString()
+        set(value) {
+            tvAchieves.text = "$value${infoText}"
+        }
+
+    var infoText: String
+        get() = tvAchieves.text.toString()
+        set(value) {
+            tvAchieves.text = "${infoTextPassed}/$value"
+        }
+
 
     init{
         setPadding(indent)

@@ -20,19 +20,15 @@ class AppRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getAllTicketAchieves(): Flow<List<TicketAchieves>> {
-        return dao.getAllTicketAchieves().map {list ->
-            list.map{
-                it.toTicketAchieves()
-            }
+    override suspend fun getAllTicketAchieves(): List<TicketAchieves> {
+        return dao.getAllTicketAchieves().map {
+            it.toTicketAchieves()
         }
     }
 
-    override fun getAllPracticeAchieves(): Flow<List<PracticeAchieves>> {
-        return dao.getAllPracticeAchieves().map { list ->
-            list.map {
-                it.toPracticeAchieves()
-            }
+    override suspend fun getAllPracticeAchieves(): List<PracticeAchieves> {
+        return dao.getAllPracticeAchieves().map {
+            it.toPracticeAchieves()
         }
     }
 

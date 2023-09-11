@@ -18,7 +18,8 @@ data class PracticeAchievesRef(
             id = achievementId,
             name = achievementName,
             info = achievementInfo,
-            isPassed = isPassed
+            isPassed = isPassed,
+            pqId = pqId
         )
     }
 }

@@ -1,5 +1,7 @@
 package com.codingub.belarusianhistory.domain.use_case
 
+import android.util.Log
+import androidx.lifecycle.asLiveData
 import com.codingub.belarusianhistory.domain.model.Achieves.TicketAchieves
 import com.codingub.belarusianhistory.domain.repository.AppRepository
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +11,7 @@ class GetAllTicketAchieves  @Inject constructor(
     private val repository: AppRepository
 ) {
 
-    operator fun invoke() : Flow<List<TicketAchieves>> {
+    suspend operator fun invoke() : List<TicketAchieves>{
         return repository.getAllTicketAchieves()
     }
 }

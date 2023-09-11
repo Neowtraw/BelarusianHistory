@@ -22,12 +22,12 @@ interface AppDao{
     //Получение отдельно теоретических достижений
     @Transaction
     @Query("SELECT * FROM TicketAchieves")
-    fun getAllTicketAchieves() : Flow<List<TicketAchievesRef>>
+    suspend fun getAllTicketAchieves() : List<TicketAchievesRef>
 
     //Получение отдельно практических достижений
     @Transaction
     @Query("SELECT * FROM PracticeAchieves")
-    fun getAllPracticeAchieves() : Flow<List<PracticeAchievesRef>>
+    suspend fun getAllPracticeAchieves() : List<PracticeAchievesRef>
 
     //Необходимо для "Теория"
     @Transaction

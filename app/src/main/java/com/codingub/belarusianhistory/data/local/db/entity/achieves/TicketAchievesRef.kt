@@ -18,7 +18,8 @@ data class TicketAchievesRef (
             id = achievementId,
             name = achievementName,
             info = achievementInfo,
-            isPassed = isPassed
+            isPassed = isPassed,
+            ticketId = ticketId
         )
     }
 }

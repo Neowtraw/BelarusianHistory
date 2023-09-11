@@ -37,6 +37,18 @@ class MainSquareView(
 
     private val gradient: GradientDrawable
 
+    var infoTextPassed: String
+        get() = tvAchieves.text.toString()
+        set(value) {
+            tvAchieves.text = "$value${infoText}"
+        }
+
+    var infoText: String
+        get() = tvAchieves.text.toString()
+        set(value) {
+            tvAchieves.text = "${infoTextPassed}/$value"
+        }
+
     init{
         setPadding(indent)
         setWillNotDraw(false)

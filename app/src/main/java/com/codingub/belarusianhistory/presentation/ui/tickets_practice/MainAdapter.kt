@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.presentation.ui.tickets
+package com.codingub.belarusianhistory.presentation.ui.tickets_practice
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,13 +10,15 @@ import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.utils.TicketUtil
 import com.codingub.belarusianhistory.utils.extension.dp
 
-class TicketsAdapter(
+class MainAdapter(
     private var ticketList: List<Ticket>
-) : RecyclerView.Adapter<TicketsAdapter.TicketsViewHolder>(){
+) : RecyclerView.Adapter<MainAdapter.TicketsViewHolder>(){
 
     private lateinit var binding: TicketViewElementBinding
     private val TYPE_NORMAL = 0
     private val TYPE_THIRD_ITEM = 1
+
+
 
     inner class TicketsViewHolder(private val binding: TicketViewElementBinding) : RecyclerView.ViewHolder(binding.root){
         var granted = false

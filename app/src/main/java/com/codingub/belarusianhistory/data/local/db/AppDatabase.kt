@@ -13,7 +13,7 @@ import com.codingub.belarusianhistory.data.local.db.entity.ticket.TicketRef
 @Database(
 entities =[TicketAchievesRef::class, PracticeAchievesRef::class,
     TicketQuestionRef::class, PracticeQuestionRef::class, TicketRef::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
