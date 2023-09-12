@@ -10,6 +10,7 @@ import com.codingub.belarusianhistory.databinding.FragmentTicketsBinding
 import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,12 +28,15 @@ class TicketsFragment : BaseFragment() {
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         // Inflate the layout for this fragment
         binding = FragmentTicketsBinding.inflate(inf, con, false)
+        val itemDecoration = MainItemDecorator(3.dp, 3)
+
+        binding.tvHeader.typeface = Font.EXTRABOLD
+
 
         adapter = TicketAdapter(ticketsList)
         binding.rvTicket.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTicket.adapter = adapter
-
-        binding.tvHeader.typeface = Font.EXTRABOLD
+        binding.rvTicket.addItemDecoration(itemDecoration)
 
         observeChanges()
         return binding.root

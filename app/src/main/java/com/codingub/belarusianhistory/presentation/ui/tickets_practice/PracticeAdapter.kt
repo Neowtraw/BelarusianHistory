@@ -4,23 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.databinding.TicketViewElementBinding
-import com.codingub.belarusianhistory.domain.model.Ticket
+import com.codingub.belarusianhistory.databinding.PracticeViewElementBinding
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.utils.Font
-import com.codingub.belarusianhistory.utils.TicketUtil
 
 class PracticeAdapter(
     private var practiceList: List<TicketQuestion>
 ) : RecyclerView.Adapter<PracticeAdapter.PracticeViewHolder>() {
 
-    private lateinit var binding: TicketViewElementBinding
+    private lateinit var binding: PracticeViewElementBinding
 
-    inner class PracticeViewHolder(private val binding: TicketViewElementBinding) :
+    inner class PracticeViewHolder(private val binding: PracticeViewElementBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun binding(item: TicketQuestion){
-            binding.tvTicket.apply {
+            binding.tvPractice.apply {
                 text = item.name
                 typeface = Font.REGULAR
             }
@@ -36,7 +34,7 @@ class PracticeAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PracticeViewHolder {
-        binding = TicketViewElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = PracticeViewElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PracticeViewHolder(binding)    }
 
     override fun onBindViewHolder(holder: PracticeViewHolder, position: Int) {

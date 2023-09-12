@@ -1,5 +1,6 @@
 package com.codingub.belarusianhistory.presentation.ui.tickets_practice
 
+import android.animation.ValueAnimator
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -16,13 +17,46 @@ class TicketAdapter(
 ) : RecyclerView.Adapter<TicketAdapter.TicketsViewHolder>(){
 
     private lateinit var binding: TicketViewElementBinding
-    private val TYPE_NORMAL = 0
-    private val TYPE_THIRD_ITEM = 1
-
 
 
     inner class TicketsViewHolder(private val binding: TicketViewElementBinding) : RecyclerView.ViewHolder(binding.root){
         var granted = false
+        private var initialHeight = 0
+        private var maxHeight = 0
+
+        init {
+            itemView.setOnClickListener {
+                if (!granted) {
+                    // Expand the view
+                    val layoutParams = binding.flTicket.layoutParams
+                    layoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT
+                    binding.flTicket.layoutParams = layoutParams
+                    binding.flTicket.post {
+                        maxHeight = binding.flTicket.height
+                        initialHeight = binding.flTicket.height
+                        ValueAnimator.ofInt(0, maxHeight).apply {
+                            addUpdateListener {
+                                binding.flTicket.layoutParams.height = it.animatedValue as Int
+                                binding.flTicket.requestLayout()
+                            }
+                            start()
+                        }
+                    }
+                    granted = true
+                } else {
+                    // Collapse the view
+                    ValueAnimator.ofInt(maxHeight, 0).apply {
+                        addUpdateListener {
+                            binding.flTicket.layoutParams.height = it.animatedValue as Int
+                            binding.flTicket.requestLayout()
+                        }
+                        start()
+                    }
+                    granted = false
+                }
+            }
+        }
+
         fun binding(item: Ticket){
             binding.tvTicket.apply {
                 text = item.name
@@ -43,20 +77,11 @@ class TicketAdapter(
                     }
                 }
             )
+
+            binding.flTicket.layoutParams.height = if (granted) FrameLayout.LayoutParams.WRAP_CONTENT else 0
+            binding.flTicket.requestLayout()
         }
 
-        fun update(pos: Int){
-            itemView.setOnClickListener{
-                if(!granted) {
-                    binding.flTicket.layoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT
-                    granted = true
-                } else{
-                    binding.flTicket.layoutParams.height = 0
-                    granted = false
-                }
-                notifyItemChanged(pos)
-            }
-        }
 
 
     }
@@ -68,24 +93,10 @@ class TicketAdapter(
 
     override fun onBindViewHolder(holder: TicketsViewHolder, position: Int) {
         holder.binding(ticketList[position])
-        holder.update(position)
-
-        if (getItemViewType(position) == TYPE_THIRD_ITEM) {
-            val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
-            layoutParams.setMargins(0, 0, 0, 20.dp) // Установите необходимые значения отступа
-            holder.itemView.layoutParams = layoutParams
-        }
     }
 
     override fun getItemCount(): Int {
         return ticketList.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if ((position + 1) % 3 == 0) {
-            TYPE_THIRD_ITEM
-        } else {
-            TYPE_NORMAL
-        }
-    }
 }
