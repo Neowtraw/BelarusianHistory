@@ -8,7 +8,7 @@ object Converter {
     @TypeConverter
     @JvmStatic
     fun toTaskType(value: String) : TaskType {
-        return TaskType.valueOf(value)
+        return TaskType.fromValue(value.toInt())
     }
 
     @TypeConverter

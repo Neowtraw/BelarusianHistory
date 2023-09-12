@@ -1,13 +1,11 @@
 package com.codingub.belarusianhistory.presentation.ui.menu
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentMenuBinding
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
@@ -161,18 +159,18 @@ class MenuFragment : BaseFragment() {
 
     }
 
-    fun replaceFragment(){
+    private fun replaceFragment(){
         menuEvents.setOnClickListener{
-            pushFragment(FragmentType.EVENTS.getFragment(), "events")
+            pushFragment(FragmentType.EVENTS.fragment, "events")
         }
         menuAchieves.setOnClickListener{
-            pushFragment(FragmentType.ACHIEVES.getFragment(), "achieves")
+            pushFragment(FragmentType.ACHIEVES.fragment, "achieves")
         }
         menuPractice.setOnClickListener{
-            pushFragment(FragmentType.PRACTICE.getFragment(), "practice")
+            pushFragment(FragmentType.PRACTICE.fragment, "practice")
         }
         menuTickets.setOnClickListener{
-            pushFragment(FragmentType.TICKETS.getFragment(), "tickets")
+            pushFragment(FragmentType.TICKETS.fragment, "tickets")
         }
     }
 
