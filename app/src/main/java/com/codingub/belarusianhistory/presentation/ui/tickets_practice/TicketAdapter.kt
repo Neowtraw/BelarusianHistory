@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.TicketViewElementBinding
 import com.codingub.belarusianhistory.domain.model.Ticket
+import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.TicketUtil
 import com.codingub.belarusianhistory.utils.extension.dp
 
-class MainAdapter(
+class TicketAdapter(
     private var ticketList: List<Ticket>
-) : RecyclerView.Adapter<MainAdapter.TicketsViewHolder>(){
+) : RecyclerView.Adapter<TicketAdapter.TicketsViewHolder>(){
 
     private lateinit var binding: TicketViewElementBinding
     private val TYPE_NORMAL = 0
@@ -23,8 +24,14 @@ class MainAdapter(
     inner class TicketsViewHolder(private val binding: TicketViewElementBinding) : RecyclerView.ViewHolder(binding.root){
         var granted = false
         fun binding(item: Ticket){
-            binding.tvTicket.text = item.name
-            binding.tvContent.text = TicketUtil.groupQuestions(item.questionList)
+            binding.tvTicket.apply {
+                text = item.name
+                typeface = Font.REGULAR
+            }
+            binding.tvContent.apply {
+                text = TicketUtil.groupQuestions(item.questionList)
+                typeface = Font.REGULAR
+            }
             binding.ivPassed.setImageResource(
                 if(item.isPassed == 0){
                     R.drawable.passed.apply {

@@ -18,7 +18,7 @@ class TicketsFragment : BaseFragment() {
     private val vm: TicketsViewModel by viewModels()
 
     private lateinit var binding: FragmentTicketsBinding
-    private lateinit var adapter: MainAdapter
+    private lateinit var adapter: TicketAdapter
 
 
     private val ticketsList = mutableListOf<Ticket>()
@@ -28,7 +28,7 @@ class TicketsFragment : BaseFragment() {
         // Inflate the layout for this fragment
         binding = FragmentTicketsBinding.inflate(inf, con, false)
 
-        adapter = MainAdapter(ticketsList)
+        adapter = TicketAdapter(ticketsList)
         binding.rvTicket.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTicket.adapter = adapter
 
