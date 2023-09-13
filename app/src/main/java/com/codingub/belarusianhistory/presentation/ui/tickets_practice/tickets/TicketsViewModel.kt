@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.presentation.ui.tickets_practice
+package com.codingub.belarusianhistory.presentation.ui.tickets_practice.tickets
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

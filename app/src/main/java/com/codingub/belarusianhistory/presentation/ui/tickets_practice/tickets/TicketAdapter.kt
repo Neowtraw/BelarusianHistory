@@ -1,8 +1,11 @@
-package com.codingub.belarusianhistory.presentation.ui.tickets_practice
+package com.codingub.belarusianhistory.presentation.ui.tickets_practice.tickets
 
 import android.animation.ValueAnimator
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
@@ -10,7 +13,6 @@ import com.codingub.belarusianhistory.databinding.TicketViewElementBinding
 import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.TicketUtil
-import com.codingub.belarusianhistory.utils.extension.dp
 
 class TicketAdapter(
     private var ticketList: List<Ticket>
@@ -27,25 +29,34 @@ class TicketAdapter(
         init {
             itemView.setOnClickListener {
                 if (!granted) {
-                    // Expand the view
+                    // Выставляем начальную высоту
                     val layoutParams = binding.flTicket.layoutParams
                     layoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT
                     binding.flTicket.layoutParams = layoutParams
-                    binding.flTicket.post {
-                        maxHeight = binding.flTicket.height
-                        initialHeight = binding.flTicket.height
-                        ValueAnimator.ofInt(0, maxHeight).apply {
-                            addUpdateListener {
-                                binding.flTicket.layoutParams.height = it.animatedValue as Int
-                                binding.flTicket.requestLayout()
-                            }
-                            start()
+                    binding.flTicket.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+                    initialHeight = binding.flTicket.measuredHeight
+                    layoutParams.height = 0
+                    binding.flTicket.layoutParams = layoutParams
+
+                    // Разворачиваем элемент
+                    ValueAnimator.ofInt(0, initialHeight).apply {
+                        interpolator = AccelerateInterpolator()
+                        duration = 500
+                        addUpdateListener {
+                            binding.flTicket.layoutParams.height = it.animatedValue as Int
+                            binding.flTicket.requestLayout()
                         }
+                        start()
                     }
                     granted = true
                 } else {
-                    // Collapse the view
+                    // Сворачиваем элемент
+                    if (maxHeight == 0) {
+                        maxHeight = binding.flTicket.height
+                    }
                     ValueAnimator.ofInt(maxHeight, 0).apply {
+                        interpolator = DecelerateInterpolator()
+                        duration = 500
                         addUpdateListener {
                             binding.flTicket.layoutParams.height = it.animatedValue as Int
                             binding.flTicket.requestLayout()
@@ -58,6 +69,9 @@ class TicketAdapter(
         }
 
         fun binding(item: Ticket){
+            binding.btnGoTo.apply {
+                typeface = Font.SEMIBOLD
+            }
             binding.tvTicket.apply {
                 text = item.name
                 typeface = Font.REGULAR

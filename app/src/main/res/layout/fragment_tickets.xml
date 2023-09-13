@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.tickets_practice.TicketsFragment"
+    tools:context=".presentation.ui.tickets_practice.tickets.TicketsFragment"
     android:padding="@dimen/main_padding"
     android:orientation="vertical">
 

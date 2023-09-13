@@ -2,8 +2,8 @@ package com.codingub.belarusianhistory.sdk
 
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.menu.MenuFragment
-import com.codingub.belarusianhistory.presentation.ui.tickets_practice.PracticeFragment
-import com.codingub.belarusianhistory.presentation.ui.tickets_practice.TicketsFragment
+import com.codingub.belarusianhistory.presentation.ui.tickets_practice.practice.PracticeFragment
+import com.codingub.belarusianhistory.presentation.ui.tickets_practice.tickets.TicketsFragment
 
 //для перехода на иной фрагмент
 enum class FragmentType(val fragment: BaseFragment) {

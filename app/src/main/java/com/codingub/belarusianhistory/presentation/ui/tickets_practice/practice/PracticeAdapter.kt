@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.presentation.ui.tickets_practice
+package com.codingub.belarusianhistory.presentation.ui.tickets_practice.practice
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

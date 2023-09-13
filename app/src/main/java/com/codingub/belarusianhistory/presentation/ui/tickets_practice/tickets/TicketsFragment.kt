@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.presentation.ui.tickets_practice
+package com.codingub.belarusianhistory.presentation.ui.tickets_practice.tickets
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.databinding.FragmentTicketsBinding
 import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
+import com.codingub.belarusianhistory.presentation.ui.tickets_practice.MainItemDecorator
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
