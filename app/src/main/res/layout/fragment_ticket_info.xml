@@ -9,9 +9,24 @@
         android:id="@+id/tvTicketNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:layout_marginBottom="20dp"
+        android:textColor="@color/white"
         android:textSize="@dimen/header_text" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTicketInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnGoTo"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/item_white_rounded"
+        android:text="@string/go_to"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_text" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

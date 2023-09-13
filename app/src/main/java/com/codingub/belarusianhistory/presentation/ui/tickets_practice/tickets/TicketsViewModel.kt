@@ -23,7 +23,6 @@ class TicketsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val ticks = getAllTickets()
             tickets.postValue(ticks)
-            Log.d("SSSSSSSSSSSSSSSSSS", ticks.size.toString())
         }
     }
 }

@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.TicketViewElementBinding
 import com.codingub.belarusianhistory.domain.model.Ticket
+import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
+import com.codingub.belarusianhistory.presentation.ui.tickets_info.TicketInfoFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.TicketUtil
 
 class TicketAdapter(
-    private var ticketList: List<Ticket>
+    private var ticketList: List<Ticket>,
+    private inline val onTicketSelected: (Ticket) -> Unit
 ) : RecyclerView.Adapter<TicketAdapter.TicketsViewHolder>(){
 
     private lateinit var binding: TicketViewElementBinding
@@ -27,6 +30,7 @@ class TicketAdapter(
         private var maxHeight = 0
 
         init {
+            //анимация
             itemView.setOnClickListener {
                 if (!granted) {
                     // Выставляем начальную высоту
@@ -65,6 +69,11 @@ class TicketAdapter(
                     }
                     granted = false
                 }
+            }
+
+            //переход на другой фрагмент
+            binding.btnGoTo.setOnClickListener {
+                onTicketSelected(ticketList[bindingAdapterPosition])
             }
         }
 

@@ -3,10 +3,13 @@ package com.codingub.belarusianhistory.data.local.db.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.codingub.belarusianhistory.data.local.db.entity.TicketEntity
 import com.codingub.belarusianhistory.data.local.db.entity.TicketQuestionEntity
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.PracticeAchievesRef
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.TicketAchievesRef
+import com.codingub.belarusianhistory.data.local.db.entity.questions.TicketQuestionRef
+import com.codingub.belarusianhistory.data.local.db.entity.ticket.TicketRef
 import kotlinx.coroutines.flow.Flow
 
 
@@ -54,5 +57,14 @@ interface AppDao{
     @Query("SELECT * FROM PracticeAchieves WHERE isPassed = :isPassed")
     suspend fun getPracticeAchievesByPassed(isPassed: Int) : List<PracticeAchievesRef>
 
+    //для обновления данных
+    @Update
+    suspend fun setTicketAchievePassed(vararg ticketAchieve : TicketAchievesRef)
+    @Update
+    suspend fun setPracticeAchievePassed(vararg practiceAchieve : PracticeAchievesRef)
+    @Update
+    suspend fun setTicketPassed(ticket : TicketRef)
+    @Update
+    suspend fun setTicketQuestionPassed(ticket : TicketQuestionRef)
 
 }
