@@ -58,6 +58,7 @@ interface AppDao{
     suspend fun getPracticeAchievesByPassed(isPassed: Int) : List<PracticeAchievesRef>
 
     //для обновления данных
+
     @Update
     suspend fun setTicketAchievePassed(vararg ticketAchieve : TicketAchievesRef)
     @Update
