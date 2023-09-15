@@ -11,6 +11,7 @@
     <color name="bg_btn">#2E2B4C</color>
     <color name="bg_btn_checked">#357FA8</color>
     <color name="text_not_checked">#CBCACA</color>
+    <color name="achieve_not_passed">#1B1839</color>
 
     <!-- custom -->
     <color name="top_color_events">#B649C8</color>

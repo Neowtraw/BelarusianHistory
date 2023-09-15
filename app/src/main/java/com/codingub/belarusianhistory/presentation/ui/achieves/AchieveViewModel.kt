@@ -1,37 +1,38 @@
 package com.codingub.belarusianhistory.presentation.ui.achieves
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.codingub.belarusianhistory.domain.model.Achieves.PracticeAchieves
-import com.codingub.belarusianhistory.domain.model.Achieves.TicketAchieves
-import com.codingub.belarusianhistory.domain.use_case.GetAllPracticeAchieves
-import com.codingub.belarusianhistory.domain.use_case.GetAllTicketAchieves
+import com.codingub.belarusianhistory.domain.model.Achieves.Achieve
+import com.codingub.belarusianhistory.domain.use_case.GetAchieves
+import com.codingub.belarusianhistory.sdk.AchievesCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class AchieveViewModel @Inject constructor(
-    private val getAllTicketAchieves: GetAllTicketAchieves,
-    private val getAllPracticeAchieves: GetAllPracticeAchieves
+    private val getAchieves: GetAchieves
 ) : ViewModel() {
 
-    val allTicketAchieves = MutableLiveData<List<TicketAchieves>>()
-    val allPracticeAchieves = MutableLiveData<List<PracticeAchieves>>()
+    private val _displayedAchieves: MutableLiveData<List<Achieve>> = MutableLiveData()
+    val displayedAchieves: LiveData<List<Achieve>> get() = _displayedAchieves
 
-    init {
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val tAchieves = getAllTicketAchieves()
-            val sortedAchieves = tAchieves.sortedBy { it.isPassed }
-            allTicketAchieves.postValue(sortedAchieves)
+    suspend fun updateAchieves(achieve: AchievesCategory){
+        val data: List<Achieve>
+
+        try{
+            data = getAchieves(achieve)
+        } catch(e: Exception){
+            //error handling
+            return
         }
-        viewModelScope.launch(Dispatchers.IO) {
-            val pAchieves = getAllPracticeAchieves()
-            val sortedAchieves = pAchieves.sortedBy { it.isPassed }
-            allPracticeAchieves.postValue(sortedAchieves)
+
+        if(data.isNotEmpty()){
+            _displayedAchieves.postValue(data.sortedByDescending { it.isPassed })
+        } else{
+            //error handling
         }
     }
 

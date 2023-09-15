@@ -16,7 +16,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.marginBottom
 import androidx.core.view.setPadding
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.custom.view.CategoryAchieveView
@@ -34,9 +37,13 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AchieveFragment : BaseFragment() {
 
+    private val vm : AchieveViewModel by viewModels()
+
     private lateinit var mainText: TextView
     private lateinit var categoriesLayout: TabLayout
     private lateinit var rootLayout: MotionLayout
+    private lateinit var achieveView: RecyclerView
+    private lateinit var achieveAdapter: AchieveAdapter
 
 
     override fun create() {
@@ -64,7 +71,7 @@ class AchieveFragment : BaseFragment() {
             id = View.generateViewId()
             text= Resource.string(R.string.achieves)
             setTextColor(Resource.color(R.color.white))
-            textSize = 30f.dp
+            textSize = 12f.dp
             typeface = Font.EXTRABOLD
         }
     }
@@ -88,7 +95,7 @@ class AchieveFragment : BaseFragment() {
                     val categoryView = tab.customView as CategoryAchieveView
                     categoryView.setChecked(true, animated = true)
                     lifecycleScope.launch(Dispatchers.IO){
-
+                        vm.updateAchieves(categoryView.category)
                     }
                 }
 
@@ -121,8 +128,14 @@ class AchieveFragment : BaseFragment() {
 
     private fun createAchievesList(){
 
-        //реализация адаптера связанная с отображением разных листов
-
+        achieveView = RecyclerView(requireContext()).apply {
+            id = View.generateViewId()
+            setBackgroundResource(R.color.bg)
+            overScrollMode = View.OVER_SCROLL_NEVER
+            layoutManager = LinearLayoutManager(requireContext())
+            achieveAdapter = AchieveAdapter()
+            adapter = achieveAdapter
+        }
     }
 
     private fun createRootLayout(){
@@ -139,7 +152,13 @@ class AchieveFragment : BaseFragment() {
             addView(categoriesLayout, ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT
             ))
-            //надо добавить список
+
+            addView(
+                achieveView, ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_PARENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                )
+            )
 
         }
 
@@ -154,6 +173,10 @@ class AchieveFragment : BaseFragment() {
             connect(categoriesLayout.id, ConstraintSet.END,  ConstraintSet.PARENT_ID, ConstraintSet.END, 0)
             setAlpha(categoriesLayout.id, 1f)
 
+            connect(achieveView.id, ConstraintSet.TOP, categoriesLayout.id, ConstraintSet.BOTTOM, 16.dp)
+           // connect(achieveView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+
+
             applyTo(rootLayout)
         }
 
@@ -164,8 +187,14 @@ class AchieveFragment : BaseFragment() {
             setAlpha(mainText.id, 0f)
 
             connect(categoriesLayout.id, ConstraintSet.TOP, mainText.id, ConstraintSet.BOTTOM, 0)
-
+            connect(categoriesLayout.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 0)
+            connect(categoriesLayout.id, ConstraintSet.END,  ConstraintSet.PARENT_ID, ConstraintSet.END, 0)
             setAlpha(categoriesLayout.id, 0f)
+
+
+            connect(achieveView.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 16.dp)
+           // connect(achieveView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+
         }
 
         val motionScene = MotionScene(rootLayout)
@@ -184,8 +213,7 @@ class AchieveFragment : BaseFragment() {
                     setMaxAcceleration(50)
                     onTouchUp = OnSwipe.ON_UP_AUTOCOMPLETE
                     dragDirection = OnSwipe.DRAG_UP
-                    //изменить потом list
-                    //touchAnchorId =
+                    touchAnchorId = achieveView.id
                 }
             )
         }.also {
@@ -202,7 +230,9 @@ class AchieveFragment : BaseFragment() {
 
 
     override fun observeChanges() {
-        super.observeChanges()
+        vm.displayedAchieves.observe(viewLifecycleOwner){
+            achieveAdapter.achieves = it
+        }
     }
 
 }
