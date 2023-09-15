@@ -1,6 +1,7 @@
 package com.codingub.belarusianhistory.presentation.ui.tickets_practice.tickets
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,13 +17,14 @@ class TicketsViewModel @Inject constructor(
     private val getAllTickets: GetAllTickets
 ) : ViewModel() {
 
-    val tickets = MutableLiveData<List<Ticket>>()
+    private val _tickets = MutableLiveData<List<Ticket>>()
+    val tickets : LiveData<List<Ticket>> get() = _tickets
 
     init{
 
         viewModelScope.launch(Dispatchers.IO) {
             val ticks = getAllTickets()
-            tickets.postValue(ticks)
+            _tickets.postValue(ticks)
         }
     }
 }

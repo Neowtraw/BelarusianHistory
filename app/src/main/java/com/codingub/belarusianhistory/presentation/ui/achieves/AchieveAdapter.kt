@@ -36,7 +36,7 @@ class AchieveAdapter: RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
             val item = achieves[bindingAdapterPosition]
 
             if(item.isPassed == 0){
-                binding.root.setBackgroundResource(Resource.color(R.color.achieve_not_passed))
+                //binding.root.setBackgroundResource(Resource.color(R.color.achieve_not_passed))
             }
 
             binding.tvName.apply {

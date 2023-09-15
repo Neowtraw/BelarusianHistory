@@ -1,10 +1,8 @@
 package com.codingub.belarusianhistory.presentation.ui.menu
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.domain.use_case.GetAllPracticeAchieves
 import com.codingub.belarusianhistory.domain.use_case.GetAllTicketAchieves
@@ -24,36 +22,43 @@ class MenuViewModel @Inject constructor(
     private val getPracticeAchievesByPassed: GetPracticeAchievesByPassed
 ) : ViewModel() {
 
-    //чтобы передавать в код
-    val ticketAchievesPassed = MutableLiveData<Int>()
-    val practiceAchievesPassed = MutableLiveData<Int>()
-    val ticketAchieves = MutableLiveData<Int>()
-    val practiceAchieves = MutableLiveData<Int>()
+    private val _ticketAchievesPassed = MutableLiveData<Int>()
+    private val _practiceAchievesPassed = MutableLiveData<Int>()
+    private val _ticketAchieves = MutableLiveData<Int>()
+    private val _practiceAchieves = MutableLiveData<Int>()
+    private val _allAchieves = MutableLiveData<Int>()
+    private val _allAchievesPassed = MutableLiveData<Int>()
 
-    var allAchieves = MutableLiveData<Int>()
-    var allAchievesPassed = MutableLiveData<Int>()
+
+    //чтобы передавать в код
+    val ticketAchievesPassed : LiveData<Int> get() = _ticketAchievesPassed
+    val practiceAchievesPassed : LiveData<Int> get() = _practiceAchievesPassed
+    val ticketAchieves : LiveData<Int> get() = _ticketAchieves
+    val practiceAchieves : LiveData<Int> get() = _practiceAchieves
+    val allAchieves : LiveData<Int> get() = _allAchieves
+    val allAchievesPassed : LiveData<Int> get() = _allAchievesPassed
 
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val passedTicketAchieves = getTicketAchievesByPassed(1)
-            ticketAchievesPassed.postValue(passedTicketAchieves.size)
+            _ticketAchievesPassed.postValue(passedTicketAchieves.size)
 
             val passedPracticeAchieves = getPracticeAchievesByPassed(1)
-            practiceAchievesPassed.postValue(passedPracticeAchieves.size)
+            _practiceAchievesPassed.postValue(passedPracticeAchieves.size)
 
-            allAchievesPassed.postValue(passedPracticeAchieves.size
+            _allAchievesPassed.postValue(passedPracticeAchieves.size
                     + passedTicketAchieves.size)
         }
 
         viewModelScope.launch(Dispatchers.IO) {
             val tickAchieves = getAllTicketAchieves()
-            ticketAchieves.postValue(tickAchieves.size)
+            _ticketAchieves.postValue(tickAchieves.size)
 
             val pracAchieves = getAllPracticeAchieves()
-            practiceAchieves.postValue(pracAchieves.size)
+            _practiceAchieves.postValue(pracAchieves.size)
 
-            allAchieves.postValue(pracAchieves.size + tickAchieves.size)
+            _allAchieves.postValue(pracAchieves.size + tickAchieves.size)
         }
 
     }

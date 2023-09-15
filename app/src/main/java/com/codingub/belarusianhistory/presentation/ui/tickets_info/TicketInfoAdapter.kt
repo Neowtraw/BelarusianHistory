@@ -2,14 +2,31 @@ package com.codingub.belarusianhistory.presentation.ui.tickets_info
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.databinding.TicketInfoItemBinding
+import com.codingub.belarusianhistory.domain.model.Achieves.Achieve
+import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.utils.Font
 
-class TicketInfoAdapter(
-    private var tqList: List<TicketQuestion>
-) : RecyclerView.Adapter<TicketInfoAdapter.TicketInfoViewHolder>() {
+class TicketInfoAdapter : RecyclerView.Adapter<TicketInfoAdapter.TicketInfoViewHolder>() {
+
+    var tickets: List<TicketQuestion>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
+
+    private val diffCallback = object : DiffUtil.ItemCallback<TicketQuestion>(){
+        override fun areItemsTheSame(oldItem: TicketQuestion, newItem: TicketQuestion): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: TicketQuestion, newItem: TicketQuestion): Boolean {
+            return oldItem == newItem
+        }
+    }
+    private val differ = AsyncListDiffer(this, diffCallback)
 
     private lateinit var binding: TicketInfoItemBinding
 
@@ -17,11 +34,11 @@ class TicketInfoAdapter(
 
         fun bind(){
             binding.tvTicketName.apply {
-                text = tqList[bindingAdapterPosition].name
+                text = tickets[bindingAdapterPosition].name
                 typeface = Font.SEMIBOLD
             }
             binding.tvTickeInfo.apply {
-                text = tqList[bindingAdapterPosition].info
+                text = tickets[bindingAdapterPosition].info
                 typeface = Font.REGULAR
             }
         }
@@ -37,6 +54,6 @@ class TicketInfoAdapter(
     }
 
     override fun getItemCount(): Int {
-        return tqList.size
+        return tickets.size
     }
 }

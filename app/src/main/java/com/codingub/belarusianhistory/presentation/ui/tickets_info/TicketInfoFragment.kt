@@ -24,35 +24,30 @@ class TicketInfoFragment : BaseFragment(){
 
     private lateinit var adapter: TicketInfoAdapter
 
-
-    private lateinit var ticket : Ticket
-
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         binding = FragmentTicketInfoBinding.inflate(inf, con, false)
         observeChanges()
-
-
-
          return binding.root
     }
 
 
-    private fun updateTicket(){
+    private fun updateTicket(ticket: Ticket){
         binding.tvTicketNumber.apply{
             text = ticket.name
             typeface = Font.EXTRABOLD
         }
-        adapter = TicketInfoAdapter(ticket.questionList)
+        adapter = TicketInfoAdapter()
+        adapter.tickets = ticket.questionList
         binding.rvTicketInfo.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTicketInfo.adapter = adapter
 
     }
 
+
     override fun observeChanges() {
         with(model){
             ticketInfo.observe(viewLifecycleOwner){
-                ticket = it
-                updateTicket()
+                updateTicket(it)
             }
         }
     }

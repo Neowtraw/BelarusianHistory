@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
@@ -14,7 +13,6 @@ import androidx.constraintlayout.motion.widget.OnSwipe
 import androidx.constraintlayout.motion.widget.TransitionBuilder
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.marginBottom
 import androidx.core.view.setPadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +26,6 @@ import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.setPaddingDp
-import com.codingub.belarusianhistory.utils.extension.textSizeDp
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -135,6 +132,7 @@ class AchieveFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(requireContext())
             achieveAdapter = AchieveAdapter()
             adapter = achieveAdapter
+            addItemDecoration(AchieveItemDecoration())
         }
     }
 

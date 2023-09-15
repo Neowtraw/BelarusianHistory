@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.tickets_practice.practice.PracticeFragment"
     android:padding="@dimen/main_padding"
+    android:background="@color/bg"
     android:orientation="vertical">
 
     <TextView
