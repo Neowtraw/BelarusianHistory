@@ -27,7 +27,7 @@ class PracticeFragment : BaseFragment() {
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         binding = FragmentPracticeBinding.inflate(inf, con, false)
 
-        val itemDecoration = MainItemDecorator(3.dp, 3)
+        val itemDecoration = MainItemDecorator(6.dp, 3)
 
         binding.tvHeader.typeface = Font.EXTRABOLD
 

@@ -1,7 +1,9 @@
 package com.codingub.belarusianhistory.presentation.ui.achieves
 
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +59,9 @@ class AchieveAdapter: RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
                     }
                 }
             )
+            val itemBackground = binding.root.background as GradientDrawable
+            if(item.isPassed == 0) itemBackground.setColor(Resource.color(R.color.achieve_not_passed))
+            else itemBackground.setColor(Resource.color(R.color.bg_btn))
         }
     }
 

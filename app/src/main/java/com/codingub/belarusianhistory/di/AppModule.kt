@@ -1,6 +1,5 @@
 package com.codingub.belarusianhistory.di
 
-import android.app.Application
 import androidx.room.Room
 import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.data.local.db.AppDatabase
@@ -21,7 +20,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDbRepository(db: AppDatabase): AppRepository {
-        return AppRepositoryImpl(db.dao)
+        return AppRepositoryImpl(db.ticketsDao, db.practiceQuestionDao,
+            db.practiceAchievesDao, db.ticketQuestionDao, db.ticketAchievesDao)
     }
 
     @Provides

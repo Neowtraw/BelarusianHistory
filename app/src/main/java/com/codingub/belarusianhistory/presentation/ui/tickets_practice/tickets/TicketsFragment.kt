@@ -35,7 +35,7 @@ class TicketsFragment : BaseFragment() {
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         // Inflate the layout for this fragment
         binding = FragmentTicketsBinding.inflate(inf, con, false)
-        val itemDecoration = MainItemDecorator(3.dp, 3)
+        val itemDecoration = MainItemDecorator(6.dp, 3)
 
         binding.tvHeader.typeface = Font.EXTRABOLD
 

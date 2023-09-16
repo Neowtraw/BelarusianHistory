@@ -1,6 +1,10 @@
 package com.codingub.belarusianhistory.data.repository
 
-import com.codingub.belarusianhistory.data.local.db.dao.AppDao
+import com.codingub.belarusianhistory.data.local.db.dao.PracticeAchievesDao
+import com.codingub.belarusianhistory.data.local.db.dao.PracticeQuestionDao
+import com.codingub.belarusianhistory.data.local.db.dao.TicketAchievesDao
+import com.codingub.belarusianhistory.data.local.db.dao.TicketQuestionDao
+import com.codingub.belarusianhistory.data.local.db.dao.TicketsDao
 import com.codingub.belarusianhistory.domain.model.Achieves.Achieve
 import com.codingub.belarusianhistory.domain.model.Achieves.PracticeAchieves
 import com.codingub.belarusianhistory.domain.model.Achieves.TicketAchieves
@@ -13,51 +17,55 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor(
-    private val dao: AppDao
+    private val ticketsDao: TicketsDao,
+    private val practiceQuestionDao: PracticeQuestionDao,
+    private val practiceAchievesDao: PracticeAchievesDao,
+    private val ticketQuestionDao: TicketQuestionDao,
+    private val ticketAchievesDao: TicketAchievesDao,
 ) : AppRepository{
 
     override suspend fun getAllTicketQuestions(): List<TicketQuestion> {
-        return dao.getAllTicketQuestions().map {
+        return ticketQuestionDao.getAllTicketQuestions().map {
             it.toTicketQuestion()
         }
     }
 
     override suspend fun getAllTicketAchieves(): List<TicketAchieves> {
-        return dao.getAllTicketAchieves().map {
+        return ticketAchievesDao.getAllTicketAchieves().map {
             it.toTicketAchieves()
         }
     }
 
     override suspend fun getAllPracticeAchieves(): List<PracticeAchieves> {
-        return dao.getAllPracticeAchieves().map {
+        return practiceAchievesDao.getAllPracticeAchieves().map {
             it.toPracticeAchieves()
         }
     }
 
     override suspend fun getAllTickets(): List<Ticket> {
-        return dao.getAllTickets().map {
+        return ticketsDao.getAllTickets().map {
             it.toTicket()
         }
     }
 
     override fun getTicketById(id: Int): Flow<Ticket> {
-        return dao.getTicketById(id).map {
+        return ticketsDao.getTicketById(id).map {
             it.toTicket()
         }
     }
 
     override suspend fun getTicketQuestionsById(id: Int): TicketQuestion {
-        return dao.getTicketQuestionsById(id).toTicketQuestion()
+        return ticketQuestionDao.getTicketQuestionsById(id).toTicketQuestion()
     }
 
     override suspend fun getTicketAchievesByPassed(isPassed: Int): List<TicketAchieves> {
-        return dao.getTicketAchievesByPassed(isPassed).map {
+        return ticketAchievesDao.getTicketAchievesByPassed(isPassed).map {
             it.toTicketAchieves()
         }
     }
 
     override suspend fun getPracticeAchievesByPassed(isPassed: Int): List<PracticeAchieves> {
-        return dao.getPracticeAchievesByPassed(isPassed).map {
+        return practiceAchievesDao.getPracticeAchievesByPassed(isPassed).map {
             it.toPracticeAchieves()
         }
     }
@@ -68,8 +76,8 @@ class AppRepositoryImpl @Inject constructor(
 
     override suspend fun getAchieves(achievesCategory: AchievesCategory): List<Achieve> {
         return when (achievesCategory) {
-            AchievesCategory.Practice -> dao.getAllPracticeAchieves().map { it.toPracticeAchieves() }
-            AchievesCategory.Tickets -> dao.getAllTicketAchieves().map { it.toTicketAchieves() }
+            AchievesCategory.Practice -> practiceAchievesDao.getAllPracticeAchieves().map { it.toPracticeAchieves() }
+            AchievesCategory.Tickets -> ticketAchievesDao.getAllTicketAchieves().map { it.toTicketAchieves() }
         }
     }
 }

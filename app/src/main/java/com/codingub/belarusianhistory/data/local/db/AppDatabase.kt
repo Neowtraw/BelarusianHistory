@@ -3,7 +3,11 @@ package com.codingub.belarusianhistory.data.local.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.codingub.belarusianhistory.data.local.db.dao.AppDao
+import com.codingub.belarusianhistory.data.local.db.dao.PracticeAchievesDao
+import com.codingub.belarusianhistory.data.local.db.dao.PracticeQuestionDao
+import com.codingub.belarusianhistory.data.local.db.dao.TicketAchievesDao
+import com.codingub.belarusianhistory.data.local.db.dao.TicketQuestionDao
+import com.codingub.belarusianhistory.data.local.db.dao.TicketsDao
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.PracticeAchievesRef
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.TicketAchievesRef
 import com.codingub.belarusianhistory.data.local.db.entity.questions.PracticeQuestionRef
@@ -18,5 +22,9 @@ entities =[TicketAchievesRef::class, PracticeAchievesRef::class,
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract val dao:AppDao
+    abstract val practiceAchievesDao: PracticeAchievesDao
+    abstract val ticketAchievesDao: TicketAchievesDao
+    abstract val practiceQuestionDao: PracticeQuestionDao
+    abstract val ticketQuestionDao: TicketQuestionDao
+    abstract val ticketsDao: TicketsDao
 }

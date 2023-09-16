@@ -19,8 +19,8 @@ class MainItemDecorator(
 
         outRect.bottom = spacing
 
-        if(position < spanCount){
-            outRect.top = spacing * 2
+        if(position % spanCount == 0 && position != 0){
+            outRect.top = spacing * 4
         }
     }
 

@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:textSize="@dimen/main_text" />
+        android:textSize="@dimen/main_text"
+        android:layout_toStartOf="@id/ivPassed"/>
 
     <ImageView
         android:id="@+id/ivPassed"
