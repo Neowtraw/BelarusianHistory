@@ -3,5 +3,5 @@
     <corners android:radius="@dimen/corner_icon_radius" /> <!-- Радиус закругления углов (можете настроить по своему усмотрению) -->
     <stroke
         android:width="2dp"
-        android:color="@color/white" />
+        android:color="@color/icon_color_def" />
 </shape>

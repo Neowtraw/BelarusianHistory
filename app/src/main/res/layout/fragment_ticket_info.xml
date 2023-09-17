@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/header_text" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,10 +24,10 @@
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/item_white_rounded"
+        android:background="@drawable/item_outline_rounded"
         android:text="@string/go_to"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/main_text" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

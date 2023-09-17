@@ -14,6 +14,7 @@ import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.tickets_info.TicketInfoFragment
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.TicketUtil
 
 class TicketAdapter(
@@ -89,17 +90,15 @@ class TicketAdapter(
                 text = TicketUtil.groupQuestions(item.questionList)
                 typeface = Font.REGULAR
             }
-            binding.ivPassed.setImageResource(
-                if(item.isPassed == 0){
-                    R.drawable.passed.apply {
-
-                    }
-                } else{
-                    R.drawable.not_passed.apply {
-
-                    }
-                }
-            )
+            binding.ivPassed.apply {
+                setImageResource(
+                    if (item.isPassed == 0) R.drawable.not_passed
+                    else R.drawable.passed)
+                setColorFilter(
+                    if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
+                    else Resource.color(R.color.icon_color_passed)
+                )
+            }
 
             binding.flTicket.layoutParams.height = if (granted) FrameLayout.LayoutParams.WRAP_CONTENT else 0
             binding.flTicket.requestLayout()

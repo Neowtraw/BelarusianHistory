@@ -9,9 +9,10 @@
         android:id="@+id/tvPractice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/main_text"
-        android:layout_toStartOf="@id/ivPassed"/>
+        android:layout_toStartOf="@id/ivPassed"
+        android:layout_alignParentStart="true"/>
 
     <ImageView
         android:id="@+id/ivPassed"

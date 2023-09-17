@@ -61,7 +61,7 @@ class MainVerticalView(
             textSizeDp = 17f
             gravity = Gravity.CENTER
             typeface = Font.EXTRABOLD
-            setTextColor(ContextCompat.getColor(context, R.color.white))
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
         }
         addView(tvName, LayoutParams(
             LayoutParams.MATCH_PARENT,
@@ -75,7 +75,7 @@ class MainVerticalView(
             textSizeDp = 15f
             gravity = Gravity.CENTER
             typeface = Font.LIGHT
-            setTextColor(ContextCompat.getColor(context, R.color.white))
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
         }
         addView(tvInfo, LayoutParams(
             LayoutParams.MATCH_PARENT,
@@ -106,7 +106,7 @@ class MainVerticalView(
             textSizeDp = 20f
             gravity = Gravity.CENTER
             typeface = Font.REGULAR
-            setTextColor(ContextCompat.getColor(context, R.color.white))
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
         }
         addView(tvAchieves, LayoutParams(
             LayoutParams.MATCH_PARENT,

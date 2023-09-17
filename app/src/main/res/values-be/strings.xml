@@ -15,4 +15,6 @@
 
     <string name="go_to">Перайсці</string>
 
+    <string name="light_theme">Cветлая</string>
+    <string name="dark_theme">Цёмная</string>
 </resources>

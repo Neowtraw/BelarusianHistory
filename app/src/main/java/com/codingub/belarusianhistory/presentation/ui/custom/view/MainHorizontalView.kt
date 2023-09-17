@@ -75,7 +75,7 @@ class MainHorizontalView(
             textSizeDp = 17f
             gravity = Gravity.CENTER
             typeface = Font.EXTRABOLD
-            setTextColor(ContextCompat.getColor(context, R.color.white))
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
         }
         addView(tvName)
 
@@ -84,7 +84,7 @@ class MainHorizontalView(
             textSizeDp = 15f
             gravity = Gravity.CENTER
             typeface = Font.LIGHT
-            setTextColor(ContextCompat.getColor(context, R.color.white))
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
         }
         addView(tvInfo)
 
@@ -94,7 +94,7 @@ class MainHorizontalView(
             textSizeDp = 20f
             gravity = Gravity.END
             typeface = Font.REGULAR
-            setTextColor(ContextCompat.getColor(context, R.color.white))
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
         }
         addView(tvAchieves)
 

@@ -49,16 +49,15 @@ class AchieveAdapter: RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
                 text = item.info
                 typeface = Font.REGULAR
             }
-            binding.ivPassed.setImageResource(
-                if(item.isPassed == 0){
-                    R.drawable.not_passed.apply {
-                    }
-                } else{
-                    R.drawable.passed.apply {
-
-                    }
-                }
-            )
+            binding.ivPassed.apply {
+                setImageResource(
+                    if (item.isPassed == 0) R.drawable.not_passed
+                    else R.drawable.passed)
+                setColorFilter(
+                    if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
+                    else Resource.color(R.color.icon_color_passed)
+                )
+            }
             val itemBackground = binding.root.background as GradientDrawable
             if(item.isPassed == 0) itemBackground.setColor(Resource.color(R.color.achieve_not_passed))
             else itemBackground.setColor(Resource.color(R.color.bg_btn))

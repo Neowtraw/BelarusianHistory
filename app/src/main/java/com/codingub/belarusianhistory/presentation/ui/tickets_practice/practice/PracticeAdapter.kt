@@ -7,6 +7,7 @@ import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.PracticeViewElementBinding
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.Resource
 
 class PracticeAdapter(
     private var practiceList: List<TicketQuestion>
@@ -23,13 +24,15 @@ class PracticeAdapter(
                 typeface = Font.REGULAR
             }
 
-            binding.ivPassed.setImageResource(
-                if(item.isPassed == 0){
-                    R.drawable.passed
-                } else{
-                    R.drawable.not_passed
-                }
-            )
+            binding.ivPassed.apply {
+                setImageResource(
+                    if (item.isPassed == 0) R.drawable.not_passed
+                    else R.drawable.passed)
+                setColorFilter(
+                    if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
+                    else Resource.color(R.color.icon_color_passed)
+                )
+            }
         }
     }
 

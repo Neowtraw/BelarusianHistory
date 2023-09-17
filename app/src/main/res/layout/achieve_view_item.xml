@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/main_text" />
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/additional_text" />
 
     <ImageView

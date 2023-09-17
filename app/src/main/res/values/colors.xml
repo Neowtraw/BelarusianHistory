@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- system -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
     <!-- basic colors -->
-    <color name="bg">#1A182C</color>
-    <color name="toolbar">#161525</color>
-    <color name="stbar">#130F1E</color>
-    <color name="navbar">#130F1E</color>
-    <color name="bg_btn">#2E2B4C</color>
-    <color name="bg_btn_checked">#357FA8</color>
-    <color name="text_not_checked">#CBCACA</color>
-    <color name="achieve_not_passed">#1B1839</color>
+    <color name="bg">#FFFFFF</color>
+    <color name="toolbar">#EFEFEF</color>
+    <color name="stbar">#D6D6D6</color>
+    <color name="navbar">#D6D6D6</color>
+    <color name="bg_btn">#CED7DE</color>
+    <color name="bg_btn_checked">#C3203F</color>
+    <color name="contrast">#C3203F</color>
+    <color name="text_not_checked">#4C4C4C</color>
+    <color name="achieve_not_passed">#A4ABB4</color>
+
+    <color name="main_color">#000000</color>
+    <color name="text_color">#000000</color>
+    <color name="icon_color_def">#000000</color>
+    <color name="icon_color_passed">#2A9279</color>
+    <color name="icon_color_not_passed">#C3203F</color>
 
     <!-- custom -->
-    <color name="top_color_events">#B649C8</color>
-    <color name="bottom_color_events">#7D89C9</color>
+    <color name="top_color_events">#E3D2F8</color>
+    <color name="bottom_color_events">#4ECAF1</color>
 
-    <color name="top_color_practice">#F9B1FF</color>
-    <color name="bottom_color_practice">#FBA5A5</color>
+    <color name="top_color_practice">#EE75B6</color>
+    <color name="bottom_color_practice">#FFE3F2</color>
 
-    <color name="top_color_tickets">#84FFF8</color>
-    <color name="bottom_color_tickets">#2499CB</color>
+    <color name="top_color_tickets">#A5FFFE</color>
+    <color name="bottom_color_tickets">#D6FFCB</color>
 
-    <color name="top_color_achieves">#2AB9D9</color>
-    <color name="bottom_color_achieves">#A9F4BE</color>
+    <color name="top_color_achieves">#9089E7</color>
+    <color name="bottom_color_achieves">#80F9EB</color>
 
 </resources>

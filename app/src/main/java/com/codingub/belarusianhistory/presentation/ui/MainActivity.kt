@@ -10,6 +10,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
@@ -55,6 +56,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menu?.findItem(R.id.mSettings)?.let {
+            it.iconTintList = ContextCompat.getColorStateList(this, R.color.icon_color_def)
+        }
         return true
     }
 
