@@ -5,11 +5,11 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.codingub.belarusianhistory.App
+import com.codingub.belarusianhistory.presentation.ui.MainActivity
 
 object Resource {
 
-    private val context: Context get() = App.getInstance()
+    private val context: Context get() = MainActivity.getInstance()
 
     fun color(@ColorRes id: Int): Int = ContextCompat.getColor(context, id)
 

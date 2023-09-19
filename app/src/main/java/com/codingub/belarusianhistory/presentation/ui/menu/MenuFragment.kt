@@ -46,15 +46,6 @@ class MenuFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun viewCreated() {
-        super.viewCreated()
-
-        //необходима логика для передачи количества
-        // полученных и всех достижений в определенном меню
-
-        replaceFragment()
-    }
-
     //Creation
     private fun createMenuEvents(){
         menuEvents = MainHorizontalView(
@@ -63,6 +54,9 @@ class MenuFragment : BaseFragment() {
             textInfo = resources.getString(R.string.events_info),
             textAchieves = "0/1").apply {
             id =View.generateViewId()
+            setOnClickListener{
+                pushFragment(FragmentType.EVENTS.fragment, "events")
+            }
         }
 
         binding.rlMenu.addView(menuEvents, RelativeLayout.LayoutParams(
@@ -82,6 +76,9 @@ class MenuFragment : BaseFragment() {
             R.color.top_color_practice,
             R.color.bottom_color_practice).apply {
             id =View.generateViewId()
+            setOnClickListener {
+                pushFragment(FragmentType.PRACTICE.fragment, "practice")
+            }
         }
 
         binding.rlMenu.addView(menuPractice,RelativeLayout.LayoutParams(
@@ -101,6 +98,9 @@ class MenuFragment : BaseFragment() {
             R.color.top_color_tickets,
             R.color.bottom_color_tickets).apply {
             id =View.generateViewId()
+            setOnClickListener{
+                pushFragment(FragmentType.TICKETS.fragment, "tickets")
+            }
         }
 
         binding.rlMenu.addView(menuTickets, RelativeLayout.LayoutParams(
@@ -121,6 +121,9 @@ class MenuFragment : BaseFragment() {
             textInfo = resources.getString(R.string.achieves_info)
         ).apply {
             id =View.generateViewId()
+            setOnClickListener{
+                pushFragment(FragmentType.ACHIEVES.fragment, "achieves")
+            }
         }
         binding.rlMenu.addView(menuAchieves,  RelativeLayout.LayoutParams(
             160.dp,
@@ -158,21 +161,5 @@ class MenuFragment : BaseFragment() {
         }
 
     }
-
-    private fun replaceFragment(){
-        menuEvents.setOnClickListener{
-            pushFragment(FragmentType.EVENTS.fragment, "events")
-        }
-        menuAchieves.setOnClickListener{
-            pushFragment(FragmentType.ACHIEVES.fragment, "achieves")
-        }
-        menuPractice.setOnClickListener{
-            pushFragment(FragmentType.PRACTICE.fragment, "practice")
-        }
-        menuTickets.setOnClickListener{
-            pushFragment(FragmentType.TICKETS.fragment, "tickets")
-        }
-    }
-
 
 }

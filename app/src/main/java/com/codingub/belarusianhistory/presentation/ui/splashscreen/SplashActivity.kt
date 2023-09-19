@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
@@ -55,6 +56,7 @@ class SplashActivity : AppCompatActivity() {
             delay(time)
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
+
         }
     }
 }

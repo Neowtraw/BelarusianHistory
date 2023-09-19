@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import com.codingub.belarusianhistory.R
 
 enum class Language(
-    @StringRes private val nameRes: Int
+    @StringRes val nameRes: Int
     ) {
 
     Russian(

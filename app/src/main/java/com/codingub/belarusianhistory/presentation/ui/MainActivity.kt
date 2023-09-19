@@ -38,9 +38,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Instance = this
-
         super.onCreate(savedInstanceState)
+
+        Instance = this
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
