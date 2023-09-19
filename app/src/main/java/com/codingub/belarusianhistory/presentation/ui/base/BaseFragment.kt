@@ -46,19 +46,22 @@ abstract class BaseFragment : Fragment() {
     protected open fun observeChanges() {}
 
     protected fun pushFragment(fragment: BaseFragment, backstack: String?) {
-        val fragmentManager: FragmentManager = mainActivity.supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.setCustomAnimations(
-            R.anim.slide_in,
-            0
-        )
-
-        fragmentTransaction.add(R.id.fragment_container_view, fragment)
-
-        if (backstack != null) {
-            fragmentTransaction.addToBackStack(backstack)
-        }
-        fragmentTransaction.commit()
+        mainActivity.pushFragment(fragment, backstack)
+//        val fragmentManager: FragmentManager = mainActivity.supportFragmentManager
+//        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+//        fragmentTransaction.setCustomAnimations(
+//            R.anim.slide_in,
+//            0
+//        )
+//
+//        fragmentTransaction.detach(fragmentManager.fragments.last())
+//        fragmentTransaction.add(R.id.fragment_container_view, fragment)
+//
+//        if (backstack != null) {
+//            fragmentTransaction.addToBackStack(backstack)
+//        }
+//
+//        fragmentTransaction.commit()
     }
 
     open fun finishFragment() {

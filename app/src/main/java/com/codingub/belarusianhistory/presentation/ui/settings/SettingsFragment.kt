@@ -133,6 +133,7 @@ class SettingsFragment : BaseFragment() {
 
     private fun createRootLayout() {
         rootLayout = LinearLayout(requireContext()).apply {
+//            alpha = 0.5f
             setBackgroundColor(Resource.color(R.color.bg))
             setPadding(16.dp)
             orientation = LinearLayout.VERTICAL

@@ -68,13 +68,7 @@ class MainActivity : AppCompatActivity() {
         return if (item.itemId ==
             R.id.mSettings
         ) {
-            val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.setCustomAnimations(
-                R.anim.slide_in,
-                0
-            )
-            fragmentTransaction.add(R.id.fragment_container_view, SettingsFragment())
-                .addToBackStack("settings").commit()
+            pushFragment(SettingsFragment(), "settings")
             true
         } else super.onOptionsItemSelected(item)
     }
@@ -135,5 +129,31 @@ class MainActivity : AppCompatActivity() {
                 finishAffinity()
             }
         }
+    }
+
+    fun pushFragment(fragment: BaseFragment, backstack: String?) {
+        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+
+        fragmentTransaction.apply {
+//            setCustomAnimations(R.anim.slide_out, R.anim.slide_in)
+            remove(supportFragmentManager.fragments.last())
+            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
+            add(R.id.fragment_container_view, fragment)
+        }
+//        fragmentTransaction.setCustomAnimations(
+//            R.anim.slide_in,
+//            R.anim.slide_out,
+//            R.anim.slide_in,
+//            R.anim.slide_out
+//        )
+
+//        fragmentTransaction.detach(supportFragmentManager.fragments.last())
+//        fragmentTransaction.add(R.id.fragment_container_view, fragment)
+
+        if (backstack != null) {
+            fragmentTransaction.addToBackStack(backstack)
+        }
+
+        fragmentTransaction.commit()
     }
 }
