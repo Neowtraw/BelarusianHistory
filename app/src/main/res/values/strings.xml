@@ -15,7 +15,14 @@
 
     <string name="go_to">Перейти</string>
 
+    <string name="themes">Темы</string>
+    <string name="languages">Языки</string>
+
+    <string name="default_theme">Системная</string>
     <string name="light_theme">Cветлая</string>
     <string name="dark_theme">Темная</string>
+
+    <string name="russian">Русский</string>
+    <string name="belarussian">Белорусский</string>
 
 </resources>

@@ -52,6 +52,7 @@ abstract class BaseFragment : Fragment() {
             R.anim.slide_in,
             0
         )
+
         fragmentTransaction.add(R.id.fragment_container_view, fragment)
 
         if (backstack != null) {

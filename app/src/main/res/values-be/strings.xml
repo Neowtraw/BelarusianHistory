@@ -15,6 +15,13 @@
 
     <string name="go_to">Перайсці</string>
 
+    <string name="themes">Тэмы</string>
+    <string name="languages">Мовы</string>
+
     <string name="light_theme">Cветлая</string>
-    <string name="dark_theme">Цёмная</string>
+    <string name="dark_theme">Цемная</string>
+
+    <string name="russian">Рускi</string>
+    <string name="belarussian">Беларускi</string>
+    <string name="default_theme">Сiстэмная</string>
 </resources>

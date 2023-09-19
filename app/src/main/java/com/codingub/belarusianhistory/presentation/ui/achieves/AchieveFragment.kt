@@ -67,7 +67,7 @@ class AchieveFragment : BaseFragment() {
         mainText = TextView(requireContext()).apply {
             id = View.generateViewId()
             text= Resource.string(R.string.achieves)
-            setTextColor(Resource.color(R.color.white))
+            setTextColor(Resource.color(R.color.text_color))
             textSize = 12f.dp
             typeface = Font.EXTRABOLD
         }

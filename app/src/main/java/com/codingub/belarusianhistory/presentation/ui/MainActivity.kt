@@ -12,10 +12,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.menu.MenuFragment
+import com.codingub.belarusianhistory.presentation.ui.settings.SettingsFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,7 +68,13 @@ class MainActivity : AppCompatActivity() {
         return if (item.itemId ==
             R.id.mSettings
         ) {
-            // переход на сл фрагмент настроек
+            val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.setCustomAnimations(
+                R.anim.slide_in,
+                0
+            )
+            fragmentTransaction.add(R.id.fragment_container_view, SettingsFragment())
+                .addToBackStack("settings").commit()
             true
         } else super.onOptionsItemSelected(item)
     }
@@ -117,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onAnimationStart(animation: Animation?) = Unit
                 })
             }
+
         }else{
             val currentTime = System.currentTimeMillis()
             if (currentTime - mBackPressedTime > TIME_INTERVAL) {

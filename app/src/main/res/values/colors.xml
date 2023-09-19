@@ -22,14 +22,14 @@
     <color name="icon_color_not_passed">#C3203F</color>
 
     <!-- custom -->
-    <color name="top_color_events">#E3D2F8</color>
-    <color name="bottom_color_events">#4ECAF1</color>
+    <color name="top_color_events">#C797EB</color>
+    <color name="bottom_color_events">#EDE6FA</color>
 
     <color name="top_color_practice">#EE75B6</color>
     <color name="bottom_color_practice">#FFE3F2</color>
 
-    <color name="top_color_tickets">#A5FFFE</color>
-    <color name="bottom_color_tickets">#D6FFCB</color>
+    <color name="top_color_tickets">#8000FFF0</color>
+    <color name="bottom_color_tickets">#200057FF</color>
 
     <color name="top_color_achieves">#9089E7</color>
     <color name="bottom_color_achieves">#80F9EB</color>

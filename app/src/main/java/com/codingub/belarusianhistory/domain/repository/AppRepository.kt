@@ -6,6 +6,8 @@ import com.codingub.belarusianhistory.domain.model.Achieves.TicketAchieves
 import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.sdk.AchievesCategory
+import com.codingub.belarusianhistory.sdk.Language
+import com.codingub.belarusianhistory.sdk.ThemeType
 import kotlinx.coroutines.flow.Flow
 
 interface AppRepository {

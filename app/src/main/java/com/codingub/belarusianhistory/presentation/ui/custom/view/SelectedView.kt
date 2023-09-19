@@ -3,12 +3,15 @@ package com.codingub.belarusianhistory.presentation.ui.custom.view
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources.Theme
 import android.text.TextUtils
+import android.view.Gravity
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.setPadding
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.sdk.ThemeType
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ImageUtil
@@ -22,26 +25,42 @@ import com.codingub.belarusianhistory.utils.extension.textSizeDp
 class SelectedView(context : Context) :  LinearLayoutCompat(context){
 
     private val textView: TextView
+    var text: String
+        get() = textView.text.toString()
+        set(value) {
+            textView.text = value
+        }
+
     private val imageView: ImageView
+
+    var theme: ThemeType = ThemeType.DEFAULT
+        set(value){
+            field = value
+        }
 
     init{
         setPadding(16.dp)
-        orientation = VERTICAL
+        orientation = HORIZONTAL
 
         imageView = ImageView(context).apply {
             scaleType = ImageView.ScaleType.FIT_CENTER
             setColorFilter(R.color.contrast)
             alpha = 0f
+            gravity = Gravity.CENTER
+            setColorFilter(Resource.color(R.color.contrast))
         }
+        ImageUtil.load(AssetUtil.menuImageUri("icon"), imageView)
+
         addView(imageView, LayoutParams(
-            LayoutParams.WRAP_CONTENT,
-            LayoutParams.WRAP_CONTENT
+            17.dp,
+            17.dp
         ))
 
         textView = TextView(context).apply {
             typeface = Font.REGULAR
-            textSizeDp = 20f.dp
+            textSizeDp = 7f.dp
             isSingleLine = true
+            text = Resource.string(theme.nameRes)
             ellipsize = TextUtils.TruncateAt.END
             setLines(1)
             setTextColor(Resource.color(R.color.text_color))
@@ -49,25 +68,11 @@ class SelectedView(context : Context) :  LinearLayoutCompat(context){
         addView(textView, LayoutParams(
             LayoutParams.WRAP_CONTENT,
             LayoutParams.WRAP_CONTENT
-        ))
-        ImageUtil.load(AssetUtil.menuImageUri("selected"), imageView)
-    }
-
-    override fun setEnabled(enabled: Boolean) {
-        if(isEnabled != enabled)
-            super.setEnabled(enabled)
-
-        alpha = if (enabled) 1.0f else 0.5f
-        isClickable = enabled
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec,
-            MeasureSpec.makeMeasureSpec(16.dp, MeasureSpec.EXACTLY))
+        )).apply {
+        }
     }
 
     fun setChecked(checked: Boolean, animated: Boolean){
-
         if(animated){
             ObjectAnimator.ofFloat(imageView, "alpha", imageView.alpha, checked.asFloat()).apply {
                 duration = 500

@@ -3,8 +3,11 @@ package com.codingub.belarusianhistory.di
 import androidx.room.Room
 import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.data.local.db.AppDatabase
+import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
 import com.codingub.belarusianhistory.data.repository.AppRepositoryImpl
+import com.codingub.belarusianhistory.data.repository.ConfigSharedRepositoryImpl
 import com.codingub.belarusianhistory.domain.repository.AppRepository
+import com.codingub.belarusianhistory.domain.repository.ConfigSharedRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +19,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    /*
+            Db
+         */
 
     @Provides
     @Singleton
@@ -32,6 +38,22 @@ object AppModule {
         ).createFromAsset("data/history")
             .fallbackToDestructiveMigration()
             .build()
+    }
+
+    /*
+        SharedPreferencies
+     */
+
+    @Provides
+    @Singleton
+    fun provideSharedPrefRepository(appConfig: ApplicationConfig) : ConfigSharedRepository{
+        return ConfigSharedRepositoryImpl(appConfig)
+    }
+
+    @Provides
+    @Singleton
+    fun provideApplicationConfig() : ApplicationConfig{
+        return ApplicationConfig()
     }
 
     @Provides

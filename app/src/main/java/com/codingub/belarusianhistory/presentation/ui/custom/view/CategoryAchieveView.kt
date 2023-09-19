@@ -44,7 +44,6 @@ class CategoryAchieveView(
 
     init {
         setPaddingDp(24, 0, 24, 0)
-
         typeface = Font.REGULAR
         textSizeDp = 20f
         isSingleLine = true
