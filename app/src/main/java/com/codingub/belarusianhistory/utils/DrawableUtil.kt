@@ -6,10 +6,10 @@ import android.graphics.drawable.GradientDrawable
 import androidx.annotation.ColorInt
 import android.graphics.Color
 import androidx.core.content.ContextCompat
-import com.codingub.belarusianhistory.App
+import com.codingub.belarusianhistory.presentation.ui.MainActivity
 
 object DrawableUtil {
-    private val context: Context get() = App.getInstance()
+    private val context: Context get() = MainActivity.getInstance()
 
     fun createGradient(
         firstColor: Int,

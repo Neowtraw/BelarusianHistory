@@ -78,6 +78,14 @@ class SettingsFragment : BaseFragment() {
     private fun createThemeList() {
         themeListView = ThemeListView(vm.getLastThemePos(), vm.themeList, requireContext()) {
             vm.setNewTheme(it)
+
+            //пробный вариант!!!!
+
+            requireActivity().supportFragmentManager.popBackStack()
+            requireActivity().supportFragmentManager.beginTransaction().
+            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
+            requireActivity().supportFragmentManager.popBackStack()
+            requireActivity().supportFragmentManager.beginTransaction().commit()
         }
     }
 

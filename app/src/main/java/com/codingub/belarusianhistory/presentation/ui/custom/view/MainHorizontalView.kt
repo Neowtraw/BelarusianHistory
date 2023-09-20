@@ -16,6 +16,7 @@ import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.DrawableUtil
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ImageUtil
+import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.textSizeDp
 
@@ -74,7 +75,7 @@ class MainHorizontalView(
             textSizeDp = 17f
             gravity = Gravity.CENTER
             typeface = Font.EXTRABOLD
-            setTextColor(ContextCompat.getColor(context, R.color.text_color))
+            setTextColor(Resource.color(R.color.text_color))
         }
         addView(tvName)
 
@@ -83,7 +84,7 @@ class MainHorizontalView(
             textSizeDp = 15f
             gravity = Gravity.CENTER
             typeface = Font.LIGHT
-            setTextColor(ContextCompat.getColor(context, R.color.text_color))
+            setTextColor(Resource.color(R.color.text_color))
         }
         addView(tvInfo)
 
@@ -93,7 +94,7 @@ class MainHorizontalView(
             textSizeDp = 20f
             gravity = Gravity.END
             typeface = Font.REGULAR
-            setTextColor(ContextCompat.getColor(context, R.color.text_color))
+            setTextColor(Resource.color(R.color.text_color))
         }
         addView(tvAchieves)
 
