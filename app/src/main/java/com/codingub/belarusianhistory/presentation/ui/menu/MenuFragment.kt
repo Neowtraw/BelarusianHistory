@@ -8,11 +8,13 @@ import android.widget.RelativeLayout
 import androidx.fragment.app.viewModels
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentMenuBinding
+import com.codingub.belarusianhistory.presentation.ui.achieves.AchieveFragment
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainHorizontalView
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainSquareView
 import com.codingub.belarusianhistory.presentation.ui.custom.view.MainVerticalView
-import com.codingub.belarusianhistory.sdk.FragmentType
+import com.codingub.belarusianhistory.presentation.ui.tickets_practice.practice.PracticeFragment
+import com.codingub.belarusianhistory.presentation.ui.tickets_practice.tickets.TicketsFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,7 +57,7 @@ class MenuFragment : BaseFragment() {
             textAchieves = "0/1").apply {
             id =View.generateViewId()
             setOnClickListener{
-                pushFragment(FragmentType.EVENTS.fragment, "events")
+                pushFragment(MenuFragment(), "events")
             }
         }
 
@@ -77,7 +79,7 @@ class MenuFragment : BaseFragment() {
             R.color.bottom_color_practice).apply {
             id =View.generateViewId()
             setOnClickListener {
-                pushFragment(FragmentType.PRACTICE.fragment, "practice")
+                pushFragment(PracticeFragment(), "practice")
             }
         }
 
@@ -99,7 +101,7 @@ class MenuFragment : BaseFragment() {
             R.color.bottom_color_tickets).apply {
             id =View.generateViewId()
             setOnClickListener{
-                pushFragment(FragmentType.TICKETS.fragment, "tickets")
+                pushFragment(TicketsFragment(), "tickets")
             }
         }
 
@@ -122,7 +124,7 @@ class MenuFragment : BaseFragment() {
         ).apply {
             id =View.generateViewId()
             setOnClickListener{
-                pushFragment(FragmentType.ACHIEVES.fragment, "achieves")
+                pushFragment(AchieveFragment(), "achieves")
             }
         }
         binding.rlMenu.addView(menuAchieves,  RelativeLayout.LayoutParams(

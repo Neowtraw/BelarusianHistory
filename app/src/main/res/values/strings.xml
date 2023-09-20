@@ -25,4 +25,6 @@
     <string name="russian">Русский</string>
     <string name="belarussian">Белорусский</string>
 
+    <string name="return_string">Нажмите еще раз, чтобы выйти</string>
+
 </resources>

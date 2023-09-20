@@ -5,13 +5,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
@@ -26,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
 
     private val TIME_INTERVAL: Long = 2000 // Интервал времени между нажатиями в миллисекундах
     private var mBackPressedTime: Long = 0 // Время последнего нажатия
@@ -92,41 +90,28 @@ class MainActivity : AppCompatActivity() {
         BackPress
      */
     override fun onBackPressed() {
-        val fragmentManager: FragmentManager = supportFragmentManager
-        if (fragmentManager.backStackEntryCount > 0) {
-            fragmentManager.popBackStack()
 
-            val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+        if (supportFragmentManager.backStackEntryCount > 0) {
 
-            if (fragment is BaseFragment && fragment !is MenuFragment) {
-                val slideInDuration = 300L
-                val slideInAnimation = TranslateAnimation(
-                    Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 1.0f,
-                    Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f
-                )
-                slideInAnimation.duration = slideInDuration
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            supportFragmentManager.popBackStack()
 
-                fragment.view?.startAnimation(slideInAnimation)
-                slideInAnimation.setAnimationListener(object : Animation.AnimationListener {
-                    override fun onAnimationEnd(animation: Animation?) {
-                        val transaction = fragmentManager.beginTransaction()
-                            .setCustomAnimations(0, 0)
-                            .remove(fragment)
-                            .commit()
-                    }
 
-                    override fun onAnimationRepeat(animation: Animation?) = Unit
-                    override fun onAnimationStart(animation: Animation?) = Unit
-                })
-            }
+            //доделать анимацию
+            fragmentTransaction.apply {
+                setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
+                remove(supportFragmentManager.fragments.last())
+                setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
 
-        }else{
+            }.commit()
+
+        } else {
             val currentTime = System.currentTimeMillis()
             if (currentTime - mBackPressedTime > TIME_INTERVAL) {
-                Toast.makeText(this, "Нажмите еще раз для выхода", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.return_string, Toast.LENGTH_SHORT).show()
                 mBackPressedTime = currentTime
             } else {
-                finishAffinity()
+                finish()
             }
         }
     }
@@ -140,15 +125,6 @@ class MainActivity : AppCompatActivity() {
             setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             add(R.id.fragment_container_view, fragment)
         }
-//        fragmentTransaction.setCustomAnimations(
-//            R.anim.slide_in,
-//            R.anim.slide_out,
-//            R.anim.slide_in,
-//            R.anim.slide_out
-//        )
-
-//        fragmentTransaction.detach(supportFragmentManager.fragments.last())
-//        fragmentTransaction.add(R.id.fragment_container_view, fragment)
 
         if (backstack != null) {
             fragmentTransaction.addToBackStack(backstack)
