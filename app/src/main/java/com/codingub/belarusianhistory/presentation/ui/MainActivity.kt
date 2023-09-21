@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Instance = this
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -132,4 +132,8 @@ class MainActivity : AppCompatActivity() {
 
         fragmentTransaction.commit()
     }
+
+//    override fun attachBaseContext(newBase: Context) {
+//        super.attachBaseContext(newBase.setAppLocale(ApplicationConfig.getLanguage()))
+//    }
 }

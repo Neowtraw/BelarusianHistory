@@ -2,15 +2,26 @@ package com.codingub.belarusianhistory.sdk
 
 import androidx.annotation.StringRes
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.utils.Resource
 
 enum class Language(
-    @StringRes val nameRes: Int
-    ) {
+    val id: Int,
+    @StringRes val nameRes: Int,
+    @StringRes val codeRes: Int
+) {
 
     Russian(
-        R.string.russian
+        0,
+        R.string.russian,
+        R.string.ru
     ),
     Belarussian(
-        R.string.belarussian
-    )
+        1,
+        R.string.belarussian,
+        R.string.be
+    );
+
+    operator fun invoke(): String = Resource.string(nameRes)
+
+    val code: String get() = Resource.string(codeRes)
 }

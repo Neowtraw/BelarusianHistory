@@ -8,7 +8,7 @@ import com.codingub.belarusianhistory.sdk.Language
 import com.codingub.belarusianhistory.sdk.ThemeType
 
 
-class ApplicationConfig {
+object ApplicationConfig {
 
     private val key_saved_theme: String = "savedTheme"
     private val key_saved_language: String = "savedLanguage"
@@ -30,9 +30,10 @@ class ApplicationConfig {
         editor.putString(key_saved_theme, theme.name).apply()
     }
 
-    private val savedLanguage: MutableLiveData<Language> = MutableLiveData(Language.valueOf(prefs.getString(key_saved_language, Language.Russian.name)!!))
-
+    private val savedLanguage: MutableLiveData<Language> =
+        MutableLiveData(Language.valueOf(prefs.getString(key_saved_language, Language.Russian.name)!!))
     fun getLanguage(): Language = savedLanguage.value!!
+
     fun setLanguage(language: Language){
         savedLanguage.value = language
         editor.putString(key_saved_language, language.name).apply()
