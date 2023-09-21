@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.databinding.FragmentPracticeBinding
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
+import com.codingub.belarusianhistory.presentation.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.presentation.ui.tickets_practice.MainItemDecorator
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
@@ -17,7 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PracticeFragment : BaseFragment() {
 
+    private val model: SharedViewModel by viewModels()
     private val vm : PracticeViewModel by viewModels()
+
     private lateinit var binding: FragmentPracticeBinding
     private lateinit var adapter: PracticeAdapter
 
@@ -31,7 +34,10 @@ class PracticeFragment : BaseFragment() {
 
         binding.tvHeader.typeface = Font.EXTRABOLD
 
-        adapter = PracticeAdapter(practiceList)
+        adapter = PracticeAdapter(practiceList){
+            model.select(it)
+        }
+
         binding.rvPractice.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPractice.adapter = adapter
         binding.rvPractice.addItemDecoration(itemDecoration)

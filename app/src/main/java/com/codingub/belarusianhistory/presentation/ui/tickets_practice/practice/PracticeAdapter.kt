@@ -10,13 +10,20 @@ import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 
 class PracticeAdapter(
-    private var practiceList: List<TicketQuestion>
+    private var practiceList: List<TicketQuestion>,
+    private inline val onPracticeSelected: (TicketQuestion) -> Unit
 ) : RecyclerView.Adapter<PracticeAdapter.PracticeViewHolder>() {
 
     private lateinit var binding: PracticeViewElementBinding
 
     inner class PracticeViewHolder(private val binding: PracticeViewElementBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init{
+            binding.root.setOnClickListener {
+                onPracticeSelected(practiceList[bindingAdapterPosition])
+            }
+        }
 
         fun binding(item: TicketQuestion){
             binding.tvPractice.apply {

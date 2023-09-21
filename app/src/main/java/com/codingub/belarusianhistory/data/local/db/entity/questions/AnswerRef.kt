@@ -7,5 +7,7 @@ import androidx.room.Entity
 @Entity
 data class AnswerRef (
     val answerId: Int,
+    val answerName: String,
+    val isTrue: Int,
     val pqId: Int
 )
