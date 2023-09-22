@@ -1,8 +1,10 @@
 package com.codingub.belarusianhistory.utils
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.codingub.belarusianhistory.presentation.ui.MainActivity
@@ -17,4 +19,6 @@ object Resource {
     fun string(@StringRes stringKey: Int, vararg args: Any): String = String.format(string(stringKey), *args)
 
     fun dimen(@DimenRes id: Int): Float = context.resources.getDimension(id)
+
+    fun drawable( drawable: String) : Int =  context.resources.getIdentifier(drawable, "drawable", context.packageName)
 }

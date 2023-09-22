@@ -1,12 +1,14 @@
 package com.codingub.belarusianhistory.domain.model.Achieves
 
+import java.io.Serializable
+
 data class PracticeAchieves(
    override val id: Int,
    override val name: String,
    override val info: String,
    override var isPassed: Int,
     val pqId: Int
-) : Achieve{
+) : Achieve, Serializable{
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

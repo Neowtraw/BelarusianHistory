@@ -1,6 +1,7 @@
 package com.codingub.belarusianhistory.presentation.ui.settings
 
 import android.graphics.Outline
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -36,16 +37,13 @@ class SettingsFragment : BaseFragment() {
     private lateinit var themeListView: ThemeListView
     private lateinit var languageView: TabLayout
 
-    override fun create() {
-        super.create()
+    override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
 
         createTexts()
         createThemeList()
         createLanguageView()
         createRootLayout()
-    }
 
-    override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         return rootLayout
     }
 
@@ -78,21 +76,15 @@ class SettingsFragment : BaseFragment() {
     private fun createThemeList() {
         themeListView = ThemeListView(vm.getLastThemePos(), vm.themeList, requireContext()) {
             vm.setNewTheme(it)
+            //анимация для темы
 
-            //пробный вариант!!!!
-
-            requireActivity().supportFragmentManager.popBackStack()
-            requireActivity().supportFragmentManager.beginTransaction().
-            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
-            requireActivity().supportFragmentManager.popBackStack()
-            requireActivity().supportFragmentManager.beginTransaction().commit()
         }
     }
 
 
     private fun createLanguageView() {
         languageView = TabLayout(requireContext()).apply {
-            setBackgroundResource(R.drawable.item_rounded)
+            setBackgroundResource(Resource.drawable("item_rounded"))
             tabMode = TabLayout.MODE_AUTO
             overScrollMode = View.OVER_SCROLL_NEVER
             setSelectedTabIndicator(null)
@@ -141,7 +133,6 @@ class SettingsFragment : BaseFragment() {
 
     private fun createRootLayout() {
         rootLayout = LinearLayout(requireContext()).apply {
-//            alpha = 0.5f
             setBackgroundColor(Resource.color(R.color.bg))
             setPadding(16.dp)
             orientation = LinearLayout.VERTICAL

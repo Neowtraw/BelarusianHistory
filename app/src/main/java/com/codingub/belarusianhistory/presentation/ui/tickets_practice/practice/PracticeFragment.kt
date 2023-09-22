@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.databinding.FragmentPracticeBinding
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.base.SharedViewModel
+import com.codingub.belarusianhistory.presentation.ui.practice.PracticeInfoFragment
 import com.codingub.belarusianhistory.presentation.ui.tickets_practice.MainItemDecorator
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
@@ -18,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PracticeFragment : BaseFragment() {
 
-    private val model: SharedViewModel by viewModels()
+    private val model: SharedViewModel  by activityViewModels()
     private val vm : PracticeViewModel by viewModels()
 
     private lateinit var binding: FragmentPracticeBinding
@@ -34,8 +36,9 @@ class PracticeFragment : BaseFragment() {
 
         binding.tvHeader.typeface = Font.EXTRABOLD
 
-        adapter = PracticeAdapter(practiceList){
-            model.select(it)
+        adapter = PracticeAdapter(practiceList){ practice ->
+            model.select(practice)
+            pushFragment(PracticeInfoFragment(), "practiceInfoFragment")
         }
 
         binding.rvPractice.layoutManager = LinearLayoutManager(requireContext())

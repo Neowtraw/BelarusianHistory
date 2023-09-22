@@ -6,6 +6,7 @@
     <dimen name="additional_text">12sp</dimen>
 
     <dimen name="main_padding">16dp</dimen>
+    <dimen name="task_padding">400dp</dimen>
 
 
     <!-- MainFragment -->

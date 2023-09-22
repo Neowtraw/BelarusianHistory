@@ -1,5 +1,7 @@
 package com.codingub.belarusianhistory.presentation.ui.practice.tasks
 
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.databinding.TestItemBinding
@@ -7,24 +9,36 @@ import com.codingub.belarusianhistory.domain.model.Answer
 import com.codingub.belarusianhistory.utils.Font
 
 class TestAdapter(
-   private val answerList: List<Answer>
+    private val answerList: List<Answer>
 ) : RecyclerView.Adapter<TestAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: TestItemBinding) : RecyclerView.ViewHolder(binding.root){
+    private lateinit var binding: TestItemBinding
 
-        init{
+    inner class ViewHolder(private val binding: TestItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                if (answerList[bindingAdapterPosition].isTrue == 1) {
+                    //код анимации или простого перекрашивания кнопки
+                } else { //точно такая же логика
+                }
+
+            }
         }
 
-        fun bind(){
+        fun bind() {
             binding.tvAnswer.apply {
-                typeface = Font.EXTRABOLD
+                typeface = Font.REGULAR
                 text = answerList[bindingAdapterPosition].answerName
             }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
+        binding = TestItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

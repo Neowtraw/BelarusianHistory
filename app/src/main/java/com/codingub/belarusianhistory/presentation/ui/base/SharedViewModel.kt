@@ -1,11 +1,13 @@
 package com.codingub.belarusianhistory.presentation.ui.base
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 
+//используется чисто для передачи данных между фрагментами
 class SharedViewModel : ViewModel() {
 
 

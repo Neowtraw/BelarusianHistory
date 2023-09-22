@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.codingub.belarusianhistory.databinding.FragmentConnectionBinding
+import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 
-class ConnectionFragment : BaseFragment() {
+class ConnectionFragment(val question: TicketQuestion) : BaseFragment() {
 
     private lateinit var binding: FragmentConnectionBinding
 

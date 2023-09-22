@@ -2,6 +2,7 @@ package com.codingub.belarusianhistory.domain.model
 
 import com.codingub.belarusianhistory.domain.model.Achieves.PracticeAchieves
 import com.codingub.belarusianhistory.sdk.TaskType
+import java.io.Serializable
 
 data class PracticeQuestion(
     val id: Int,
@@ -10,4 +11,4 @@ data class PracticeQuestion(
     val info: String,
     val answer: String,
     val achievement: PracticeAchieves?
-)
+) : Serializable
