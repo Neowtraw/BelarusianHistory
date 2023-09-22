@@ -26,7 +26,6 @@ class TestAdapter(
 
             }
         }
-
         fun bind() {
             binding.tvAnswer.apply {
                 typeface = Font.REGULAR
@@ -45,5 +44,5 @@ class TestAdapter(
         holder.bind()
     }
 
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = answerList.size
 }

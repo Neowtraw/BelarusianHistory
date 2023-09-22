@@ -18,7 +18,7 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_below="@id/tvTheme"
@@ -34,7 +34,7 @@
 
     <Button
         android:id="@+id/btnCheck"
-        android:layout_width="170dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:text="@string/check"
         android:textAllCaps="false"
@@ -43,6 +43,7 @@
         android:background="@drawable/item_outline_rounded"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
         />
 
 </RelativeLayout>

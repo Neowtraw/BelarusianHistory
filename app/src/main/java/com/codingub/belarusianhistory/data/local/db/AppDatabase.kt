@@ -10,14 +10,16 @@ import com.codingub.belarusianhistory.data.local.db.dao.TicketQuestionDao
 import com.codingub.belarusianhistory.data.local.db.dao.TicketsDao
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.PracticeAchievesRef
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.TicketAchievesRef
+import com.codingub.belarusianhistory.data.local.db.entity.questions.AnswerRef
 import com.codingub.belarusianhistory.data.local.db.entity.questions.PracticeQuestionRef
 import com.codingub.belarusianhistory.data.local.db.entity.questions.TicketQuestionRef
 import com.codingub.belarusianhistory.data.local.db.entity.ticket.TicketRef
 
 @Database(
 entities =[TicketAchievesRef::class, PracticeAchievesRef::class,
-    TicketQuestionRef::class, PracticeQuestionRef::class, TicketRef::class],
-    version = 2
+    TicketQuestionRef::class, PracticeQuestionRef::class, TicketRef::class,
+          AnswerRef::class],
+    version = 3
 )
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {

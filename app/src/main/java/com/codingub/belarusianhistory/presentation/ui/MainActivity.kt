@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -90,21 +91,13 @@ class MainActivity : AppCompatActivity() {
         BackPress
      */
     override fun onBackPressed() {
-
         if (supportFragmentManager.backStackEntryCount > 0) {
-
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.setCustomAnimations(R.anim.slide_in_left,R.anim.slide_in_left)
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+            currentFragment?.view?.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_left))
             supportFragmentManager.popBackStack()
-
-
-            //доделать анимацию
-            fragmentTransaction.apply {
-                setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
-                remove(supportFragmentManager.fragments.last())
-                setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
-
-            }.commit()
-
+            transaction.commit()
         } else {
             val currentTime = System.currentTimeMillis()
             if (currentTime - mBackPressedTime > TIME_INTERVAL) {

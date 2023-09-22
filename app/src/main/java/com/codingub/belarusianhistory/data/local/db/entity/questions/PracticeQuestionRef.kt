@@ -14,6 +14,5 @@ data class PracticeQuestionRef(
     val taskType: TaskType, //Int
     val pqName: String,
     val pqInfo: String,
-    val answer: String,
     val tqId: Int //много к одному c TicketQuestion
 )

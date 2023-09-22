@@ -1,7 +1,7 @@
 package com.codingub.belarusianhistory.presentation.ui.practice
 
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +13,7 @@ import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.presentation.ui.practice.tasks.TestFragment
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +31,10 @@ class PracticeInfoFragment : BaseFragment() {
         return binding.root
     }
 
+    /*
+        UI
+     */
+
     private fun createUpBar(){
 
         binding.tvTheme.apply {
@@ -40,6 +45,8 @@ class PracticeInfoFragment : BaseFragment() {
         binding.progressBar.apply {
             val size = model.practiceInfo.value!!.practiceList.size
             max = size
+            progressBackgroundTintList = ColorStateList.valueOf(Resource.color(R.color.bg_btn))
+            progressTintList = ColorStateList.valueOf(Resource.color(R.color.contrast))
             //поменять setOnClickListener на изменение фрагмента
             setOnClickListener {
                 if(progress > size) progress = size
@@ -47,12 +54,16 @@ class PracticeInfoFragment : BaseFragment() {
 
             }
         }
+
+        binding.btnCheck.apply {
+            typeface = Font.EXTRABOLD
+        }
     }
 
     private fun createFragmentContainerView(){
 
         //ТЕСТОВЫЙ ВАРИАНТ ПЕРЕДАЧИ ПАРАМЕТРОВ
-        //МОЖЕТ БЫТЬ ПРОБЛЕМА С NULLPOINTEREXCEPTION
+
         val fragment = TestFragment()
         val args = Bundle().apply {
             putSerializable("ticket", model.practiceInfo.value!!.practiceList.last())
