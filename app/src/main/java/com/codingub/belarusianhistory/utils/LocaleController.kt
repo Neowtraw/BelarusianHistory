@@ -4,10 +4,9 @@ import com.codingub.belarusianhistory.presentation.ui.MainActivity
 
 object LocaleController {
 
-    //сюда записываем все стринги
+    //для локальных неизменяемых переменных
     private val strings: MutableMap<String, Int> = mutableMapOf(
 
     )
-
     fun getString(key: String) : String = MainActivity.getInstance().resources.getString(strings[key]!!)
 }

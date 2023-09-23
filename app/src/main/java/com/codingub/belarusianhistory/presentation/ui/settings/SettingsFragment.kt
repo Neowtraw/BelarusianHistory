@@ -1,5 +1,6 @@
 package com.codingub.belarusianhistory.presentation.ui.settings
 
+import android.content.res.ColorStateList
 import android.graphics.Outline
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -85,6 +86,8 @@ class SettingsFragment : BaseFragment() {
     private fun createLanguageView() {
         languageView = TabLayout(requireContext()).apply {
             setBackgroundResource(Resource.drawable("item_rounded"))
+            val background = this.background as GradientDrawable
+            background.color = ColorStateList.valueOf(Resource.color(R.color.bg_btn))
             tabMode = TabLayout.MODE_AUTO
             overScrollMode = View.OVER_SCROLL_NEVER
             setSelectedTabIndicator(null)

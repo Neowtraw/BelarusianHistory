@@ -9,9 +9,11 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
 import com.codingub.belarusianhistory.presentation.ui.base.BaseFragment
 import com.codingub.belarusianhistory.presentation.ui.menu.MenuFragment
@@ -33,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         @SuppressLint("StaticFieldLeak")
         private var Instance: MainActivity? = null
         fun getInstance(): MainActivity = Instance!!
-
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +115,6 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
         fragmentTransaction.apply {
-//            setCustomAnimations(R.anim.slide_out, R.anim.slide_in)
             remove(supportFragmentManager.fragments.last())
             setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             add(R.id.fragment_container_view, fragment)
