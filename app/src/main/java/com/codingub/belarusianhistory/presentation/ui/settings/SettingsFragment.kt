@@ -85,7 +85,7 @@ class SettingsFragment : BaseFragment() {
 
     private fun createLanguageView() {
         languageView = TabLayout(requireContext()).apply {
-            setBackgroundResource(Resource.drawable("item_rounded"))
+            setBackgroundResource(Resource.drawable("item_rounded_settings"))
             val background = this.background as GradientDrawable
             background.color = ColorStateList.valueOf(Resource.color(R.color.bg_btn))
             tabMode = TabLayout.MODE_AUTO

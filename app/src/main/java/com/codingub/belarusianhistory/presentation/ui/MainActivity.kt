@@ -2,6 +2,8 @@ package com.codingub.belarusianhistory.presentation.ui
 
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -20,6 +22,7 @@ import com.codingub.belarusianhistory.presentation.ui.menu.MenuFragment
 import com.codingub.belarusianhistory.presentation.ui.settings.SettingsFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.ImageUtil
+import com.codingub.belarusianhistory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -54,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragment_container_view, MenuFragment())
                 .commit()
         }
+
 
     }
 
