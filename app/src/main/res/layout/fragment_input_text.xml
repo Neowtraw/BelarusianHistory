@@ -24,15 +24,17 @@
         android:textColor="@color/text_color"
         android:textSize="@dimen/additional_text" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDate"
+    <EditText
+        android:id="@+id/edInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="5dp"
-        android:layout_marginBottom="80dp"/>
-
-
+        android:hint="@string/input"
+        android:maxWidth="300dp"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_hint"
+        android:textSize="@dimen/input_text"
+        />
 
 </RelativeLayout>

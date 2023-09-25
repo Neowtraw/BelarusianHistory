@@ -4,6 +4,7 @@
     <dimen name="header_text">30sp</dimen>
     <dimen name="main_text">14sp</dimen>
     <dimen name="additional_text">12sp</dimen>
+    <dimen name="input_text">20sp</dimen>
 
     <dimen name="main_padding">16dp</dimen>
     <dimen name="task_padding">560dp</dimen>

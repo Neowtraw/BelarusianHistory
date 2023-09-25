@@ -36,7 +36,7 @@
         android:id="@+id/btnCheck"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:text="@string/check"
+        android:text="@string/further"
         android:textAllCaps="false"
         android:textColor="@color/text_color"
         android:textSize="@dimen/main_text"

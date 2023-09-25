@@ -1,6 +1,6 @@
 package com.codingub.belarusianhistory.utils
 
-import com.codingub.belarusianhistory.presentation.ui.MainActivity
+import com.codingub.belarusianhistory.ui.MainActivity
 
 object LocaleController {
 

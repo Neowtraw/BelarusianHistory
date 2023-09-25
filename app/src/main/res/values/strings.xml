@@ -27,8 +27,8 @@
     <string name="ru" translatable="false">ru</string>
     <string name="be" translatable="false">be</string>
 
-
-    <string name="check">Проверить</string>
+    <string name="input" >Ввести</string>
+    <string name="further">Далее</string>
     <string name="return_string">Нажмите еще раз, чтобы выйти</string>
 
 </resources>

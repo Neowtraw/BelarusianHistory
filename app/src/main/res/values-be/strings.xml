@@ -24,6 +24,7 @@
     <string name="russian">Рускi</string>
     <string name="belarussian">Беларускi</string>
     <string name="default_theme">Сiстэмная</string>
-    <string name="check">Праверыць</string>
+    <string name="further">Далей</string>
+    <string name="input">Увесці</string>
     <string name="return_string">Націсніце яшчэ раз, каб выйсці</string>
 </resources>

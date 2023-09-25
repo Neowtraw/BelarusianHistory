@@ -1,13 +1,11 @@
 package com.codingub.belarusianhistory.utils
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.codingub.belarusianhistory.presentation.ui.MainActivity
+import com.codingub.belarusianhistory.ui.MainActivity
 
 object Resource {
 

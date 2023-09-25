@@ -7,8 +7,8 @@ enum class TaskType(
 ) {
 
     Test(0),
-    DateOrder(1),
-    Connection(2);
+    InputText(1),
+    DateOrder(2);
 
     companion object {
         private val map = values().associateBy(TaskType::task)

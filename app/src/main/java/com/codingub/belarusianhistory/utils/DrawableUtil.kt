@@ -6,7 +6,7 @@ import android.graphics.drawable.GradientDrawable
 import androidx.annotation.ColorInt
 import android.graphics.Color
 import androidx.core.content.ContextCompat
-import com.codingub.belarusianhistory.presentation.ui.MainActivity
+import com.codingub.belarusianhistory.ui.MainActivity
 
 object DrawableUtil {
     private val context: Context get() = MainActivity.getInstance()
