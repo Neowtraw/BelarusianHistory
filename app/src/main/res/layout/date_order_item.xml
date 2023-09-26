@@ -10,7 +10,7 @@
         android:id="@+id/edInput"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_rounded"
+        android:background="@drawable/item_rounded_bg"
         android:textSize="@dimen/input_text"
         android:padding="5dp"
         android:maxLength="1"

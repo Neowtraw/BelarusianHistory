@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.databinding.FragmentDateOrderBinding
 import com.codingub.belarusianhistory.domain.model.PracticeQuestion
+import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.serializable
@@ -20,6 +21,8 @@ class DateOrderFragment : TaskFragment() {
     private lateinit var dateAdapter: DateOrderAdapter
     private lateinit var dateItemDecorator: DateOrderItemDecorator
     private lateinit var question: PracticeQuestion
+
+    private var userAnswer: UserPracticeAnswer? = null
 
     override fun create() {
         super.create()
@@ -36,7 +39,7 @@ class DateOrderFragment : TaskFragment() {
         return binding.root
     }
 
-    private fun createDescription(){
+    private fun createDescription() {
         binding.tvQuestion.apply {
             typeface = Font.EXTRABOLD
             text = question.name
@@ -47,7 +50,7 @@ class DateOrderFragment : TaskFragment() {
         }
     }
 
-    private fun createDateOrderView(){
+    private fun createDateOrderView() {
         binding.rvDate.apply {
             overScrollMode = View.OVER_SCROLL_NEVER
             dateAdapter = DateOrderAdapter(question.answers)
@@ -58,11 +61,23 @@ class DateOrderFragment : TaskFragment() {
         }
     }
 
-    override fun onAnswersChecked(): Boolean {
+    override fun onAnswersChecked(): UserPracticeAnswer? {
 
 
 
-        return true
+        val answers = question.answers.map {
+            it.answerName
+        }
+
+        userAnswer = dateAdapter.getUserAnswers()?.let {
+            UserPracticeAnswer(
+                question.info, it,
+                answers,
+                dateAdapter.getUserAnswers() == answers
+            )
+        }
+
+        return userAnswer
     }
 
 }

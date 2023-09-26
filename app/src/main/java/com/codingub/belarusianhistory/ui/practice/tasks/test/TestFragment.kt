@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.codingub.belarusianhistory.databinding.FragmentTestBinding
 import com.codingub.belarusianhistory.domain.model.PracticeQuestion
+import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.serializable
@@ -20,6 +21,7 @@ class TestFragment : TaskFragment() {
     private lateinit var testAdapter: TestAdapter
 
     private lateinit var question : PracticeQuestion
+    private var userAnswer: UserPracticeAnswer? = null
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         binding = FragmentTestBinding.inflate(inf, con, false)
@@ -48,14 +50,18 @@ class TestFragment : TaskFragment() {
     private fun createTestView(){
         binding.rvChoose.apply {
             overScrollMode = View.OVER_SCROLL_NEVER
-            testAdapter = TestAdapter(question.answers)
+            testAdapter = TestAdapter(question.answers){userAnswer, answer, isTrue ->
+                this@TestFragment.userAnswer =
+                    UserPracticeAnswer(question.info, listOf(userAnswer), listOf(answer), isTrue)
+
+            }
             adapter = testAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
 
         }
     }
 
-    override fun onAnswersChecked(): Boolean {
-        return true
+    override fun onAnswersChecked(): UserPracticeAnswer? {
+        return userAnswer
     }
 }

@@ -3,6 +3,7 @@ package com.codingub.belarusianhistory.utils.extension
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import com.codingub.belarusianhistory.ui.custom.ScaleTouchListener
 
 /*
     View
@@ -10,6 +11,8 @@ import android.widget.TextView
 fun View.setPaddingDp(left: Int, top: Int, right: Int, bottom: Int) {
     setPadding(left.dp, top.dp, right.dp, bottom.dp)
 }
+
+fun View.applyScaleTouch() = setOnTouchListener(ScaleTouchListener())
 
 /*
     TextView

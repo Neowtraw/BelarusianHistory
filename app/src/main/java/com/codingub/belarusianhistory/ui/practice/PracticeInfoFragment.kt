@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentPracticeInfoBinding
@@ -16,6 +18,9 @@ import com.codingub.belarusianhistory.ui.practice.tasks.date_order.DateOrderFrag
 import com.codingub.belarusianhistory.ui.practice.tasks.input.InputTextFragment
 import com.codingub.belarusianhistory.ui.practice.tasks.test.TestFragment
 import com.codingub.belarusianhistory.sdk.TaskType
+import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
+import com.codingub.belarusianhistory.ui.base.TaskFragment
+import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,9 +57,24 @@ class PracticeInfoFragment : BaseFragment() {
             binding.btnCheck.apply {
                 typeface = Font.EXTRABOLD
                 setOnClickListener {
-                    if (progress > progressSize) progress = progressSize
-                    else progress += 1
-                   // pushChildFragment(vm.getPracticeQuestionByPosition())
+                    if (progress == progressSize){
+                        progress = progressSize
+
+                      //  val resultList : List<UserPracticeAnswer> = vm.resultList.value?.toList() ?: emptyList()
+                      //  setFragmentResult("result", bundleOf("resultList" to ArrayList(resultList)))
+
+                        pushFragment(ResultInfoFragment(), "resultInfo")
+                        return@setOnClickListener
+                    }
+
+                    val fragment = childFragmentManager.fragments.last() as TaskFragment
+
+                    fragment.onAnswersChecked()?.let {
+                        vm.addUserResult(it)
+                        progress += 1
+                        vm.getPracticeQuestionByPosition()?.let { it1 -> pushChildFragment(it1) }
+                    }
+
                 }
             }
         }
@@ -77,7 +97,7 @@ class PracticeInfoFragment : BaseFragment() {
                 binding.progressBar.max = progressSize
 
                 //once
-                pushChildFragment(vm.getPracticeQuestionByPosition())
+                vm.getPracticeQuestionByPosition()?.let { it1 -> pushChildFragment(it1) }
 
             }
         }

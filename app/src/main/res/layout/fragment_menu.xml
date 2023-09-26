@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="@dimen/main_padding"
     android:background="@color/bg"
-    tools:context=".presentation.ui.menu.MenuFragment">
+    tools:context=".ui.menu.MenuFragment">
 
     <TextView
         android:id="@+id/tvHeader"

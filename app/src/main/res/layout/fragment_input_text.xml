@@ -32,6 +32,7 @@
         android:layout_centerHorizontal="true"
         android:hint="@string/input"
         android:maxWidth="300dp"
+        android:maxLength="20"
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_hint"
         android:textSize="@dimen/input_text"

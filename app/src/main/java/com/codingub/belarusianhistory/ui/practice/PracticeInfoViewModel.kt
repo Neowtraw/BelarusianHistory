@@ -19,41 +19,34 @@ class PracticeInfoViewModel @Inject constructor() : ViewModel() {
 
 
     //для передачи в новый фрагмент
-    private val _resultList = MutableLiveData<List<UserPracticeAnswer>>()
-    val resultList : LiveData<List<UserPracticeAnswer>> get() = _resultList
+    private val _resultList = MutableLiveData<MutableList<UserPracticeAnswer>>()
+    val resultList : LiveData<MutableList<UserPracticeAnswer>> get() = _resultList
 
     fun selectTicketQuestion(ticketQuestion: TicketQuestion){
         _ticketQuestion.value = ticketQuestion
     }
 
-    fun getPracticeQuestionByPosition() : PracticeQuestion {
-        return _ticketQuestion.value!!.practiceList[position].also {
+    fun getPracticeQuestionByPosition() : PracticeQuestion? {
+        val ticketQuestion = _ticketQuestion.value
+        return if (ticketQuestion != null && ticketQuestion.practiceList.size > position) {
+            val practiceQuestion = ticketQuestion.practiceList[position]
             changePosition()
+            practiceQuestion
+        } else {
+            null
         }
     }
 
     // !! так как вызывается уже после обновления model
     private fun changePosition(){
-        if(_ticketQuestion.value!!.practiceList.size != position) position += 1
+        if(_ticketQuestion.value != null ||
+            _ticketQuestion.value!!.practiceList.size != position) position += 1
     }
 
-    fun addUserResult(userAnswer: List<String>){
-        val currentList = _resultList.value ?: emptyList()
-        val newList = currentList.toMutableList()
-        val rightAnswer = _ticketQuestion.value!!.practiceList[position].answers.map {
-            // преобразуем в лист string для упрощенной передачи и вывода
-            it.answerName
-        }
-
-        newList.add(
-            UserPracticeAnswer(
-            pqInfo = _ticketQuestion.value!!.practiceList[position].info,
-                userAnswer = userAnswer,
-                rightAnswer = rightAnswer,
-                isRight = userAnswer == rightAnswer
-        )
-        )
-        _resultList.value = newList
+    fun addUserResult(userAnswer: UserPracticeAnswer) {
+        val resultList = _resultList.value?.toMutableList() ?: mutableListOf()
+        resultList.add(userAnswer)
+        _resultList.value = resultList
     }
 
 }

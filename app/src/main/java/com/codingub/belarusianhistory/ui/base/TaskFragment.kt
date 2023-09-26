@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.MainActivity
 
 abstract class TaskFragment : Fragment() {
@@ -37,7 +38,7 @@ abstract class TaskFragment : Fragment() {
     protected abstract fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View
 
     //для получения листа resultAnswer
-    protected abstract fun onAnswersChecked(): Boolean
+    abstract fun onAnswersChecked(): UserPracticeAnswer?
 
     protected open fun viewCreated() {}
 

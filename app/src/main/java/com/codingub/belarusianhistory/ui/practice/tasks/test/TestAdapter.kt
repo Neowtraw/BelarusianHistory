@@ -8,10 +8,17 @@ import com.codingub.belarusianhistory.domain.model.Answer
 import com.codingub.belarusianhistory.utils.Font
 
 class TestAdapter(
-    private val answerList: List<Answer>
+    private val answerList: List<Answer>,
+    private val onAnswerSelected: (String, String, Boolean) -> Unit
 ) : RecyclerView.Adapter<TestAdapter.ViewHolder>() {
 
     private lateinit var binding: TestItemBinding
+    private var correctAnswer: Answer? = null
+
+    init {
+        correctAnswer = answerList.find { it.isTrue == 1 }
+    }
+
 
     inner class ViewHolder(private val binding: TestItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -19,8 +26,13 @@ class TestAdapter(
         init {
             binding.root.setOnClickListener {
                 if (answerList[bindingAdapterPosition].isTrue == 1) {
-                    //код анимации или простого перекрашивания кнопки
+                    onAnswerSelected(answerList[bindingAdapterPosition].answerName,
+                        answerList[bindingAdapterPosition].answerName, true)
+
                 } else { //точно такая же логика
+                    onAnswerSelected(answerList[bindingAdapterPosition].answerName,
+                        correctAnswer!!.answerName, false)
+
                 }
 
             }

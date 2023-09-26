@@ -27,4 +27,7 @@
     <string name="further">Далее</string>
     <string name="input">Ввести</string>
     <string name="return_string">Нажмите еще раз, чтобы выйти</string>
+    <string name="result">Результат</string>
+    <string name="return_to_menu">Вернуться в главное меню</string>
+
 </resources>
