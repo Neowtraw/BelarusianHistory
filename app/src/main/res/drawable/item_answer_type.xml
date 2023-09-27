@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/corner_icon_radius" /> <!-- Радиус закругления углов (можете настроить по своему усмотрению) -->
+    <solid android:color="@color/is_not_right" />
+
+    <stroke
+        android:width="2dp"
+        android:color="@color/is_not_right_stroke" />
+</shape>

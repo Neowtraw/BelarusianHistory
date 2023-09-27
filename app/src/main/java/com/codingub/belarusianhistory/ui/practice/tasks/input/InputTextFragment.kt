@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentInputTextBinding
 import com.codingub.belarusianhistory.domain.model.PracticeQuestion
@@ -15,6 +16,7 @@ import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialogView
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.serializable
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -79,7 +81,7 @@ class InputTextFragment : TaskFragment() {
     override fun onAnswersChecked(): UserPracticeAnswer? {
 
         if (answer == "" || answer == null) {
-            showAlertDialog()
+            Toast.makeText(requireContext(),Resource.string(R.string.null_task_request),Toast.LENGTH_SHORT).show()
             return null
         }
 
@@ -92,25 +94,4 @@ class InputTextFragment : TaskFragment() {
 
         return userAnswer
     }
-
-    private fun showAlertDialog() {
-        if (alertDialog != null) return
-
-        val view = AlertDialogView.Builder(requireContext())
-            .title(R.string.return_to_menu)
-            .positiveButton(R.string.input) {
-            }
-            .negativeButton(R.string.practice) {
-                alertDialog?.dismiss()
-            }
-            .build()
-
-        alertDialog = AlertDialog(requireContext()).apply {
-            setView(view)
-            setOnDismissListener {
-                alertDialog = null
-            }
-        }.also { it.show() }
-    }
-
 }

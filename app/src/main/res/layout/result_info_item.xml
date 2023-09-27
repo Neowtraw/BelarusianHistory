@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="start|top"
+    android:background="@drawable/item_answer_type">
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/main_text"
+        android:textColor="@color/text_color"
+        android:paddingBottom="5dp"
+        android:text="1"/>
+
+    <TextView
+        android:id="@+id/tvUserAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:text="1"/>
+
+    <TextView
+        android:id="@+id/tvRightAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="1"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

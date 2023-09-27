@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentPracticeInfoBinding
@@ -24,6 +22,7 @@ import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.Serializable
 
 @AndroidEntryPoint
 class PracticeInfoFragment : BaseFragment() {
@@ -57,13 +56,23 @@ class PracticeInfoFragment : BaseFragment() {
             binding.btnCheck.apply {
                 typeface = Font.EXTRABOLD
                 setOnClickListener {
-                    if (progress == progressSize){
-                        progress = progressSize
+                    if (progress == progressSize-1){
 
-                      //  val resultList : List<UserPracticeAnswer> = vm.resultList.value?.toList() ?: emptyList()
-                      //  setFragmentResult("result", bundleOf("resultList" to ArrayList(resultList)))
+                        val fragment1 = childFragmentManager.fragments.last() as TaskFragment
+                        fragment1.onAnswersChecked()?.let {
+                            vm.addUserResult(it)
+                            progress += 1
+                        }
 
-                        pushFragment(ResultInfoFragment(), "resultInfo")
+                        val resultList : List<UserPracticeAnswer> = vm.resultList.value?.toList() ?: emptyList()
+                        val args = Bundle().apply {
+                            putSerializable("resultList",ArrayList(resultList) as Serializable)
+                        }
+
+                        val fragment = ResultInfoFragment()
+                        fragment.arguments = args
+
+                        pushFragment(fragment, "resultInfo")
                         return@setOnClickListener
                     }
 

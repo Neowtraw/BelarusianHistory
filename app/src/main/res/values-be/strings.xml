@@ -29,5 +29,9 @@
     <string name="return_string">Націсніце яшчэ раз, каб выйсці</string>
     <string name="result">Вынік</string>
     <string name="return_to_menu">Вярнуцца ў галоўнае меню</string>
+    <string name="null_task_request">" Калі ласка! Увядзіце ваш адказ"</string>
+    <string name="back_task">Вы сапраўды жадаеце вярнуцца ў галоўнае меню? Вынік не захаваецца</string>
+    <string name="back_task_neg_button">Продолжить</string>
+    <string name="back_task_pos_button">Галоўнае меню</string>
 
 </resources>

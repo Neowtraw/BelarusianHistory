@@ -35,4 +35,9 @@
     <color name="top_color_achieves">#9089E7</color>
     <color name="bottom_color_achieves">#80F9EB</color>
 
+    <color name="is_right_stroke">#55771D</color>
+    <color name="is_right">#4555771D</color>
+    <color name="is_not_right_stroke">#95294A</color>
+    <color name="is_not_right">#4595294A</color>
+
 </resources>

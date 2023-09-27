@@ -40,20 +40,20 @@ class AlertDialogView private constructor(builder: Builder) : FrameLayout(builde
         with(builder){
             title?.let {
                 titleTextView = TextView(context).apply{
-                    setPaddingDp(20,0,20,10)
+                    setPaddingDp(20,10,20,10)
                     setTextColor(Resource.color(R.color.text_color))
-                    textSizeDp = Resource.dimen(R.dimen.main_text)
+                    textSize = 9f.dp
                     typeface = Font.EXTRABOLD
-                    isSingleLine = true
+                   // isSingleLine = true
                     ellipsize = TextUtils.TruncateAt.END
-                    gravity = Gravity.START or Gravity.TOP
+                    gravity = Gravity.START or Gravity.BOTTOM
 
                     text = it
                 }
                 layout.addView(
                     titleTextView, LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
-                        56.dp
+                        LinearLayout.LayoutParams.WRAP_CONTENT
                     )
                 )
             }

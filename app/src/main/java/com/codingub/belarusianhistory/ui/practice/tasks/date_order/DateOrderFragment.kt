@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentDateOrderBinding
 import com.codingub.belarusianhistory.domain.model.PracticeQuestion
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.serializable
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -76,6 +79,9 @@ class DateOrderFragment : TaskFragment() {
                 dateAdapter.getUserAnswers() == answers
             )
         }
+        if(userAnswer == null)
+            Toast.makeText(requireContext(), Resource.string(R.string.null_task_request), Toast.LENGTH_SHORT).show()
+
 
         return userAnswer
     }

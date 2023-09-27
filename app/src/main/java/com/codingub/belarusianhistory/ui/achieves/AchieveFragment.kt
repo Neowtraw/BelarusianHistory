@@ -22,6 +22,7 @@ import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.custom.view.CategoryAchieveView
 import com.codingub.belarusianhistory.sdk.AchievesCategory
+import com.codingub.belarusianhistory.ui.base.BaseItemDecoration
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
@@ -132,7 +133,7 @@ class AchieveFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(requireContext())
             achieveAdapter = AchieveAdapter()
             adapter = achieveAdapter
-            addItemDecoration(AchieveItemDecoration())
+            addItemDecoration(BaseItemDecoration())
         }
     }
 
