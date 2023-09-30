@@ -5,5 +5,5 @@ data class TicketQuestion(
     val name: String,
     val info: String,
     var isPassed: Int,
-    val practiceList: List<PracticeQuestion>
+    val practiceList: List<PracticeQuestion>?
 )

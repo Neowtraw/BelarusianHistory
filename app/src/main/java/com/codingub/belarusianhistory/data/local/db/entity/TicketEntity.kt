@@ -14,7 +14,7 @@ data class TicketEntity(
         entityColumn = "ticketId",
         entity = TicketAchievesRef::class
     )
-    val achieves: TicketAchievesRef,
+    val achieves: TicketAchievesRef?,
     @Relation(
         parentColumn = "ticketId",
         entityColumn = "ticketId",
@@ -30,7 +30,7 @@ data class TicketEntity(
             questionList = questions.map {
                 it.toTicketQuestion()
             },
-            achievement = achieves.toTicketAchieves()
+            achievement = achieves?.toTicketAchieves()
         )
     }
 }

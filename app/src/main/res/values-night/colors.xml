@@ -14,6 +14,7 @@
 
     <color name="main_color">#FFFFFF</color>
     <color name="text_color">#FFFFFF</color>
+    <color name="add_color">#50FFFFFF</color>
     <color name="text_hint">#74357FA8</color>
     <color name="icon_color_def">#FFFFFF</color>
     <color name="icon_color_passed">#357FA8</color>

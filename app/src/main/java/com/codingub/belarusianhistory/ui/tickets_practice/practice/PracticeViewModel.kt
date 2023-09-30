@@ -22,8 +22,8 @@ class PracticeViewModel @Inject constructor(
 
     init{
         viewModelScope.launch(Dispatchers.IO) {
-            val pracs = getAllTicketQuestions()
-            _practice.postValue(pracs)
+            val filteredPracs = getAllTicketQuestions().filter { !it.practiceList.isNullOrEmpty() }
+            _practice.postValue(filteredPracs)
         }
     }
 

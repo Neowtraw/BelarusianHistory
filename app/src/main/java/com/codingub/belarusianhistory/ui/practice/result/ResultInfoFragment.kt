@@ -13,9 +13,7 @@ import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.BaseItemDecoration
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
-import com.codingub.belarusianhistory.ui.tickets_practice.MainItemDecorator
 import com.codingub.belarusianhistory.utils.Font
-import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.serializable
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -81,7 +79,7 @@ class ResultInfoFragment : BaseFragment(){
     override fun observeChanges() {
         with(model){
             practiceInfo.observe(viewLifecycleOwner){
-                vm.allAnswerCount = it.practiceList.count { question ->
+                vm.allAnswerCount = it.practiceList!!.count { question ->
                     question.answers.any { answer -> answer.isTrue == 1 }
                 }
                 updateUI()

@@ -102,7 +102,7 @@ class PracticeInfoFragment : BaseFragment() {
             ticketQuestion.observe(this@PracticeInfoFragment) {
                 binding.tvTheme.text = it.name
 
-                progressSize = it.practiceList.size
+                progressSize = it.practiceList!!.size
                 binding.progressBar.max = progressSize
 
                 //once

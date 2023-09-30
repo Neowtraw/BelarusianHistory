@@ -17,10 +17,26 @@
         android:layout_marginBottom="20dp"
         android:textSize="@dimen/header_text" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPractice"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPractice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:id="@+id/tvEmptyPractice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_practice_list"
+            android:textSize="@dimen/header_text"
+            android:textColor="@color/add_color"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    </FrameLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

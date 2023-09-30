@@ -14,6 +14,7 @@
     <string name="settings">Настройки</string>
 
     <string name="go_to">Перейти</string>
+    <string name="go_to_practice">Перейти к выполнению практики</string>
 
     <string name="themes">Темы</string>
     <string name="languages">Языки</string>
@@ -37,5 +38,18 @@
     <string name="back_task">Вы точно хотите вернуться в главное меню? Результат не сохранится</string>
     <string name="back_task_neg_button">Продолжить</string>
     <string name="back_task_pos_button">Главное меню</string>
+    <string name="back_ticket_info">Вы точно хотите закончить изучение билета? Время до получения достижения: </string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
+    <string name="empty_practice_list">Нет практических заданий</string>
+    <string name="empty_ticket_list">Нет теоретических заданий</string>
+    <string name="empty_achieves">Нет достижений</string>
+    <string name="achieve_received">Достижение получено!</string>
+
+
+    <string name="reset_achieves">Сбросить достижения</string>
+    <string name="reset_tickets">Сбросить билеты</string>
+    <string name="reset_practice">Сбросить практику</string>
 
 </resources>

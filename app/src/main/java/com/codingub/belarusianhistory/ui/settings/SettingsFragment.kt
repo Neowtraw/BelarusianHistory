@@ -4,10 +4,12 @@ import android.content.res.ColorStateList
 import android.graphics.Outline
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
@@ -20,6 +22,7 @@ import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.setPaddingDp
+import com.codingub.belarusianhistory.utils.extension.textSizeDp
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,11 +39,16 @@ class SettingsFragment : BaseFragment() {
     private lateinit var themeListView: ThemeListView
     private lateinit var languageView: TabLayout
 
+    private lateinit var btnResetAchieves: Button
+    private lateinit var btnResetPractice: Button
+    private lateinit var btnResetTickets: Button
+
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
 
         createTexts()
         createThemeList()
         createLanguageView()
+        createButtons()
         createRootLayout()
 
         return rootLayout
@@ -131,6 +139,41 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
+    private fun createButtons(){
+
+        btnResetAchieves = Button(requireContext()).apply{
+            setBackgroundResource(Resource.drawable("item_rounded_settings"))
+            text = Resource.string(R.string.reset_achieves)
+            typeface = Font.REGULAR
+            textSizeDp = 20f
+            setTextColor(Resource.color(R.color.text_color))
+            setAllCaps(false)
+            gravity = Gravity.START
+            setPadding(30.dp,16.dp,0,16.dp)
+
+        }
+        btnResetTickets = Button(requireContext()).apply{
+            setBackgroundResource(Resource.drawable("item_rounded_settings"))
+            text = Resource.string(R.string.reset_tickets)
+            typeface = Font.REGULAR
+            textSizeDp = 20f
+            setTextColor(Resource.color(R.color.text_color))
+            setAllCaps(false)
+            gravity = Gravity.START
+            setPadding(30.dp,16.dp,0,16.dp)
+        }
+        btnResetPractice = Button(requireContext()).apply{
+            setBackgroundResource(Resource.drawable("item_rounded_settings"))
+            text = Resource.string(R.string.reset_practice)
+            typeface = Font.REGULAR
+            textSizeDp = 20f
+            setTextColor(Resource.color(R.color.text_color))
+            setAllCaps(false)
+            gravity = Gravity.START
+            setPadding(30.dp,16.dp,0,16.dp)
+        }
+    }
+
 
     private fun createRootLayout() {
         rootLayout = LinearLayout(requireContext()).apply {
@@ -164,7 +207,9 @@ class SettingsFragment : BaseFragment() {
                 languageText, LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
-                )
+                ).apply {
+                        setMargins(0,10.dp,0,0)
+                    }
             )
 
             addView(
@@ -173,6 +218,26 @@ class SettingsFragment : BaseFragment() {
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
             )
+
+            addView(btnResetAchieves, LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(0,30.dp,0,0)
+            })
+            addView(btnResetTickets, LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(0,10.dp,0,0)
+            })
+            addView(btnResetPractice, LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(0,10.dp,0,0)
+            })
+
         }
     }
 }

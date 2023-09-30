@@ -35,8 +35,10 @@ class PracticeFragment : BaseFragment() {
         val itemDecoration = MainItemDecorator(6.dp, 3)
 
         binding.tvHeader.typeface = Font.EXTRABOLD
+        binding.tvEmptyPractice.typeface = Font.REGULAR
 
         adapter = PracticeAdapter(practiceList){ practice ->
+
             model.select(practice)
             pushFragment(PracticeInfoFragment(), "practiceInfoFragment")
         }
@@ -52,9 +54,16 @@ class PracticeFragment : BaseFragment() {
     override fun observeChanges() {
         with(vm){
             practice.observe(this@PracticeFragment){
-                practiceList.clear()
-                practiceList.addAll(it)
-                adapter.notifyDataSetChanged()
+                if(it.isEmpty()){
+                    binding.rvPractice.visibility = View.INVISIBLE
+                    binding.tvEmptyPractice.visibility = View.VISIBLE
+                } else{
+                    binding.rvPractice.visibility = View.VISIBLE
+                    binding.tvEmptyPractice.visibility = View.INVISIBLE
+                    practiceList.clear()
+                    practiceList.addAll(it)
+                    adapter.notifyDataSetChanged()
+                }
             }
         }
     }

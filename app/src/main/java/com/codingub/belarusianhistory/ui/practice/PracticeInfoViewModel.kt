@@ -28,7 +28,7 @@ class PracticeInfoViewModel @Inject constructor() : ViewModel() {
 
     fun getPracticeQuestionByPosition() : PracticeQuestion? {
         val ticketQuestion = _ticketQuestion.value
-        return if (ticketQuestion != null && ticketQuestion.practiceList.size > position) {
+        return if (ticketQuestion != null && ticketQuestion.practiceList!!.size > position) {
             val practiceQuestion = ticketQuestion.practiceList[position]
             changePosition()
             practiceQuestion
@@ -40,7 +40,7 @@ class PracticeInfoViewModel @Inject constructor() : ViewModel() {
     // !! так как вызывается уже после обновления model
     private fun changePosition(){
         if(_ticketQuestion.value != null ||
-            _ticketQuestion.value!!.practiceList.size != position) position += 1
+            _ticketQuestion.value!!.practiceList!!.size != position) position += 1
     }
 
     fun addUserResult(userAnswer: UserPracticeAnswer) {

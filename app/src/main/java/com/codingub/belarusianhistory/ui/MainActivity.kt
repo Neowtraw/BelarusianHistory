@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-
+    private var isSettingsIconVisible = false
     private val TIME_INTERVAL: Long = 2000 // Интервал времени между нажатиями в миллисекундах
     private var mBackPressedTime: Long = 0 // Время последнего нажатия
 
@@ -71,19 +71,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (isSettingsIconVisible) {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         menu?.findItem(R.id.mSettings)?.let {
             it.iconTintList = ContextCompat.getColorStateList(this, R.color.icon_color_def)
         }
         return true
+        }
+        return false
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+        isSettingsIconVisible = currentFragment is MenuFragment
+        invalidateOptionsMenu()
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId ==
             R.id.mSettings
-        ) {
-            pushFragment(SettingsFragment(), "settings", R.id.fragment_container_view)
-            true
+        ) {  val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+            if (currentFragment is MenuFragment) pushFragment(SettingsFragment(), "settings", R.id.fragment_container_view)
+             true
         } else super.onOptionsItemSelected(item)
     }
 
@@ -97,6 +107,11 @@ class MainActivity : AppCompatActivity() {
             ImageUtil.load(AssetUtil.menuImageUri("icon")) {
                 binding.ivTbLogo.setImageDrawable(it)
                 binding.ivTbLogo.scaleType = ImageView.ScaleType.FIT_CENTER
+            }
+            binding.ivTbLogo.setOnClickListener {
+                if(supportFragmentManager.fragments.last() !is MenuFragment){
+                    pushToMenu()
+                }
             }
         }
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -184,7 +199,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Main) {
             pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
 
-            delay(350)
+            delay(400)
             supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         }
@@ -195,7 +210,7 @@ class MainActivity : AppCompatActivity() {
         if (alertDialog != null) return
 
         val view = AlertDialogView.Builder(this)
-            .title(R.string.back_task)
+            .message(R.string.back_task)
             .positiveButton(R.string.back_task_pos_button) {
                 pushToMenu()
                 alertDialog?.dismiss()

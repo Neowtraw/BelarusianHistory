@@ -7,5 +7,5 @@ data class Ticket(
     val name: String,
     var isPassed: Int,
     val questionList: List<TicketQuestion>,
-    val achievement: TicketAchieves
+    val achievement: TicketAchieves?
 )

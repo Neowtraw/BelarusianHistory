@@ -2,10 +2,13 @@ package com.codingub.belarusianhistory.ui.achieves
 
 import android.graphics.Outline
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
@@ -43,6 +46,9 @@ class AchieveFragment : BaseFragment() {
     private lateinit var achieveView: RecyclerView
     private lateinit var achieveAdapter: AchieveAdapter
 
+    private lateinit var emptyText: TextView
+    private lateinit var frameLayout: FrameLayout
+
 
     override fun create() {
         super.create()
@@ -50,6 +56,7 @@ class AchieveFragment : BaseFragment() {
         createMainText()
         createCategoriesLayout()
         createAchievesList()
+        createFrameLayout()
         createRootLayout()
 
     }
@@ -71,6 +78,14 @@ class AchieveFragment : BaseFragment() {
             setTextColor(Resource.color(R.color.text_color))
             textSize = 12f.dp
             typeface = Font.EXTRABOLD
+        }
+        emptyText = TextView(requireContext()).apply {
+            id = View.generateViewId()
+            text = Resource.string(R.string.empty_achieves)
+            setTextColor(Resource.color(R.color.add_color))
+            textSize = 12f.dp
+            typeface = Font.REGULAR
+            gravity = Gravity.CENTER
         }
     }
 
@@ -137,6 +152,22 @@ class AchieveFragment : BaseFragment() {
         }
     }
 
+    private fun createFrameLayout(){
+        frameLayout = FrameLayout(requireContext()).apply {
+            id = View.generateViewId()
+
+            addView(achieveView, ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT
+            ))
+            addView(emptyText, ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                600.dp
+            ))
+        }
+
+    }
+
     private fun createRootLayout(){
         rootLayout = MotionLayout(requireContext()).apply {
             setBackgroundResource(R.color.bg)
@@ -153,7 +184,7 @@ class AchieveFragment : BaseFragment() {
             ))
 
             addView(
-                achieveView, ConstraintLayout.LayoutParams(
+                frameLayout, ConstraintLayout.LayoutParams(
                     ConstraintLayout.LayoutParams.MATCH_PARENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
                 )
@@ -171,9 +202,7 @@ class AchieveFragment : BaseFragment() {
             connect(categoriesLayout.id, ConstraintSet.TOP, mainText.id, ConstraintSet.BOTTOM, 20.dp)
             connect(categoriesLayout.id, ConstraintSet.END,  ConstraintSet.PARENT_ID, ConstraintSet.END, 0)
             setAlpha(categoriesLayout.id, 1f)
-
-            connect(achieveView.id, ConstraintSet.TOP, categoriesLayout.id, ConstraintSet.BOTTOM, 16.dp)
-           // connect(achieveView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+            connect(frameLayout.id, ConstraintSet.TOP, categoriesLayout.id, ConstraintSet.BOTTOM, 16.dp)
 
 
             applyTo(rootLayout)
@@ -189,10 +218,7 @@ class AchieveFragment : BaseFragment() {
             connect(categoriesLayout.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 0)
             connect(categoriesLayout.id, ConstraintSet.END,  ConstraintSet.PARENT_ID, ConstraintSet.END, 0)
             setAlpha(categoriesLayout.id, 0f)
-
-
-            connect(achieveView.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 16.dp)
-           // connect(achieveView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+            connect(frameLayout.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 16.dp)
 
         }
 
@@ -212,7 +238,7 @@ class AchieveFragment : BaseFragment() {
                     setMaxAcceleration(50)
                     onTouchUp = OnSwipe.ON_UP_AUTOCOMPLETE
                     dragDirection = OnSwipe.DRAG_UP
-                    touchAnchorId = achieveView.id
+                    touchAnchorId = frameLayout.id
                 }
             )
         }.also {
@@ -229,8 +255,20 @@ class AchieveFragment : BaseFragment() {
 
 
     override fun observeChanges() {
-        vm.displayedAchieves.observe(viewLifecycleOwner){
-            achieveAdapter.achieves = it
+        vm.displayedAchieves.observe(this@AchieveFragment){
+
+            if(it.isNullOrEmpty()){
+                achieveAdapter.achieves = emptyList()
+                emptyText.visibility = View.VISIBLE
+                achieveView.visibility = View.INVISIBLE
+            }else{
+                achieveAdapter.achieves = it
+                emptyText.visibility = View.INVISIBLE
+                achieveView.visibility = View.VISIBLE
+            }
+
+            Log.d("",it.size.toString())
+
         }
     }
 

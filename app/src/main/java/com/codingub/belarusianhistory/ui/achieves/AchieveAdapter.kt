@@ -37,10 +37,6 @@ class AchieveAdapter: RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
         fun bind(){
             val item = achieves[bindingAdapterPosition]
 
-            if(item.isPassed == 0){
-                //binding.root.setBackgroundResource(Resource.color(R.color.achieve_not_passed))
-            }
-
             binding.tvName.apply {
                 text = item.name
                 typeface = Font.SEMIBOLD

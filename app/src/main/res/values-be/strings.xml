@@ -33,5 +33,16 @@
     <string name="back_task">Вы сапраўды жадаеце вярнуцца ў галоўнае меню? Вынік не захаваецца</string>
     <string name="back_task_neg_button">Продолжить</string>
     <string name="back_task_pos_button">Галоўнае меню</string>
+    <string name="go_to_practice">Перайсці да выканання практыкі</string>
+    <string name="back_ticket_info">Вы сапраўды хочаце скончыць вывучэнне білета? Час да атрымання дасягнення: </string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="empty_practice_list">Няма практычных заданняў</string>
+    <string name="empty_ticket_list">" Няма тэарэтычных заданняў"</string>
+    <string name="empty_achieves">Няма дасягненняў</string>
+    <string name="achieve_received">Дасягненне атрымана!</string>
+    <string name="reset_achieves">" Скінуць дасягненні"</string>
+    <string name="reset_practice">" Скінуць практыку"</string>
+    <string name="reset_tickets">" Скінуць білеты"</string>
 
 </resources>

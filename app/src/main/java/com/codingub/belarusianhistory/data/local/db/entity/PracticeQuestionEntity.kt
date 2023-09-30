@@ -16,7 +16,7 @@ data class PracticeQuestionEntity(
         parentColumn = "pqId",
         entityColumn = "pqId",
         entity = PracticeAchievesRef::class
-    ) val achievementId : PracticeAchievesRef,
+    ) val achievementId : PracticeAchievesRef?,
     @Relation(
         parentColumn = "pqId",
         entityColumn = "pqId",
@@ -32,7 +32,7 @@ data class PracticeQuestionEntity(
             answers = answers.map{
                  it.toAnswer()
             },
-            achievement = achievementId.toPracticeAchieves()
+            achievement = achievementId?.toPracticeAchieves()
         )
     }
 }

@@ -6,13 +6,37 @@
     android:background="@color/bg"
     android:padding="@dimen/main_padding">
 
-    <TextView
-        android:id="@+id/tvTicketNumber"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/header_text" />
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/tvTicketNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/header_text"
+            android:layout_gravity="start|top"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/main_text"
+            android:layout_gravity="center_vertical"/>
+
+        <ImageView
+            android:id="@+id/imgTimer"
+            android:src="@drawable/timer"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTicketInfo"
@@ -25,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/item_outline_rounded"
-        android:text="@string/go_to"
+        android:text="@string/further"
         android:textAllCaps="false"
         android:textColor="@color/text_color"
         android:textSize="@dimen/main_text" />
