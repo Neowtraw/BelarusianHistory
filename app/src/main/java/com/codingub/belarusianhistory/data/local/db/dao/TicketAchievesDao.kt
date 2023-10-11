@@ -3,7 +3,6 @@ package com.codingub.belarusianhistory.data.local.db.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Update
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.TicketAchievesRef
 
 @Dao
@@ -19,7 +18,9 @@ interface TicketAchievesDao {
     @Query("SELECT * FROM TicketAchieves WHERE isPassed = :isPassed")
     suspend fun getTicketAchievesByPassed(isPassed: Int) : List<TicketAchievesRef>
 
-    @Update
-    suspend fun setTicketAchievePassed(vararg ticketAchieve : TicketAchievesRef)
+    @Query("UPDATE 'TicketAchieves' SET isPassed=:passed WHERE achievementId=:id")
+    suspend fun updateTicketAchievesPassed(id: Int, passed: Int)
 
+    @Query("UPDATE TicketAchieves SET isPassed = 0")
+    suspend fun resetAllTicketAchieves()
 }

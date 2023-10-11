@@ -3,14 +3,17 @@ package com.codingub.belarusianhistory.domain.repository
 import com.codingub.belarusianhistory.domain.model.Achieves.Achieve
 import com.codingub.belarusianhistory.domain.model.Achieves.PracticeAchieves
 import com.codingub.belarusianhistory.domain.model.Achieves.TicketAchieves
+import com.codingub.belarusianhistory.domain.model.PracticeQuestion
 import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.sdk.AchievesCategory
-import com.codingub.belarusianhistory.sdk.Language
-import com.codingub.belarusianhistory.sdk.ThemeType
 import kotlinx.coroutines.flow.Flow
 
 interface AppRepository {
+
+    /*
+        Get
+     */
 
     //необходимо для "Практика"
     suspend fun getAllTicketQuestions() : List<TicketQuestion>
@@ -33,6 +36,32 @@ interface AppRepository {
     //получение количества пройденной практики и билетов
     suspend fun getTicketAchievesByPassed(isPassed: Int) : List<TicketAchieves>
     suspend fun getPracticeAchievesByPassed(isPassed: Int) : List<PracticeAchieves>
+
+    /*
+        Insert/Delete
+     */
+
+    suspend fun deletePracticeQuestionById(questionId: Int)
+
+    suspend fun insertPracticeQuestion(question: PracticeQuestion)
+
+    suspend fun resetAllPracticeAchieves()
+    suspend fun resetAllTicketAchieves()
+    suspend fun resetAllTickets()
+
+
+    /*
+        Updating
+     */
+
+    suspend fun updateTicketQuestionsPassed(id: Int, passed: Int)
+
+    suspend fun updateTicketAchievesPassed(id: Int, passed: Int)
+
+    suspend fun updatePracticeAchievesPassed(id: Int, passed: Int)
+
+    suspend fun updateTicketPassed(id: Int, passed: Int)
+
 
     /*
         Additional

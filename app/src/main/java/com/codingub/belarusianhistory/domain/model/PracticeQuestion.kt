@@ -10,5 +10,6 @@ data class PracticeQuestion(
     val name: String,
     val info: String,
     val answers: List<Answer>,
-    val achievement: PracticeAchieves?
+    val achievement: PracticeAchieves?,
+    val tqId: Int
 ) : Serializable

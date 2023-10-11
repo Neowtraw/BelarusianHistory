@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.codingub.belarusianhistory.domain.model.Achieves.PracticeAchieves
 
+
 @Entity(tableName = "PracticeAchieves")
 data class PracticeAchievesRef(
     @PrimaryKey(autoGenerate = false)

@@ -5,9 +5,11 @@ import com.codingub.belarusianhistory.data.local.db.dao.PracticeQuestionDao
 import com.codingub.belarusianhistory.data.local.db.dao.TicketAchievesDao
 import com.codingub.belarusianhistory.data.local.db.dao.TicketQuestionDao
 import com.codingub.belarusianhistory.data.local.db.dao.TicketsDao
+import com.codingub.belarusianhistory.data.local.db.entity.questions.PracticeQuestionRef
 import com.codingub.belarusianhistory.domain.model.Achieves.Achieve
 import com.codingub.belarusianhistory.domain.model.Achieves.PracticeAchieves
 import com.codingub.belarusianhistory.domain.model.Achieves.TicketAchieves
+import com.codingub.belarusianhistory.domain.model.PracticeQuestion
 import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.domain.repository.AppRepository
@@ -70,6 +72,55 @@ class AppRepositoryImpl @Inject constructor(
         }
     }
 
+    /*
+        Insert/Delete
+     */
+
+    override suspend fun resetAllPracticeAchieves() {
+        practiceAchievesDao.resetAllPracticeAchieves()
+    }
+
+    override suspend fun resetAllTicketAchieves() {
+        ticketAchievesDao.resetAllTicketAchieves()
+    }
+
+    override suspend fun resetAllTickets() {
+        ticketsDao.resetAllTickets()
+    }
+
+    override suspend fun deletePracticeQuestionById(questionId: Int) {
+        practiceQuestionDao.deletePracticeQuestionById(questionId)
+    }
+
+    override suspend fun insertPracticeQuestion(question: PracticeQuestion) {
+        practiceQuestionDao.insertPracticeQuestion(PracticeQuestionRef(
+            pqId = question.id,
+            taskType = question.taskType,
+            pqName = question.name,
+            pqInfo = question.info,
+            tqId = question.tqId
+        ))
+    }
+
+    /*
+        Updating
+     */
+
+    override suspend fun updateTicketQuestionsPassed(id: Int, passed: Int) {
+        ticketQuestionDao.updateTicketQuestionPassed(id, passed)
+    }
+
+    override suspend fun updateTicketAchievesPassed(id: Int, passed: Int) {
+        ticketAchievesDao.updateTicketAchievesPassed(id, passed)
+    }
+
+    override suspend fun updatePracticeAchievesPassed(id: Int, passed: Int) {
+        ticketAchievesDao.updateTicketAchievesPassed(id, passed)
+    }
+
+    override suspend fun updateTicketPassed(id: Int, passed: Int) {
+        ticketsDao.updateTicketPassed(id, passed)
+    }
     /*
         Additional
      */

@@ -44,5 +44,14 @@
     <string name="reset_achieves">" Скінуць дасягненні"</string>
     <string name="reset_practice">" Скінуць практыку"</string>
     <string name="reset_tickets">" Скінуць білеты"</string>
+    <string name="app_info">Вучы гісторыю лёгка і проста!</string>
+    <string name="auth_info">Зарэгіструйцеся альбо ўвайдзіце ў рахунак</string>
+    <string name="login_hint">Увядзіце лагін</string>
+    <string name="password_hint">Увядзіце пароль</string>
+    <string name="register">Зарэгістравацца</string>
+    <string name="login">Увайсці ў рахунак</string>
+    <string name="transition_to_login">у вас ёсць аканут? Увайсці</string>
+    <string name="transition_to_register">у вас няма акаўнута? Зарэгістравацца </string>
+    <string name="name_hint">Увядзіце ваша імя</string>
 
 </resources>

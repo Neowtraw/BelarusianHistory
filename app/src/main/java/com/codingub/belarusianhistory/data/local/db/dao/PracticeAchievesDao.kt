@@ -3,7 +3,6 @@ package com.codingub.belarusianhistory.data.local.db.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Update
 import com.codingub.belarusianhistory.data.local.db.entity.achieves.PracticeAchievesRef
 
 @Dao
@@ -19,6 +18,9 @@ interface PracticeAchievesDao {
     @Query("SELECT * FROM PracticeAchieves WHERE isPassed = :isPassed")
     suspend fun getPracticeAchievesByPassed(isPassed: Int) : List<PracticeAchievesRef>
 
-    @Update
-    suspend fun setPracticeAchievePassed(vararg practiceAchieve : PracticeAchievesRef)
+    @Query("UPDATE 'PracticeAchieves' SET isPassed=:passed WHERE achievementId=:id")
+    suspend fun updatePracticeAchievesPassed(id: Int, passed: Int)
+
+    @Query("UPDATE 'PracticeAchieves' SET isPassed = 0")
+    suspend fun resetAllPracticeAchieves()
 }

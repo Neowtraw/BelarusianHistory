@@ -32,7 +32,8 @@ data class PracticeQuestionEntity(
             answers = answers.map{
                  it.toAnswer()
             },
-            achievement = achievementId?.toPracticeAchieves()
+            achievement = achievementId?.toPracticeAchieves(),
+            tqId = pQuestion.tqId
         )
     }
 }

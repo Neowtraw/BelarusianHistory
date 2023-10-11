@@ -22,6 +22,9 @@ interface TicketsDao {
     @Query("SELECT * FROM Ticket WHERE ticketId = :id")
     fun getTicketById(id: Int) : Flow<TicketEntity>
 
-    @Update
-    suspend fun setTicketPassed(ticket : TicketRef)
+    @Query("UPDATE Ticket SET isPassed = 0")
+    suspend fun resetAllTickets()
+
+    @Query("UPDATE 'Ticket' SET isPassed=:passed WHERE ticketId=:id")
+    suspend fun updateTicketPassed(id: Int, passed: Int)
 }
