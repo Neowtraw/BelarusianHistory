@@ -50,18 +50,6 @@ interface AppRepository {
     suspend fun resetAllTickets()
 
 
-    /*
-        Updating
-     */
-
-    suspend fun updateTicketQuestionsPassed(id: Int, passed: Int)
-
-    suspend fun updateTicketAchievesPassed(id: Int, passed: Int)
-
-    suspend fun updatePracticeAchievesPassed(id: Int, passed: Int)
-
-    suspend fun updateTicketPassed(id: Int, passed: Int)
-
 
     /*
         Additional
@@ -69,6 +57,16 @@ interface AppRepository {
 
     //Получение определенных достижений
     suspend fun getAchieves(achievesCategory: AchievesCategory) : List<Achieve>
+
+    //---------------------------------
+
+    /*
+        User
+     */
+
+//    suspend fun signUp(username: String, password: String): AuthResult<Unit>
+//    suspend fun signIn(username: String, password: String): AuthResult<Unit>
+//    suspend fun authenticate(): AuthResult<Unit>
 
 
 }

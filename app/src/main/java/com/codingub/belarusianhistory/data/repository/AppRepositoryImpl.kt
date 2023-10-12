@@ -101,26 +101,6 @@ class AppRepositoryImpl @Inject constructor(
             tqId = question.tqId
         ))
     }
-
-    /*
-        Updating
-     */
-
-    override suspend fun updateTicketQuestionsPassed(id: Int, passed: Int) {
-        ticketQuestionDao.updateTicketQuestionPassed(id, passed)
-    }
-
-    override suspend fun updateTicketAchievesPassed(id: Int, passed: Int) {
-        ticketAchievesDao.updateTicketAchievesPassed(id, passed)
-    }
-
-    override suspend fun updatePracticeAchievesPassed(id: Int, passed: Int) {
-        ticketAchievesDao.updateTicketAchievesPassed(id, passed)
-    }
-
-    override suspend fun updateTicketPassed(id: Int, passed: Int) {
-        ticketsDao.updateTicketPassed(id, passed)
-    }
     /*
         Additional
      */

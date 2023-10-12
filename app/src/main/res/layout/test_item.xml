@@ -10,7 +10,7 @@
         android:id="@+id/tvAnswer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/item_rounded_bg"
+        android:background="@drawable/item_pressed_test"
         android:gravity="center"
         android:padding="10dp"
         android:textColor="@color/text_color"
