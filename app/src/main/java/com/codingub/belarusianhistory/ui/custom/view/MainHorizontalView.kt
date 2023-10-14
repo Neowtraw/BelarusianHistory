@@ -53,7 +53,7 @@ class MainHorizontalView(
         }
 
 
-    init{
+    init {
         setPadding(indent)
         setWillNotDraw(false)
 
@@ -61,7 +61,7 @@ class MainHorizontalView(
             scaleType = ImageView.ScaleType.FIT_CENTER
         }
 
-        ImageUtil.load(AssetUtil.menuImageUri(src)){
+        ImageUtil.load(AssetUtil.menuImageUri(src)) {
             img.apply {
                 setImageDrawable(it)
                 this@MainHorizontalView.invalidate()
@@ -97,8 +97,10 @@ class MainHorizontalView(
         }
         addView(tvAchieves)
 
-        gradient = DrawableUtil.createGradient(R.color.top_color_events,
-            R.color.bottom_color_events, GradientDrawable.Orientation.TOP_BOTTOM).apply {
+        gradient = DrawableUtil.createGradient(
+            R.color.top_color_events,
+            R.color.bottom_color_events, GradientDrawable.Orientation.TOP_BOTTOM
+        ).apply {
             cornerRadius = resources.getDimension(R.dimen.corner_icon_radius)
         }
     }
@@ -132,7 +134,7 @@ class MainHorizontalView(
         l = img.right + textIndent
         tvInfo.layout(l, t, l + tvInfo.measuredWidth, t + tvInfo.measuredHeight)
 
-        l = right - (tvAchieves.measuredWidth + paddingRight*2)
+        l = right - (tvAchieves.measuredWidth + paddingRight * 2)
         t = tvInfo.bottom + textIndent
         tvAchieves.layout(l, t, l + tvAchieves.measuredWidth, t + tvAchieves.measuredHeight)
     }
@@ -140,8 +142,7 @@ class MainHorizontalView(
     override fun onDraw(canvas: Canvas) {
 
         gradient.setBounds(0, 0, width, height)
-        if (canvas != null) {
-            gradient.draw(canvas)
-        }
+        gradient.draw(canvas)
+
     }
 }

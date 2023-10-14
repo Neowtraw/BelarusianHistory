@@ -4,10 +4,6 @@ import timber.log.Timber
 
 class HistoryLogger : Logger {
 
-    override fun setUserId(id: String) {
-        TODO("Not yet implemented")
-    }
-
     override fun v(message: String, vararg args: Any?) {
         Timber.v(message, *args)
     }

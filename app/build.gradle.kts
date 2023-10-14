@@ -32,14 +32,51 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("debug"){
+            isDebuggable = true
+            isMinifyEnabled = false
+
+            buildConfigField("String",
+                "history_endpoint",
+                "\"http://127.0.0.1:8080/\"")
+        }
+        getByName("release"){
+            isDebuggable = false
             isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            buildConfigField("String",
+                "history_endpoint",
+                "\"http://127.0.0.1:8080/\"")
+        }
+//        release {
+//            isMinifyEnabled = true
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+//        }
+    }
+
+    flavorDimensions.add("type")
+    flavorDimensions.add("accessLevel")
+    productFlavors {
+        create("free"){
+            dimension = "type"
+        }
+        create("paid"){
+            dimension = "type"
+        }
+
+        create("user"){
+            dimension = "accessLevel"
+        }
+        create("admin"){
+            dimension = "accessLevel"
+        }
+        create("teacher"){
+            dimension = "accessLevel"
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -47,10 +84,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    //binding
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
 //    kapt {
@@ -61,9 +97,9 @@ android {
 dependencies {
 
     //metadatada
-
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.10")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.core:core-animation:1.0.0-rc01")
     testImplementation("junit:junit:4.13.2")
@@ -71,11 +107,11 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //ktx
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     //splash screen
-    implementation("androidx.core:core-splashscreen:1.0.0-beta02")
+    implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.48")

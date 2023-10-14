@@ -21,37 +21,37 @@ class UserConfig @Inject constructor(@ApplicationContext private val context: Co
         )
     private val editor = prefs.edit()
 
-    private fun storeString(key: String, value: String) {
-        editor.run {
-            putString(key, value)
-            apply()
-        }
-    }
-
-    private fun storeBoolean(key: String, value: Boolean) =
-        editor.run{
-            putBoolean(key, value)
-            apply()
-        }
-
-    private fun storeLogin(key: String, value: Long){
-        editor.run {
-            putLong(key, value)
-            apply()
-        }
-    }
-
-    private fun getString(key: String) =
-        prefs.getString(key, "")
-
-    fun clearAll() =
-        editor?.run {
-            clear()
-            apply()
-        }
-
-    fun setLogin(){
-        storeBoolean(LOGIN, true)
-    }
+//    private fun storeString(key: String, value: String) {
+//        editor.run {
+//            putString(key, value)
+//            apply()
+//        }
+//    }
+//
+//    private fun storeBoolean(key: String, value: Boolean) =
+//        editor.run{
+//            putBoolean(key, value)
+//            apply()
+//        }
+//
+//    private fun storeLogin(key: String, value: Long){
+//        editor.run {
+//            putLong(key, value)
+//            apply()
+//        }
+//    }
+//
+//    private fun getString(key: String) =
+//        prefs.getString(key, "")
+//
+//    fun clearAll() =
+//        editor?.run {
+//            clear()
+//            apply()
+//        }
+//
+//    fun setLogin(){
+//        storeBoolean(LOGIN, true)
+//    }
 
 }

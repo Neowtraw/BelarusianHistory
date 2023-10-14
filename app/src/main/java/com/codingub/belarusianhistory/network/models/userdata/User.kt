@@ -1,8 +1,10 @@
 package com.codingub.belarusianhistory.network.models.userdata
 
-import com.codingub.belarusianhistory.network.models.userdata.Results
+import com.codingub.belarusianhistory.network.models.achieves.Results
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class User(
     @Json(name = "id") val id: String,
     @Json(name = "login") val login: String,
