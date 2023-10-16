@@ -2,56 +2,33 @@ package com.codingub.belarusianhistory.data.local.pref
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.lifecycle.MutableLiveData
 import com.codingub.belarusianhistory.App
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserConfig @Inject constructor(@ApplicationContext private val context: Context) {
+object UserConfig {
 
-    private val UID = "userId"
-    private val LOGIN = "login"
-    private val USER = "user"
+    private val key_user_token = "Token"
 
     private val prefs: SharedPreferences =
         App.getInstance().getSharedPreferences(
             "${App.getInstance().packageName}_${this::class.java.simpleName}",
             Context.MODE_PRIVATE
         )
-    private val editor = prefs.edit()
+    private val editor: SharedPreferences.Editor get() = prefs.edit()
 
-//    private fun storeString(key: String, value: String) {
-//        editor.run {
-//            putString(key, value)
-//            apply()
-//        }
-//    }
-//
-//    private fun storeBoolean(key: String, value: Boolean) =
-//        editor.run{
-//            putBoolean(key, value)
-//            apply()
-//        }
-//
-//    private fun storeLogin(key: String, value: Long){
-//        editor.run {
-//            putLong(key, value)
-//            apply()
-//        }
-//    }
-//
-//    private fun getString(key: String) =
-//        prefs.getString(key, "")
-//
-//    fun clearAll() =
-//        editor?.run {
-//            clear()
-//            apply()
-//        }
-//
-//    fun setLogin(){
-//        storeBoolean(LOGIN, true)
-//    }
+
+    // аутентефикация
+    private val token: MutableLiveData<String> = MutableLiveData()
+
+    fun getToken(): String = token.value!!
+    fun setToken(value: String) {
+        token.value = value
+        editor.putString(key_user_token, token.value).apply()
+    }
+
 
 }

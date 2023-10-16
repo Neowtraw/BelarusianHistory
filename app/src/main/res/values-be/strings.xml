@@ -53,5 +53,9 @@
     <string name="transition_to_login">у вас ёсць аканут? Увайсці</string>
     <string name="transition_to_register">у вас няма акаўнута? Зарэгістравацца </string>
     <string name="name_hint">Увядзіце ваша імя</string>
+    <string name="choose_role">Абярыце ролю</string>
+    <string name="user">Карыстальнік</string>
+    <string name="teacher">Настаўнік</string>
+    <string name="admin">Адміністратар</string>
 
 </resources>

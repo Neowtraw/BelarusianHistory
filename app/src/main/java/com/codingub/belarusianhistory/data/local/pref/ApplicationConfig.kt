@@ -6,8 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.sdk.Language
 import com.codingub.belarusianhistory.sdk.ThemeType
+import javax.inject.Singleton
 
-
+@Singleton
 object ApplicationConfig {
 
     private val key_saved_theme: String = "savedTheme"

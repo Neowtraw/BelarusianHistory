@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvChooseRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="50dp"
+        android:text="@string/choose_role"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/header_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRoles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="feffe"
+        android:textColor="@color/add_color"
+        android:textSize="@dimen/additional_text"
+        android:paddingTop="50dp"/>
+
+</LinearLayout>

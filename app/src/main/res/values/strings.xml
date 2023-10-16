@@ -63,5 +63,10 @@
     <string name="reset_achieves">Сбросить достижения</string>
     <string name="reset_tickets">Сбросить билеты</string>
     <string name="reset_practice">Сбросить практику</string>
+    <string name="choose_role">Выберите роль</string>
+
+    <string name="user">Пользователь</string>
+    <string name="teacher">Учитель</string>
+    <string name="admin">Администратор</string>
 
 </resources>

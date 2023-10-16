@@ -1,11 +1,11 @@
 package com.codingub.belarusianhistory.data.remote
 
-import com.codingub.belarusianhistory.network.EndPoints.AUTHENTICATE
-import com.codingub.belarusianhistory.network.EndPoints.SIGNIN
-import com.codingub.belarusianhistory.network.EndPoints.SIGNUP
-import com.codingub.belarusianhistory.network.requests.LoginRequest
-import com.codingub.belarusianhistory.network.requests.RegisterRequest
-import com.codingub.belarusianhistory.network.responses.TokenResponse
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.AUTHENTICATE
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNIN
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNUP
+import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
+import com.codingub.belarusianhistory.data.remote.network.responses.TokenResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -35,6 +35,7 @@ interface HistoryAppApi {
     /*
        Ticket
     */
+
 
     /*
       TicketQuestion
