@@ -1,18 +1,14 @@
 package com.codingub.belarusianhistory.data.remote.network.requests
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
 data class RegisterRequest(
-    @Json(name = "login") val login: String,
-    @Json(name = "username") val username: String,
-    @Json(name = "password") val password: String,
-    @Json(name = "accessLevel") val accessLevel: Int
+    val login: String,
+    val username: String,
+    val password: String,
+    val accessLevel: Int
 )
 
-@JsonClass(generateAdapter = true)
 data class LoginRequest(
-    @Json(name = "login") val login: String,
-    @Json(name = "password") val password: String
+    val login: String,
+    val password: String
 )

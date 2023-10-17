@@ -8,14 +8,18 @@ import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
+import com.codingub.belarusianhistory.ui.auth.register.RegisterFragment
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
@@ -31,6 +35,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -41,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     private var isSettingsIconVisible = false
     private val TIME_INTERVAL: Long = 2000 // Интервал времени между нажатиями в миллисекундах
     private var mBackPressedTime: Long = 0 // Время последнего нажатия
-
     private var alertDialog: AlertDialog? = null
 
     companion object {
@@ -49,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         private var Instance: MainActivity? = null
         fun getInstance(): MainActivity = Instance!!
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, MenuFragment())
+                .add(R.id.fragment_container_view, RegisterFragment())
                 .commit()
         }
 

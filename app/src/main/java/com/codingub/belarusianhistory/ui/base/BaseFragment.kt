@@ -59,7 +59,4 @@ abstract class BaseFragment : Fragment() {
         mainActivity.supportFragmentManager.popBackStack()
     }
 
-
-
-
 }

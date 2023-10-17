@@ -2,9 +2,9 @@ package com.codingub.belarusianhistory.data.remote.network
 
 object EndPoints {
 
-    const val SIGNIN = "signin"
-    const val SIGNUP = "signup"
-    const val AUTHENTICATE = "authenticate"
+    const val SIGNUP = "users/signup"
+    const val SIGNIN = "users/signin"
+    const val AUTHENTICATE = "users/authenticate"
 
 
 }

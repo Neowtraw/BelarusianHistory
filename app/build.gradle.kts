@@ -32,48 +32,51 @@ android {
     }
 
     buildTypes {
-        getByName("debug"){
+        debug {
             isDebuggable = true
             isMinifyEnabled = false
 
             buildConfigField("String",
                 "history_endpoint",
-                "\"http://127.0.0.1:8080/\"")
+                "\"http://192.168.86.106:8080/\"")
         }
-        getByName("release"){
+        release {
             isDebuggable = false
             isMinifyEnabled = true
+            
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            
             buildConfigField("String",
                 "history_endpoint",
-                "\"http://127.0.0.1:8080/\"")
+                "\"http://192.168.86.106:8080/\"")
         }
-//        release {
-//            isMinifyEnabled = true
-//            proguardFiles(
-//                getDefaultProguardFile("proguard-android-optimize.txt"),
-//                "proguard-rules.pro"
-//            )
-//        }
     }
 
     flavorDimensions.add("type")
     flavorDimensions.add("accessLevel")
     productFlavors {
         create("free"){
+            applicationIdSuffix = ".free"
             dimension = "type"
         }
         create("paid"){
+            applicationIdSuffix = ".paid"
             dimension = "type"
         }
 
         create("user"){
+            applicationIdSuffix = ".user"
             dimension = "accessLevel"
         }
         create("admin"){
+            applicationIdSuffix = ".admin"
             dimension = "accessLevel"
         }
         create("teacher"){
-            dimension = "accessLevel"
+            dimension = "teacher"
         }
     }
 

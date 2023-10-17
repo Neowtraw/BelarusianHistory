@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 object UserConfig {
 
-    private val key_user_token = "Token"
+    private val key_user_token = "token"
 
     private val prefs: SharedPreferences =
         App.getInstance().getSharedPreferences(
@@ -22,12 +22,12 @@ object UserConfig {
 
 
     // аутентефикация
-    private val token: MutableLiveData<String> = MutableLiveData()
+    private var token: String = ""
 
-    fun getToken(): String = token.value!!
+    fun getToken(): String = prefs.getString(key_user_token, "") ?: ""
     fun setToken(value: String) {
-        token.value = value
-        editor.putString(key_user_token, token.value).apply()
+        token = value
+        editor.putString(key_user_token, token).commit()
     }
 
 

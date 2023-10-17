@@ -5,9 +5,9 @@ import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.BuildConfig
 import com.codingub.belarusianhistory.data.local.db.AppDatabase
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
+import com.codingub.belarusianhistory.data.remote.network.HistoryNetworking
 import com.codingub.belarusianhistory.data.repository.AppRepositoryImpl
 import com.codingub.belarusianhistory.domain.repository.AppRepository
-import com.codingub.belarusianhistory.network.HistoryNetworking
 import com.codingub.belarusianhistory.utils.Constants.Injection.BUILD_VERSION_CODE
 import com.codingub.belarusianhistory.utils.Constants.Injection.BUILD_VERSION_NAME
 import com.codingub.belarusianhistory.utils.Constants.Injection.HISTORY_ENDPOINT
@@ -26,7 +26,7 @@ object AppModule {
 
     /*
             Db
-         */
+    */
 
     @Provides
     @Singleton

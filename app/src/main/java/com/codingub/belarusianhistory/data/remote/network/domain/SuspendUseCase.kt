@@ -1,5 +1,6 @@
 package com.codingub.belarusianhistory.data.remote.network.domain
 
+import android.util.Log
 import com.codingub.belarusianhistory.data.remote.network.DataUiResult
 import com.codingub.belarusianhistory.utils.logger.HistoryLogger
 import kotlinx.coroutines.CoroutineDispatcher
@@ -20,11 +21,14 @@ abstract class SuspendUseCase<in P, R>(private val coroutineDispatcher: Coroutin
      */
     suspend operator fun invoke(parameters: P): DataUiResult<R> {
         return try {
+
             // Moving all use case's executions to the injected dispatcher
             // In production code, this is usually the Default dispatcher (background thread)
             // In tests, this becomes a TestCoroutineDispatcher
             withContext(coroutineDispatcher) {
+
                 execute(parameters).let {
+                    Log.d("", "its success")
                     DataUiResult.Success(it)
                 }
             }

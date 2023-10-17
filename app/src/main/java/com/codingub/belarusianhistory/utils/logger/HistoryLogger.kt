@@ -1,8 +1,9 @@
 package com.codingub.belarusianhistory.utils.logger
 
 import timber.log.Timber
+import javax.inject.Inject
 
-class HistoryLogger : Logger {
+class HistoryLogger @Inject constructor() : Logger {
 
     override fun v(message: String, vararg args: Any?) {
         Timber.v(message, *args)

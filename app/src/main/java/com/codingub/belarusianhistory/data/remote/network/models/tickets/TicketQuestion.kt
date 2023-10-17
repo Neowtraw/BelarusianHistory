@@ -6,12 +6,11 @@ import com.codingub.belarusianhistory.data.remote.network.models.practices.Pract
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
 data class TicketQuestion(
-    @Json(name = "id") val id : String,
-    @Json(name = "name") val name: String,
-    @Json(name = "info") val info: String,
+    val id : String,
+    val name: String,
+    val info: String,
 
-    @Json(name = "practices") val practices: List<PracticeQuestion> = emptyList(),
-    @Json(name = "achieve") val achieve: Achieve? = null
+    val practices: List<PracticeQuestion> = emptyList(),
+    val achieve: Achieve? = null
 )

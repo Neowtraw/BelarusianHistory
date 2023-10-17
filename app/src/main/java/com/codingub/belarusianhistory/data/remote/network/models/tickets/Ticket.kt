@@ -4,12 +4,11 @@ import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achiev
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
 data class Ticket(
-    @Json(name = "id") val id: String,
-    @Json(name = "name") val name: String,
-    @Json(name = "timer") val timer: Long, //for timer in ticket
-    @Json(name = "questions") var questions: List<TicketQuestion> = emptyList(),
-    @Json(name = "achievement") val achievement: Achieve? = null
+    val id: String,
+    val name: String,
+    val timer: Long, //for timer in ticket
+    var questions: List<TicketQuestion> = emptyList(),
+    val achievement: Achieve? = null
 )
 
