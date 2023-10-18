@@ -51,10 +51,6 @@ abstract class BaseFragment : Fragment() {
         mainActivity.pushChildFragment(parentFragment, childFragment, backstack, R.id.fcvTasks)
     }
 
-    protected fun pushToMenu(){
-        mainActivity.pushToMenu()
-    }
-
     open fun finishFragment() {
         mainActivity.supportFragmentManager.popBackStack()
     }

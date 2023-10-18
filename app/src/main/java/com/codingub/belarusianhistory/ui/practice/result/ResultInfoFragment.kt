@@ -13,6 +13,7 @@ import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.BaseItemDecoration
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
+import com.codingub.belarusianhistory.ui.menu.MenuFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.serializable
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,7 +55,7 @@ class ResultInfoFragment : BaseFragment(){
         binding.btnGoTo.apply {
             typeface = Font.EXTRABOLD
             setOnClickListener {
-                pushToMenu()
+                pushFragment(MenuFragment(), "menu")
             }
         }
     }

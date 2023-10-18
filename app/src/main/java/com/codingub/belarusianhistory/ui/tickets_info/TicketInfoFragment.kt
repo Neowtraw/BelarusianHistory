@@ -17,6 +17,7 @@ import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialogView
+import com.codingub.belarusianhistory.ui.menu.MenuFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,7 +50,7 @@ class TicketInfoFragment : BaseFragment(){
         binding.btnGoTo.apply {
             typeface = Font.EXTRABOLD
             setOnClickListener {
-                if(remainingTime <= 0) pushToMenu()
+                if(remainingTime <= 0) pushFragment(MenuFragment(), "menu")
                 else showAlertDialog()
             }
         }
@@ -95,7 +96,7 @@ class TicketInfoFragment : BaseFragment(){
         val view = AlertDialogView.Builder(requireContext())
             .message(Resource.string(R.string.back_ticket_info)+time)
             .positiveButton(R.string.yes) {
-                pushToMenu()
+                pushFragment(MenuFragment(), "menu")
                 alertDialog?.dismiss()
             }
             .negativeButton(R.string.no) {

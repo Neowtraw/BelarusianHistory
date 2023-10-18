@@ -3,20 +3,17 @@ package com.codingub.belarusianhistory.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
 import com.codingub.belarusianhistory.ui.auth.register.RegisterFragment
@@ -25,19 +22,17 @@ import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialogView
 import com.codingub.belarusianhistory.ui.menu.MenuFragment
-import com.codingub.belarusianhistory.ui.practice.PracticeInfoFragment
-import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
 import com.codingub.belarusianhistory.ui.settings.SettingsFragment
-import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import androidx.activity.addCallback
+import com.codingub.belarusianhistory.ui.practice.PracticeInfoFragment
+import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
+import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
 
 
 @AndroidEntryPoint
@@ -66,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         createToolbar()
+        back()
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -76,35 +72,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (isSettingsIconVisible) {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        menu?.findItem(R.id.mSettings)?.let {
-            it.iconTintList = ContextCompat.getColorStateList(this, R.color.icon_color_def)
-        }
-        return true
-        }
-        return false
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
-        isSettingsIconVisible = currentFragment is MenuFragment
-        invalidateOptionsMenu()
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId ==
-            R.id.mSettings
-        ) {  val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
-            if (currentFragment is MenuFragment) pushFragment(SettingsFragment(), "settings", R.id.fragment_container_view)
-             true
-        } else super.onOptionsItemSelected(item)
-    }
-
     /*
-        Creation
+        Toolbar
      */
 
     private fun createToolbar() {
@@ -116,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             }
             binding.ivTbLogo.setOnClickListener {
                 if(supportFragmentManager.fragments.last() !is MenuFragment){
-                    pushToMenu()
+                    pushFragment(MenuFragment(), "menu",R.id.fragment_container_view)
                 }
             }
         }
@@ -124,45 +93,51 @@ class MainActivity : AppCompatActivity() {
     }
 
     /*
-        BackPress
+        Navigation
      */
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
 
-            if (supportFragmentManager.fragments.last() is TaskFragment ||
-                supportFragmentManager.fragments.last() is PracticeInfoFragment ||
-                supportFragmentManager.fragments.last() is TicketInfoFragment
-            ) {
-                showAlertDialog()
-                return
-            }
-            if(supportFragmentManager.fragments.last() is ResultInfoFragment){
-                pushToMenu()
-                return
-            }
+    private fun back(){
+        onBackPressedDispatcher.addCallback(this) {
 
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_left)
-            val currentFragment =
-                supportFragmentManager.findFragmentById(R.id.fragment_container_view)
-            currentFragment?.view?.startAnimation(
-                AnimationUtils.loadAnimation(
-                    this,
-                    R.anim.slide_in_left
+            if (supportFragmentManager.backStackEntryCount > 0 &&
+                supportFragmentManager.fragments.last() !is MenuFragment) {
+
+                if (supportFragmentManager.fragments.last() is TaskFragment ||
+                    supportFragmentManager.fragments.last() is PracticeInfoFragment ||
+                    supportFragmentManager.fragments.last() is TicketInfoFragment
+                ) {
+                    showAlertDialog()
+                    return@addCallback
+                }
+                if(supportFragmentManager.fragments.last() is ResultInfoFragment){
+                    pushFragment(MenuFragment(), "menu",R.id.fragment_container_view)
+                    return@addCallback
+                }
+
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_left)
+                val currentFragment =
+                    supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+                currentFragment?.view?.startAnimation(
+                    AnimationUtils.loadAnimation(
+                        this@MainActivity,
+                        R.anim.slide_in_left
+                    )
                 )
-            )
-            supportFragmentManager.popBackStack()
-            transaction.commit()
-        } else {
-            val currentTime = System.currentTimeMillis()
-            if (currentTime - mBackPressedTime > TIME_INTERVAL) {
-                Toast.makeText(this, R.string.return_string, Toast.LENGTH_SHORT).show()
-                mBackPressedTime = currentTime
+                supportFragmentManager.popBackStack()
+                transaction.commit()
             } else {
-                finish()
+                val currentTime = System.currentTimeMillis()
+                if (currentTime - mBackPressedTime > TIME_INTERVAL) {
+                    Toast.makeText(this@MainActivity, R.string.return_string, Toast.LENGTH_SHORT).show()
+                    mBackPressedTime = currentTime
+                } else {
+                    finish()
+                }
             }
         }
     }
+
 
     fun pushFragment(fragment: BaseFragment, backstack: String?, @IdRes fragmentView: Int) {
         val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -205,9 +180,6 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Main) {
             pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
 
-            delay(400)
-            supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
         }
 
     }
@@ -218,7 +190,7 @@ class MainActivity : AppCompatActivity() {
         val view = AlertDialogView.Builder(this)
             .message(R.string.back_task)
             .positiveButton(R.string.back_task_pos_button) {
-                pushToMenu()
+                pushFragment(MenuFragment(), "menu",R.id.fragment_container_view)
                 alertDialog?.dismiss()
             }
             .negativeButton(R.string.back_task_neg_button) {
@@ -232,6 +204,37 @@ class MainActivity : AppCompatActivity() {
                 alertDialog = null
             }
         }.also { it.show() }
+    }
+
+    /*
+        Menu
+     */
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (isSettingsIconVisible) {
+            menuInflater.inflate(R.menu.toolbar_menu, menu)
+            menu?.findItem(R.id.mSettings)?.let {
+                it.iconTintList = ContextCompat.getColorStateList(this, R.color.icon_color_def)
+            }
+            return true
+        }
+        return false
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+        isSettingsIconVisible = currentFragment is MenuFragment
+        invalidateOptionsMenu()
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId ==
+            R.id.mSettings
+        ) {  val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+            if (currentFragment is MenuFragment) pushFragment(SettingsFragment(), "settings", R.id.fragment_container_view)
+            true
+        } else super.onOptionsItemSelected(item)
     }
 
 }

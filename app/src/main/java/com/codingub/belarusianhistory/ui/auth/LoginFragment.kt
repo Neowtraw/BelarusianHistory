@@ -10,9 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.data.remote.network.DataUiResult
 import com.codingub.belarusianhistory.databinding.FragmentLoginBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
+import com.codingub.belarusianhistory.ui.menu.MenuFragment
 import com.codingub.belarusianhistory.utils.Font
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -37,7 +39,12 @@ class LoginFragment : BaseFragment() {
         binding.tvAppName.typeface = Font.EXTRABOLD
         binding.tvAppInfo.typeface = Font.REGULAR
         binding.tvError.typeface = Font.REGULAR
-        binding.tvTransition.typeface = Font.LIGHT
+        binding.tvTransition.apply{
+            typeface = Font.LIGHT
+            setOnClickListener {
+                pushFragment(LoginFragment(), "login")
+            }
+        }
         binding.tvAuthInfo.typeface = Font.LIGHT
 
         binding.etLogin.apply{
@@ -76,7 +83,7 @@ class LoginFragment : BaseFragment() {
                     authResults.collectLatest {
                         when (it) {
                             is DataUiResult.Success -> {
-                                pushToMenu()
+                                pushFragment(MenuFragment(), "menu")
                             }
                             is DataUiResult.Loading -> {}
                             is DataUiResult.Error -> {

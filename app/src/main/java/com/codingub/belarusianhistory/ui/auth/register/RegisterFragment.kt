@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.codingub.belarusianhistory.data.remote.network.DataUiResult
 import com.codingub.belarusianhistory.databinding.FragmentRegisterBinding
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
+import com.codingub.belarusianhistory.ui.auth.LoginFragment
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.menu.MenuFragment
 import com.codingub.belarusianhistory.utils.Font
@@ -40,7 +41,6 @@ class RegisterFragment : BaseFragment() {
         binding.tvAppName.typeface = Font.EXTRABOLD
         binding.tvAppInfo.typeface = Font.REGULAR
         binding.tvError.typeface = Font.REGULAR
-        binding.tvTransition.typeface = Font.LIGHT
         binding.tvAuthInfo.typeface = Font.LIGHT
 
         binding.etName.apply{
@@ -82,6 +82,13 @@ class RegisterFragment : BaseFragment() {
                 vm.onEvent(AuthUiEvent.SignUp)
             }
         }
+
+        binding.tvTransition.apply{
+            typeface = Font.LIGHT
+            setOnClickListener {
+                pushFragment(LoginFragment(), "login")
+            }
+        }
     }
 
     override fun observeChanges() {
@@ -91,7 +98,7 @@ class RegisterFragment : BaseFragment() {
                     authResults.collectLatest {
                         when (it) {
                             is DataUiResult.Success -> {
-                                pushFragment(MenuFragment(),"")
+                                pushFragment(MenuFragment(), "menu")
                             }
                             is DataUiResult.Loading -> {
                                 binding.tvError.text = "Пожалуйста повторите попытку позже"
