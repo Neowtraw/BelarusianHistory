@@ -28,7 +28,6 @@ abstract class SuspendUseCase<in P, R>(private val coroutineDispatcher: Coroutin
             withContext(coroutineDispatcher) {
 
                 execute(parameters).let {
-                    Log.d("", "its success")
                     DataUiResult.Success(it)
                 }
             }

@@ -30,6 +30,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.activity.addCallback
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
 import com.codingub.belarusianhistory.ui.practice.PracticeInfoFragment
 import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
 import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
@@ -37,7 +41,9 @@ import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+    private val vm: MainViewModel by viewModels()
 
     private var isSettingsIconVisible = false
     private val TIME_INTERVAL: Long = 2000 // Интервал времени между нажатиями в миллисекундах
@@ -53,6 +59,14 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val splashScreen = installSplashScreen().apply {
+            setKeepOnScreenCondition{
+                vm.isLoading.value
+            }
+        }
+        AppCompatDelegate.setDefaultNightMode(ApplicationConfig.getTheme().nightMode)
+
         super.onCreate(savedInstanceState)
         Instance = this
 

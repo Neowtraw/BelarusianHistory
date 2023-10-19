@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.auth
+package com.codingub.belarusianhistory.ui.auth.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +9,9 @@ import com.codingub.belarusianhistory.data.remote.network.onSuccess
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.domain.use_cases.AuthUseCase
 import com.codingub.belarusianhistory.domain.use_cases.LoginUseCase
+import com.codingub.belarusianhistory.ui.auth.AuthResult
+import com.codingub.belarusianhistory.ui.auth.AuthState
+import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -25,7 +28,7 @@ class LoginViewModel @Inject constructor(
     val state = MutableLiveData(AuthState())
     private fun currentState() = state.value!!
 
-    private val resultChannel = Channel<DataUiResult<Unit>>()
+    private val resultChannel = Channel<DataUiResult<AuthResult<Unit>>>()
     val authResults = resultChannel.receiveAsFlow()
 
     init {
@@ -35,11 +38,11 @@ class LoginViewModel @Inject constructor(
     fun onEvent(event: AuthUiEvent) {
         when (event) {
             is AuthUiEvent.SignInLoginChanged -> {
-                state.value = currentState().copy(signUpLogin = event.value)
+                state.value = currentState().copy(signInLogin = event.value)
             }
 
             is AuthUiEvent.SignInPasswordChanged -> {
-                state.value = currentState().copy(signUpPassword = event.value)
+                state.value = currentState().copy(signInPassword = event.value)
             }
 
             is AuthUiEvent.SignIn -> {
@@ -53,7 +56,7 @@ class LoginViewModel @Inject constructor(
     private fun signIn() {
         viewModelScope.launch(Dispatchers.IO) {
             resultChannel.send(DataUiResult.Loading(true))
-            val result = login(
+            login(
                 LoginRequest(
                     login = currentState().signInLogin,
                     password = currentState().signInPassword

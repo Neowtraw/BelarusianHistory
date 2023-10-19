@@ -55,31 +55,6 @@ android {
         }
     }
 
-    flavorDimensions.add("type")
-    flavorDimensions.add("accessLevel")
-    productFlavors {
-        create("free"){
-            applicationIdSuffix = ".free"
-            dimension = "type"
-        }
-        create("paid"){
-            applicationIdSuffix = ".paid"
-            dimension = "type"
-        }
-
-        create("user"){
-            applicationIdSuffix = ".user"
-            dimension = "accessLevel"
-        }
-        create("admin"){
-            applicationIdSuffix = ".admin"
-            dimension = "accessLevel"
-        }
-        create("teacher"){
-            dimension = "teacher"
-        }
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -121,6 +96,9 @@ dependencies {
 
     //splash screen
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
+
+    //shimmer effect
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.48")

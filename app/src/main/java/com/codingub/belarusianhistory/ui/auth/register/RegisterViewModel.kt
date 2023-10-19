@@ -11,6 +11,7 @@ import com.codingub.belarusianhistory.data.remote.network.requests.RegisterReque
 import com.codingub.belarusianhistory.domain.use_cases.AuthUseCase
 import com.codingub.belarusianhistory.domain.use_cases.RegisterUseCase
 import com.codingub.belarusianhistory.sdk.AccessLevel
+import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.ui.auth.AuthState
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +30,7 @@ class RegisterViewModel @Inject constructor(
     val state = MutableLiveData(AuthState())
     private fun currentState() = state.value!!
 
-    private val resultChannel = Channel<DataUiResult<Unit>>()
+    private val resultChannel = Channel<DataUiResult<AuthResult<Unit>>>()
     val authResults = resultChannel.receiveAsFlow()
 
     init {
@@ -72,10 +73,8 @@ class RegisterViewModel @Inject constructor(
                 )
             ).onSuccess {
                 resultChannel.send(DataUiResult.Success(this))
-                Log.d("","success")
             }.onServerError {
                 resultChannel.send(DataUiResult.Error(this))
-                Log.d("","error")
 
             }
 

@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.auth
+package com.codingub.belarusianhistory.ui.auth.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,12 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.data.remote.network.DataUiResult
 import com.codingub.belarusianhistory.databinding.FragmentLoginBinding
+import com.codingub.belarusianhistory.ui.auth.AuthResult
+import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.menu.MenuFragment
+import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,7 +27,7 @@ import kotlinx.coroutines.launch
 class LoginFragment : BaseFragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private val vm : LoginViewModel by viewModels()
+    private val vm: LoginViewModel by viewModels()
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         binding = FragmentLoginBinding.inflate(inf, con, false)
@@ -39,7 +42,14 @@ class LoginFragment : BaseFragment() {
         binding.tvAppName.typeface = Font.EXTRABOLD
         binding.tvAppInfo.typeface = Font.REGULAR
         binding.tvError.typeface = Font.REGULAR
-        binding.tvTransition.apply{
+        binding.imgLogo.apply {
+            ImageUtil.load(
+                AssetUtil.menuImageUri("icon")
+            ) {
+                setImageDrawable(it)
+            }
+        }
+        binding.tvTransition.apply {
             typeface = Font.LIGHT
             setOnClickListener {
                 pushFragment(LoginFragment(), "login")
@@ -47,30 +57,46 @@ class LoginFragment : BaseFragment() {
         }
         binding.tvAuthInfo.typeface = Font.LIGHT
 
-        binding.etLogin.apply{
+        binding.etLogin.apply {
             typeface = Font.REGULAR
             addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     vm.onEvent(AuthUiEvent.SignInLoginChanged(s.toString()))
                 }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
                 override fun afterTextChanged(s: Editable?) = Unit
             })
         }
 
-        binding.etPassword.apply{
+        binding.etPassword.apply {
             typeface = Font.REGULAR
             addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     vm.onEvent(AuthUiEvent.SignInPasswordChanged(s.toString()))
                 }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
                 override fun afterTextChanged(s: Editable?) = Unit
             })
         }
         binding.btnLogin.apply {
             typeface = Font.EXTRABOLD
-            vm.onEvent(AuthUiEvent.SignIn)
+            setOnClickListener {
+                vm.onEvent(AuthUiEvent.SignIn)
+            }
         }
 
 
@@ -83,8 +109,28 @@ class LoginFragment : BaseFragment() {
                     authResults.collectLatest {
                         when (it) {
                             is DataUiResult.Success -> {
-                                pushFragment(MenuFragment(), "menu")
+                                when (it.data) {
+                                    is AuthResult.Authorized -> {
+                                        pushFragment(MenuFragment(), "menu")
+                                    }
+
+                                    is AuthResult.Unauthorized -> {
+                                        binding.tvError.text = "Вы не авторизованы"
+                                    }
+
+                                    is AuthResult.Conflict -> {
+                                        binding.tvError.text = it.data.errorMessage
+                                        if (it.data.errorMessage == "") {
+                                            binding.tvError.text = "кря"
+                                        }
+                                    }
+
+                                    is AuthResult.UnknownError -> {
+                                        binding.tvError.text = "Повторите попытку позже"
+                                    }
+                                }
                             }
+
                             is DataUiResult.Loading -> {}
                             is DataUiResult.Error -> {
                                 binding.tvError.text = "Пожалуйста повторите попытку позже"

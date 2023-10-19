@@ -3,7 +3,6 @@ package com.codingub.belarusianhistory.ui.auth.register
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.codingub.belarusianhistory.data.remote.network.DataUiResult
 import com.codingub.belarusianhistory.databinding.FragmentRegisterBinding
+import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
-import com.codingub.belarusianhistory.ui.auth.LoginFragment
+import com.codingub.belarusianhistory.ui.auth.login.LoginFragment
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.menu.MenuFragment
+import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,38 +42,70 @@ class RegisterFragment : BaseFragment() {
     private fun createUI() {
         binding.tvAppName.typeface = Font.EXTRABOLD
         binding.tvAppInfo.typeface = Font.REGULAR
-        binding.tvError.typeface = Font.REGULAR
+        binding.imgLogo.apply {
+            ImageUtil.load(
+                AssetUtil.menuImageUri("icon")
+            ){
+                setImageDrawable(it)
+            }
+        }
+        binding.tvError.apply {
+            typeface = Font.REGULAR
+            text = "Пожалуйста повторите попытку позже"
+
+        }
         binding.tvAuthInfo.typeface = Font.LIGHT
 
-        binding.etName.apply{
+        binding.etName.apply {
             typeface = Font.REGULAR
             addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     vm.onEvent(AuthUiEvent.SignUpUsernameChanged(s.toString()))
                 }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
                 override fun afterTextChanged(s: Editable?) = Unit
             })
         }
 
-        binding.etLogin.apply{
+        binding.etLogin.apply {
             typeface = Font.REGULAR
             addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     vm.onEvent(AuthUiEvent.SignUpLoginChanged(s.toString()))
                 }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
                 override fun afterTextChanged(s: Editable?) = Unit
             })
         }
 
-        binding.etPassword.apply{
+        binding.etPassword.apply {
             typeface = Font.REGULAR
             addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     vm.onEvent(AuthUiEvent.SignUpPasswordChanged(s.toString()))
                 }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
                 override fun afterTextChanged(s: Editable?) = Unit
             })
         }
@@ -83,7 +117,7 @@ class RegisterFragment : BaseFragment() {
             }
         }
 
-        binding.tvTransition.apply{
+        binding.tvTransition.apply {
             typeface = Font.LIGHT
             setOnClickListener {
                 pushFragment(LoginFragment(), "login")
@@ -98,12 +132,27 @@ class RegisterFragment : BaseFragment() {
                     authResults.collectLatest {
                         when (it) {
                             is DataUiResult.Success -> {
-                                pushFragment(MenuFragment(), "menu")
+                                when(it.data){
+                                    is AuthResult.Authorized -> {
+                                        pushFragment(MenuFragment(), "menu")
+                                    }
+                                    is AuthResult.Unauthorized -> {
+                                        binding.tvError.text = "Вы не авторизованы"
+                                    }
+                                    is AuthResult.Conflict ->{
+                                        binding.tvError.text = it.data.errorMessage
+                                    }
+                                    is AuthResult.UnknownError ->{
+                                        binding.tvError.text = "Повторите попытку позже"
+                                    }
+                                }
                             }
+
                             is DataUiResult.Loading -> {
-                                binding.tvError.text = "Пожалуйста повторите попытку позже"
+                                binding.tvError.text = "Загрузка"
 
                             }
+
                             is DataUiResult.Error -> {
                                 binding.tvError.text = "Пожалуйста повторите попытку позже"
                             }
