@@ -71,7 +71,9 @@ class LoginViewModel @Inject constructor(
 
     private fun auth() {
         viewModelScope.launch(Dispatchers.IO) {
-            authenticate(Unit)
+            authenticate(Unit).onSuccess {
+                resultChannel.send(DataUiResult.Success(this))
+            }
         }
     }
 

@@ -14,6 +14,7 @@ import com.codingub.belarusianhistory.data.remote.network.DataUiResult
 import com.codingub.belarusianhistory.databinding.FragmentLoginBinding
 import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
+import com.codingub.belarusianhistory.ui.auth.register.RegisterFragment
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.menu.MenuFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
@@ -52,7 +53,7 @@ class LoginFragment : BaseFragment() {
         binding.tvTransition.apply {
             typeface = Font.LIGHT
             setOnClickListener {
-                pushFragment(LoginFragment(), "login")
+                pushFragment(RegisterFragment(), "login")
             }
         }
         binding.tvAuthInfo.typeface = Font.LIGHT
@@ -117,21 +118,21 @@ class LoginFragment : BaseFragment() {
                                     is AuthResult.Unauthorized -> {
                                         binding.tvError.text = "Вы не авторизованы"
                                     }
-
                                     is AuthResult.Conflict -> {
                                         binding.tvError.text = it.data.errorMessage
                                         if (it.data.errorMessage == "") {
                                             binding.tvError.text = "кря"
                                         }
                                     }
-
                                     is AuthResult.UnknownError -> {
                                         binding.tvError.text = "Повторите попытку позже"
                                     }
                                 }
                             }
 
-                            is DataUiResult.Loading -> {}
+                            is DataUiResult.Loading -> {
+                                binding.tvError.text = "Загрузка"
+                            }
                             is DataUiResult.Error -> {
                                 binding.tvError.text = "Пожалуйста повторите попытку позже"
                             }

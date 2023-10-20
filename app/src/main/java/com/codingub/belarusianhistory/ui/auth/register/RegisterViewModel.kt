@@ -24,7 +24,6 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val register: RegisterUseCase,
-    private val authenticate: AuthUseCase
 ) : ViewModel() {
 
     val state = MutableLiveData(AuthState())
@@ -32,10 +31,6 @@ class RegisterViewModel @Inject constructor(
 
     private val resultChannel = Channel<DataUiResult<AuthResult<Unit>>>()
     val authResults = resultChannel.receiveAsFlow()
-
-    init {
-        auth()
-    }
 
     fun onEvent(event: AuthUiEvent) {
         when (event) {
@@ -81,14 +76,4 @@ class RegisterViewModel @Inject constructor(
 
         }
     }
-
-    private fun auth() {
-        viewModelScope.launch(Dispatchers.IO) {
-            authenticate(Unit).onSuccess {
-                resultChannel.send(DataUiResult.Success(this))
-            }
-        }
-    }
-
-
 }

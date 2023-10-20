@@ -1,22 +1,36 @@
 package com.codingub.belarusianhistory.data.repository.users
 
 
+import android.util.Log
 import com.codingub.belarusianhistory.data.local.pref.UserConfig
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
+import com.codingub.belarusianhistory.sdk.AccessLevel
 import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.utils.logger.HistoryLogger
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 private val log: HistoryLogger = HistoryLogger()
 
 interface UserRepository {
 
+    /*
+        Authentication
+     */
+
     suspend fun signUp(request: RegisterRequest): AuthResult<Unit>
     suspend fun signIn(login: String, password: String): AuthResult<Unit>
     suspend fun authenticate(): AuthResult<Unit>
+
+    /*
+        Users
+     */
+
+    suspend fun changeRoleByLogin(accessLevel: AccessLevel) : String
 }
 
 class UserRepositoryImpl @Inject constructor(
@@ -50,6 +64,7 @@ class UserRepositoryImpl @Inject constructor(
                 )
             )
             UserConfig.setToken(response.token)
+            UserConfig.setLogin(login)
             AuthResult.Authorized()
         } catch (e: HttpException) {
             if (e.code() == 401) {
@@ -75,5 +90,18 @@ class UserRepositoryImpl @Inject constructor(
                 AuthResult.UnknownError()
             }
         }
+    }
+
+    /*
+        Users
+     */
+    override suspend fun changeRoleByLogin(
+        accessLevel: AccessLevel
+    ) : String{
+        Log.d("","changeRoleByLogin")
+        return api.changeRoleByLogin(RoleRequest(
+            UserConfig.getLogin(),
+            accessLevel = accessLevel.position
+        )).message
     }
 }

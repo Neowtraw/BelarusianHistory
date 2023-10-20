@@ -12,6 +12,7 @@ import javax.inject.Singleton
 object UserConfig {
 
     private val key_user_token = "token"
+    private val key_user_login = "login"
 
     private val prefs: SharedPreferences =
         App.getInstance().getSharedPreferences(
@@ -28,6 +29,15 @@ object UserConfig {
     fun setToken(value: String) {
         token = value
         editor.putString(key_user_token, token).commit()
+    }
+
+    //получение данных пользователя по логину
+    private var login: String = ""
+
+    fun getLogin(): String = prefs.getString(key_user_login, "") ?:  ""
+    fun setLogin(value: String){
+        login = value
+        editor.putString(key_user_login, login).commit()
     }
 
 

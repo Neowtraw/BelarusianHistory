@@ -2,22 +2,41 @@ package com.codingub.belarusianhistory.ui.auth.register
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
+import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.RoleItemBinding
 import com.codingub.belarusianhistory.sdk.AccessLevel
 import com.codingub.belarusianhistory.utils.Font
 
-class RoleAdapter : RecyclerView.Adapter<RoleAdapter.RoleViewHolder>()  {
+class RoleAdapter(
+    val onRoleSelected: (AccessLevel) -> Unit
+) : RecyclerView.Adapter<RoleAdapter.RoleViewHolder>() {
 
     private val roles = AccessLevel.values().toList()
+    private val roleImages = listOf(
+        R.drawable.ic_launcher_icon,
+        R.drawable.ic_launcher_icon,
+        R.drawable.ic_launcher_icon
+    )
 
-    inner class RoleViewHolder(private val binding: RoleItemBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class RoleViewHolder(private val binding: RoleItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        internal fun bind(){
+        init{
+            binding.root.setOnClickListener {
+                onRoleSelected.invoke(roles[bindingAdapterPosition])
+
+            }
+        }
+
+        internal fun bind() {
             binding.tvRole.typeface = Font.REGULAR
+            binding.imgRole.setImageResource(
+                roleImages[bindingAdapterPosition]
+            )
         }
     }
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoleViewHolder {

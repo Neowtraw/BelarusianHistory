@@ -134,7 +134,7 @@ class RegisterFragment : BaseFragment() {
                             is DataUiResult.Success -> {
                                 when(it.data){
                                     is AuthResult.Authorized -> {
-                                        pushFragment(MenuFragment(), "menu")
+                                        pushFragment(RoleFragment(), "role")
                                     }
                                     is AuthResult.Unauthorized -> {
                                         binding.tvError.text = "Вы не авторизованы"

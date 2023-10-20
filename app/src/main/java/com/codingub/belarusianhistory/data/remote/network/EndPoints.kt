@@ -6,5 +6,7 @@ object EndPoints {
     const val SIGNIN = "users/signin"
     const val AUTHENTICATE = "users/authenticate"
 
+    const val ROLE_CHANGE = "users/changerole"
+
 
 }

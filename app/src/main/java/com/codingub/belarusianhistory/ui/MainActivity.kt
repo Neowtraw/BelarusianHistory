@@ -3,7 +3,6 @@ package com.codingub.belarusianhistory.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
@@ -16,7 +15,6 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
-import com.codingub.belarusianhistory.ui.auth.register.RegisterFragment
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
@@ -27,13 +25,13 @@ import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
+import com.codingub.belarusianhistory.ui.auth.login.LoginFragment
 import com.codingub.belarusianhistory.ui.practice.PracticeInfoFragment
 import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
 import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
@@ -80,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, RegisterFragment())
+                .add(R.id.fragment_container_view, LoginFragment())
                 .commit()
         }
 
