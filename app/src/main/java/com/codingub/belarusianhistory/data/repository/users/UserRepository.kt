@@ -1,9 +1,9 @@
 package com.codingub.belarusianhistory.data.repository.users
 
 
-import android.util.Log
 import com.codingub.belarusianhistory.data.local.pref.UserConfig
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
@@ -11,7 +11,6 @@ import com.codingub.belarusianhistory.sdk.AccessLevel
 import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.utils.logger.HistoryLogger
 import retrofit2.HttpException
-import timber.log.Timber
 import javax.inject.Inject
 
 private val log: HistoryLogger = HistoryLogger()
@@ -30,7 +29,7 @@ interface UserRepository {
         Users
      */
 
-    suspend fun changeRoleByLogin(accessLevel: AccessLevel) : String
+    suspend fun changeRoleByLogin(accessLevel: AccessLevel) : ServerResponse<Unit>
 }
 
 class UserRepositoryImpl @Inject constructor(
@@ -49,6 +48,8 @@ class UserRepositoryImpl @Inject constructor(
             } else {
                 AuthResult.UnknownError()
             }
+        } catch (e: Exception){
+            AuthResult.UnknownError()
         }
     }
 
@@ -74,6 +75,8 @@ class UserRepositoryImpl @Inject constructor(
             } else {
                 AuthResult.UnknownError()
             }
+        } catch (e: Exception){
+            AuthResult.UnknownError()
         }
     }
 
@@ -89,6 +92,8 @@ class UserRepositoryImpl @Inject constructor(
             } else {
                 AuthResult.UnknownError()
             }
+        } catch (e: Exception){
+            AuthResult.UnknownError()
         }
     }
 
@@ -97,11 +102,26 @@ class UserRepositoryImpl @Inject constructor(
      */
     override suspend fun changeRoleByLogin(
         accessLevel: AccessLevel
-    ) : String{
-        Log.d("","changeRoleByLogin")
-        return api.changeRoleByLogin(RoleRequest(
-            UserConfig.getLogin(),
-            accessLevel = accessLevel.position
-        )).message
+    ) : ServerResponse<Unit> {
+        return try {
+            api.changeRoleByLogin(
+                RoleRequest(
+                    UserConfig.getLogin(),
+                    accessLevel = accessLevel.position
+                )
+            )
+            ServerResponse.OK()
+        } catch (e: HttpException){
+            if(e.code() == 400){
+                ServerResponse.BadRequest()
+            } else if(e.code() == 409) {
+                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
+            }
+            else{
+                ServerResponse.UnknownError()
+            }
+        } catch (e: Exception){
+            ServerResponse.UnknownError()
+        }
     }
 }

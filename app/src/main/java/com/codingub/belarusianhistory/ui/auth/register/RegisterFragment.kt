@@ -10,13 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.codingub.belarusianhistory.data.remote.network.DataUiResult
 import com.codingub.belarusianhistory.databinding.FragmentRegisterBinding
 import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
 import com.codingub.belarusianhistory.ui.auth.login.LoginFragment
 import com.codingub.belarusianhistory.ui.base.BaseFragment
-import com.codingub.belarusianhistory.ui.menu.MenuFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ImageUtil
@@ -45,7 +43,7 @@ class RegisterFragment : BaseFragment() {
         binding.imgLogo.apply {
             ImageUtil.load(
                 AssetUtil.menuImageUri("icon")
-            ){
+            ) {
                 setImageDrawable(it)
             }
         }
@@ -131,33 +129,29 @@ class RegisterFragment : BaseFragment() {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     authResults.collectLatest {
                         when (it) {
-                            is DataUiResult.Success -> {
-                                when(it.data){
-                                    is AuthResult.Authorized -> {
-                                        pushFragment(RoleFragment(), "role")
-                                    }
-                                    is AuthResult.Unauthorized -> {
-                                        binding.tvError.text = "Вы не авторизованы"
-                                    }
-                                    is AuthResult.Conflict ->{
-                                        binding.tvError.text = it.data.errorMessage
-                                    }
-                                    is AuthResult.UnknownError ->{
-                                        binding.tvError.text = "Повторите попытку позже"
-                                    }
-                                }
+                            is AuthResult.Loading -> {
+                                /**
+                                 *  ЗДЕСЬ ТВОЙ КОД
+                                 */
+                            }
+                            is AuthResult.Authorized -> {
+                                pushFragment(RoleFragment(), "role")
                             }
 
-                            is DataUiResult.Loading -> {
-                                binding.tvError.text = "Загрузка"
-
+                            is AuthResult.Unauthorized -> {
+                                binding.tvError.text = "Вы не авторизованы"
                             }
 
-                            is DataUiResult.Error -> {
-                                binding.tvError.text = "Пожалуйста повторите попытку позже"
+                            is AuthResult.Conflict -> {
+                                binding.tvError.text = it.errorMessage
+                            }
+
+                            is AuthResult.UnknownError -> {
+                                binding.tvError.text = "Повторите попытку позже"
                             }
                         }
                     }
+
                 }
             }
         }

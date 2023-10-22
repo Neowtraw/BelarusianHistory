@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.codingub.belarusianhistory.data.remote.network.DataUiResult
 import com.codingub.belarusianhistory.databinding.FragmentLoginBinding
 import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
@@ -109,34 +108,32 @@ class LoginFragment : BaseFragment() {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     authResults.collectLatest {
                         when (it) {
-                            is DataUiResult.Success -> {
-                                when (it.data) {
-                                    is AuthResult.Authorized -> {
-                                        pushFragment(MenuFragment(), "menu")
-                                    }
+                            is AuthResult.Loading -> {
+                                /**
+                                 *  ЗДЕСЬ ТВОЙ КОД
+                                 */
+                            }
 
-                                    is AuthResult.Unauthorized -> {
-                                        binding.tvError.text = "Вы не авторизованы"
-                                    }
-                                    is AuthResult.Conflict -> {
-                                        binding.tvError.text = it.data.errorMessage
-                                        if (it.data.errorMessage == "") {
-                                            binding.tvError.text = "кря"
-                                        }
-                                    }
-                                    is AuthResult.UnknownError -> {
-                                        binding.tvError.text = "Повторите попытку позже"
-                                    }
+                            is AuthResult.Authorized -> {
+                                pushFragment(MenuFragment(), "menu")
+                            }
+
+                            is AuthResult.Unauthorized -> {
+                                binding.tvError.text = "Вы не авторизованы"
+                            }
+
+                            is AuthResult.Conflict -> {
+                                binding.tvError.text = it.errorMessage
+                                if (it.errorMessage == "") {
+                                    binding.tvError.text = "кря"
                                 }
                             }
 
-                            is DataUiResult.Loading -> {
-                                binding.tvError.text = "Загрузка"
-                            }
-                            is DataUiResult.Error -> {
-                                binding.tvError.text = "Пожалуйста повторите попытку позже"
+                            is AuthResult.UnknownError -> {
+                                binding.tvError.text = "Повторите попытку позже"
                             }
                         }
+
                     }
                 }
             }

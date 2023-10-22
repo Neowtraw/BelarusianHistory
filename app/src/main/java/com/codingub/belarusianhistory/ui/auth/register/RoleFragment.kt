@@ -10,8 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.codingub.belarusianhistory.data.remote.network.DataUiResult
-import com.codingub.belarusianhistory.data.remote.network.data
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentRoleBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.BaseItemDecoration
@@ -20,7 +19,6 @@ import com.codingub.belarusianhistory.utils.Font
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class RoleFragment : BaseFragment() {
@@ -58,15 +56,24 @@ class RoleFragment : BaseFragment() {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     roleState.collectLatest {
                         when (it) {
-                            is DataUiResult.Success -> {
+                            is ServerResponse.Loading -> { // загрузка
+                                Toast.makeText(requireContext(), "Загрузка", Toast.LENGTH_LONG).show()
+                                /**
+                                 * ЗДЕСЬ ТВОЙ КОД
+                                 */
+                            }
+                            is ServerResponse.OK -> {
                                 pushFragment(MenuFragment(), "menu")
-                                Toast.makeText(requireContext(), it.data, Toast.LENGTH_LONG)
+                                Toast.makeText(requireContext(), "its all good", Toast.LENGTH_LONG).show()
                             }
-                            is DataUiResult.Loading -> { // загрузка
-                                Toast.makeText(requireContext(), "Загрузка", Toast.LENGTH_LONG)
+                            is ServerResponse.Conflict -> {
+                                Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG).show()
                             }
-                            is DataUiResult.Error -> {
-                                Toast.makeText(requireContext(), it.data, Toast.LENGTH_LONG)
+                            is ServerResponse.BadRequest -> {
+
+                            }
+                            is ServerResponse.UnknownError -> {
+
                             }
                         }
                     }

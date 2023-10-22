@@ -12,7 +12,6 @@ import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNIN
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TQ
-import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
 import com.codingub.belarusianhistory.data.remote.network.models.practices.PracticeQuestion
 import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
@@ -60,24 +59,24 @@ interface HistoryAppApi {
     @POST(ROLE_CHANGE)
     suspend fun changeRoleByLogin(
         @Body request: RoleRequest
-    ) : ServerResponse<Any>
+    )
 
     /*
        Ticket
     */
 
     @GET(TICKET)
-    suspend fun getAllTickets() : ServerResponse<List<Ticket>>
+    suspend fun getAllTickets() : List<Ticket>
 
     @POST(INSERT_TICKET)
     suspend fun insertTicket(
         @Body request: InsertTicketRequest
-    ) : ServerResponse<Any>
+    )
 
     @POST(RESET_TICKET)
     suspend fun resetTicket(
         @Body request: DeleteTicketRequest
-    ) : ServerResponse<Any>
+    )
 
     /*
       TicketQuestion
@@ -86,17 +85,17 @@ interface HistoryAppApi {
     @GET(TQ)
     suspend fun getAllTq(
         @Body ticketId: String
-    ) : ServerResponse<List<TicketQuestion>>
+    ) : List<TicketQuestion>
 
     @POST(INSERT_TICKET)
     suspend fun insertTq(
         @Body request: InsertTqRequest
-    ) : ServerResponse<Any>
+    )
 
     @POST(RESET_TICKET)
     suspend fun deleteTq(
         @Body request: DeleteTqRequest
-    ) : ServerResponse<Any>
+    )
 
     /*
       PracticeQuestion
@@ -105,29 +104,29 @@ interface HistoryAppApi {
     @GET(PQ)
     suspend fun getAllPq(
         @Body tqId: String
-    ) : ServerResponse<List<PracticeQuestion>>
+    ) : List<PracticeQuestion>
 
     @POST(INSERT_PQ)
     suspend fun insertPq(
         @Body request: InsertPqRequest
-    ) : ServerResponse<Any>
+    )
 
     @POST(RESET_PQ)
     suspend fun deletePq(
         @Body request: DeletePqRequest
-    ) : ServerResponse<Any>
+    )
 
     /*
       Achieves
    */
 
     @GET(ACHIEVE)
-    suspend fun getAllAchieves() : ServerResponse<List<Achieve>>
+    suspend fun getAllAchieves() : List<Achieve>
 
     @GET(ACHIEVE)
     suspend fun getTypeAchieves(
         @Query("type") type: Int
-    ): ServerResponse<List<Achieve>>
+    ): List<Achieve>
 
 
 }
