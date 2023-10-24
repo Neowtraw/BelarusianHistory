@@ -1,9 +1,5 @@
 package com.codingub.belarusianhistory.data.remote.network.models.practices
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-
-
 data class PracticeQuestion(
    val id: String,
    val taskType: Int,

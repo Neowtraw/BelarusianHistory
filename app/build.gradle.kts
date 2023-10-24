@@ -119,7 +119,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version") //для работы корутин
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-    testImplementation("androidx.room:room-testing:$room_version")
+        testImplementation("androidx.room:room-testing:$room_version")
 
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")

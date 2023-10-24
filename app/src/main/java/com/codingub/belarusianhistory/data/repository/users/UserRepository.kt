@@ -113,7 +113,7 @@ class UserRepositoryImpl @Inject constructor(
             ServerResponse.OK()
         } catch (e: HttpException){
             if(e.code() == 400){
-                ServerResponse.BadRequest()
+                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
             } else if(e.code() == 409) {
                 ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
