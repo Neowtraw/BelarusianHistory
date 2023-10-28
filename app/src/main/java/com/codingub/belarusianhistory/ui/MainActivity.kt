@@ -4,6 +4,7 @@ package com.codingub.belarusianhistory.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -39,6 +40,7 @@ import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
 import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.setAppLocale
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -58,6 +60,13 @@ class MainActivity : AppCompatActivity() {
         fun getInstance(): MainActivity = Instance!!
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        val configuration = Configuration().apply {
+            setLocale(Locale(ApplicationConfig.getLanguage().code))
+        }
+        val context = newBase.createConfigurationContext(configuration)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -81,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, MenuFragment())
+                .add(R.id.fragment_container_view, LoginFragment())
                 .commit()
         }
 

@@ -40,7 +40,7 @@ object ApplicationConfig {
     fun setLanguage(language: Language){
         App.getInstance().setLanguage(language)
         savedLanguage.value = language
-        editor.putString(key_saved_language, language.name).apply()
+        editor.putString(key_saved_language, language.name).commit()
         Log.d("ApplicationConfig", "Current language is ${language.code}")
     }
 

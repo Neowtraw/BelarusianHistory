@@ -16,6 +16,7 @@ import com.codingub.belarusianhistory.ui.custom.view.MainVerticalView
 import com.codingub.belarusianhistory.ui.tickets_practice.practice.PracticeFragment
 import com.codingub.belarusianhistory.ui.tickets_practice.tickets.TicketsFragment
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,8 +53,8 @@ class MenuFragment : BaseFragment() {
     private fun createMenuEvents(){
         menuEvents = MainHorizontalView(
             context = requireContext(), src = "events",
-            textName = resources.getString(R.string.events),
-            textInfo = resources.getString(R.string.events_info),
+            textName = Resource.string(R.string.events),
+            textInfo = Resource.string(R.string.events_info),
             textAchieves = "0/1").apply {
             id =View.generateViewId()
             setOnClickListener{
@@ -73,7 +74,7 @@ class MenuFragment : BaseFragment() {
     private fun createMenuPractice(){
         menuPractice = MainSquareView(
             context = requireContext(), src = "practice",
-            textName = resources.getString(R.string.practice),
+            textName = Resource.string(R.string.practice),
             textAchieves = "",
             R.color.top_color_practice,
             R.color.bottom_color_practice).apply {
@@ -95,7 +96,7 @@ class MenuFragment : BaseFragment() {
     private fun createMenuTickets(){
         menuTickets = MainSquareView(
             context = requireContext(), src = "tickets",
-            textName = resources.getString(R.string.tickets),
+            textName = Resource.string(R.string.tickets),
             textAchieves = "",
             R.color.top_color_tickets,
             R.color.bottom_color_tickets).apply {
@@ -118,9 +119,9 @@ class MenuFragment : BaseFragment() {
     private fun createMenuAchieves(){
         menuAchieves = MainVerticalView(
             context = requireContext(), src = "achieves",
-            textName = resources.getString(R.string.achieves),
+            textName = Resource.string(R.string.achieves),
             textAchieves = "",
-            textInfo = resources.getString(R.string.achieves_info)
+            textInfo = Resource.string(R.string.achieves_info)
         ).apply {
             id =View.generateViewId()
             setOnClickListener{

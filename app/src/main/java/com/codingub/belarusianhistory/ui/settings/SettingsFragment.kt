@@ -41,10 +41,13 @@ class SettingsFragment : BaseFragment() {
     private lateinit var languageText: TextView
     private lateinit var themeListView: ThemeListView
     private lateinit var languageView: TabLayout
+    private val tabs: MutableList<TabLayout.Tab> = mutableListOf()
 
     private lateinit var btnResetAchieves: Button
     private lateinit var btnResetPractice: Button
     private lateinit var btnResetTickets: Button
+
+    private val languages: Array<Language> = Language.values()
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
 
@@ -109,13 +112,16 @@ class SettingsFragment : BaseFragment() {
 
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    val language = tab.customView as SelectedView
+                    val index = tabs.indexOf(tab)
+                    if (index == -1) return
 
-                    language.setChecked(true, animated = true)
+//                    val languageView = tab.customView as SelectedView
+//                    languageView.setChecked(true, animated = true)
 
-                    if(Language.getLanguageByName(language.text).code != ApplicationConfig.getLanguage().code){
-                        vm.setNewLanguage(Language.getLanguageByName(language.text))
-                     //   MainActivity.getInstance().recreate()
+                    val language = languages[index]
+                    if (language.code != ApplicationConfig.getLanguage().code) {
+                        vm.setNewLanguage(language)
+                        MainActivity.getInstance().recreate()
                     }
                 }
 
@@ -127,7 +133,6 @@ class SettingsFragment : BaseFragment() {
             })
         }
 
-        val languages = Language.values()
         languages.forEachIndexed { index, language ->
             languageView.apply {
                 newTab().apply {
@@ -142,17 +147,21 @@ class SettingsFragment : BaseFragment() {
                     )
                 }.also {
                     addTab(it)
+                    tabs.add(it)
                 }
             }
         }
 
-        val tab : TabLayout.Tab = languageView.getTabAt(vm.getLastLanguagePos())!!
-        tab.select()
+        languageView.apply {
+            val tab = tabs[languages.indexOf(ApplicationConfig.getLanguage())]
+            selectTab(tab)
+            (tab.customView as? SelectedView)?.setChecked(true, animated = true)
+        }
     }
 
-    private fun createButtons(){
+    private fun createButtons() {
 
-        btnResetAchieves = Button(requireContext()).apply{
+        btnResetAchieves = Button(requireContext()).apply {
             setBackgroundResource(Resource.drawable("item_rounded_settings"))
             text = Resource.string(R.string.reset_achieves)
             typeface = Font.REGULAR
@@ -160,10 +169,10 @@ class SettingsFragment : BaseFragment() {
             setTextColor(Resource.color(R.color.text_color))
             setAllCaps(false)
             gravity = Gravity.START
-            setPadding(30.dp,16.dp,0,16.dp)
+            setPadding(30.dp, 16.dp, 0, 16.dp)
 
         }
-        btnResetTickets = Button(requireContext()).apply{
+        btnResetTickets = Button(requireContext()).apply {
             setBackgroundResource(Resource.drawable("item_rounded_settings"))
             text = Resource.string(R.string.reset_tickets)
             typeface = Font.REGULAR
@@ -171,9 +180,9 @@ class SettingsFragment : BaseFragment() {
             setTextColor(Resource.color(R.color.text_color))
             setAllCaps(false)
             gravity = Gravity.START
-            setPadding(30.dp,16.dp,0,16.dp)
+            setPadding(30.dp, 16.dp, 0, 16.dp)
         }
-        btnResetPractice = Button(requireContext()).apply{
+        btnResetPractice = Button(requireContext()).apply {
             setBackgroundResource(Resource.drawable("item_rounded_settings"))
             text = Resource.string(R.string.reset_practice)
             typeface = Font.REGULAR
@@ -181,7 +190,7 @@ class SettingsFragment : BaseFragment() {
             setTextColor(Resource.color(R.color.text_color))
             setAllCaps(false)
             gravity = Gravity.START
-            setPadding(30.dp,16.dp,0,16.dp)
+            setPadding(30.dp, 16.dp, 0, 16.dp)
         }
     }
 
@@ -198,7 +207,7 @@ class SettingsFragment : BaseFragment() {
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
             )
-            mainText.setPadding(0,0,0,16.dp)
+            mainText.setPadding(0, 0, 0, 16.dp)
 
             addView(
                 themeText, LinearLayout.LayoutParams(
@@ -219,8 +228,8 @@ class SettingsFragment : BaseFragment() {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 ).apply {
-                        setMargins(0,10.dp,0,0)
-                    }
+                    setMargins(0, 10.dp, 0, 0)
+                }
             )
 
             addView(
@@ -234,19 +243,19 @@ class SettingsFragment : BaseFragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                setMargins(0,30.dp,0,0)
+                setMargins(0, 30.dp, 0, 0)
             })
             addView(btnResetTickets, LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                setMargins(0,10.dp,0,0)
+                setMargins(0, 10.dp, 0, 0)
             })
             addView(btnResetPractice, LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                setMargins(0,10.dp,0,0)
+                setMargins(0, 10.dp, 0, 0)
             })
 
         }
