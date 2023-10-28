@@ -6,4 +6,7 @@ plugins {
 
     //Hilt
     id("com.google.dagger.hilt.android") version "2.48" apply false
+
+    //Firebase translater
+    id("com.google.gms.google-services") version "4.4.0" apply false
 }

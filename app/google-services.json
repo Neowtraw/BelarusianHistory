@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "446448685547",
+    "project_id": "history-2810c",
+    "storage_bucket": "history-2810c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446448685547:android:f13c7940a022b966be49ae",
+        "android_client_info": {
+          "package_name": "com.codingub.belarusianhistory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm8EJcdxYTSX5-IVPQdIjh36QzWwwgH6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

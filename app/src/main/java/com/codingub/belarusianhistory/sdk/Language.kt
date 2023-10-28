@@ -21,7 +21,19 @@ enum class Language(
         R.string.be
     );
 
-    operator fun invoke(): String = Resource.string(nameRes)
+    operator fun invoke(): String = Resource.baseString(nameRes)
 
-    val code: String get() = Resource.string(codeRes)
+    val code: String get() = Resource.baseString(codeRes)
+
+    /**
+     *  It's used for identifying language by nameRes
+     */
+    companion object {
+        private val nameToLanguageMap: Map<String, Language> = values().associateBy { language ->
+            Resource.baseString(language.nameRes)
+        }
+
+        fun getLanguageByName(name: String): Language =
+            nameToLanguageMap[name]!!
+    }
 }

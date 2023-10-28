@@ -2,6 +2,8 @@ package com.codingub.belarusianhistory.ui
 
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -35,6 +37,8 @@ import com.codingub.belarusianhistory.ui.auth.login.LoginFragment
 import com.codingub.belarusianhistory.ui.practice.PracticeInfoFragment
 import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
 import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
+import com.codingub.belarusianhistory.utils.Resource
+import com.codingub.belarusianhistory.utils.extension.setAppLocale
 
 
 @AndroidEntryPoint
@@ -55,11 +59,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val splashScreen = installSplashScreen().apply {
-            setKeepOnScreenCondition{
+            setKeepOnScreenCondition {
                 vm.isLoading.value
             }
         }
@@ -78,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, LoginFragment())
+                .add(R.id.fragment_container_view, MenuFragment())
                 .commit()
         }
 
@@ -96,8 +99,8 @@ class MainActivity : AppCompatActivity() {
                 binding.ivTbLogo.scaleType = ImageView.ScaleType.FIT_CENTER
             }
             binding.ivTbLogo.setOnClickListener {
-                if(supportFragmentManager.fragments.last() !is MenuFragment){
-                    pushFragment(MenuFragment(), "menu",R.id.fragment_container_view)
+                if (supportFragmentManager.fragments.last() !is MenuFragment) {
+                    pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
                 }
             }
         }
@@ -108,11 +111,12 @@ class MainActivity : AppCompatActivity() {
         Navigation
      */
 
-    private fun back(){
+    private fun back() {
         onBackPressedDispatcher.addCallback(this) {
 
             if (supportFragmentManager.backStackEntryCount > 0 &&
-                supportFragmentManager.fragments.last() !is MenuFragment) {
+                supportFragmentManager.fragments.last() !is MenuFragment
+            ) {
 
                 if (supportFragmentManager.fragments.last() is TaskFragment ||
                     supportFragmentManager.fragments.last() is PracticeInfoFragment ||
@@ -121,8 +125,8 @@ class MainActivity : AppCompatActivity() {
                     showAlertDialog()
                     return@addCallback
                 }
-                if(supportFragmentManager.fragments.last() is ResultInfoFragment){
-                    pushFragment(MenuFragment(), "menu",R.id.fragment_container_view)
+                if (supportFragmentManager.fragments.last() is ResultInfoFragment) {
+                    pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
                     return@addCallback
                 }
 
@@ -141,7 +145,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - mBackPressedTime > TIME_INTERVAL) {
-                    Toast.makeText(this@MainActivity, R.string.return_string, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, R.string.return_string, Toast.LENGTH_SHORT)
+                        .show()
                     mBackPressedTime = currentTime
                 } else {
                     finish()
@@ -202,7 +207,7 @@ class MainActivity : AppCompatActivity() {
         val view = AlertDialogView.Builder(this)
             .message(R.string.back_task)
             .positiveButton(R.string.back_task_pos_button) {
-                pushFragment(MenuFragment(), "menu",R.id.fragment_container_view)
+                pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
                 alertDialog?.dismiss()
             }
             .negativeButton(R.string.back_task_neg_button) {
@@ -243,8 +248,14 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId ==
             R.id.mSettings
-        ) {  val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
-            if (currentFragment is MenuFragment) pushFragment(SettingsFragment(), "settings", R.id.fragment_container_view)
+        ) {
+            val currentFragment =
+                supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+            if (currentFragment is MenuFragment) pushFragment(
+                SettingsFragment(),
+                "settings",
+                R.id.fragment_container_view
+            )
             true
         } else super.onOptionsItemSelected(item)
     }

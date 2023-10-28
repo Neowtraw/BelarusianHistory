@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Outline
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +16,11 @@ import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.viewModels
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.custom.view.SelectedView
 import com.codingub.belarusianhistory.sdk.Language
+import com.codingub.belarusianhistory.ui.MainActivity
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
@@ -107,8 +110,13 @@ class SettingsFragment : BaseFragment() {
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     val language = tab.customView as SelectedView
+
                     language.setChecked(true, animated = true)
-                    //тут будет логика на выбор языка через vm
+
+                    if(Language.getLanguageByName(language.text).code != ApplicationConfig.getLanguage().code){
+                        vm.setNewLanguage(Language.getLanguageByName(language.text))
+                     //   MainActivity.getInstance().recreate()
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -137,6 +145,9 @@ class SettingsFragment : BaseFragment() {
                 }
             }
         }
+
+        val tab : TabLayout.Tab = languageView.getTabAt(vm.getLastLanguagePos())!!
+        tab.select()
     }
 
     private fun createButtons(){

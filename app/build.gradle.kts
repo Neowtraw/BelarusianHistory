@@ -8,6 +8,9 @@ plugins {
     //Hilt
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+
+    //Firebase translater
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -141,6 +144,11 @@ dependencies {
 
     //timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    //firebase
+    implementation ("com.google.mlkit:translate:17.0.1")
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }
 
 kapt {

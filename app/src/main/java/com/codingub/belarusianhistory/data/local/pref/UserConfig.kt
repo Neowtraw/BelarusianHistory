@@ -22,7 +22,7 @@ object UserConfig {
     private val editor: SharedPreferences.Editor get() = prefs.edit()
 
 
-    // аутентефикация
+    // аутентификация
     private var token: String = ""
 
     fun getToken(): String = prefs.getString(key_user_token, "") ?: ""

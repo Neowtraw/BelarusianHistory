@@ -5,9 +5,14 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.ui.MainActivity
 
 object Resource {
+
+    /*
+        MainActivity
+     */
 
     private val context: Context get() = MainActivity.getInstance()
 
@@ -19,4 +24,12 @@ object Resource {
     fun dimen(@DimenRes id: Int): Float = context.resources.getDimension(id)
 
     fun drawable( drawable: String) : Int =  context.resources.getIdentifier(drawable, "drawable", context.packageName)
+
+    /*
+        Application
+     */
+    private val baseContext: Context get() = App.getInstance()
+
+    fun baseString(@StringRes stringKey: Int): String = baseContext.resources.getString(stringKey)
+
 }

@@ -37,7 +37,7 @@
 
     <string name="russian">Русский</string>
     <string name="belarussian">Белорусский</string>
-    <string name="ru" translatable="false">ru</string>
+    <string name="ru" translatable="false">ru-RU</string>
     <string name="be" translatable="false">be</string>
 
     <string name="input" >Ввести</string>

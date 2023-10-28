@@ -12,22 +12,23 @@ class SettingsViewModel : ViewModel() {
 
     var themeList: List<ThemeType> = ThemeType.getAllThemes()
 
-    fun getLastThemePos() : Int{
+    fun getLastThemePos(): Int {
         return ApplicationConfig.getTheme().id
     }
 
-    fun setNewTheme(theme: ThemeType){
+    fun setNewTheme(theme: ThemeType) {
         ApplicationConfig.setTheme(theme)
 
         AppCompatDelegate.setDefaultNightMode(theme.nightMode)
         MainActivity.getInstance().recreate()
     }
 
-    fun setNewLanguage(language: Language){
-        return ApplicationConfig.setLanguage(language)
+    fun setNewLanguage(language: Language) {
+        ApplicationConfig.setLanguage(language)
+
     }
 
-    fun getLastLanguagePos(): Int{
+    fun getLastLanguagePos(): Int {
         return ApplicationConfig.getLanguage().id
     }
 

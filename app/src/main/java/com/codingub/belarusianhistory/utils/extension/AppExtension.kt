@@ -2,11 +2,13 @@ package com.codingub.belarusianhistory.utils.extension
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.codingub.belarusianhistory.sdk.Language
+import com.codingub.belarusianhistory.utils.Resource
 import java.io.Serializable
 import java.util.Locale
 

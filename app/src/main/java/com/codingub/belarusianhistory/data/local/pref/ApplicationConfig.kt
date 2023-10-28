@@ -2,10 +2,12 @@ package com.codingub.belarusianhistory.data.local.pref
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.sdk.Language
 import com.codingub.belarusianhistory.sdk.ThemeType
+import com.codingub.belarusianhistory.ui.MainActivity
 import javax.inject.Singleton
 
 @Singleton
@@ -22,7 +24,7 @@ object ApplicationConfig {
 
     private val editor: SharedPreferences.Editor get() = prefs.edit()
 
-    //сохранение темы
+    //save new theme
     private val savedTheme: MutableLiveData<ThemeType> = MutableLiveData(ThemeType.valueOf(prefs.getString(key_saved_theme,ThemeType.DEFAULT.name)!!))
 
     fun getTheme(): ThemeType = savedTheme.value!!
@@ -36,8 +38,10 @@ object ApplicationConfig {
     fun getLanguage(): Language = savedLanguage.value!!
 
     fun setLanguage(language: Language){
+        App.getInstance().setLanguage(language)
         savedLanguage.value = language
         editor.putString(key_saved_language, language.name).apply()
+        Log.d("ApplicationConfig", "Current language is ${language.code}")
     }
 
 

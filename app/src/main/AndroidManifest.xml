@@ -19,6 +19,10 @@
         android:theme="@style/Theme.App.Starting"
         tools:targetApi="tiramisu">
 
+        <service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">
+            <meta-data android:name="com.google.firebase.components:componentRegistrar" android:value="com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateModelRegistrar" />
+        </service>
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
