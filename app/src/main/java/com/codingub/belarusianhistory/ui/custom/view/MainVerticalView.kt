@@ -91,7 +91,7 @@ class MainVerticalView(
             2f
         ))
 
-        ImageUtil.load(AssetUtil.menuImageUri(src)){
+        ImageUtil.load(AssetUtil.imagesImageUri(src)){
             img.apply {
                 setImageDrawable(it)
                 this@MainVerticalView.invalidate()

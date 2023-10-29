@@ -57,5 +57,11 @@
     <string name="user">Пользователь</string>
     <string name="teacher">Учитель</string>
     <string name="admin">Администратор</string>
+    <string name="change_profile">Изменить профиль</string>
+    <string name="error_data_was_not_loaded">Данные не загружены</string>
+    <string name="groups">Группы</string>
+    <string name="user_groups_empty">Вы не состоите в группе. Нажмите, чтобы присоединиться</string>
+    <string name="teacher_groups_empty">Нет созданных групп</string>
+    <string name="statistic">Статистика</string>
 
 </resources>

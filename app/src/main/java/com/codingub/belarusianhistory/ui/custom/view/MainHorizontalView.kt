@@ -61,7 +61,7 @@ class MainHorizontalView(
             scaleType = ImageView.ScaleType.FIT_CENTER
         }
 
-        ImageUtil.load(AssetUtil.menuImageUri(src)) {
+        ImageUtil.load(AssetUtil.imagesImageUri(src)) {
             img.apply {
                 setImageDrawable(it)
                 this@MainHorizontalView.invalidate()

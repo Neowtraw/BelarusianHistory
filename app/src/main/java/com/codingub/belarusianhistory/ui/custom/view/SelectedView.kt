@@ -48,7 +48,7 @@ class SelectedView(context : Context) :  LinearLayoutCompat(context){
             gravity = Gravity.CENTER
             setColorFilter(Resource.color(R.color.contrast))
         }
-        ImageUtil.load(AssetUtil.menuImageUri("icon"), imageView)
+        ImageUtil.load(AssetUtil.imagesImageUri("icon"), imageView)
 
         addView(imageView, LayoutParams(
             17.dp,

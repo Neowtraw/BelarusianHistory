@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.utils.AssetUtil
@@ -59,7 +58,7 @@ class MainSquareView(
         img = AppCompatImageView(context).apply {
             scaleType = ImageView.ScaleType.FIT_CENTER
         }
-        ImageUtil.load(AssetUtil.menuImageUri(src)){
+        ImageUtil.load(AssetUtil.imagesImageUri(src)){
             img.apply {
                 setImageDrawable(it)
                 this@MainSquareView.invalidate()

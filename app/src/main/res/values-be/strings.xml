@@ -57,5 +57,11 @@
     <string name="user">Карыстальнік</string>
     <string name="teacher">Настаўнік</string>
     <string name="admin">Адміністратар</string>
+    <string name="change_profile">Змяніць профіль</string>
+    <string name="error_data_was_not_loaded">Дадзеныя не былі загружаны</string>
+    <string name="groups">Групы</string>
+    <string name="user_groups_empty">Вы не знаходзіцеся ў групе. Націсніце, каб далучыцца</string>
+    <string name="teacher_groups_empty">У вас няма створаных груп</string>
+    <string name="statistic">" Статыстыка"</string>
 
 </resources>

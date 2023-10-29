@@ -7,8 +7,8 @@ object AssetUtil {
         return "file:///android_asset/$filePath.$fileExt"
     }
 
-    fun menuImageUri(name: String): Uri {
-        val path = "menu/$name"
+    fun imagesImageUri(name: String): Uri {
+        val path = "images/$name"
         val assetPath = assetPath(path, FileExtension.PNG)
 
         return Uri.parse(assetPath)

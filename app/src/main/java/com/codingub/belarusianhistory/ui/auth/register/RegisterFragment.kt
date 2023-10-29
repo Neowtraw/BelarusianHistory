@@ -42,7 +42,7 @@ class RegisterFragment : BaseFragment() {
         binding.tvAppInfo.typeface = Font.REGULAR
         binding.imgLogo.apply {
             ImageUtil.load(
-                AssetUtil.menuImageUri("icon")
+                AssetUtil.imagesImageUri("icon")
             ) {
                 setImageDrawable(it)
             }

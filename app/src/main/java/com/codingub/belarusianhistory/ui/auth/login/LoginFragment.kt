@@ -44,7 +44,7 @@ class LoginFragment : BaseFragment() {
         binding.tvError.typeface = Font.REGULAR
         binding.imgLogo.apply {
             ImageUtil.load(
-                AssetUtil.menuImageUri("icon")
+                AssetUtil.imagesImageUri("icon")
             ) {
                 setImageDrawable(it)
             }

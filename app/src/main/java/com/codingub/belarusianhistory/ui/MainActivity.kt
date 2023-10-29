@@ -3,7 +3,6 @@ package com.codingub.belarusianhistory.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -37,9 +36,8 @@ import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
 import com.codingub.belarusianhistory.ui.auth.login.LoginFragment
 import com.codingub.belarusianhistory.ui.practice.PracticeInfoFragment
 import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
+import com.codingub.belarusianhistory.ui.statistic.StatisticFragment
 import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
-import com.codingub.belarusianhistory.utils.Resource
-import com.codingub.belarusianhistory.utils.extension.setAppLocale
 import java.util.Locale
 
 
@@ -90,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, LoginFragment())
+                .add(R.id.fragment_container_view, StatisticFragment())
                 .commit()
         }
 
@@ -103,7 +101,7 @@ class MainActivity : AppCompatActivity() {
     private fun createToolbar() {
         setSupportActionBar(binding.toolbar)
         binding.toolbar.apply {
-            ImageUtil.load(AssetUtil.menuImageUri("icon")) {
+            ImageUtil.load(AssetUtil.imagesImageUri("icon")) {
                 binding.ivTbLogo.setImageDrawable(it)
                 binding.ivTbLogo.scaleType = ImageView.ScaleType.FIT_CENTER
             }
