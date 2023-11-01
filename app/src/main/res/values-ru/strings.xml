@@ -63,5 +63,14 @@
     <string name="user_groups_empty">Вы не состоите в группе. Нажмите, чтобы присоединиться</string>
     <string name="teacher_groups_empty">Нет созданных групп</string>
     <string name="statistic">Статистика</string>
+    <string name="participants_reduction">уч.</string>
+    <string name="ticket_name">Название</string>
+    <string name="description">Описание</string>
+    <string name="ticket_question">Теоретический вопрос</string>
+    <string name="ticket">Билет</string>
+    <string name="achieve">Достижение</string>
+    <string name="practice_question">Практическое задание</string>
+    <string name="information">Информация</string>
+
 
 </resources>

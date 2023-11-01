@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.remote.network.models.practices.PracticeQuestion
 import com.codingub.belarusianhistory.databinding.FragmentPracticeInfoBinding
-import com.codingub.belarusianhistory.domain.model.PracticeQuestion
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.practice.tasks.date_order.DateOrderFragment
@@ -102,7 +102,7 @@ class PracticeInfoFragment : BaseFragment() {
             ticketQuestion.observe(this@PracticeInfoFragment) {
                 binding.tvTheme.text = it.name
 
-                progressSize = it.practiceList!!.size
+                progressSize = it.practices.size
                 binding.progressBar.max = progressSize
 
                 //once

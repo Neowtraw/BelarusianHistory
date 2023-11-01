@@ -1,5 +1,6 @@
 package com.codingub.belarusianhistory.data.repository.tickets
 
+import android.util.Log
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
@@ -30,16 +31,21 @@ class TicketRepositoryImpl @Inject constructor(
     override suspend fun getAllTickets(): ServerResponse<List<Ticket>> {
         return try {
             val result = api.getAllTickets()
-            ServerResponse.OK(result)
+            Log.d("err", "ITSS ALLL GOOOOD")
+            ServerResponse.OK(result.ticketList)
         } catch (e: HttpException) {
             if (e.code() == 400) {
                 ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
+            } else if(e.code() == 404) {
+                ServerResponse.NotFound()
             } else if (e.code() == 409) {
                 ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
             } else {
+                Log.d("err", e.message().toString())
                 ServerResponse.UnknownError()
             }
         } catch (e: Exception) {
+            Log.d("err", e.message.toString())
             ServerResponse.UnknownError()
         }
     }
@@ -61,6 +67,8 @@ class TicketRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             if (e.code() == 400) {
                 ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
+            } else if(e.code() == 404) {
+                ServerResponse.NotFound()
             } else if (e.code() == 409) {
                 ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
             } else {
@@ -80,6 +88,8 @@ class TicketRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             if (e.code() == 400) {
                 ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
+            } else if(e.code() == 404) {
+                ServerResponse.NotFound()
             } else if (e.code() == 409) {
                 ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
             } else {

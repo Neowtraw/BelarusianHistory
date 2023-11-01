@@ -3,8 +3,8 @@ package com.codingub.belarusianhistory.ui.practice
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.codingub.belarusianhistory.domain.model.PracticeQuestion
-import com.codingub.belarusianhistory.domain.model.TicketQuestion
+import com.codingub.belarusianhistory.data.remote.network.models.practices.PracticeQuestion
+import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -28,8 +28,8 @@ class PracticeInfoViewModel @Inject constructor() : ViewModel() {
 
     fun getPracticeQuestionByPosition() : PracticeQuestion? {
         val ticketQuestion = _ticketQuestion.value
-        return if (ticketQuestion != null && ticketQuestion.practiceList!!.size > position) {
-            val practiceQuestion = ticketQuestion.practiceList[position]
+        return if (ticketQuestion != null && ticketQuestion.practices!!.size > position) {
+            val practiceQuestion = ticketQuestion.practices[position]
             changePosition()
             practiceQuestion
         } else {
@@ -40,7 +40,7 @@ class PracticeInfoViewModel @Inject constructor() : ViewModel() {
     // !! так как вызывается уже после обновления model
     private fun changePosition(){
         if(_ticketQuestion.value != null ||
-            _ticketQuestion.value!!.practiceList!!.size != position) position += 1
+            _ticketQuestion.value!!.practices.size != position) position += 1
     }
 
     fun addUserResult(userAnswer: UserPracticeAnswer) {

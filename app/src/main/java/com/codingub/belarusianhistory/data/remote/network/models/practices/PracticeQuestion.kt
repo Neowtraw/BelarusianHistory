@@ -1,13 +1,16 @@
 package com.codingub.belarusianhistory.data.remote.network.models.practices
 
+import com.codingub.belarusianhistory.sdk.TaskType
+import java.io.Serializable
+
 data class PracticeQuestion(
    val id: String,
-   val taskType: Int,
+   val taskType: TaskType,
    val name: String,
    val info: String,
 
    val answers: List<Answer> = emptyList()
-)
+) : Serializable
 
 data class Answer(
     val info: String,

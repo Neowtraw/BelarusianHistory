@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
 import com.codingub.belarusianhistory.databinding.PracticeViewElementBinding
-import com.codingub.belarusianhistory.domain.model.TicketQuestion
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 
@@ -32,13 +32,13 @@ class PracticeAdapter(
             }
 
             binding.ivPassed.apply {
-                setImageResource(
-                    if (item.isPassed == 0) R.drawable.not_passed
-                    else R.drawable.passed)
-                setColorFilter(
-                    if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
-                    else Resource.color(R.color.icon_color_passed)
-                )
+//                setImageResource(
+//                    if (item.isPassed == 0) R.drawable.not_passed
+//                    else R.drawable.passed)
+//                setColorFilter(
+//                    if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
+//                    else Resource.color(R.color.icon_color_passed)
+//                )
             }
         }
     }

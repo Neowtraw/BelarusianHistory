@@ -56,7 +56,7 @@ class StatisticUserView(
 
         tvUsername = TextView(context).apply {
             typeface = Font.SEMIBOLD
-            textSizeDp = 7f.dp
+            textSizeDp = 8f.dp
             isSingleLine = true
             text = username
             ellipsize = TextUtils.TruncateAt.END

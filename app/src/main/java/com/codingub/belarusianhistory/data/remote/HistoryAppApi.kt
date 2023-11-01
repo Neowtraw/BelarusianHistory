@@ -25,7 +25,11 @@ import com.codingub.belarusianhistory.data.remote.network.requests.InsertTqReque
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
+import com.codingub.belarusianhistory.data.remote.network.responses.AchieveResponse
+import com.codingub.belarusianhistory.data.remote.network.responses.PqResponse
+import com.codingub.belarusianhistory.data.remote.network.responses.TicketResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TokenResponse
+import com.codingub.belarusianhistory.data.remote.network.responses.TqResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -66,7 +70,7 @@ interface HistoryAppApi {
     */
 
     @GET(TICKET)
-    suspend fun getAllTickets() : List<Ticket>
+    suspend fun getAllTickets() : TicketResponse
 
     @POST(INSERT_TICKET)
     suspend fun insertTicket(
@@ -83,9 +87,12 @@ interface HistoryAppApi {
    */
 
     @GET(TQ)
-    suspend fun getAllTq(
-        @Body ticketId: String
-    ) : List<TicketQuestion>
+    suspend fun getAllTq() : TqResponse
+
+    @GET("$TQ/?id={id}")
+    suspend fun getTqByTicketId(
+        @Query("id") ticketId: String
+    ) : TqResponse
 
     @POST(INSERT_TICKET)
     suspend fun insertTq(
@@ -101,10 +108,10 @@ interface HistoryAppApi {
       PracticeQuestion
    */
 
-    @GET(PQ)
-    suspend fun getAllPq(
-        @Body tqId: String
-    ) : List<PracticeQuestion>
+    @GET("$PQ/?id={id}")
+    suspend fun getPqByTqId(
+        @Query("id") tqId: String
+    ) : PqResponse
 
     @POST(INSERT_PQ)
     suspend fun insertPq(
@@ -123,10 +130,11 @@ interface HistoryAppApi {
     @GET(ACHIEVE)
     suspend fun getAllAchieves() : List<Achieve>
 
-    @GET(ACHIEVE)
+    @GET("$ACHIEVE/?type={type}")
     suspend fun getTypeAchieves(
         @Query("type") type: Int
-    ): List<Achieve>
+    ): AchieveResponse
+
 
 
 }

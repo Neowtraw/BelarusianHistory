@@ -3,10 +3,10 @@ package com.codingub.belarusianhistory.ui.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.codingub.belarusianhistory.domain.model.Ticket
-import com.codingub.belarusianhistory.domain.model.TicketQuestion
+import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
+import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
 
-//используется чисто для передачи данных между фрагментами
+//used to assign the data between fragments
 class SharedViewModel : ViewModel() {
 
 

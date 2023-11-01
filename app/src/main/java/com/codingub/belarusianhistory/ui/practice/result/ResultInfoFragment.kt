@@ -80,8 +80,8 @@ class ResultInfoFragment : BaseFragment(){
     override fun observeChanges() {
         with(model){
             practiceInfo.observe(viewLifecycleOwner){
-                vm.allAnswerCount = it.practiceList!!.count { question ->
-                    question.answers.any { answer -> answer.isTrue == 1 }
+                vm.allAnswerCount = it.practices!!.count { question ->
+                    question.answers.any { answer -> answer.isTrue }
                 }
                 updateUI()
 
@@ -95,6 +95,4 @@ class ResultInfoFragment : BaseFragment(){
             }
         }
     }
-
-
 }

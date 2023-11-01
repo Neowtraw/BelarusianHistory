@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
 import com.codingub.belarusianhistory.databinding.FragmentTicketInfoBinding
-import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
@@ -69,7 +69,7 @@ class TicketInfoFragment : BaseFragment(){
 
 
         adapter = TicketInfoAdapter()
-        adapter.tickets = ticket.questionList
+        adapter.tickets = ticket.questions
         binding.rvTicketInfo.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTicketInfo.adapter = adapter
 

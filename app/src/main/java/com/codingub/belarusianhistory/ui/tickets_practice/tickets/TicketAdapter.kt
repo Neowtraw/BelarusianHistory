@@ -8,11 +8,9 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
 import com.codingub.belarusianhistory.databinding.TicketViewElementBinding
-import com.codingub.belarusianhistory.domain.model.Ticket
 import com.codingub.belarusianhistory.utils.Font
-import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.TicketUtil
 
 class TicketAdapter(
@@ -85,17 +83,17 @@ class TicketAdapter(
                 typeface = Font.REGULAR
             }
             binding.tvContent.apply {
-                text = TicketUtil.groupQuestions(item.questionList)
+                text = TicketUtil.groupQuestions(item.questions)
                 typeface = Font.REGULAR
             }
             binding.ivPassed.apply {
-                setImageResource(
-                    if (item.isPassed == 0) R.drawable.not_passed
-                    else R.drawable.passed)
-                setColorFilter(
-                    if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
-                    else Resource.color(R.color.icon_color_passed)
-                )
+//                setImageResource(
+//                    if (item.isPassed == 0) R.drawable.not_passed
+//                    else R.drawable.passed)
+//                setColorFilter(
+//                    if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
+//                    else Resource.color(R.color.icon_color_passed)
+//                )
             }
 
             binding.flTicket.layoutParams.height = if (granted) FrameLayout.LayoutParams.WRAP_CONTENT else 0

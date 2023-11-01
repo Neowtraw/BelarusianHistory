@@ -29,7 +29,7 @@ interface UserRepository {
         Users
      */
 
-    suspend fun changeRoleByLogin(accessLevel: AccessLevel) : ServerResponse<Unit>
+    suspend fun changeRoleByLogin(accessLevel: AccessLevel): ServerResponse<Unit>
 }
 
 class UserRepositoryImpl @Inject constructor(
@@ -48,7 +48,7 @@ class UserRepositoryImpl @Inject constructor(
             } else {
                 AuthResult.UnknownError()
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             AuthResult.UnknownError()
         }
     }
@@ -75,7 +75,7 @@ class UserRepositoryImpl @Inject constructor(
             } else {
                 AuthResult.UnknownError()
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             AuthResult.UnknownError()
         }
     }
@@ -92,7 +92,7 @@ class UserRepositoryImpl @Inject constructor(
             } else {
                 AuthResult.UnknownError()
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             AuthResult.UnknownError()
         }
     }
@@ -102,7 +102,7 @@ class UserRepositoryImpl @Inject constructor(
      */
     override suspend fun changeRoleByLogin(
         accessLevel: AccessLevel
-    ) : ServerResponse<Unit> {
+    ): ServerResponse<Unit> {
         return try {
             api.changeRoleByLogin(
                 RoleRequest(
@@ -111,16 +111,17 @@ class UserRepositoryImpl @Inject constructor(
                 )
             )
             ServerResponse.OK()
-        } catch (e: HttpException){
-            if(e.code() == 400){
+        } catch (e: HttpException) {
+            if (e.code() == 400) {
                 ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 409) {
+            } else if (e.code() == 404) {
+                ServerResponse.NotFound()
+            } else if (e.code() == 409) {
                 ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            }
-            else{
+            } else {
                 ServerResponse.UnknownError()
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             ServerResponse.UnknownError()
         }
     }

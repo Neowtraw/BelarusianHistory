@@ -29,7 +29,7 @@ class SettingsViewModel : ViewModel() {
     }
 
     fun getLastLanguagePos(): Int {
-        return ApplicationConfig.getLanguage().id
+        return ApplicationConfig.getLanguage().ordinal
     }
 
 }

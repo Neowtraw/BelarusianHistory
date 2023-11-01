@@ -27,7 +27,7 @@ class StatisticItem(
 
     init {
         setWillNotDraw(false)
-        orientation = LinearLayoutCompat.HORIZONTAL
+        orientation = HORIZONTAL
 
         checkmark = ImageView(context).apply {
             post{

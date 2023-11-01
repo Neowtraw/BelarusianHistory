@@ -1,29 +1,41 @@
 package com.codingub.belarusianhistory.ui.tickets_practice.practice
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingub.belarusianhistory.domain.model.TicketQuestion
-import com.codingub.belarusianhistory.domain.use_case.GetAllTicketQuestions
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
+import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.domain.use_cases.GetAllTqUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
-    private val getAllTicketQuestions: GetAllTicketQuestions
+    private val getAllTicketQuestions: GetAllTqUseCase
 ) : ViewModel(){
 
-    private val _practice = MutableLiveData<List<TicketQuestion>>()
-    val practice : LiveData<List<TicketQuestion>> get() = _practice
+    private val resultChannel = Channel<ServerResponse<List<TicketQuestion>>>()
+    val practiceState = resultChannel.receiveAsFlow()
+
+    // Для отображения существующей практики.. Можно добавить проверку сразу на сервере
+    // getAllTicketQuestions().data?.filter { it.practices.isNotEmpty() }
 
     init{
+        getTicketQuestions()
+    }
+
+    fun getTicketQuestions(){
         viewModelScope.launch(Dispatchers.IO) {
-            val filteredPracs = getAllTicketQuestions().filter { !it.practiceList.isNullOrEmpty() }
-            _practice.postValue(filteredPracs)
+            resultChannel.send(ServerResponse.Loading(true))
+            val result = getAllTicketQuestions()
+            resultChannel.send(result)
         }
     }
 

@@ -11,6 +11,5 @@ data class User(
     val username: String,
     val UId: String, //for groups
     val accessLevel: Int, //permissions
-    val photo: String = "",
     val results: List<Results> = emptyList()
 )

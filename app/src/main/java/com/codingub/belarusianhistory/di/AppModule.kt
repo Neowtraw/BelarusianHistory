@@ -31,13 +31,14 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDbRepository(db: AppDatabase): AppRepository {
-        return AppRepositoryImpl(db.ticketsDao, db.practiceQuestionDao,
-            db.practiceAchievesDao, db.ticketQuestionDao, db.ticketAchievesDao)
+        return AppRepositoryImpl(
+            db.practiceAchievesDao, db.ticketAchievesDao
+        )
     }
 
     @Provides
     @Singleton
-    fun provideItemDatabase(app: App): AppDatabase{
+    fun provideItemDatabase(app: App): AppDatabase {
         return Room.databaseBuilder(
             app, AppDatabase::class.java, "history"
         ).createFromAsset("data/history")
@@ -51,14 +52,13 @@ object AppModule {
         return App.getInstance()
     }
 
-
     /*
         Constants
      */
 
     @Provides
     @Named(IS_DEBUG)
-    fun providesIsDebug() : Boolean = BuildConfig.DEBUG
+    fun providesIsDebug(): Boolean = BuildConfig.DEBUG
 
     @Provides
     @Named(BUILD_VERSION_CODE)
@@ -78,7 +78,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideHistoryAppService(networking: HistoryNetworking) : HistoryAppApi =
+    fun provideHistoryAppService(networking: HistoryNetworking): HistoryAppApi =
         networking.historyAppApi()
 
 }

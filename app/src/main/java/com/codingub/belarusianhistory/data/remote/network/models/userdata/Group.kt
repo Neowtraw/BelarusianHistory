@@ -6,6 +6,6 @@ import com.squareup.moshi.JsonClass
 data class Group(
   val id: String,
   val name: String,
-  val teacherId: User,
+  val teacherId: String,
   val students: List<User> = emptyList()
 )

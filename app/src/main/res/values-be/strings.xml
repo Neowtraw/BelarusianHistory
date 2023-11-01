@@ -62,6 +62,7 @@
     <string name="groups">Групы</string>
     <string name="user_groups_empty">Вы не знаходзіцеся ў групе. Націсніце, каб далучыцца</string>
     <string name="teacher_groups_empty">У вас няма створаных груп</string>
-    <string name="statistic">" Статыстыка"</string>
+    <string name="statistic">Статыстыка</string>
+    <string name="participants_reduction">удз.</string>
 
 </resources>

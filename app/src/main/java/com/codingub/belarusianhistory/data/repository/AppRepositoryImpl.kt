@@ -19,18 +19,9 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor(
-    private val ticketsDao: TicketsDao,
-    private val practiceQuestionDao: PracticeQuestionDao,
     private val practiceAchievesDao: PracticeAchievesDao,
-    private val ticketQuestionDao: TicketQuestionDao,
     private val ticketAchievesDao: TicketAchievesDao,
 ) : AppRepository{
-
-    override suspend fun getAllTicketQuestions(): List<TicketQuestion> {
-        return ticketQuestionDao.getAllTicketQuestions().map {
-            it.toTicketQuestion()
-        }
-    }
 
     override suspend fun getAllTicketAchieves(): List<TicketAchieves> {
         return ticketAchievesDao.getAllTicketAchieves().map {
@@ -42,22 +33,6 @@ class AppRepositoryImpl @Inject constructor(
         return practiceAchievesDao.getAllPracticeAchieves().map {
             it.toPracticeAchieves()
         }
-    }
-
-    override suspend fun getAllTickets(): List<Ticket> {
-        return ticketsDao.getAllTickets().map {
-            it.toTicket()
-        }
-    }
-
-    override fun getTicketById(id: Int): Flow<Ticket> {
-        return ticketsDao.getTicketById(id).map {
-            it.toTicket()
-        }
-    }
-
-    override suspend fun getTicketQuestionsById(id: Int): TicketQuestion {
-        return ticketQuestionDao.getTicketQuestionsById(id).toTicketQuestion()
     }
 
     override suspend fun getTicketAchievesByPassed(isPassed: Int): List<TicketAchieves> {
@@ -72,35 +47,6 @@ class AppRepositoryImpl @Inject constructor(
         }
     }
 
-    /*
-        Insert/Delete
-     */
-
-    override suspend fun resetAllPracticeAchieves() {
-        practiceAchievesDao.resetAllPracticeAchieves()
-    }
-
-    override suspend fun resetAllTicketAchieves() {
-        ticketAchievesDao.resetAllTicketAchieves()
-    }
-
-    override suspend fun resetAllTickets() {
-        ticketsDao.resetAllTickets()
-    }
-
-    override suspend fun deletePracticeQuestionById(questionId: Int) {
-        practiceQuestionDao.deletePracticeQuestionById(questionId)
-    }
-
-    override suspend fun insertPracticeQuestion(question: PracticeQuestion) {
-        practiceQuestionDao.insertPracticeQuestion(PracticeQuestionRef(
-            pqId = question.id,
-            taskType = question.taskType,
-            pqName = question.name,
-            pqInfo = question.info,
-            tqId = question.tqId
-        ))
-    }
     /*
         Additional
      */

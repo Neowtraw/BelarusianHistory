@@ -75,6 +75,7 @@ class RoleFragment : BaseFragment() {
                             is ServerResponse.UnknownError -> {
 
                             }
+                            else -> {}
                         }
                     }
                 }

@@ -10,9 +10,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 interface PracticeQuestionRepository {
-    suspend fun getAllPq(
-        tqId: String
-    ): ServerResponse<List<PracticeQuestion>> //List<PracticeQuestion>
+    suspend fun getPqByTqId(TqId: String) : ServerResponse<List<PracticeQuestion>>
 
     suspend fun insertPq(
         taskType: Int,
@@ -32,13 +30,15 @@ class PracticeQuestionRepositoryImpl @Inject constructor(
     private val api: HistoryAppApi
 ) : PracticeQuestionRepository {
 
-    override suspend fun getAllPq(tqId: String): ServerResponse<List<PracticeQuestion>> {
+    override suspend fun getPqByTqId(tqId: String): ServerResponse<List<PracticeQuestion>> {
         return try{
-            val result = api.getAllPq(tqId = tqId)
-            ServerResponse.OK(result)
+            val result = api.getPqByTqId(tqId = tqId)
+            ServerResponse.OK(result.pqList)
         } catch (e: HttpException){
             if(e.code() == 400){
                 ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
+            } else if(e.code() == 404) {
+                ServerResponse.NotFound()
             } else if(e.code() == 409) {
                 ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
@@ -67,6 +67,8 @@ class PracticeQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             if(e.code() == 400){
                 ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
+            } else if(e.code() == 404) {
+                ServerResponse.NotFound()
             } else if(e.code() == 409) {
                 ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
@@ -87,6 +89,8 @@ class PracticeQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             if(e.code() == 400){
                 ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
+            } else if(e.code() == 404) {
+                ServerResponse.NotFound()
             } else if(e.code() == 409) {
                 ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
