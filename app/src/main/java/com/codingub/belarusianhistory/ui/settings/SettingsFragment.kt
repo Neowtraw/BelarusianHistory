@@ -165,7 +165,7 @@ class SettingsFragment : BaseFragment() {
             setBackgroundResource(Resource.drawable("item_rounded_settings"))
             text = Resource.string(R.string.reset_achieves)
             typeface = Font.REGULAR
-            textSizeDp = 20f
+            textSize = 7f.dp
             setTextColor(Resource.color(R.color.text_color))
             setAllCaps(false)
             gravity = Gravity.START
@@ -176,7 +176,7 @@ class SettingsFragment : BaseFragment() {
             setBackgroundResource(Resource.drawable("item_rounded_settings"))
             text = Resource.string(R.string.reset_tickets)
             typeface = Font.REGULAR
-            textSizeDp = 20f
+            textSize = 7f.dp
             setTextColor(Resource.color(R.color.text_color))
             setAllCaps(false)
             gravity = Gravity.START
@@ -186,7 +186,7 @@ class SettingsFragment : BaseFragment() {
             setBackgroundResource(Resource.drawable("item_rounded_settings"))
             text = Resource.string(R.string.reset_practice)
             typeface = Font.REGULAR
-            textSizeDp = 20f
+            textSize = 7f.dp
             setTextColor(Resource.color(R.color.text_color))
             setAllCaps(false)
             gravity = Gravity.START

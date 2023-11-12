@@ -64,5 +64,13 @@
     <string name="teacher_groups_empty">У вас няма створаных груп</string>
     <string name="statistic">Статыстыка</string>
     <string name="participants_reduction">удз.</string>
+    <string name="ticket_name">Назва</string>
+    <string name="description">Апісанне</string>
+    <string name="ticket_question">Тэарэтычнае пытанне</string>
+    <string name="ticket">Білет</string>
+    <string name="achieve">Дасягненне</string>
+    <string name="practice_question">Практычнае заданне</string>
+    <string name="information">Інфармацыя</string>
+    <string name="error_result">Паўторыце спробу пазней</string>
 
 </resources>

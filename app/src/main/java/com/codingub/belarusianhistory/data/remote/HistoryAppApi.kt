@@ -2,9 +2,14 @@ package com.codingub.belarusianhistory.data.remote
 
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ACHIEVE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.AUTHENTICATE
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_USER_GROUP
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.GROUP
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_PQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_TICKET
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.INVITE_USER_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.PQ
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_PQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ROLE_CHANGE
@@ -13,9 +18,8 @@ import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TQ
 import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
-import com.codingub.belarusianhistory.data.remote.network.models.practices.PracticeQuestion
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.data.remote.network.requests.CreateGroupRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.DeleteGroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeletePqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTicketRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTqRequest
@@ -25,7 +29,10 @@ import com.codingub.belarusianhistory.data.remote.network.requests.InsertTqReque
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.UserLoginGroupRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.UserUidGroupRequest
 import com.codingub.belarusianhistory.data.remote.network.responses.AchieveResponse
+import com.codingub.belarusianhistory.data.remote.network.responses.GroupResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.PqResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TicketResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TokenResponse
@@ -66,6 +73,39 @@ interface HistoryAppApi {
     )
 
     /*
+        Groups
+     */
+    @POST(INSERT_GROUP)
+    suspend fun createGroup(
+        @Body request: CreateGroupRequest
+    )
+
+    @POST(RESET_GROUP)
+    suspend fun deleteGroup(
+        @Body request: DeleteGroupRequest
+    )
+
+    @POST(INVITE_USER_GROUP)
+    suspend fun inviteUserToGroup(
+        @Body request: UserUidGroupRequest
+    )
+
+    @POST(DELETE_USER_GROUP)
+    suspend fun deleteUserFromGroup(
+        @Body request: UserLoginGroupRequest
+    )
+
+    @GET("$GROUP/")
+    suspend fun getAllGroupsFromTeacher(
+        @Query("teachlogin") login: String
+    ) : GroupResponse
+
+    @GET("$GROUP/")
+    suspend fun getGroupFromUser(
+        @Query("userlogin") login: String
+    ) : GroupResponse
+
+    /*
        Ticket
     */
 
@@ -89,7 +129,7 @@ interface HistoryAppApi {
     @GET(TQ)
     suspend fun getAllTq() : TqResponse
 
-    @GET("$TQ/?id={id}")
+    @GET("$TQ/")
     suspend fun getTqByTicketId(
         @Query("id") ticketId: String
     ) : TqResponse
@@ -108,7 +148,7 @@ interface HistoryAppApi {
       PracticeQuestion
    */
 
-    @GET("$PQ/?id={id}")
+    @GET("$PQ/")
     suspend fun getPqByTqId(
         @Query("id") tqId: String
     ) : PqResponse
@@ -130,7 +170,7 @@ interface HistoryAppApi {
     @GET(ACHIEVE)
     suspend fun getAllAchieves() : List<Achieve>
 
-    @GET("$ACHIEVE/?type={type}")
+    @GET("$ACHIEVE/")
     suspend fun getTypeAchieves(
         @Query("type") type: Int
     ): AchieveResponse

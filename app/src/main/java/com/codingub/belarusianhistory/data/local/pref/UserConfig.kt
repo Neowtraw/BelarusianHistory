@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.sdk.AccessLevel
+import com.codingub.belarusianhistory.sdk.ThemeType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,11 +19,12 @@ object UserConfig {
     private val key_user_uid = "uid"
     private val key_user_access_level = "access_level"
 
-    private val prefs: SharedPreferences =
+    private val prefs: SharedPreferences by lazy {
         App.getInstance().getSharedPreferences(
             "${App.getInstance().packageName}_${this::class.java.simpleName}",
             Context.MODE_PRIVATE
         )
+    }
     private val editor: SharedPreferences.Editor get() = prefs.edit()
 
 
@@ -60,13 +62,12 @@ object UserConfig {
         editor.putString(key_user_uid, uid).commit()
     }
 
-    private val accessLevel: MutableLiveData<AccessLevel> = MutableLiveData(AccessLevel.valueOf(prefs.getString(
+    val accessLevel: MutableLiveData<AccessLevel> = MutableLiveData(AccessLevel.valueOf(prefs.getString(
         key_user_access_level,AccessLevel.User.name)!!))
-
-    fun getTheme(): AccessLevel = accessLevel.value!!
-    fun setTheme(type: AccessLevel){
-        accessLevel.value = type
-        editor.putString(key_user_access_level, type.name).apply()
+    fun getAccessLevel(): AccessLevel = accessLevel.value!!
+    fun setAccessLevel(level: AccessLevel){
+        UserConfig.accessLevel.value = level
+        UserConfig.editor.putString(key_user_access_level, level.name).apply()
     }
 
 }

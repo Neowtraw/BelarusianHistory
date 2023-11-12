@@ -55,19 +55,19 @@ class StatisticFragment : BaseFragment() {
             ))
 
         //GroupView
-        statisticGroupView = StatisticGroupView(
-            context = context,
-            groups = listOf(
-                Group(
-                    id = "1", name = "1k9393",
-                    teacherId = ""
-                ),
-                Group(
-                    id = "2", name = "1k9394",
-                    teacherId = ""
-                )
-            )
-        )
+//        statisticGroupView = StatisticGroupView(
+//            context = context,
+//            groups = listOf(
+//                Group(
+//                    id = "1", name = "1k9393",
+//                    teacherId = ""
+//                ),
+//                Group(
+//                    id = "2", name = "1k9394",
+//                    teacherId = ""
+//                )
+//            )
+//        )
 
         binding.root.addView(
             statisticGroupView, LinearLayout.LayoutParams(

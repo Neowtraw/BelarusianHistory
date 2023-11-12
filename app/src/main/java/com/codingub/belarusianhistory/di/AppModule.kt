@@ -5,6 +5,7 @@ import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.BuildConfig
 import com.codingub.belarusianhistory.data.local.db.AppDatabase
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
+import com.codingub.belarusianhistory.data.remote.network.HistoryInterceptor
 import com.codingub.belarusianhistory.data.remote.network.HistoryNetworking
 import com.codingub.belarusianhistory.data.repository.AppRepositoryImpl
 import com.codingub.belarusianhistory.domain.repository.AppRepository
@@ -80,7 +81,6 @@ object AppModule {
     @Singleton
     fun provideHistoryAppService(networking: HistoryNetworking): HistoryAppApi =
         networking.historyAppApi()
-
 }
 
 

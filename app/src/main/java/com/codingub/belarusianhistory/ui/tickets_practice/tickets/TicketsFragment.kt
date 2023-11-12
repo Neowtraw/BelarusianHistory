@@ -1,6 +1,7 @@
 package com.codingub.belarusianhistory.ui.tickets_practice.tickets
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,8 @@ import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
 import com.codingub.belarusianhistory.databinding.FragmentTicketsBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
-import com.codingub.belarusianhistory.ui.menu.MenuFragment
 import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
-import com.codingub.belarusianhistory.ui.tickets_practice.MainItemDecorator
+import com.codingub.belarusianhistory.ui.tickets_practice.LinearItemDecoration
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,10 +31,8 @@ class TicketsFragment : BaseFragment() {
     private val vm: TicketsViewModel by viewModels()
     private val model: SharedViewModel by activityViewModels()
 
-
     private lateinit var binding: FragmentTicketsBinding
     private lateinit var adapter: TicketAdapter
-
 
     private val ticketsList = mutableListOf<Ticket>()
 
@@ -42,22 +40,27 @@ class TicketsFragment : BaseFragment() {
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         // Inflate the layout for this fragment
         binding = FragmentTicketsBinding.inflate(inf, con, false)
-        val itemDecoration = MainItemDecorator(6.dp, 3)
 
-        binding.tvHeader.typeface = Font.EXTRABOLD
-
-
-        adapter = TicketAdapter(ticketsList, onTicketSelected = { ticket ->
-            model.select(ticket)
-            pushFragment(TicketInfoFragment(), "ticketInfo")
-        })
-        binding.rvTicket.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvTicket.adapter = adapter
-        binding.rvTicket.addItemDecoration(itemDecoration)
-
+        createUI()
         observeChanges()
         return binding.root
     }
+
+    private fun createUI(){
+        binding.tvHeader.typeface = Font.EXTRABOLD
+        binding.tvEmptyTicket.typeface = Font.EXTRABOLD
+
+        binding.rvTicket.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = TicketAdapter(ticketsList, onTicketSelected = { ticket ->
+                model.select(ticket)
+                pushFragment(TicketInfoFragment(), "ticketInfo")
+            })
+            this.adapter = adapter
+            addItemDecoration(LinearItemDecoration(6.dp, 3))
+        }
+    }
+
 
     override fun observeChanges() {
         with(vm) {
@@ -65,33 +68,23 @@ class TicketsFragment : BaseFragment() {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     ticketsState.collectLatest {
                         when (it) {
-                            is ServerResponse.Loading -> { // загрузка
-                                Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
-                                    .show()
+                            is ServerResponse.Loading -> {
                                 /**
                                  * ЗДЕСЬ ТВОЙ КОД
                                  */
                             }
-
                             is ServerResponse.OK -> {
-                                ticketsList.clear()
-                                ticketsList.addAll(it.value!!)
-                                adapter.notifyDataSetChanged()
-
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Data was loaded",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                if(it.value.isNullOrEmpty()){
+                                    binding.tvEmptyTicket.visibility = View.VISIBLE
+                                } else{
+                                    binding.rvTicket.visibility = View.VISIBLE
+                                    ticketsList.clear()
+                                    ticketsList.addAll(it.value)
+                                    adapter.notifyDataSetChanged()
+                                }
                             }
-                            is ServerResponse.Conflict -> {
+                            is ServerResponse.Error -> {
                                 Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG).show()
-                            }
-                            is ServerResponse.BadRequest -> {
-
-                            }
-                            is ServerResponse.UnknownError -> {
-
                             }
                             else -> {}
                         }

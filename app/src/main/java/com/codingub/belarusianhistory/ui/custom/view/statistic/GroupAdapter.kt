@@ -14,7 +14,7 @@ class GroupAdapter(
 
         fun bind(){
             view.title = groups[bindingAdapterPosition].name
-            view.participants = groups[bindingAdapterPosition].students.size.toString()
+            view.participants = groups[bindingAdapterPosition].userIds.size.toString()
         }
     }
 

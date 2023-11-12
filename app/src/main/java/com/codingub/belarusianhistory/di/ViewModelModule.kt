@@ -2,6 +2,8 @@ package com.codingub.belarusianhistory.di
 
 import com.codingub.belarusianhistory.data.repository.achieves.AchieveRepository
 import com.codingub.belarusianhistory.data.repository.achieves.AchieveRepositoryImpl
+import com.codingub.belarusianhistory.data.repository.groups.GroupRepository
+import com.codingub.belarusianhistory.data.repository.groups.GroupRepositoryImpl
 import com.codingub.belarusianhistory.data.repository.practices.PracticeQuestionRepository
 import com.codingub.belarusianhistory.data.repository.practices.PracticeQuestionRepositoryImpl
 import com.codingub.belarusianhistory.data.repository.tickets.TicketQuestionRepository
@@ -40,5 +42,9 @@ class ViewModelModule {
     @Provides
     @ViewModelScoped
     fun providesAchieveRepository(repository: AchieveRepositoryImpl) : AchieveRepository = repository
+
+    @Provides
+    @ViewModelScoped
+    fun providesGroupRepository(repository: GroupRepositoryImpl) : GroupRepository = repository
 
 }

@@ -10,7 +10,7 @@ import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.ui.MainActivity
 
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(), AnalyticsLogger by AnalyticsLoggerImpl() {
 
     protected val mainActivity: MainActivity get() = MainActivity.getInstance()
     override fun getContext(): Context = mainActivity
@@ -26,6 +26,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewCreated()
+        registerLifecyclerOwner(this)
     }
 
     override fun onDestroyView() {

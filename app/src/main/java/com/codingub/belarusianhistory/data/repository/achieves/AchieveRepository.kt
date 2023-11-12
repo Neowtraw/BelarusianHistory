@@ -22,18 +22,9 @@ class AchieveRepositoryImpl @Inject constructor(
             val result = api.getAllAchieves()
             ServerResponse.OK(result)
         } catch (e: HttpException){
-            if(e.code() == 400){
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if(e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            }
-            else{
-                ServerResponse.UnknownError()
-            }
+                ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
-            ServerResponse.UnknownError()
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
@@ -42,18 +33,9 @@ class AchieveRepositoryImpl @Inject constructor(
             val result = api.getTypeAchieves(type = type.ordinal)
             ServerResponse.OK(result.achieveList)
         } catch (e: HttpException){
-            if(e.code() == 400){
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if(e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            }
-            else{
-                ServerResponse.UnknownError()
-            }
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
-            ServerResponse.UnknownError()
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 }

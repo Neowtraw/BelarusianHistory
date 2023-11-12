@@ -70,6 +70,7 @@
     <string name="admin">Администратор</string>
     <string name="change_profile">Изменить профиль</string>
     <string name="error_data_was_not_loaded">Данные не загружены</string>
+    <string name="error_result">Повторите попытку позже</string>
     <string name="groups">Группы</string>
     <string name="user_groups_empty">Вы не состоите в группе. Нажмите, чтобы присоединиться</string>
     <string name="teacher_groups_empty">У вас нет созданных групп</string>
@@ -83,6 +84,7 @@
     <string name="achieve">Достижение</string>
     <string name="practice_question">Практическое задание</string>
     <string name="information">Информация</string>
+    <string name="delete_group">Удалить группу</string>
 
 
 </resources>

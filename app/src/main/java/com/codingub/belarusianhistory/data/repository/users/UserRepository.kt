@@ -8,12 +8,9 @@ import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
 import com.codingub.belarusianhistory.sdk.AccessLevel
-import com.codingub.belarusianhistory.ui.auth.AuthResult
-import com.codingub.belarusianhistory.utils.logger.HistoryLogger
 import retrofit2.HttpException
 import javax.inject.Inject
 
-private val log: HistoryLogger = HistoryLogger()
 
 interface UserRepository {
 
@@ -21,9 +18,9 @@ interface UserRepository {
         Authentication
      */
 
-    suspend fun signUp(request: RegisterRequest): AuthResult<Unit>
-    suspend fun signIn(login: String, password: String): AuthResult<Unit>
-    suspend fun authenticate(): AuthResult<Unit>
+    suspend fun signUp(request: RegisterRequest): ServerResponse<Unit>
+    suspend fun signIn(login: String, password: String): ServerResponse<Unit>
+    suspend fun authenticate(): ServerResponse<Unit>
 
     /*
         Users
@@ -36,27 +33,25 @@ class UserRepositoryImpl @Inject constructor(
     private val api: HistoryAppApi
 ) : UserRepository {
 
-    override suspend fun signUp(request: RegisterRequest): AuthResult<Unit> {
+    override suspend fun signUp(request: RegisterRequest): ServerResponse<Unit> {
         return try {
             api.signUp(request)
             signIn(request.login, request.password)
         } catch (e: HttpException) {
             if (e.code() == 401) {
-                AuthResult.Unauthorized()
-            } else if (e.code() == 409) {
-                AuthResult.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
+                ServerResponse.Unauthorized()
             } else {
-                AuthResult.UnknownError()
+                ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
         } catch (e: Exception) {
-            AuthResult.UnknownError()
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
     override suspend fun signIn(
         login: String,
         password: String
-    ): AuthResult<Unit> {
+    ): ServerResponse<Unit> {
         return try {
             val response = api.signIn(
                 LoginRequest(
@@ -64,36 +59,36 @@ class UserRepositoryImpl @Inject constructor(
                     password = password
                 )
             )
-            UserConfig.setToken(response.token)
-            UserConfig.setLogin(login)
-            AuthResult.Authorized()
+            UserConfig.apply {
+                setToken(response.token)
+                setLogin(login)
+                setUsername(response.username)
+                setUID(response.UID)
+            }
+            ServerResponse.Authorized()
         } catch (e: HttpException) {
             if (e.code() == 401) {
-                AuthResult.Unauthorized()
-            } else if (e.code() == 409) {
-                AuthResult.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
+                ServerResponse.Unauthorized()
             } else {
-                AuthResult.UnknownError()
+                ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
         } catch (e: Exception) {
-            AuthResult.UnknownError()
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
-    override suspend fun authenticate(): AuthResult<Unit> {
+    override suspend fun authenticate(): ServerResponse<Unit> {
         return try {
             api.authenticate("Bearer ${UserConfig.getToken()}")
-            AuthResult.Authorized()
+            ServerResponse.Authorized()
         } catch (e: HttpException) {
             if (e.code() == 401) {
-                AuthResult.Unauthorized()
-            } else if (e.code() == 409) {
-                AuthResult.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
+                ServerResponse.Unauthorized()
             } else {
-                AuthResult.UnknownError()
+                ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
         } catch (e: Exception) {
-            AuthResult.UnknownError()
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
@@ -111,18 +106,10 @@ class UserRepositoryImpl @Inject constructor(
                 )
             )
             ServerResponse.OK()
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if (e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if (e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else {
-                ServerResponse.UnknownError()
-            }
-        } catch (e: Exception) {
-            ServerResponse.UnknownError()
+        } catch (e: HttpException){
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+        } catch (e: Exception){
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 }

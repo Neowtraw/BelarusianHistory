@@ -10,14 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentRegisterBinding
-import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
 import com.codingub.belarusianhistory.ui.auth.login.LoginFragment
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ImageUtil
+import com.codingub.belarusianhistory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -49,7 +51,7 @@ class RegisterFragment : BaseFragment() {
         }
         binding.tvError.apply {
             typeface = Font.REGULAR
-            text = "Пожалуйста повторите попытку позже"
+            text = Resource.string(R.string.error_result)
 
         }
         binding.tvAuthInfo.typeface = Font.LIGHT
@@ -129,26 +131,24 @@ class RegisterFragment : BaseFragment() {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     authResults.collectLatest {
                         when (it) {
-                            is AuthResult.Loading -> {
+                            is ServerResponse.Loading -> {
                                 /**
                                  *  ЗДЕСЬ ТВОЙ КОД
                                  */
                             }
-                            is AuthResult.Authorized -> {
+                            is ServerResponse.Authorized -> {
                                 pushFragment(RoleFragment(), "role")
                             }
 
-                            is AuthResult.Unauthorized -> {
+                            is ServerResponse.Unauthorized -> {
                                 binding.tvError.text = "Вы не авторизованы"
                             }
 
-                            is AuthResult.Conflict -> {
+                            is ServerResponse.Error -> {
                                 binding.tvError.text = it.errorMessage
                             }
 
-                            is AuthResult.UnknownError -> {
-                                binding.tvError.text = "Повторите попытку позже"
-                            }
+                            else -> {}
                         }
                     }
 

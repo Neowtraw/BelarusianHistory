@@ -3,10 +3,10 @@ package com.codingub.belarusianhistory.ui.auth.register
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
 import com.codingub.belarusianhistory.domain.use_cases.RegisterUseCase
 import com.codingub.belarusianhistory.sdk.AccessLevel
-import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.ui.auth.AuthState
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +23,7 @@ class RegisterViewModel @Inject constructor(
     val state = MutableLiveData(AuthState())
     private fun currentState() = state.value!!
 
-    private val resultChannel = Channel<AuthResult<Unit>>()
+    private val resultChannel = Channel<ServerResponse<Unit>>()
     val authResults = resultChannel.receiveAsFlow()
 
     fun onEvent(event: AuthUiEvent) {
@@ -50,7 +50,7 @@ class RegisterViewModel @Inject constructor(
 
     private fun signUp() {
         viewModelScope.launch {
-            resultChannel.send(AuthResult.Loading(true))
+            resultChannel.send(ServerResponse.Loading(true))
             val result = register(
                 RegisterRequest(
                     login = currentState().signUpLogin,

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
 import com.codingub.belarusianhistory.domain.use_cases.GetAllTicketsUseCase
+import com.codingub.belarusianhistory.utils.network.NetworkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -30,10 +31,10 @@ class TicketsViewModel @Inject constructor(
 
     init{
         viewModelScope.launch(Dispatchers.IO) {
+            NetworkManager.awaitNetworkConnection(resultChannel, ServerResponse.Loading(true))
             resultChannel.send(ServerResponse.Loading(true))
             val result = getAllTickets()
             resultChannel.send(result)
         }
     }
-
 }

@@ -71,6 +71,8 @@
     <string name="achieve">Достижение</string>
     <string name="practice_question">Практическое задание</string>
     <string name="information">Информация</string>
+    <string name="error_result">Повторите попытку позже</string>
+    <string name="delete_group">Удалить группу</string>
 
 
 </resources>

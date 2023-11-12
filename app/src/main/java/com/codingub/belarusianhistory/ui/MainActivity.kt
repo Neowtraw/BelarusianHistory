@@ -32,12 +32,17 @@ import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.bumptech.glide.Glide
 import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
+import com.codingub.belarusianhistory.data.local.pref.UserConfig
 import com.codingub.belarusianhistory.ui.auth.login.LoginFragment
+import com.codingub.belarusianhistory.ui.auth.register.RegisterFragment
+import com.codingub.belarusianhistory.ui.auth.register.RoleFragment
 import com.codingub.belarusianhistory.ui.practice.PracticeInfoFragment
 import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
 import com.codingub.belarusianhistory.ui.statistic.StatisticFragment
 import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
+import com.codingub.belarusianhistory.utils.Font
 import java.util.Locale
 
 
@@ -48,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private val vm: MainViewModel by viewModels()
 
     private var isSettingsIconVisible = false
+
     private val TIME_INTERVAL: Long = 2000 // Интервал времени между нажатиями в миллисекундах
     private var mBackPressedTime: Long = 0 // Время последнего нажатия
     private var alertDialog: AlertDialog? = null
@@ -88,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, StatisticFragment())
+                .add(R.id.fragment_container_view, MenuFragment())
                 .commit()
         }
 
@@ -106,12 +112,40 @@ class MainActivity : AppCompatActivity() {
                 binding.ivTbLogo.scaleType = ImageView.ScaleType.FIT_CENTER
             }
             binding.ivTbLogo.setOnClickListener {
-                if (supportFragmentManager.fragments.last() !is MenuFragment) {
-                    pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
+                when(supportFragmentManager.fragments.last()){
+                    is MenuFragment -> {pushFragment(StatisticFragment(), "statistic", R.id.fragment_container_view)}
+                    is RoleFragment,is RegisterFragment,is LoginFragment -> {}
+                    else -> {pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)}
                 }
+
+            }
+            binding.tvUID.apply {
+                text = "UID: ${UserConfig.getUID()}"
+                typeface = Font.EXTRABOLD
             }
         }
         supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    private fun changeToolbarState() {
+        when (supportFragmentManager.findFragmentById(R.id.fragment_container_view)) {
+            is MenuFragment -> {
+                Glide.with(this)
+                    .load(AssetUtil.imagesImageUri("profile"))
+                    .fitCenter()
+                    .circleCrop()
+                    .into(binding.ivTbLogo)
+            }
+
+            else -> {
+                ImageUtil.load(AssetUtil.imagesImageUri("icon")) {
+                    binding.ivTbLogo.apply {
+                        setImageDrawable(it)
+                        scaleType = ImageView.ScaleType.FIT_CENTER
+                    }
+                }
+            }
+        }
     }
 
     /*
@@ -199,15 +233,6 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    fun pushToMenu() {
-
-        lifecycleScope.launch(Dispatchers.Main) {
-            pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
-
-        }
-
-    }
-
     private fun showAlertDialog() {
         if (alertDialog != null) return
 
@@ -248,6 +273,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
         isSettingsIconVisible = currentFragment is MenuFragment
+        changeToolbarState()
         invalidateOptionsMenu()
         return super.onPrepareOptionsMenu(menu)
     }

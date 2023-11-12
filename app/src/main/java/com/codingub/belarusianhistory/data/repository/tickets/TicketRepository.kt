@@ -33,20 +33,10 @@ class TicketRepositoryImpl @Inject constructor(
             val result = api.getAllTickets()
             Log.d("err", "ITSS ALLL GOOOOD")
             ServerResponse.OK(result.ticketList)
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if (e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else {
-                Log.d("err", e.message().toString())
-                ServerResponse.UnknownError()
-            }
-        } catch (e: Exception) {
-            Log.d("err", e.message.toString())
-            ServerResponse.UnknownError()
+        } catch (e: HttpException){
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+        } catch (e: Exception){
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
@@ -64,18 +54,10 @@ class TicketRepositoryImpl @Inject constructor(
                 )
             )
             ServerResponse.OK()
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if (e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else {
-                ServerResponse.UnknownError()
-            }
-        } catch (e: Exception) {
-            ServerResponse.UnknownError()
+        } catch (e: HttpException){
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+        } catch (e: Exception){
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
@@ -85,18 +67,10 @@ class TicketRepositoryImpl @Inject constructor(
                 DeleteTicketRequest(name)
             )
             ServerResponse.OK()
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if (e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else {
-                ServerResponse.UnknownError()
-            }
-        } catch (e: Exception) {
-            ServerResponse.UnknownError()
+        } catch (e: HttpException){
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+        } catch (e: Exception){
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 }

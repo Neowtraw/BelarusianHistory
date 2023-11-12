@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tickets_practice.tickets.TicketsFragment"
-    android:padding="@dimen/main_padding"
     android:background="@color/bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/main_padding"
+    tools:context=".ui.tickets_practice.tickets.TicketsFragment">
 
     <TextView
         android:id="@+id/tvHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/tickets"
         android:textColor="@color/text_color"
-        android:layout_marginBottom="20dp"
         android:textSize="@dimen/header_text" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTicket"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTicket"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:id="@+id/tvEmptyTicket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:text="@string/empty_ticket_list"
+            android:textColor="@color/add_color"
+            android:textSize="@dimen/header_text" />
+
+    </FrameLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

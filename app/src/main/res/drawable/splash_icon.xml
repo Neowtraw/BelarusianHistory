@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <item
+        android:width="60dp"
+        android:height="60dp"
+        android:bottom="20dp"
+        android:gravity="center">
+        <bitmap android:src="@drawable/icon" />
+    </item>
+    <item
+        android:width="100dp"
+        android:height="12dp"
+        android:gravity="center"
+        android:top="50dp">
+        <bitmap
+            android:src="@drawable/icon_text"
+            android:tint="@color/text_color" />
+    </item>
+</layer-list>

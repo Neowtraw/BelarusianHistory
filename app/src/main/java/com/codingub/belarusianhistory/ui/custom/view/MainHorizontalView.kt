@@ -71,7 +71,7 @@ class MainHorizontalView(
 
         tvName = TextView(context).apply {
             text = textName
-            textSizeDp = 17f
+            textSize = 7f.dp
             gravity = Gravity.CENTER
             typeface = Font.EXTRABOLD
             setTextColor(Resource.color(R.color.text_color))
@@ -80,7 +80,7 @@ class MainHorizontalView(
 
         tvInfo = TextView(context).apply {
             text = textInfo
-            textSizeDp = 15f
+            textSize = 6f.dp
             gravity = Gravity.CENTER
             typeface = Font.LIGHT
             setTextColor(Resource.color(R.color.text_color))
@@ -90,7 +90,7 @@ class MainHorizontalView(
         tvAchieves = TextView(context).apply {
             //изменяем
             text = textAchieves
-            textSizeDp = 20f
+            textSize = 7f.dp
             gravity = Gravity.END
             typeface = Font.REGULAR
             setTextColor(Resource.color(R.color.text_color))

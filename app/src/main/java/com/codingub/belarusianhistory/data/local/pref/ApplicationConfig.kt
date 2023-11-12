@@ -16,11 +16,12 @@ object ApplicationConfig {
     private val key_saved_theme: String = "savedTheme"
     private val key_saved_language: String = "savedLanguage"
 
-    private val prefs: SharedPreferences =
+    private val prefs: SharedPreferences by lazy {
         App.getInstance().getSharedPreferences(
             "${App.getInstance().packageName}_${this::class.java.simpleName}",
             Context.MODE_PRIVATE
         )
+    }
 
     private val editor: SharedPreferences.Editor get() = prefs.edit()
 

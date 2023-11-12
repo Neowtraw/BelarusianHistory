@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentLoginBinding
-import com.codingub.belarusianhistory.ui.auth.AuthResult
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
 import com.codingub.belarusianhistory.ui.auth.register.RegisterFragment
 import com.codingub.belarusianhistory.ui.base.BaseFragment
@@ -108,30 +108,28 @@ class LoginFragment : BaseFragment() {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     authResults.collectLatest {
                         when (it) {
-                            is AuthResult.Loading -> {
+                            is ServerResponse.Loading -> {
                                 /**
                                  *  ЗДЕСЬ ТВОЙ КОД
                                  */
                             }
 
-                            is AuthResult.Authorized -> {
+                            is ServerResponse.Authorized -> {
                                 pushFragment(MenuFragment(), "menu")
                             }
 
-                            is AuthResult.Unauthorized -> {
+                            is ServerResponse.Unauthorized -> {
                                 binding.tvError.text = "Вы не авторизованы"
                             }
 
-                            is AuthResult.Conflict -> {
+
+                            is ServerResponse.Error -> {
                                 binding.tvError.text = it.errorMessage
                                 if (it.errorMessage == "") {
-                                    binding.tvError.text = "кря"
                                 }
                             }
 
-                            is AuthResult.UnknownError -> {
-                                binding.tvError.text = "Повторите попытку позже"
-                            }
+                            else -> {}
                         }
 
                     }

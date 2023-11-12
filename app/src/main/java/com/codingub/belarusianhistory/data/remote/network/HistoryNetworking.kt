@@ -29,12 +29,13 @@ open class HistoryNetworking @Inject constructor(
     open fun okHttpClient(): OkHttpClient {
         if (okHttpClient == null) {
             val builder: OkHttpClient.Builder = OkHttpClient.Builder()
+                .addInterceptor(interceptor)
                 .addInterceptor(HttpLoggingInterceptor().apply {
                     setLevel(
                         if (isDebugMode) HttpLoggingInterceptor.Level.BODY
                         else HttpLoggingInterceptor.Level.NONE
                     )
-                }).addInterceptor(interceptor)
+                })
 
             okHttpClient = builder.build()
         }

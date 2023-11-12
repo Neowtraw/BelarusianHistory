@@ -40,18 +40,10 @@ class TicketQuestionRepositoryImpl @Inject constructor(
         return try {
             val result = api.getAllTq()
             ServerResponse.OK(result.tqList)
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if (e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if (e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else {
-                ServerResponse.UnknownError()
-            }
-        } catch (e: Exception) {
-            ServerResponse.UnknownError()
+        } catch (e: HttpException){
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+        } catch (e: Exception){
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
@@ -59,18 +51,10 @@ class TicketQuestionRepositoryImpl @Inject constructor(
         return try {
             val result = api.getTqByTicketId(ticketId = ticketId)
             ServerResponse.OK(result.tqList)
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if (e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else {
-                ServerResponse.UnknownError()
-            }
-        } catch (e: Exception) {
-            ServerResponse.UnknownError()
+        } catch (e: HttpException){
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+        } catch (e: Exception){
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
@@ -90,18 +74,10 @@ class TicketQuestionRepositoryImpl @Inject constructor(
                 )
             )
             ServerResponse.OK()
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if (e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else {
-                ServerResponse.UnknownError()
-            }
-        } catch (e: Exception) {
-            ServerResponse.UnknownError()
+        } catch (e: HttpException){
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+        } catch (e: Exception){
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 
@@ -114,18 +90,10 @@ class TicketQuestionRepositoryImpl @Inject constructor(
                 )
             )
             ServerResponse.OK()
-        } catch (e: HttpException) {
-            if (e.code() == 400) {
-                ServerResponse.BadRequest(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else if(e.code() == 404) {
-                ServerResponse.NotFound()
-            } else if (e.code() == 409) {
-                ServerResponse.Conflict(e.response()?.errorBody()?.string() ?: "Unknown error")
-            } else {
-                ServerResponse.UnknownError()
-            }
-        } catch (e: Exception) {
-            ServerResponse.UnknownError()
+        } catch (e: HttpException){
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+        } catch (e: Exception){
+            ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
 }

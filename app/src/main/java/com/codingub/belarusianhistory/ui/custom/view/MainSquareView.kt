@@ -73,7 +73,7 @@ class MainSquareView(
 
         tvName = TextView(context).apply {
             text = textName
-            textSizeDp = 17f
+            textSize = 7f.dp
             gravity = Gravity.CENTER
             typeface = Font.EXTRABOLD
             setTextColor(Resource.color(R.color.text_color))
@@ -86,7 +86,7 @@ class MainSquareView(
 
         tvAchieves = TextView(context).apply {
             text = textAchieves
-            textSizeDp = 20f
+            textSize = 6f.dp
             gravity = Gravity.CENTER
             typeface = Font.REGULAR
             setTextColor(Resource.color(R.color.text_color))

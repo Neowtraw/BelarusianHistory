@@ -66,14 +66,8 @@ class RoleFragment : BaseFragment() {
                                 pushFragment(MenuFragment(), "menu")
                                 Toast.makeText(requireContext(), "its all good", Toast.LENGTH_LONG).show()
                             }
-                            is ServerResponse.Conflict -> {
+                            is ServerResponse.Error -> {
                                 Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG).show()
-                            }
-                            is ServerResponse.BadRequest -> {
-
-                            }
-                            is ServerResponse.UnknownError -> {
-
                             }
                             else -> {}
                         }

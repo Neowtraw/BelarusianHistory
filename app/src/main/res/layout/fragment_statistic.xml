@@ -1,16 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/main_padding">
+    android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvStatistic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/statistic"
-        android:textSize="@dimen/header_text"
-        android:textColor="@color/text_color"
-        android:paddingBottom="@dimen/main_padding"/>
-</LinearLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatistic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/statistic"
+            android:textSize="@dimen/header_text"
+            android:textColor="@color/text_color"
+            android:paddingBottom="@dimen/main_padding"
+            android:padding="@dimen/main_padding"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <FrameLayout
+        android:id="@+id/flMembers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#40000000"
+        android:padding="@dimen/main_padding">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/item_rounded_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/main_padding">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/GroupName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:gravity="center"
+                android:text="@string/delete_group"
+                android:textColor="@color/text_color"
+                android:textSize="20sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMembers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="@string/delete_group"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </FrameLayout>
+</FrameLayout>

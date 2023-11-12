@@ -20,6 +20,15 @@
             android:layout_height="45dp"
             />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UID: "
+            android:textSize="@dimen/main_text"
+            android:textColor="@color/text_color"
+            android:paddingStart="@dimen/main_padding"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.fragment.app.FragmentContainerView
