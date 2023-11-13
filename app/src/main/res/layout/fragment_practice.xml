@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tickets_practice.practice.PracticeFragment"
+    tools:context=".ui.fragments.PracticeFragment"
     android:padding="@dimen/main_padding"
     android:background="@color/bg"
     android:orientation="vertical">

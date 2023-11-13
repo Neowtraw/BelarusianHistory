@@ -18,7 +18,13 @@ interface UserRepository {
         Authentication
      */
 
-    suspend fun signUp(request: RegisterRequest): ServerResponse<Unit>
+    suspend fun signUp(
+        login: String,
+        username: String,
+        password: String,
+        accessLevel: AccessLevel
+    ): ServerResponse<Unit>
+
     suspend fun signIn(login: String, password: String): ServerResponse<Unit>
     suspend fun authenticate(): ServerResponse<Unit>
 
@@ -33,10 +39,22 @@ class UserRepositoryImpl @Inject constructor(
     private val api: HistoryAppApi
 ) : UserRepository {
 
-    override suspend fun signUp(request: RegisterRequest): ServerResponse<Unit> {
+    override suspend fun signUp(
+        login: String,
+        username: String,
+        password: String,
+        accessLevel: AccessLevel
+    ): ServerResponse<Unit> {
         return try {
-            api.signUp(request)
-            signIn(request.login, request.password)
+            api.signUp(
+                RegisterRequest(
+                    login = login,
+                    username = username,
+                    password = password,
+                    accessLevel = accessLevel
+                )
+            )
+            signIn(login = login, password = password)
         } catch (e: HttpException) {
             if (e.code() == 401) {
                 ServerResponse.Unauthorized()
@@ -63,7 +81,6 @@ class UserRepositoryImpl @Inject constructor(
                 setToken(response.token)
                 setLogin(login)
                 setUsername(response.username)
-                setUID(response.UID)
             }
             ServerResponse.Authorized()
         } catch (e: HttpException) {
@@ -102,13 +119,13 @@ class UserRepositoryImpl @Inject constructor(
             api.changeRoleByLogin(
                 RoleRequest(
                     UserConfig.getLogin(),
-                    accessLevel = accessLevel.position
+                    accessLevel = accessLevel
                 )
             )
             ServerResponse.OK()
-        } catch (e: HttpException){
+        } catch (e: HttpException) {
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
-        } catch (e: Exception){
+        } catch (e: Exception) {
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }

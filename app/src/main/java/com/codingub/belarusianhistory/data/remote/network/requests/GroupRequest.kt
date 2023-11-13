@@ -1,21 +1,11 @@
 package com.codingub.belarusianhistory.data.remote.network.requests
 
-data class UserLoginGroupRequest(
+data class GroupRequest(
     val login: String,
     val groupId: String
 )
 
-data class UserUidGroupRequest(
-    val uid: String,
-    val groupId: String
-)
-
 data class CreateGroupRequest(
-    val teacherId: String,
+    val login: String,
     val groupName: String
-)
-
-data class DeleteGroupRequest(
-    val teacherId: String,
-    val groupId: String
 )

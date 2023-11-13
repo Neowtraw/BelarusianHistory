@@ -6,7 +6,7 @@
     android:background="@color/bg"
     android:orientation="vertical"
     android:padding="@dimen/main_padding"
-    tools:context=".ui.tickets_practice.tickets.TicketsFragment">
+    tools:context=".ui.fragments.TicketsFragment">
 
     <TextView
         android:id="@+id/tvHeader"

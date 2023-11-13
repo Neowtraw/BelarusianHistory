@@ -9,7 +9,6 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class HistoryInterceptor @Inject constructor(
-    //user token +
     @Named(BUILD_VERSION_CODE) private val buildVersionCode: Int,
     @Named(BUILD_VERSION_NAME) private val buildVersionName: String
 ) : Interceptor{

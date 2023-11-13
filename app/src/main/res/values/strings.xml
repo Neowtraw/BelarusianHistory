@@ -85,6 +85,7 @@
     <string name="practice_question">Практическое задание</string>
     <string name="information">Информация</string>
     <string name="delete_group">Удалить группу</string>
+    <string name="access_error">Вам не хватает прав</string>
 
 
 </resources>

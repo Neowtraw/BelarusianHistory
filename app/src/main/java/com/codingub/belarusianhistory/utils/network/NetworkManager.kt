@@ -14,7 +14,7 @@ object NetworkManager {
     private val connectivityManager: ConnectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    val isConnected: Boolean
+    private val isConnected: Boolean
         get() = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.run {
             hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
             hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||

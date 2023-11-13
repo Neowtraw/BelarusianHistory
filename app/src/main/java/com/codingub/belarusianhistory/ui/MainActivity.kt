@@ -10,39 +10,42 @@ import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.bumptech.glide.Glide
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
+import com.codingub.belarusianhistory.data.local.pref.UserConfig
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialogView
-import com.codingub.belarusianhistory.ui.menu.MenuFragment
-import com.codingub.belarusianhistory.ui.settings.SettingsFragment
+import com.codingub.belarusianhistory.ui.fragments.LoginFragment
+import com.codingub.belarusianhistory.ui.fragments.MenuFragment
+import com.codingub.belarusianhistory.ui.fragments.PracticeInfoFragment
+import com.codingub.belarusianhistory.ui.fragments.RegisterFragment
+import com.codingub.belarusianhistory.ui.fragments.ResultInfoFragment
+import com.codingub.belarusianhistory.ui.fragments.RoleFragment
+import com.codingub.belarusianhistory.ui.fragments.SettingsFragment
+import com.codingub.belarusianhistory.ui.fragments.StatisticFragment
+import com.codingub.belarusianhistory.ui.fragments.TicketInfoFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
+import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import androidx.activity.addCallback
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.bumptech.glide.Glide
-import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
-import com.codingub.belarusianhistory.data.local.pref.UserConfig
-import com.codingub.belarusianhistory.ui.auth.login.LoginFragment
-import com.codingub.belarusianhistory.ui.auth.register.RegisterFragment
-import com.codingub.belarusianhistory.ui.auth.register.RoleFragment
-import com.codingub.belarusianhistory.ui.practice.PracticeInfoFragment
-import com.codingub.belarusianhistory.ui.practice.result.ResultInfoFragment
-import com.codingub.belarusianhistory.ui.statistic.StatisticFragment
-import com.codingub.belarusianhistory.ui.tickets_info.TicketInfoFragment
-import com.codingub.belarusianhistory.utils.Font
 import java.util.Locale
 
 
@@ -54,9 +57,10 @@ class MainActivity : AppCompatActivity() {
 
     private var isSettingsIconVisible = false
 
-    private val TIME_INTERVAL: Long = 2000 // Интервал времени между нажатиями в миллисекундах
-    private var mBackPressedTime: Long = 0 // Время последнего нажатия
+    private val TIME_INTERVAL: Long = 2000
+    private var mBackPressedTime: Long = 0
     private var alertDialog: AlertDialog? = null
+
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -74,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val splashScreen = installSplashScreen().apply {
+        installSplashScreen().apply {
             setKeepOnScreenCondition {
                 vm.isLoading.value
             }
@@ -91,13 +95,7 @@ class MainActivity : AppCompatActivity() {
         createToolbar()
         back()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, MenuFragment())
-                .commit()
-        }
-
+        observeChanges()
     }
 
     /*
@@ -112,15 +110,20 @@ class MainActivity : AppCompatActivity() {
                 binding.ivTbLogo.scaleType = ImageView.ScaleType.FIT_CENTER
             }
             binding.ivTbLogo.setOnClickListener {
-                when(supportFragmentManager.fragments.last()){
-                    is MenuFragment -> {pushFragment(StatisticFragment(), "statistic", R.id.fragment_container_view)}
-                    is RoleFragment,is RegisterFragment,is LoginFragment -> {}
-                    else -> {pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)}
+                when (supportFragmentManager.fragments.last()) {
+                    is MenuFragment -> {
+                        pushFragment(StatisticFragment(), "statistic", R.id.fragment_container_view)
+                    }
+
+                    is RoleFragment, is RegisterFragment, is LoginFragment -> {}
+                    else -> {
+                        pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
+                    }
                 }
 
             }
-            binding.tvUID.apply {
-                text = "UID: ${UserConfig.getUID()}"
+            binding.tvLogin.apply {
+                text = UserConfig.getLogin()
                 typeface = Font.EXTRABOLD
             }
         }
@@ -233,28 +236,6 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    private fun showAlertDialog() {
-        if (alertDialog != null) return
-
-        val view = AlertDialogView.Builder(this)
-            .message(R.string.back_task)
-            .positiveButton(R.string.back_task_pos_button) {
-                pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
-                alertDialog?.dismiss()
-            }
-            .negativeButton(R.string.back_task_neg_button) {
-                alertDialog?.dismiss()
-            }
-            .build()
-
-        alertDialog = AlertDialog(this).apply {
-            setView(view)
-            setOnDismissListener {
-                alertDialog = null
-            }
-        }.also { it.show() }
-    }
-
     /*
         Menu
      */
@@ -293,4 +274,59 @@ class MainActivity : AppCompatActivity() {
         } else super.onOptionsItemSelected(item)
     }
 
+    private fun observeChanges() {
+        with(vm) {
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.CREATED) {
+                    authState.collectLatest {
+                        when (it) {
+                            is ServerResponse.OK, is ServerResponse.Authorized -> {
+                                supportFragmentManager.beginTransaction()
+                                    .setReorderingAllowed(true)
+                                    .add(R.id.fragment_container_view, MenuFragment())
+                                    .commit()
+
+                            }
+
+                            is ServerResponse.Error, is ServerResponse.Unauthorized -> {
+                                supportFragmentManager.beginTransaction()
+                                    .setReorderingAllowed(true)
+                                    .add(R.id.fragment_container_view, LoginFragment())
+                                    .commit()
+                            }
+
+                            else -> {}
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    /*
+        Additional
+     */
+
+    private fun showAlertDialog() {
+        if (alertDialog != null) return
+
+        val view = AlertDialogView.Builder(this)
+            .message(R.string.back_task)
+            .positiveButton(R.string.back_task_pos_button) {
+                pushFragment(MenuFragment(), "menu", R.id.fragment_container_view)
+                alertDialog?.dismiss()
+            }
+            .negativeButton(R.string.back_task_neg_button) {
+                alertDialog?.dismiss()
+            }
+            .build()
+
+        alertDialog = AlertDialog(this).apply {
+            setView(view)
+            setOnDismissListener {
+                alertDialog = null
+            }
+        }.also { it.show() }
+    }
 }

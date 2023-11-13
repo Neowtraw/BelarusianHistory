@@ -5,9 +5,6 @@ import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.sdk.AccessLevel
-import com.codingub.belarusianhistory.sdk.ThemeType
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
@@ -16,7 +13,6 @@ object UserConfig {
     private val key_user_token = "token"
     private val key_user_login = "login"
     private val key_user_username = "username"
-    private val key_user_uid = "uid"
     private val key_user_access_level = "access_level"
 
     private val prefs: SharedPreferences by lazy {
@@ -28,7 +24,6 @@ object UserConfig {
     private val editor: SharedPreferences.Editor get() = prefs.edit()
 
 
-    // аутентификация
     private var token: String = ""
 
     fun getToken(): String = prefs.getString(key_user_token, "") ?: ""
@@ -37,7 +32,6 @@ object UserConfig {
         editor.putString(key_user_token, token).commit()
     }
 
-    //получение данных пользователя по логину
     private var login: String = ""
 
     fun getLogin(): String = prefs.getString(key_user_login, "") ?:  ""
@@ -52,14 +46,6 @@ object UserConfig {
     fun setUsername(value: String){
         username = value
         editor.putString(key_user_username, username).commit()
-    }
-
-    private var uid: String = ""
-
-    fun getUID(): String = prefs.getString(key_user_uid, "") ?:  ""
-    fun setUID(value: String){
-        uid = value
-        editor.putString(key_user_uid, uid).commit()
     }
 
     val accessLevel: MutableLiveData<AccessLevel> = MutableLiveData(AccessLevel.valueOf(prefs.getString(

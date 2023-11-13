@@ -7,7 +7,7 @@ data class RegisterRequest(
     val login: String,
     val username: String,
     val password: String,
-    val accessLevel: Int
+    val accessLevel: AccessLevel
 )
 
 data class LoginRequest(
@@ -17,5 +17,5 @@ data class LoginRequest(
 
 data class RoleRequest(
     val login: String,
-    val accessLevel: Int
+    val accessLevel: AccessLevel
 )

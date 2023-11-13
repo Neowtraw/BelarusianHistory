@@ -72,5 +72,7 @@
     <string name="practice_question">Практычнае заданне</string>
     <string name="information">Інфармацыя</string>
     <string name="error_result">Паўторыце спробу пазней</string>
+    <string name="delete_group">Выдаліць групу</string>
+    <string name="access_error">Вам не хапае правоў</string>
 
 </resources>

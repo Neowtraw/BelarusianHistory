@@ -6,7 +6,6 @@ sealed class ServerResponse<T>(val data: T? = null) {
     class Loading<T>(val state: Boolean = false) : ServerResponse<T>()
     class Error<T>(val errorMessage: String) : ServerResponse<T>()
 
-    //auth
     class Authorized<T>(data: T? = null): ServerResponse<T>(data)
     class Unauthorized<T>: ServerResponse<T>()
 }

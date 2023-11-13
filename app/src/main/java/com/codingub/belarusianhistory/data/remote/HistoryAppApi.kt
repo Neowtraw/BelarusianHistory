@@ -19,7 +19,6 @@ import com.codingub.belarusianhistory.data.remote.network.EndPoints.TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TQ
 import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
 import com.codingub.belarusianhistory.data.remote.network.requests.CreateGroupRequest
-import com.codingub.belarusianhistory.data.remote.network.requests.DeleteGroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeletePqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTicketRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTqRequest
@@ -29,8 +28,7 @@ import com.codingub.belarusianhistory.data.remote.network.requests.InsertTqReque
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
-import com.codingub.belarusianhistory.data.remote.network.requests.UserLoginGroupRequest
-import com.codingub.belarusianhistory.data.remote.network.requests.UserUidGroupRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.GroupRequest
 import com.codingub.belarusianhistory.data.remote.network.responses.AchieveResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.GroupResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.PqResponse
@@ -82,27 +80,22 @@ interface HistoryAppApi {
 
     @POST(RESET_GROUP)
     suspend fun deleteGroup(
-        @Body request: DeleteGroupRequest
+        @Body request: GroupRequest
     )
 
     @POST(INVITE_USER_GROUP)
     suspend fun inviteUserToGroup(
-        @Body request: UserUidGroupRequest
+        @Body request: GroupRequest
     )
 
     @POST(DELETE_USER_GROUP)
     suspend fun deleteUserFromGroup(
-        @Body request: UserLoginGroupRequest
+        @Body request: GroupRequest
     )
 
     @GET("$GROUP/")
-    suspend fun getAllGroupsFromTeacher(
-        @Query("teachlogin") login: String
-    ) : GroupResponse
-
-    @GET("$GROUP/")
-    suspend fun getGroupFromUser(
-        @Query("userlogin") login: String
+    suspend fun getAllGroups(
+        @Query("user") login: String
     ) : GroupResponse
 
     /*

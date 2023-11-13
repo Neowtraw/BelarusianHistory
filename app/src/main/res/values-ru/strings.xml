@@ -73,6 +73,7 @@
     <string name="information">Информация</string>
     <string name="error_result">Повторите попытку позже</string>
     <string name="delete_group">Удалить группу</string>
+    <string name="access_error">Вам не хватает прав</string>
 
 
 </resources>

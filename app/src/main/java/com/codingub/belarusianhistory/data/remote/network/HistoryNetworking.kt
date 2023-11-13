@@ -44,7 +44,7 @@ open class HistoryNetworking @Inject constructor(
 
     private fun retrofitBuilder(): Retrofit.Builder{
         return Retrofit.Builder()
-            .baseUrl("http://192.168.86.106:8080/")
+            .baseUrl(historyEndpoint)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient())
     }

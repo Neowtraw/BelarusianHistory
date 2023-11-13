@@ -1,6 +1,5 @@
 package com.codingub.belarusianhistory.data.repository.tickets
 
-import android.util.Log
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
@@ -31,7 +30,6 @@ class TicketRepositoryImpl @Inject constructor(
     override suspend fun getAllTickets(): ServerResponse<List<Ticket>> {
         return try {
             val result = api.getAllTickets()
-            Log.d("err", "ITSS ALLL GOOOOD")
             ServerResponse.OK(result.ticketList)
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
