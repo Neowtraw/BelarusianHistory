@@ -17,6 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/additional_text" />
+        android:textSize="@dimen/add_text" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

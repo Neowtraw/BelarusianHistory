@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- basic -->
-    <dimen name="header_text">30sp</dimen>
+    <dimen name="header_text">25sp</dimen>
+    <dimen name="gen_text">20sp</dimen>
     <dimen name="main_text">14sp</dimen>
-    <dimen name="additional_text">12sp</dimen>
-    <dimen name="input_text">20sp</dimen>
+    <dimen name="add_text">12sp</dimen>
+
+    <dimen name="input_text">14sp</dimen>
+
 
     <dimen name="main_padding">16dp</dimen>
     <dimen name="task_padding">560dp</dimen>
@@ -12,11 +15,4 @@
 
     <!-- MainFragment -->
     <dimen name="corner_icon_radius">27dp</dimen>
-
-    <!--
-    <dimen name="main_sample">160dp</dimen>
-     <dimen name="main_vertical_height">336dp</dimen>
-     <dimen name="main_indent">16dp</dimen>
-     <dimen name="icon_margin">10dp</dimen> -->
-
  </resources>

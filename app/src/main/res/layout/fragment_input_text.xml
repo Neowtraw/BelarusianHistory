@@ -22,7 +22,7 @@
         android:layout_alignBottom="@+id/tvQuestion"
         android:layout_centerHorizontal="true"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/additional_text" />
+        android:textSize="@dimen/add_text" />
 
     <EditText
         android:id="@+id/edInput"

@@ -57,7 +57,7 @@ class SelectedView(context : Context) :  LinearLayoutCompat(context){
 
         textView = TextView(context).apply {
             typeface = Font.REGULAR
-            textSize = 7f.dp
+            textSizeDp = 14f
             isSingleLine = true
             text = Resource.string(theme.nameRes)
             ellipsize = TextUtils.TruncateAt.END

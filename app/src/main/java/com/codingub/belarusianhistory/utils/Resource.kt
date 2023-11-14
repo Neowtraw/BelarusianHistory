@@ -7,6 +7,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.codingub.belarusianhistory.App
 import com.codingub.belarusianhistory.ui.MainActivity
+import com.codingub.belarusianhistory.utils.extension.dp
 
 object Resource {
 

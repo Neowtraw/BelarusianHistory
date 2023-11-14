@@ -89,10 +89,10 @@ dependencies {
 
     //ktx
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     //navigation
-    val nav_version = "2.7.4"
+    val nav_version = "2.7.5"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("androidx.navigation:navigation-runtime-ktx:$nav_version")
@@ -104,20 +104,20 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
     // kapt("androidx.hilt:hilt-compiler:1.0.0")
    // implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.15.1")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
     //RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.1")
 
     //Room
-    val room_version = "2.6.0-rc01"
+    val room_version = "2.6.0"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version") //для работы корутин
     annotationProcessor("androidx.room:room-compiler:$room_version")

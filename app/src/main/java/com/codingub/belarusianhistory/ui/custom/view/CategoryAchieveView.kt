@@ -45,7 +45,7 @@ class CategoryAchieveView(
     init {
         setPaddingDp(24, 0, 24, 0)
         typeface = Font.REGULAR
-        textSizeDp = 20f
+        textSizeDp = 14f
         isSingleLine = true
         ellipsize = TextUtils.TruncateAt.END
         gravity = Gravity.CENTER

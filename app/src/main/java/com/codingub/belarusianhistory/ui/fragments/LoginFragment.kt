@@ -108,6 +108,7 @@ class LoginFragment : BaseFragment() {
                     authResults.collectLatest {
                         when (it) {
                             is ServerResponse.Loading -> {
+                                binding.tvError.visibility = View.GONE
                                 /**
                                  *  ЗДЕСЬ ТВОЙ КОД
                                  */
@@ -118,11 +119,13 @@ class LoginFragment : BaseFragment() {
                             }
 
                             is ServerResponse.Unauthorized -> {
+                                binding.tvError.visibility = View.VISIBLE
                                 binding.tvError.text = "Вы не авторизованы"
                             }
 
 
                             is ServerResponse.Error -> {
+                                binding.tvError.visibility = View.VISIBLE
                                 binding.tvError.text = it.errorMessage
                                 if (it.errorMessage == "") {
                                 }

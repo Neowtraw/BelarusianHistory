@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/additional_text" />
+        android:textSize="@dimen/add_text" />
 
     <ImageView
         android:id="@+id/ivPassed"

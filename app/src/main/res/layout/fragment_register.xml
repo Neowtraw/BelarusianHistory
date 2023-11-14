@@ -2,10 +2,10 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="@dimen/main_padding"
-    android:background="@color/bg">
+    android:padding="@dimen/main_padding">
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/imgLogo"
@@ -37,7 +37,7 @@
         android:paddingBottom="5dp"
         android:text="@string/auth_info"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/additional_text" />
+        android:textSize="@dimen/add_text" />
 
     <TextView
         android:id="@+id/tvError"
@@ -46,7 +46,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="3dp"
         android:textColor="@color/error_color"
-        android:textSize="@dimen/main_text" />
+        android:textSize="@dimen/main_text"
+        android:visibility="gone" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etLogin"
@@ -55,10 +56,11 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/item_outline_rounded"
         android:hint="@string/login_hint"
+        android:maxLength="35"
         android:padding="@dimen/main_text"
         android:singleLine="true"
-        android:maxLength="35"
-        android:textColorHint="@color/add_color" />
+        android:textColorHint="@color/add_color"
+        android:textSize="@dimen/main_text" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etName"
@@ -67,10 +69,11 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/item_outline_rounded"
         android:hint="@string/name_hint"
+        android:maxLength="35"
         android:padding="@dimen/main_text"
         android:singleLine="true"
-        android:maxLength="35"
-        android:textColorHint="@color/add_color" />
+        android:textColorHint="@color/add_color"
+        android:textSize="@dimen/main_text" />
 
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -79,10 +82,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_outline_rounded"
         android:hint="@string/password_hint"
+        android:maxLength="35"
         android:padding="@dimen/main_text"
         android:singleLine="true"
-        android:maxLength="35"
-        android:textColorHint="@color/add_color" />
+        android:textColorHint="@color/add_color"
+        android:textSize="@dimen/main_text" />
 
     <Button
         android:id="@+id/btnRegister"
@@ -98,8 +102,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:text="@string/transition_to_login"
         android:textColor="@color/add_color"
-        android:text="@string/transition_to_login" />
+        android:textSize="@dimen/main_text" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

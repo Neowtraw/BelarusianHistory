@@ -27,7 +27,7 @@
         android:gravity="center"
         android:text="feffe"
         android:textColor="@color/add_color"
-        android:textSize="@dimen/additional_text"
+        android:textSize="@dimen/add_text"
         android:paddingTop="50dp"/>
 
 </LinearLayout>

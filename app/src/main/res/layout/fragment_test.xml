@@ -18,7 +18,7 @@
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/additional_text"
+        android:textSize="@dimen/add_text"
         android:layout_centerHorizontal="true"
         android:layout_alignBottom="@+id/tvQuestion"
         android:textColor="@color/text_color"

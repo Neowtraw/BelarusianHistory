@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"
                 android:paddingTop="16dp"
-                android:textSize="@dimen/additional_text"/>
+                android:textSize="@dimen/add_text"/>
 
             <Button
                 android:id="@+id/btnGoTo"
