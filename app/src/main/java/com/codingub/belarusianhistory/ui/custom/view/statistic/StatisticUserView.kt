@@ -14,7 +14,6 @@ import androidx.core.view.setPadding
 import com.bumptech.glide.Glide
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.utils.AssetUtil
-import com.codingub.belarusianhistory.utils.DrawableUtil
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
@@ -56,7 +55,7 @@ class StatisticUserView(
 
         tvUsername = TextView(context).apply {
             typeface = Font.SEMIBOLD
-            textSizeDp = 8f.dp
+            textSizeDp = 14f
             isSingleLine = true
             text = username
             ellipsize = TextUtils.TruncateAt.END
@@ -67,7 +66,7 @@ class StatisticUserView(
 
         tvStatistic = TextView(context).apply {
             typeface = Font.REGULAR
-            textSizeDp = 7f.dp
+            textSizeDp = 14f
             isSingleLine = true
             text = Resource.string(R.string.statistic)
             ellipsize = TextUtils.TruncateAt.END
@@ -119,7 +118,7 @@ class StatisticUserView(
 
         changeProfile = TextView(context).apply {
             typeface = Font.REGULAR
-            textSizeDp = 7f.dp
+            textSizeDp = 14f
             isSingleLine = true
             text = Resource.string(R.string.change_profile)
             ellipsize = TextUtils.TruncateAt.END

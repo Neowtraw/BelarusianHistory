@@ -13,12 +13,14 @@ import com.codingub.belarusianhistory.domain.use_cases.GetAllGroupsUseCase
 import com.codingub.belarusianhistory.domain.use_cases.InviteUserToGroupUseCase
 import com.codingub.belarusianhistory.sdk.AccessLevel
 import com.codingub.belarusianhistory.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class StatisticViewModel @Inject constructor(
     private val getAllGroupsUseCase: GetAllGroupsUseCase,
     private val createGroupUseCase: CreateGroupUseCase,

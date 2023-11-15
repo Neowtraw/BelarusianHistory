@@ -14,7 +14,6 @@ import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentTransaction
@@ -83,8 +82,6 @@ class MainActivity : AppCompatActivity() {
                 vm.isLoading.value
             }
         }
-        AppCompatDelegate.setDefaultNightMode(ApplicationConfig.getTheme().nightMode)
-
         super.onCreate(savedInstanceState)
         Instance = this
 
@@ -291,7 +288,7 @@ class MainActivity : AppCompatActivity() {
                             is ServerResponse.Error, is ServerResponse.Unauthorized -> {
                                 supportFragmentManager.beginTransaction()
                                     .setReorderingAllowed(true)
-                                    .add(R.id.fragment_container_view, LoginFragment())
+                                    .add(R.id.fragment_container_view, MenuFragment())
                                     .commit()
                             }
 

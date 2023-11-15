@@ -1,8 +1,7 @@
 package com.codingub.belarusianhistory
 
 import android.app.Application
-import android.content.res.Configuration
-import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
 import com.codingub.belarusianhistory.sdk.Language
 import dagger.hilt.android.HiltAndroidApp
@@ -21,6 +20,7 @@ class App : Application() {
 
         Instance = this
         setLanguage(ApplicationConfig.getLanguage())
+        AppCompatDelegate.setDefaultNightMode(ApplicationConfig.getTheme().nightMode)
     }
 
     fun setLanguage(language: Language) {

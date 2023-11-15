@@ -6,9 +6,7 @@ import android.view.Gravity
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
-import com.bumptech.glide.Glide
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
@@ -20,9 +18,9 @@ class StatisticItem(
     firstValue: Int,
     secondValue: Int,
     context: Context
-) : LinearLayoutCompat(context){
+) : LinearLayoutCompat(context) {
 
-    private val checkmark : ImageView
+    private val checkmark: ImageView
     private val titleView: TextView
 
     init {
@@ -30,11 +28,9 @@ class StatisticItem(
         orientation = HORIZONTAL
 
         checkmark = ImageView(context).apply {
-            post{
-                Glide.with(context)
-                    .load(AssetUtil.imagesImageUri("checkmark"))
-                    .into(this)
-                   setColorFilter(Resource.color(R.color.contrast))
+            post {
+                setImageResource(R.drawable.checkmark)
+                setColorFilter(Resource.color(R.color.contrast))
             }
         }
         addView(checkmark, LayoutParams(
@@ -42,13 +38,13 @@ class StatisticItem(
             20.dp,
         ).apply {
             gravity = Gravity.CENTER
-            setMargins(0,0,10.dp,0)
+            setMargins(0, 0, 10.dp, 0)
         })
 
-        titleView = TextView(context).apply{
+        titleView = TextView(context).apply {
             text = "$title: $firstValue/$secondValue"
             typeface = Font.REGULAR
-            textSizeDp = 7f.dp
+            textSizeDp = 14f
             setTextColor(Resource.color(R.color.text_color))
             gravity = Gravity.START
         }
@@ -56,7 +52,7 @@ class StatisticItem(
             LayoutParams.MATCH_PARENT,
             LayoutParams.WRAP_CONTENT,
         ).apply {
-            setPadding(10.dp,0,0,0)
+            setPadding(10.dp, 0, 0, 0)
         })
 
     }
