@@ -3,7 +3,6 @@ package com.codingub.belarusianhistory.data.remote.network.requests
 import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
 
 data class DeleteTqRequest (
-    val ticketId: String,
     val questionId: String
 )
 data class InsertTqRequest(

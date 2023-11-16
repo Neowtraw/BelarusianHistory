@@ -5,8 +5,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.codingub.belarusianhistory.data.remote.network.models.practices.Answer
 import com.codingub.belarusianhistory.databinding.DateOrderItemBinding
-import com.codingub.belarusianhistory.domain.model.Answer
 import com.codingub.belarusianhistory.utils.Font
 
 class DateOrderAdapter(

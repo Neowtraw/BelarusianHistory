@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.remote.network.models.practices.PracticeQuestion
 import com.codingub.belarusianhistory.databinding.FragmentInputTextBinding
-import com.codingub.belarusianhistory.domain.model.PracticeQuestion
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
@@ -87,8 +87,8 @@ class InputTextFragment : TaskFragment() {
         //логика передачи данных в другой фрагмент
         userAnswer = UserPracticeAnswer(
             question.info, listOf(answer!!),
-            listOf(question.answers.last().answerName),
-            question.answers.last().answerName == answer
+            listOf(question.answers.last().info),
+            question.answers.last().info == answer
         )
 
         return userAnswer

@@ -86,6 +86,13 @@
     <string name="information">Информация</string>
     <string name="delete_group">Удалить группу</string>
     <string name="access_error">Вам не хватает прав</string>
+    <string name="error_repeat_btn">Повторить попытку</string>
+    <string name="add_new_user">Добавить нового пользователя\n</string>
+    <string name="add_new_group">Создать новую группу</string>
+    <string name="login_user_hint">Введите логин пользователя</string>
+    <string name="group_name_hint">Создайте название группы</string>
+    <string name="cancel_action">Отменить</string>
+    <string name="add_action">Добавить</string>
 
 
 </resources>

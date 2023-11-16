@@ -20,7 +20,6 @@ interface PracticeQuestionRepository {
     ): ServerResponse<Unit>
 
     suspend fun deletePq(
-        tqId: String,
         questionId: String
     ): ServerResponse<Unit>
 }
@@ -62,11 +61,9 @@ class PracticeQuestionRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deletePq(tqId: String, questionId: String): ServerResponse<Unit> {
+    override suspend fun deletePq(questionId: String): ServerResponse<Unit> {
         return try{
-            api.deletePq(DeletePqRequest(
-                tqId, questionId
-            ))
+            api.deletePq(DeletePqRequest(questionId))
             ServerResponse.OK()
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")

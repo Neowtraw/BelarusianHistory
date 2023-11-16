@@ -83,7 +83,7 @@ class TicketAdapter(
                 typeface = Font.REGULAR
             }
             binding.tvContent.apply {
-                text = TicketUtil.groupQuestions(item.questions)
+                text = TicketUtil.groupQuestions(item.tqs)
                 typeface = Font.REGULAR
             }
             binding.ivPassed.apply {

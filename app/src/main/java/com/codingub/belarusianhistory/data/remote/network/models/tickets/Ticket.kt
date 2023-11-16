@@ -8,7 +8,7 @@ data class Ticket(
     val id: String,
     val name: String,
     val timer: Long, //for timer in ticket
-    var questions: List<TicketQuestion> = emptyList(),
+    var tqs: List<TicketQuestion> = emptyList(),
     val achievement: Achieve? = null
 )
 

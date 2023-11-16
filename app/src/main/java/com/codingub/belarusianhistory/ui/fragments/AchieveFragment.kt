@@ -27,8 +27,8 @@ import com.codingub.belarusianhistory.ui.custom.view.CategoryAchieveView
 import com.codingub.belarusianhistory.sdk.AchievesCategory
 import com.codingub.belarusianhistory.ui.adapters.AchieveAdapter
 import com.codingub.belarusianhistory.ui.viewmodels.AchieveViewModel
-import com.codingub.belarusianhistory.ui.base.BaseItemDecoration
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ItemDecoration
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.setPaddingDp
@@ -150,7 +150,7 @@ class AchieveFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(requireContext())
             achieveAdapter = AchieveAdapter()
             adapter = achieveAdapter
-            addItemDecoration(BaseItemDecoration())
+            addItemDecoration(ItemDecoration.createLinBottomItemDecoration(9.dp))
         }
     }
 
@@ -268,9 +268,6 @@ class AchieveFragment : BaseFragment() {
                 emptyText.visibility = View.INVISIBLE
                 achieveView.visibility = View.VISIBLE
             }
-
-            Log.d("",it.size.toString())
-
         }
     }
 

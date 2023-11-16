@@ -35,7 +35,7 @@ class InsertTqUseCase @Inject constructor(private val repository: TicketQuestion
 
 class ResetTqUseCase @Inject constructor(private val repository: TicketQuestionRepository) {
 
-    suspend operator fun invoke(ticketId: String, questionId: String): ServerResponse<Unit> {
-        return repository.deleteTq(ticketId, questionId)
+    suspend operator fun invoke(questionId: String): ServerResponse<Unit> {
+        return repository.deleteTq(questionId)
     }
 }

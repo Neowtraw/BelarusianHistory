@@ -27,7 +27,7 @@ class InsertPqUseCase @Inject constructor(private val repository: PracticeQuesti
 
 class ResetPqUseCase @Inject constructor(private val repository: PracticeQuestionRepository) {
 
-    suspend operator fun invoke(tqId: String, questionId: String): ServerResponse<Unit> {
-        return repository.deletePq(tqId, questionId)
+    suspend operator fun invoke(questionId: String): ServerResponse<Unit> {
+        return repository.deletePq(questionId)
     }
 }

@@ -8,8 +8,10 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <!-- header -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStatistic"
             android:layout_width="wrap_content"
@@ -20,13 +22,104 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/header_text" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <!-- statistic -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llStatistic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llStatistic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        <!-- groups -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_rounded_bg"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/main_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvGroupName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/groups"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/main_text" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btnAddGroup"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/plus"
+                    android:tint="@color/contrast" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGroups"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/groupsEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/user_groups_empty"
+                android:textColor="@color/add_color"
+                android:textSize="@dimen/main_text"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/groupsError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/main_padding"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/repeat"
+                    android:tint="@color/contrast" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/btnGroupsRepeat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/error_repeat_btn"
+                    android:textColor="@color/add_color"
+                    android:textSize="@dimen/main_text" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/main_padding"
+                android:progressTint="@color/contrast"
+                android:visibility="gone" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <FrameLayout
         android:id="@+id/flMembers"
@@ -44,7 +137,7 @@
             android:padding="@dimen/main_padding">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/GroupName"
+                android:id="@+id/dialogGroupName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"

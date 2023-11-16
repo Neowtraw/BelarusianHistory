@@ -1,8 +1,10 @@
 package com.codingub.belarusianhistory.sdk
 
+import java.io.Serializable
+
 enum class TaskType(
     private val task: Int
-) {
+) : Serializable {
 
     Test(0),
     InputText(1),

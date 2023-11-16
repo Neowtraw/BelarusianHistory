@@ -17,8 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
-import com.codingub.belarusianhistory.ui.base.BaseItemDecoration
+import com.codingub.belarusianhistory.ui.adapters.GroupAdapter
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ItemDecoration
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.textSizeDp
@@ -101,11 +102,11 @@ class StatisticGroupView(
 
 
         rvGroups = RecyclerView(context).apply {
-            groupAdapter = GroupAdapter(groups)
+            groupAdapter = GroupAdapter()
             adapter = groupAdapter
             overScrollMode = View.OVER_SCROLL_NEVER
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(BaseItemDecoration())
+            addItemDecoration(ItemDecoration.createLinBottomItemDecoration(9.dp))
         }
 
         addView(

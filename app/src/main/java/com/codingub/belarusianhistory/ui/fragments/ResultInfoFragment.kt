@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.databinding.FragmentResultInfoBinding
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.BaseFragment
-import com.codingub.belarusianhistory.ui.base.BaseItemDecoration
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.adapters.ResultInfoAdapter
 import com.codingub.belarusianhistory.ui.viewmodels.ResultInfoViewModel
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ItemDecoration
+import com.codingub.belarusianhistory.utils.extension.dp
 import com.codingub.belarusianhistory.utils.extension.serializable
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,7 +28,6 @@ class ResultInfoFragment : BaseFragment(){
     private val model: SharedViewModel by activityViewModels()
 
     private lateinit var resultAdapter: ResultInfoAdapter
-    private lateinit var resultDecorator: BaseItemDecoration
 
     private lateinit var binding: FragmentResultInfoBinding
 
@@ -67,8 +67,7 @@ class ResultInfoFragment : BaseFragment(){
             resultAdapter = ResultInfoAdapter()
             adapter = resultAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            resultDecorator = BaseItemDecoration()
-            addItemDecoration(resultDecorator)
+            addItemDecoration(ItemDecoration.createLinBottomItemDecoration(9.dp))
         }
     }
 

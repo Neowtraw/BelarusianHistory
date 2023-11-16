@@ -69,7 +69,7 @@ class TicketInfoFragment : BaseFragment(){
 
 
         adapter = TicketInfoAdapter()
-        adapter.tickets = ticket.questions
+        adapter.tickets = ticket.tqs
         binding.rvTicketInfo.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTicketInfo.adapter = adapter
 

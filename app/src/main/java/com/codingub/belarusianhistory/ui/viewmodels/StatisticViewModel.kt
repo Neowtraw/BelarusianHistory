@@ -47,15 +47,15 @@ class StatisticViewModel @Inject constructor(
 
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            getGroups()
-        }
+        getGroups()
     }
 
-    private suspend fun getGroups() {
-        getGroupChannel.send(ServerResponse.Loading(true))
-        val result = getAllGroupsUseCase(UserConfig.getLogin())
-        getGroupChannel.send(result)
+   fun getGroups() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getGroupChannel.send(ServerResponse.Loading(true))
+            val result = getAllGroupsUseCase(UserConfig.getLogin())
+            getGroupChannel.send(result)
+        }
     }
 
     suspend fun createGroup(name: String) {

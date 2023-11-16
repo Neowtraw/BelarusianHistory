@@ -33,7 +33,7 @@ class TicketsFragment : BaseFragment() {
     private val model: SharedViewModel by activityViewModels()
 
     private lateinit var binding: FragmentTicketsBinding
-    private lateinit var adapter: TicketAdapter
+    private lateinit var ticketAdapter: TicketAdapter
 
     private val ticketsList = mutableListOf<Ticket>()
 
@@ -53,11 +53,11 @@ class TicketsFragment : BaseFragment() {
 
         binding.rvTicket.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = TicketAdapter(ticketsList, onTicketSelected = { ticket ->
+            ticketAdapter = TicketAdapter(ticketsList, onTicketSelected = { ticket ->
                 model.select(ticket)
                 pushFragment(TicketInfoFragment(), "ticketInfo")
             })
-            this.adapter = adapter
+            adapter = ticketAdapter
             addItemDecoration(createItemDecoration(6.dp))
         }
     }
@@ -81,7 +81,7 @@ class TicketsFragment : BaseFragment() {
                                     binding.rvTicket.visibility = View.VISIBLE
                                     ticketsList.clear()
                                     ticketsList.addAll(it.value)
-                                    adapter.notifyDataSetChanged()
+                                    ticketAdapter.notifyDataSetChanged()
                                 }
                             }
                             is ServerResponse.Error -> {

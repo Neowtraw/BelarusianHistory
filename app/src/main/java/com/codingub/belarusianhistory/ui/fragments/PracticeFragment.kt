@@ -33,7 +33,7 @@ class PracticeFragment : BaseFragment() {
     private val vm : PracticeViewModel by viewModels()
 
     private lateinit var binding: FragmentPracticeBinding
-    private lateinit var adapter: PracticeAdapter
+    private lateinit var practiceAdapter: PracticeAdapter
 
     private val practiceList = mutableListOf<TicketQuestion>()
 
@@ -52,11 +52,11 @@ class PracticeFragment : BaseFragment() {
 
         binding.rvPractice.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = PracticeAdapter(practiceList){ practice ->
+            practiceAdapter = PracticeAdapter(practiceList){ practice ->
                 model.select(practice)
                 pushFragment(PracticeInfoFragment(), "practiceInfo")
             }
-            this.adapter = adapter
+            adapter = practiceAdapter
             addItemDecoration(createItemDecoration(6.dp))
         }
     }
@@ -79,7 +79,7 @@ class PracticeFragment : BaseFragment() {
                                     binding.rvPractice.visibility = View.VISIBLE
                                     practiceList.clear()
                                     practiceList.addAll(it.value)
-                                    adapter.notifyItemRangeChanged(0,adapter.itemCount)
+                                    practiceAdapter.notifyItemRangeChanged(0,practiceAdapter.itemCount)
                                 }
                             }
                             is ServerResponse.Error -> {

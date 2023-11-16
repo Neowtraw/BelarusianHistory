@@ -15,8 +15,9 @@ import com.codingub.belarusianhistory.databinding.FragmentRoleBinding
 import com.codingub.belarusianhistory.ui.adapters.RoleAdapter
 import com.codingub.belarusianhistory.ui.viewmodels.RoleViewModel
 import com.codingub.belarusianhistory.ui.base.BaseFragment
-import com.codingub.belarusianhistory.ui.base.BaseItemDecoration
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.ItemDecoration
+import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +27,6 @@ class RoleFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRoleBinding
     private lateinit var roleAdapter: RoleAdapter
-    private lateinit var roleDecorator: BaseItemDecoration
     private val vm: RoleViewModel by viewModels()
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
@@ -46,8 +46,7 @@ class RoleFragment : BaseFragment() {
                 vm.changeRole(accessLevel = it)
             }
             adapter = roleAdapter
-            roleDecorator = BaseItemDecoration()
-            addItemDecoration(roleDecorator)
+            addItemDecoration(ItemDecoration.createLinBottomItemDecoration(9.dp))
         }
     }
 

@@ -3,8 +3,8 @@ package com.codingub.belarusianhistory.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.codingub.belarusianhistory.data.remote.network.models.practices.Answer
 import com.codingub.belarusianhistory.databinding.TestItemBinding
-import com.codingub.belarusianhistory.domain.model.Answer
 import com.codingub.belarusianhistory.utils.Font
 
 class TestAdapter(
@@ -15,7 +15,7 @@ class TestAdapter(
     private var correctAnswer: Answer? = null
 
     init {
-        correctAnswer = answerList.find { it.isTrue == 1 }
+        correctAnswer = answerList.find { it.isTrue }
     }
 
     inner class ViewHolder(private val binding: TestItemBinding) :
@@ -24,7 +24,7 @@ class TestAdapter(
         init {
             binding.tvAnswer.apply {
                 typeface = Font.REGULAR
-                text = answerList.getOrNull(bindingAdapterPosition)?.answerName
+                text = answerList.getOrNull(bindingAdapterPosition)?.info
 
                 setOnClickListener {
                     val position = bindingAdapterPosition
@@ -35,13 +35,13 @@ class TestAdapter(
                         notifyDataSetChanged()
 
                         val answer = answerList.getOrNull(position)
-                        if (answer?.isTrue == 1) {
-                            onAnswerSelected(answer.answerName, answer.answerName, true)
+                        if (answer?.isTrue == true) {
+                            onAnswerSelected(answer.info, answer.info, true)
                         } else {
                             val correctAnswer = correctAnswer
                             if (correctAnswer != null) {
                                 if (answer != null) {
-                                    onAnswerSelected(answer.answerName, correctAnswer.answerName, false)
+                                    onAnswerSelected(answer.info, correctAnswer.info, false)
                                 }
                             }
                         }
@@ -53,7 +53,7 @@ class TestAdapter(
         fun bind() {
             binding.tvAnswer.apply {
                 typeface = Font.REGULAR
-                text = answerList[bindingAdapterPosition].answerName
+                text = answerList[bindingAdapterPosition].info
             }
         }
     }

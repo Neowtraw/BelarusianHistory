@@ -23,7 +23,6 @@ interface TicketQuestionRepository {
     ): ServerResponse<Unit>
 
     suspend fun deleteTq(
-        ticketId: String,
         questionId: String
     ): ServerResponse<Unit>
 }
@@ -78,11 +77,10 @@ class TicketQuestionRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteTq(ticketId: String, questionId: String): ServerResponse<Unit> {
+    override suspend fun deleteTq(questionId: String): ServerResponse<Unit> {
         return try {
             api.deleteTq(
                 DeleteTqRequest(
-                    ticketId = ticketId,
                     questionId = questionId
                 )
             )

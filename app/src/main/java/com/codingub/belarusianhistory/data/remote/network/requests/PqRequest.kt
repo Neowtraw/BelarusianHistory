@@ -10,6 +10,5 @@ data class InsertPqRequest(
     )
 
 data class DeletePqRequest (
-    val tqId: String,
     val questionId: String
 )

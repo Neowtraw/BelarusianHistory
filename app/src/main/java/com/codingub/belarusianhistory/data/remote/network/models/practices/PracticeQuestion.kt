@@ -15,4 +15,4 @@ data class PracticeQuestion(
 data class Answer(
     val info: String,
     val isTrue: Boolean
-)
+) : Serializable

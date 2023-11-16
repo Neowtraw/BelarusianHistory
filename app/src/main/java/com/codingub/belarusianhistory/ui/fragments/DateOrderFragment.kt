@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.remote.network.models.practices.PracticeQuestion
 import com.codingub.belarusianhistory.databinding.FragmentDateOrderBinding
-import com.codingub.belarusianhistory.domain.model.PracticeQuestion
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.ui.adapters.DateOrderAdapter
@@ -71,7 +71,7 @@ class DateOrderFragment : TaskFragment() {
 
 
         val answers = question.answers.map {
-            it.answerName
+            it.info
         }
 
         userAnswer = dateAdapter.getUserAnswers()?.let {
