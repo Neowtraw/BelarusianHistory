@@ -42,4 +42,6 @@
     <color name="is_not_right_stroke">#95294A</color>
     <color name="is_not_right">#4595294A</color>
 
+    <color name="trans">#0080F9EB</color>
+
 </resources>

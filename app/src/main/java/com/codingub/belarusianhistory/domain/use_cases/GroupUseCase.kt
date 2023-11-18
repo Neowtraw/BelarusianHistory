@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class CreateGroupUseCase @Inject constructor(private val repository: GroupRepository) {
 
-    suspend operator fun invoke(teacherId : String, groupName : String): ServerResponse<Unit> {
-        return repository.createGroup(teacherId, groupName)
+    suspend operator fun invoke(teacher : String, groupName : String): ServerResponse<Unit> {
+        return repository.createGroup(teacher, groupName)
     }
 }
 

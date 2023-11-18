@@ -4,17 +4,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
 import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
 import com.codingub.belarusianhistory.ui.custom.view.statistic.StatisticGroupItem
 
 
-class GroupAdapter() : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(
+    private inline val onGroupSelected: (Group) -> Unit
+) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
     var groups: List<Group>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
-    private val diffCallback = object: DiffUtil.ItemCallback<Group>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<Group>() {
         override fun areItemsTheSame(oldItem: Group, newItem: Group): Boolean {
             return oldItem.id == newItem.id
         }
@@ -25,11 +28,17 @@ class GroupAdapter() : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    inner class ViewHolder(val view: StatisticGroupItem) : RecyclerView.ViewHolder(view){
+    inner class ViewHolder(val view: StatisticGroupItem) : RecyclerView.ViewHolder(view) {
 
-        fun bind(){
+        fun bind() {
             view.title = groups[bindingAdapterPosition].name
-            view.participants = groups[bindingAdapterPosition].userIds.size.toString()
+            view.participants = groups[bindingAdapterPosition].users.size.toString()
+        }
+
+        init {
+            view.setOnClickListener {
+                onGroupSelected(groups[bindingAdapterPosition])
+            }
         }
     }
 

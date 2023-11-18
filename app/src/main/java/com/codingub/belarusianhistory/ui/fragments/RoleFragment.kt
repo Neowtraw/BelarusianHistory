@@ -1,6 +1,7 @@
 package com.codingub.belarusianhistory.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.codingub.belarusianhistory.data.local.pref.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentRoleBinding
 import com.codingub.belarusianhistory.ui.adapters.RoleAdapter
@@ -43,6 +45,8 @@ class RoleFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
             overScrollMode = View.OVER_SCROLL_NEVER
             roleAdapter = RoleAdapter() {
+                Log.d("",it.name)
+                UserConfig.setAccessLevel(it)
                 vm.changeRole(accessLevel = it)
             }
             adapter = roleAdapter
@@ -57,14 +61,12 @@ class RoleFragment : BaseFragment() {
                     roleState.collectLatest {
                         when (it) {
                             is ServerResponse.Loading -> { // загрузка
-                                Toast.makeText(requireContext(), "Загрузка", Toast.LENGTH_LONG).show()
                                 /**
                                  * ЗДЕСЬ ТВОЙ КОД
                                  */
                             }
                             is ServerResponse.OK -> {
                                 pushFragment(MenuFragment(), "menu")
-                                Toast.makeText(requireContext(), "its all good", Toast.LENGTH_LONG).show()
                             }
                             is ServerResponse.Error -> {
                                 Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG).show()

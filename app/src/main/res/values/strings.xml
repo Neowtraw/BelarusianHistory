@@ -93,6 +93,7 @@
     <string name="group_name_hint">Создайте название группы</string>
     <string name="cancel_action">Отменить</string>
     <string name="add_action">Добавить</string>
+    <string name="members_group_empty">В группе нет пользователей</string>
 
 
 </resources>

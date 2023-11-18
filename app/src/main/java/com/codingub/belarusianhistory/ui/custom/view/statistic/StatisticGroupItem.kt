@@ -15,7 +15,8 @@ import com.codingub.belarusianhistory.utils.extension.textSizeDp
 
 @SuppressLint("ViewConstructor")
 class StatisticGroupItem(
-    context : Context
+    context : Context,
+
 ) : RelativeLayout(context){
 
     private val group: TextView
@@ -39,18 +40,16 @@ class StatisticGroupItem(
 
         group = TextView(context).apply {
             typeface = Font.REGULAR
-            textSizeDp = 7f.dp
+            textSize = 6f.dp
             isSingleLine = true
-            text = "group test!!!"
             ellipsize = TextUtils.TruncateAt.END
             setTextColor(Resource.color(R.color.text_color))
             gravity = Gravity.START
         }
         members = TextView(context).apply {
             typeface = Font.REGULAR
-            textSizeDp = 7f.dp
+            textSize = 6f.dp
             isSingleLine = true
-            text = "member test!!"
             ellipsize = TextUtils.TruncateAt.END
             setTextColor(Resource.color(R.color.text_color))
         }

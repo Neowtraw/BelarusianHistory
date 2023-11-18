@@ -288,7 +288,7 @@ class MainActivity : AppCompatActivity() {
                             is ServerResponse.Error, is ServerResponse.Unauthorized -> {
                                 supportFragmentManager.beginTransaction()
                                     .setReorderingAllowed(true)
-                                    .add(R.id.fragment_container_view, MenuFragment())
+                                    .add(R.id.fragment_container_view, LoginFragment())
                                     .commit()
                             }
 

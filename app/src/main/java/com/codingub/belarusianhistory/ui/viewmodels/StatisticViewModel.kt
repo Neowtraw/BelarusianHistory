@@ -1,5 +1,6 @@
 package com.codingub.belarusianhistory.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.R
@@ -50,7 +51,7 @@ class StatisticViewModel @Inject constructor(
         getGroups()
     }
 
-   fun getGroups() {
+    fun getGroups() {
         viewModelScope.launch(Dispatchers.IO) {
             getGroupChannel.send(ServerResponse.Loading(true))
             val result = getAllGroupsUseCase(UserConfig.getLogin())
@@ -58,59 +59,68 @@ class StatisticViewModel @Inject constructor(
         }
     }
 
-    suspend fun createGroup(name: String) {
-        createGroupChannel.send(ServerResponse.Loading(true))
-        when (UserConfig.getAccessLevel()) {
-            AccessLevel.Admin, AccessLevel.Teacher -> {
-                val result = createGroupUseCase(UserConfig.getLogin(), name)
-                createGroupChannel.send(result)
-            }
+    fun createGroup(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            createGroupChannel.send(ServerResponse.Loading(true))
+            when (UserConfig.getAccessLevel()) {
+                AccessLevel.Admin, AccessLevel.Teacher -> {
+                    val result = createGroupUseCase(UserConfig.getLogin(), name)
+                    createGroupChannel.send(result)
+                }
 
-            AccessLevel.User -> {
-                createGroupChannel.send(ServerResponse.Error(Resource.string(R.string.access_error)))
-            }
-        }
-
-    }
-
-    suspend fun deleteGroup(groupId: String) {
-        deleteGroupChannel.send(ServerResponse.Loading(true))
-        when (UserConfig.getAccessLevel()) {
-            AccessLevel.Admin, AccessLevel.Teacher -> {
-                val result = deleteGroupUseCase(UserConfig.getLogin(), groupId)
-                deleteGroupChannel.send(result)
-            }
-
-            AccessLevel.User -> {
-                deleteGroupChannel.send(ServerResponse.Error(Resource.string(R.string.access_error)))
+                AccessLevel.User -> {
+                    createGroupChannel.send(ServerResponse.Error(Resource.string(R.string.access_error)))
+                }
             }
         }
     }
 
-    suspend fun inviteUserToGroup(groupId: String) {
-        inviteUserGroupChannel.send(ServerResponse.Loading(true))
-        when (UserConfig.getAccessLevel()) {
-            AccessLevel.Admin, AccessLevel.Teacher -> {
-                val result = inviteUserToGroupUseCase(UserConfig.getLogin(), groupId)
-                inviteUserGroupChannel.send(result)
-            }
+    fun deleteGroup(teacher: String,groupId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteGroupChannel.send(ServerResponse.Loading(true))
+            when (UserConfig.getAccessLevel()) {
+                AccessLevel.Admin, AccessLevel.Teacher -> {
+                    val result = deleteGroupUseCase(teacher ,groupId)
+                    deleteGroupChannel.send(result)
+                }
 
-            AccessLevel.User -> {
-                inviteUserGroupChannel.send(ServerResponse.Error(Resource.string(R.string.access_error)))
+                AccessLevel.User -> {
+                    deleteGroupChannel.send(ServerResponse.Error(Resource.string(R.string.access_error)))
+                }
             }
         }
     }
 
-    suspend fun deleteUserFromGroup(groupId: String) {
-        deleteUserGroupChannel.send(ServerResponse.Loading(true))
-        when (UserConfig.getAccessLevel()) {
-            AccessLevel.Admin, AccessLevel.Teacher -> {
-                val result = deleteUserFromGroupUseCase(UserConfig.getLogin(), groupId)
-                deleteUserGroupChannel.send(result)
-            }
+    fun inviteUserToGroup(groupId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
 
-            AccessLevel.User -> {
-                deleteUserGroupChannel.send(ServerResponse.Error(Resource.string(R.string.access_error)))
+            inviteUserGroupChannel.send(ServerResponse.Loading(true))
+            when (UserConfig.getAccessLevel()) {
+                AccessLevel.Admin, AccessLevel.Teacher -> {
+                    val result = inviteUserToGroupUseCase(UserConfig.getLogin(), groupId)
+                    inviteUserGroupChannel.send(result)
+                }
+
+                AccessLevel.User -> {
+                    inviteUserGroupChannel.send(ServerResponse.Error(Resource.string(R.string.access_error)))
+                }
+            }
+        }
+    }
+
+    fun deleteUserFromGroup(user: String,groupId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            deleteUserGroupChannel.send(ServerResponse.Loading(true))
+            when (UserConfig.getAccessLevel()) {
+                AccessLevel.Admin, AccessLevel.Teacher -> {
+                    val result = deleteUserFromGroupUseCase(user, groupId)
+                    deleteUserGroupChannel.send(result)
+                }
+
+                AccessLevel.User -> {
+                    deleteUserGroupChannel.send(ServerResponse.Error(Resource.string(R.string.access_error)))
+                }
             }
         }
     }

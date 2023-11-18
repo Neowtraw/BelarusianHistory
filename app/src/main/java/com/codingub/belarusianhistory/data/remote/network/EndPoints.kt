@@ -24,6 +24,6 @@ object EndPoints {
 
     const val GROUP = "groups"
     const val INSERT_GROUP = "groups/insert"
-    const val RESET_GROUP = "groups/insert"
-    const val INVITE_USER_GROUP = "groups/insert"
-    const val DELETE_USER_GROUP = "groups/insert"}
+    const val RESET_GROUP = "groups/reset"
+    const val INVITE_USER_GROUP = "groups/users/invite"
+    const val DELETE_USER_GROUP = "groups/users/reset"}

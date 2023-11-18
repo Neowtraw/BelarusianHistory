@@ -5,7 +5,8 @@ data class GroupRequest(
     val groupId: String
 )
 
+
 data class CreateGroupRequest(
-    val login: String,
+    val teacher: String,
     val groupName: String
 )

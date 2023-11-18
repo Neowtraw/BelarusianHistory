@@ -52,8 +52,8 @@ object UserConfig {
         key_user_access_level,AccessLevel.User.name)!!))
     fun getAccessLevel(): AccessLevel = accessLevel.value!!
     fun setAccessLevel(level: AccessLevel){
-        UserConfig.accessLevel.value = level
-        UserConfig.editor.putString(key_user_access_level, level.name).apply()
+        accessLevel.value = level
+        editor.putString(key_user_access_level, level.name).apply()
     }
 
 }

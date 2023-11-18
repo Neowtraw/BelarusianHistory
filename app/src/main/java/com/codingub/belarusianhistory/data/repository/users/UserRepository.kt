@@ -81,6 +81,7 @@ class UserRepositoryImpl @Inject constructor(
                 setToken(response.token)
                 setLogin(login)
                 setUsername(response.username)
+                setAccessLevel(response.accessLevel)
             }
             ServerResponse.Authorized()
         } catch (e: HttpException) {
@@ -116,12 +117,13 @@ class UserRepositoryImpl @Inject constructor(
         accessLevel: AccessLevel
     ): ServerResponse<Unit> {
         return try {
-            api.changeRoleByLogin(
+            val res = api.changeRoleByLogin(
                 RoleRequest(
                     UserConfig.getLogin(),
                     accessLevel = accessLevel
                 )
             )
+           // UserConfig.setAccessLevel(res)
             ServerResponse.OK()
         } catch (e: HttpException) {
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")

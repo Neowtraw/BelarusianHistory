@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="@string/add_new_group"
+                android:background="@color/trans"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/gen_text" />
 
@@ -37,7 +37,6 @@
                 android:id="@+id/hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/group_name_hint"
                 android:maxLength="30"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/add_color"
@@ -49,25 +48,24 @@
                 android:gravity="end"
                 android:orientation="horizontal">
 
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:id="@+id/btnNegative"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="null"-->
-<!--                    android:text="@string/cancel_action"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    android:textColor="@color/text_color"-->
-<!--                    android:textSize="@dimen/main_text" />-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnNegative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/trans"
+                    android:layout_marginEnd="20dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/main_text" />
 
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:id="@+id/btnPositive"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="null"-->
-<!--                    android:text="@string/add_action"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    android:textColor="@color/text_color"-->
-<!--                    android:textSize="@dimen/main_text" />-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnPositive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/trans"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/main_text" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
