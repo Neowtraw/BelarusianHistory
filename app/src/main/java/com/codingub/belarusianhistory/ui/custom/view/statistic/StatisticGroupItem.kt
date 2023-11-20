@@ -40,7 +40,7 @@ class StatisticGroupItem(
 
         group = TextView(context).apply {
             typeface = Font.REGULAR
-            textSize = 6f.dp
+            textSizeDp = 14f
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
             setTextColor(Resource.color(R.color.text_color))
@@ -48,7 +48,7 @@ class StatisticGroupItem(
         }
         members = TextView(context).apply {
             typeface = Font.REGULAR
-            textSize = 6f.dp
+            textSizeDp = 14f
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
             setTextColor(Resource.color(R.color.text_color))

@@ -1,6 +1,7 @@
 package com.codingub.belarusianhistory.ui.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.R
@@ -46,6 +47,7 @@ class StatisticViewModel @Inject constructor(
     private val deleteUserGroupChannel = Channel<ServerResponse<Unit>>()
     val deleteUserGroupState = deleteUserGroupChannel.receiveAsFlow()
 
+    val curGroup : MutableLiveData<Group?> = MutableLiveData(null)
 
     init {
         getGroups()
@@ -91,13 +93,13 @@ class StatisticViewModel @Inject constructor(
         }
     }
 
-    fun inviteUserToGroup(groupId: String) {
+    fun inviteUserToGroup(login: String, groupId: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
             inviteUserGroupChannel.send(ServerResponse.Loading(true))
             when (UserConfig.getAccessLevel()) {
                 AccessLevel.Admin, AccessLevel.Teacher -> {
-                    val result = inviteUserToGroupUseCase(UserConfig.getLogin(), groupId)
+                    val result = inviteUserToGroupUseCase(login, groupId)
                     inviteUserGroupChannel.send(result)
                 }
 

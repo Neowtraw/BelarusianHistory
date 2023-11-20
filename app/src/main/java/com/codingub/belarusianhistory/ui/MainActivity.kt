@@ -251,6 +251,11 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
         isSettingsIconVisible = currentFragment is MenuFragment
+        supportActionBar?.show()
+        if(currentFragment is LoginFragment || currentFragment is RegisterFragment){
+            supportActionBar?.hide()
+        }
+
         changeToolbarState()
         invalidateOptionsMenu()
         return super.onPrepareOptionsMenu(menu)

@@ -2,20 +2,39 @@ package com.codingub.belarusianhistory.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
 import com.codingub.belarusianhistory.databinding.MemberGroupItemBinding
 import com.codingub.belarusianhistory.utils.Font
 
 class GroupStatisticAdapter(
-    private val users: List<String>,
     private inline val onMemberSelected: (String) -> Unit
 ) : RecyclerView.Adapter<GroupStatisticAdapter.ViewHolder>() {
 
     private lateinit var binding: MemberGroupItemBinding
 
+    var users: List<String>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
+
+    private val diffCallback = object : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+    }
+    private val differ = AsyncListDiffer(this, diffCallback)
+
+
     inner class ViewHolder(private val binding: MemberGroupItemBinding) : RecyclerView.ViewHolder(binding.root){
         internal fun bind(){
             binding.tvMember.typeface = Font.REGULAR
+            binding.tvMember.text = users[bindingAdapterPosition]
         }
 
         init {
