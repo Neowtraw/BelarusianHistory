@@ -7,6 +7,7 @@ import com.codingub.belarusianhistory.data.remote.network.models.practices.Pract
 import com.codingub.belarusianhistory.data.remote.network.requests.DeletePqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertPqRequest
 import retrofit2.HttpException
+import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
 interface PracticeQuestionRepository {
@@ -36,6 +37,7 @@ class PracticeQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -57,6 +59,7 @@ class PracticeQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -68,6 +71,7 @@ class PracticeQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }

@@ -9,6 +9,7 @@ import com.codingub.belarusianhistory.data.remote.network.requests.RegisterReque
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
 import com.codingub.belarusianhistory.sdk.AccessLevel
 import retrofit2.HttpException
+import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
 
@@ -62,6 +63,7 @@ class UserRepositoryImpl @Inject constructor(
                 ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -91,6 +93,7 @@ class UserRepositoryImpl @Inject constructor(
                 ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -106,6 +109,7 @@ class UserRepositoryImpl @Inject constructor(
                 ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
             }
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -128,6 +132,7 @@ class UserRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }

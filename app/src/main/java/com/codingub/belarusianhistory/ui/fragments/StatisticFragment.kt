@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -33,6 +34,7 @@ import com.codingub.belarusianhistory.ui.viewmodels.StatisticViewModel
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ItemDecoration
 import com.codingub.belarusianhistory.utils.Resource
+import com.codingub.belarusianhistory.utils.extension.applyScaleTouch
 import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -69,6 +71,7 @@ class StatisticFragment : BaseFragment() {
         binding.groupStatistic.tvName.text = Resource.string(R.string.groups)
         binding.membersStatistic.tvName.typeface = Font.EXTRABOLD
         binding.btnDeleteGroup.typeface = Font.REGULAR
+        binding.btnDeleteGroup.applyScaleTouch()
         binding.btnGroupsRepeat.typeface = Font.REGULAR
         binding.groupsEmpty.typeface = Font.REGULAR
         binding.tvMembersEmpty.typeface = Font.REGULAR
@@ -108,6 +111,8 @@ class StatisticFragment : BaseFragment() {
     private fun createGroupView() {
         binding.rvGroups.apply {
             groupsAdapter = GroupAdapter {
+                val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.dialog_in)
+                binding.flMembers.startAnimation(anim)
                 binding.flMembers.visibility = View.VISIBLE
                 binding.membersStatistic.tvName.text = it.name
                 vm.curGroup.value = it
@@ -184,6 +189,8 @@ class StatisticFragment : BaseFragment() {
                 val y = event.rawY.toInt() - binding.flMembers.top
 
                 if (!isPointInsideView(x, y, binding.Members)) {
+                    val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.dialog_out)
+                    binding.flMembers.startAnimation(anim)
                     binding.flMembers.visibility = View.GONE
                     vm.curGroup.value = null
                 }
@@ -249,7 +256,6 @@ class StatisticFragment : BaseFragment() {
                             binding.rvGroups.visibility = View.GONE
                             binding.groupsEmpty.visibility = View.GONE
                             binding.groupsError.visibility = View.GONE
-
                             binding.progressBar.visibility = View.VISIBLE
                         }
 

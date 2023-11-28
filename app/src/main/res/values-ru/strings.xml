@@ -5,7 +5,7 @@
     <string name="practice">Практика</string>
     <string name="tickets">Билеты</string>
 
-    <string name="events">Основные даты и события</string>
+    <string name="gen_events">Основные даты и события</string>
     <string name="events_info">Скоро появится</string>
 
     <string name="achieves">Достижения</string>
@@ -82,6 +82,11 @@
     <string name="cancel_action">Отменить</string>
     <string name="add_action">Добавить</string>
     <string name="members_group_empty">В группе нет пользователей</string>
+    <string name="header_data">Справочник по датам</string>
+    <string name="header_events">Справочник по событиям</string>
+    <string name="events">События</string>
+    <string name="datas">Даты</string>
+    <string name="header_definitions">Справочник по определениям</string>
 
 
 </resources>

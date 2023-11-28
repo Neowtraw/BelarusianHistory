@@ -6,6 +6,7 @@ import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
 import com.codingub.belarusianhistory.data.remote.network.requests.CreateGroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.GroupRequest
 import retrofit2.HttpException
+import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
 interface GroupRepository {
@@ -28,6 +29,7 @@ class GroupRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -40,6 +42,7 @@ class GroupRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -51,6 +54,7 @@ class GroupRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -62,6 +66,7 @@ class GroupRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -73,6 +78,7 @@ class GroupRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception) {
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }

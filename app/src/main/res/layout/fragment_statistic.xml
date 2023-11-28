@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
@@ -38,8 +37,9 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <include layout="@layout/text_add_header_item"
-                android:id="@+id/groupStatistic"/>
+            <include
+                android:id="@+id/groupStatistic"
+                layout="@layout/text_add_header_item" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGroups"
@@ -100,6 +100,7 @@
         android:id="@+id/flMembers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:visibility="gone">
 
         <FrameLayout
@@ -118,8 +119,9 @@
                 android:orientation="vertical"
                 android:padding="@dimen/main_padding">
 
-                <include layout="@layout/text_add_header_item"
-                    android:id="@+id/membersStatistic"/>
+                <include
+                    android:id="@+id/membersStatistic"
+                    layout="@layout/text_add_header_item" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvMembers"
@@ -153,4 +155,4 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </FrameLayout>
     </FrameLayout>
-</androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>

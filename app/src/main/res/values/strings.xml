@@ -17,8 +17,15 @@
     <string name="practice">Практика</string>
     <string name="tickets">Билеты</string>
 
-    <string name="events">Основные даты и события</string>
+    <string name="gen_events">Основные даты и события</string>
     <string name="events_info">Скоро появится</string>
+
+    <string name="header_events">Справочник по событиям</string>
+    <string name="header_definitions">Справочник по определениям</string>
+    <string name="header_data">Справочник по датам</string>
+
+    <string name="events">События</string>
+    <string name="datas">Даты</string>
 
     <string name="achieves">Достижения</string>
     <string name="achieves_info">Получай различные достижения за изучение материала и прохождение практики</string>

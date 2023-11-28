@@ -67,13 +67,9 @@ class DateOrderFragment : TaskFragment() {
     }
 
     override fun onAnswersChecked(): UserPracticeAnswer? {
-
-
-
         val answers = question.answers.map {
             it.info
         }
-
         userAnswer = dateAdapter.getUserAnswers()?.let {
             UserPracticeAnswer(
                 question.info, it,
@@ -83,7 +79,6 @@ class DateOrderFragment : TaskFragment() {
         }
         if(userAnswer == null)
             Toast.makeText(requireContext(), Resource.string(R.string.null_task_request), Toast.LENGTH_SHORT).show()
-
 
         return userAnswer
     }

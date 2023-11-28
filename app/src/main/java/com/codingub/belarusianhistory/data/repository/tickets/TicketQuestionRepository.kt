@@ -7,6 +7,7 @@ import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQ
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertTqRequest
 import retrofit2.HttpException
+import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
 interface TicketQuestionRepository {
@@ -39,6 +40,7 @@ class TicketQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -50,6 +52,7 @@ class TicketQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -73,6 +76,7 @@ class TicketQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -88,6 +92,7 @@ class TicketQuestionRepositoryImpl @Inject constructor(
         } catch (e: HttpException){
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            if(e is CancellationException) throw e
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }

@@ -5,7 +5,7 @@
     <string name="practice">Практыка</string>
     <string name="tickets">Білеты</string>
 
-    <string name="events">Асноўныя даты і падзеі</string>
+    <string name="gen_events">Асноўныя даты і падзеі</string>
     <string name="events_info">Хутка з\'явіцца</string>
 
     <string name="achieves">Дасягненні</string>
@@ -74,5 +74,19 @@
     <string name="error_result">Паўторыце спробу пазней</string>
     <string name="delete_group">Выдаліць групу</string>
     <string name="access_error">Вам не хапае правоў</string>
+    <string name="error_repeat_btn">"Паўтарыце запыт "</string>
+    <string name="add_new_user">Дадаць новага карыстальніка</string>
+    <string name="add_new_group">Стварыць новы гурт</string>
+    <string name="login_user_hint">Увядзіце лагін карыстальніка</string>
+    <string name="group_name_hint">Стварыце назву групы</string>
+    <string name="cancel_action">Адмяніць</string>
+    <string name="add_action">Дадаць</string>
+    <string name="members_group_empty">У групе няма карыстальнікаў</string>
+    <string name="header_data">Даведнік па дат</string>
+    <string name="header_events">Даведнік па падзеях</string>
+    <string name="events">Падзеі</string>
+    <string name="datas">Даты</string>
+    <string name="header_definitions">Даведнік па азначэннях</string>
+
 
 </resources>
