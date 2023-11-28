@@ -1,5 +1,7 @@
 # BelarusianHistory
 
+Belarusian History allows you to study all stages of the development of the Belarusian state and culture in a fascinating way. Thanks to its multimedia content, it makes it easier to learn new material :)
+
 # Fragments
 
 ## **Main Menu**
