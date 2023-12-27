@@ -5,21 +5,18 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.data.remote.network.models.practices.Answer
-import com.codingub.belarusianhistory.databinding.DateOrderItemBinding
+import com.codingub.belarusianhistory.sdk.models.practices.Answer
+import com.codingub.belarusianhistory.databinding.ItemDateOrderBinding
 import com.codingub.belarusianhistory.utils.Font
 
 class DateOrderAdapter(
     private val answerList: List<Answer>)
     : RecyclerView.Adapter<DateOrderAdapter.ViewHolder>() {
 
-    private lateinit var binding: DateOrderItemBinding
+    private lateinit var binding: ItemDateOrderBinding
     private val userAnswers: MutableList<String> = mutableListOf()
 
-
-    inner class ViewHolder(binding: DateOrderItemBinding) : RecyclerView.ViewHolder(binding.root){
-
-
+    inner class ViewHolder(binding: ItemDateOrderBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(){
             binding.edInput.apply {
@@ -51,7 +48,7 @@ class DateOrderAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = DateOrderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemDateOrderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

@@ -22,8 +22,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
-import com.codingub.belarusianhistory.data.local.pref.UserConfig
+import com.codingub.belarusianhistory.data.local.prefs.ApplicationConfig
+import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.ActivityMainBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     private var isSettingsIconVisible = false
 
-    private val TIME_INTERVAL: Long = 2000
+    private val TIME_INTERVAL: Long = 2000L
     private var mBackPressedTime: Long = 0
     private var alertDialog: AlertDialog? = null
 

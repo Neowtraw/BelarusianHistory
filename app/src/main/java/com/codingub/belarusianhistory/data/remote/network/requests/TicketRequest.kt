@@ -1,6 +1,6 @@
 package com.codingub.belarusianhistory.data.remote.network.requests
 
-import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
+import com.codingub.belarusianhistory.sdk.models.achieves.Achieve
 
 data class InsertTicketRequest(
     val name: String,

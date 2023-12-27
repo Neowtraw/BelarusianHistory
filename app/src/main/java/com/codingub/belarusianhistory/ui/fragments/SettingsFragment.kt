@@ -11,7 +11,7 @@ import android.view.ViewOutlineProvider
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
+import com.codingub.belarusianhistory.data.local.prefs.ApplicationConfig
 import com.codingub.belarusianhistory.databinding.FragmentSettingsBinding
 import com.codingub.belarusianhistory.sdk.Language
 import com.codingub.belarusianhistory.ui.MainActivity

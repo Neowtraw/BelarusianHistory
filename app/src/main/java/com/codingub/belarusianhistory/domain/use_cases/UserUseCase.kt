@@ -1,7 +1,7 @@
 package com.codingub.belarusianhistory.domain.use_cases
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.data.repository.users.UserRepository
+import com.codingub.belarusianhistory.data.repos.UserRepository
 import com.codingub.belarusianhistory.sdk.AccessLevel
 import javax.inject.Inject
 

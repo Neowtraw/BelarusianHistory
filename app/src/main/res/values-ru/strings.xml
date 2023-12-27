@@ -87,6 +87,9 @@
     <string name="events">События</string>
     <string name="datas">Даты</string>
     <string name="header_definitions">Справочник по определениям</string>
+    <string name="data">Дата</string>
+    <string name="event">Событие</string>
+    <string name="definition">Определение</string>
 
 
 </resources>

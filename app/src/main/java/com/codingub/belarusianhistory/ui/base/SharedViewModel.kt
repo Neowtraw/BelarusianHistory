@@ -3,8 +3,8 @@ package com.codingub.belarusianhistory.ui.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
 
 //used to assign the data between fragments
 class SharedViewModel : ViewModel() {

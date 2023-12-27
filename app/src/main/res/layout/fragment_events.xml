@@ -13,9 +13,9 @@
             android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_marginBottom="20dp"
             android:text="@string/gen_events"
-            android:layout_alignParentTop="true"
             android:textColor="@color/text_color"
             android:textSize="@dimen/header_text" />
 
@@ -24,9 +24,9 @@
             android:id="@+id/tvDatas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_marginBottom="20dp"
             android:text="@string/header_data"
-            android:layout_alignParentTop="true"
             android:textColor="@color/text_color"
             android:textSize="@dimen/gen_text" />
 
@@ -34,36 +34,18 @@
             android:id="@+id/tlDatas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/item_rounded_bg"
-            android:padding="@dimen/main_padding"
-            android:layout_marginBottom="20dp">
+            android:padding="@dimen/main_padding">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:text="@string/header_data"
-                    android:layout_height="wrap_content"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:text="@string/header_events"
-                    android:layout_height="wrap_content"/>
-
-            </TableRow>
+            <include
+                android:id="@+id/dataHeader"
+                layout="@layout/item_event_table" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDatas"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </TableLayout>
-
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:stretchColumns="1">
+                android:layout_height="wrap_content" />
 
         </TableLayout>
 
@@ -71,9 +53,9 @@
             android:id="@+id/tvDefinitions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_marginBottom="20dp"
             android:text="@string/header_definitions"
-            android:layout_alignParentTop="true"
             android:textColor="@color/text_color"
             android:textSize="@dimen/gen_text" />
 
@@ -81,14 +63,18 @@
             android:id="@+id/tlDefinitions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/item_rounded_bg"
-            android:padding="@dimen/main_padding"
-            android:layout_marginBottom="20dp">
+            android:padding="@dimen/main_padding">
+
+            <include
+                android:id="@+id/definitionHeader"
+                layout="@layout/item_event_table" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDefinitions"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </TableLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

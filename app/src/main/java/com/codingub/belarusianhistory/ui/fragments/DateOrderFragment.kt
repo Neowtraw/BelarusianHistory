@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.data.remote.network.models.practices.PracticeQuestion
+import com.codingub.belarusianhistory.sdk.models.practices.PracticeQuestion
 import com.codingub.belarusianhistory.databinding.FragmentDateOrderBinding
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.TaskFragment

@@ -1,17 +1,19 @@
 package com.codingub.belarusianhistory.di
 
-import com.codingub.belarusianhistory.data.repository.achieves.AchieveRepository
-import com.codingub.belarusianhistory.data.repository.achieves.AchieveRepositoryImpl
-import com.codingub.belarusianhistory.data.repository.groups.GroupRepository
-import com.codingub.belarusianhistory.data.repository.groups.GroupRepositoryImpl
-import com.codingub.belarusianhistory.data.repository.practices.PracticeQuestionRepository
-import com.codingub.belarusianhistory.data.repository.practices.PracticeQuestionRepositoryImpl
-import com.codingub.belarusianhistory.data.repository.tickets.TicketQuestionRepository
-import com.codingub.belarusianhistory.data.repository.tickets.TicketQuestionRepositoryImpl
-import com.codingub.belarusianhistory.data.repository.tickets.TicketRepository
-import com.codingub.belarusianhistory.data.repository.tickets.TicketRepositoryImpl
-import com.codingub.belarusianhistory.data.repository.users.UserRepository
-import com.codingub.belarusianhistory.data.repository.users.UserRepositoryImpl
+import com.codingub.belarusianhistory.data.repos.AchieveRepository
+import com.codingub.belarusianhistory.data.repos.AchieveRepositoryImpl
+import com.codingub.belarusianhistory.data.repos.EventRepository
+import com.codingub.belarusianhistory.data.repos.EventRepositoryImpl
+import com.codingub.belarusianhistory.data.repos.GroupRepository
+import com.codingub.belarusianhistory.data.repos.GroupRepositoryImpl
+import com.codingub.belarusianhistory.data.repos.PracticeQuestionRepository
+import com.codingub.belarusianhistory.data.repos.PracticeQuestionRepositoryImpl
+import com.codingub.belarusianhistory.data.repos.TicketQuestionRepository
+import com.codingub.belarusianhistory.data.repos.TicketQuestionRepositoryImpl
+import com.codingub.belarusianhistory.data.repos.TicketRepository
+import com.codingub.belarusianhistory.data.repos.TicketRepositoryImpl
+import com.codingub.belarusianhistory.data.repos.UserRepository
+import com.codingub.belarusianhistory.data.repos.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,5 +48,9 @@ class ViewModelModule {
     @Provides
     @ViewModelScoped
     fun providesGroupRepository(repository: GroupRepositoryImpl) : GroupRepository = repository
+
+    @Provides
+    @ViewModelScoped
+    fun providesEventRepository(repository: EventRepositoryImpl) : EventRepository = repository
 
 }

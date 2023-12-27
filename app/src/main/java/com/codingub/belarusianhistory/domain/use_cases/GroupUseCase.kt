@@ -1,8 +1,8 @@
 package com.codingub.belarusianhistory.domain.use_cases
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
-import com.codingub.belarusianhistory.data.repository.groups.GroupRepository
+import com.codingub.belarusianhistory.sdk.models.userdata.Group
+import com.codingub.belarusianhistory.data.repos.GroupRepository
 import javax.inject.Inject
 
 class CreateGroupUseCase @Inject constructor(private val repository: GroupRepository) {

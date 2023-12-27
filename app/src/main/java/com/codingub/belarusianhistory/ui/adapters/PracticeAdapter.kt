@@ -3,8 +3,8 @@ package com.codingub.belarusianhistory.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
-import com.codingub.belarusianhistory.databinding.PracticeViewElementBinding
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.databinding.ItemPracticeViewBinding
 import com.codingub.belarusianhistory.utils.Font
 
 class PracticeAdapter(
@@ -12,18 +12,18 @@ class PracticeAdapter(
     private inline val onPracticeSelected: (TicketQuestion) -> Unit
 ) : RecyclerView.Adapter<PracticeAdapter.PracticeViewHolder>() {
 
-    private lateinit var binding: PracticeViewElementBinding
+    private lateinit var binding: ItemPracticeViewBinding
 
-    inner class PracticeViewHolder(private val binding: PracticeViewElementBinding) :
+    inner class PracticeViewHolder(private val binding: ItemPracticeViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        init{
+        init {
             binding.root.setOnClickListener {
                 onPracticeSelected(practiceList[bindingAdapterPosition])
             }
         }
 
-        fun binding(item: TicketQuestion){
+        fun binding(item: TicketQuestion) {
             binding.tvPractice.apply {
                 text = item.name
                 typeface = Font.REGULAR
@@ -42,8 +42,10 @@ class PracticeAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PracticeViewHolder {
-        binding = PracticeViewElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PracticeViewHolder(binding)    }
+        binding =
+            ItemPracticeViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PracticeViewHolder(binding)
+    }
 
     override fun onBindViewHolder(holder: PracticeViewHolder, position: Int) {
         holder.binding(practiceList[position])

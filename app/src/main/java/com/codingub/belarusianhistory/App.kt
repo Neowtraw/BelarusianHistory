@@ -2,7 +2,7 @@ package com.codingub.belarusianhistory
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.codingub.belarusianhistory.data.local.pref.ApplicationConfig
+import com.codingub.belarusianhistory.data.local.prefs.ApplicationConfig
 import com.codingub.belarusianhistory.sdk.Language
 import dagger.hilt.android.HiltAndroidApp
 import java.util.Locale

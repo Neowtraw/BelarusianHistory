@@ -3,7 +3,7 @@ package com.codingub.belarusianhistory.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
+import com.codingub.belarusianhistory.sdk.models.userdata.Group
 import com.codingub.belarusianhistory.domain.use_cases.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

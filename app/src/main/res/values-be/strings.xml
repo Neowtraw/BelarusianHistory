@@ -87,6 +87,9 @@
     <string name="events">Падзеі</string>
     <string name="datas">Даты</string>
     <string name="header_definitions">Даведнік па азначэннях</string>
+    <string name="data">"Дата "</string>
+    <string name="event">"Падзея "</string>
+    <string name="definition">Вызначэнне</string>
 
 
 </resources>

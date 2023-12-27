@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.databinding.RoleItemBinding
+import com.codingub.belarusianhistory.databinding.ItemRoleBinding
 import com.codingub.belarusianhistory.sdk.AccessLevel
 import com.codingub.belarusianhistory.utils.Font
 
@@ -19,10 +19,10 @@ class RoleAdapter(
         R.drawable.ic_launcher_icon
     )
 
-    inner class RoleViewHolder(private val binding: RoleItemBinding) :
+    inner class RoleViewHolder(private val binding: ItemRoleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        init{
+        init {
             binding.root.setOnClickListener {
                 onRoleSelected.invoke(roles[bindingAdapterPosition])
 
@@ -39,7 +39,7 @@ class RoleAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoleViewHolder {
-        val binding = RoleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRoleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RoleViewHolder(binding)
     }
 

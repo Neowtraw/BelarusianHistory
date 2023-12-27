@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
-import com.codingub.belarusianhistory.databinding.TicketInfoItemBinding
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.databinding.ItemTicketInfoBinding
 import com.codingub.belarusianhistory.utils.Font
 
 class TicketInfoAdapter : RecyclerView.Adapter<TicketInfoAdapter.TicketInfoViewHolder>() {
@@ -15,7 +15,7 @@ class TicketInfoAdapter : RecyclerView.Adapter<TicketInfoAdapter.TicketInfoViewH
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<TicketQuestion>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<TicketQuestion>() {
         override fun areItemsTheSame(oldItem: TicketQuestion, newItem: TicketQuestion): Boolean {
             return oldItem.id == newItem.id
         }
@@ -26,11 +26,12 @@ class TicketInfoAdapter : RecyclerView.Adapter<TicketInfoAdapter.TicketInfoViewH
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    private lateinit var binding: TicketInfoItemBinding
+    private lateinit var binding: ItemTicketInfoBinding
 
-    inner class TicketInfoViewHolder(private val binding: TicketInfoItemBinding)  : RecyclerView.ViewHolder(binding.root){
+    inner class TicketInfoViewHolder(private val binding: ItemTicketInfoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(){
+        fun bind() {
             binding.tvTicketName.apply {
                 text = tickets[bindingAdapterPosition].name
                 typeface = Font.SEMIBOLD
@@ -43,7 +44,7 @@ class TicketInfoAdapter : RecyclerView.Adapter<TicketInfoAdapter.TicketInfoViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketInfoViewHolder {
-        binding = TicketInfoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemTicketInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TicketInfoViewHolder(binding)
     }
 

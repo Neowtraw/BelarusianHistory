@@ -8,20 +8,21 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
-import com.codingub.belarusianhistory.databinding.TicketViewElementBinding
+import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
+import com.codingub.belarusianhistory.databinding.ItemTicketViewBinding
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.TicketUtil
 
 class TicketAdapter(
     private var ticketList: List<Ticket>,
     private inline val onTicketSelected: (Ticket) -> Unit
-) : RecyclerView.Adapter<TicketAdapter.TicketsViewHolder>(){
+) : RecyclerView.Adapter<TicketAdapter.TicketsViewHolder>() {
 
-    private lateinit var binding: TicketViewElementBinding
+    private lateinit var binding: ItemTicketViewBinding
 
 
-    inner class TicketsViewHolder(private val binding: TicketViewElementBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class TicketsViewHolder(private val binding: ItemTicketViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         var granted = false
         private var initialHeight = 0
         private var maxHeight = 0
@@ -34,7 +35,10 @@ class TicketAdapter(
                     val layoutParams = binding.flTicket.layoutParams
                     layoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT
                     binding.flTicket.layoutParams = layoutParams
-                    binding.flTicket.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+                    binding.flTicket.measure(
+                        View.MeasureSpec.UNSPECIFIED,
+                        View.MeasureSpec.UNSPECIFIED
+                    )
                     initialHeight = binding.flTicket.measuredHeight
                     layoutParams.height = 0
                     binding.flTicket.layoutParams = layoutParams
@@ -74,7 +78,7 @@ class TicketAdapter(
             }
         }
 
-        fun binding(item: Ticket){
+        fun binding(item: Ticket) {
             binding.btnGoTo.apply {
                 typeface = Font.SEMIBOLD
             }
@@ -96,16 +100,17 @@ class TicketAdapter(
 //                )
             }
 
-            binding.flTicket.layoutParams.height = if (granted) FrameLayout.LayoutParams.WRAP_CONTENT else 0
+            binding.flTicket.layoutParams.height =
+                if (granted) FrameLayout.LayoutParams.WRAP_CONTENT else 0
             binding.flTicket.requestLayout()
         }
-
 
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketsViewHolder {
-        binding = TicketViewElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding =
+            ItemTicketViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TicketsViewHolder(binding)
     }
 

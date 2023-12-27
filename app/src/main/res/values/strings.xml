@@ -24,6 +24,10 @@
     <string name="header_definitions">Справочник по определениям</string>
     <string name="header_data">Справочник по датам</string>
 
+    <string name="data">Дата</string>
+    <string name="event">Событие</string>
+    <string name="definition">Определение</string>
+
     <string name="events">События</string>
     <string name="datas">Даты</string>
 

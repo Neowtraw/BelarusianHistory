@@ -19,9 +19,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.data.local.pref.UserConfig
+import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
 import com.codingub.belarusianhistory.databinding.FragmentStatisticBinding
 import com.codingub.belarusianhistory.sdk.AccessLevel
 import com.codingub.belarusianhistory.ui.adapters.GroupAdapter

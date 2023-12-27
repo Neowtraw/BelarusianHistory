@@ -3,6 +3,7 @@ package com.codingub.belarusianhistory.data.remote
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ACHIEVE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.AUTHENTICATE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_USER_GROUP
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.EVENTS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_PQ
@@ -17,7 +18,7 @@ import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNIN
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TQ
-import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
+import com.codingub.belarusianhistory.sdk.models.achieves.Achieve
 import com.codingub.belarusianhistory.data.remote.network.requests.CreateGroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeletePqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTicketRequest
@@ -30,11 +31,13 @@ import com.codingub.belarusianhistory.data.remote.network.requests.RegisterReque
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.GroupRequest
 import com.codingub.belarusianhistory.data.remote.network.responses.AchieveResponse
+import com.codingub.belarusianhistory.data.remote.network.responses.EventResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.GroupResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.PqResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TicketResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TokenResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TqResponse
+import com.codingub.belarusianhistory.sdk.models.Event
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -168,6 +171,12 @@ interface HistoryAppApi {
         @Query("type") type: Int
     ): AchieveResponse
 
+    /*
+        Events
+     */
+
+    @GET(EVENTS)
+    suspend fun getAllEvents() : EventResponse
 
 
 }

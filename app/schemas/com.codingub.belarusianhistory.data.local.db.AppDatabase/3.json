@@ -1,0 +1,260 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "a057cadb87948f07cf35f7eb9b78a695",
+    "entities": [
+      {
+        "tableName": "TicketAchieves",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`achievementId` INTEGER NOT NULL, `achievementName` TEXT NOT NULL, `achievementInfo` TEXT NOT NULL, `isPassed` INTEGER NOT NULL, `ticketId` INTEGER NOT NULL, PRIMARY KEY(`achievementId`))",
+        "fields": [
+          {
+            "fieldPath": "achievementId",
+            "columnName": "achievementId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "achievementName",
+            "columnName": "achievementName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "achievementInfo",
+            "columnName": "achievementInfo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPassed",
+            "columnName": "isPassed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ticketId",
+            "columnName": "ticketId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "achievementId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PracticeAchieves",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`achievementId` INTEGER NOT NULL, `achievementName` TEXT NOT NULL, `achievementInfo` TEXT NOT NULL, `isPassed` INTEGER NOT NULL, `pqId` INTEGER NOT NULL, PRIMARY KEY(`achievementId`))",
+        "fields": [
+          {
+            "fieldPath": "achievementId",
+            "columnName": "achievementId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "achievementName",
+            "columnName": "achievementName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "achievementInfo",
+            "columnName": "achievementInfo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPassed",
+            "columnName": "isPassed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pqId",
+            "columnName": "pqId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "achievementId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TicketQuestion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tqId` INTEGER NOT NULL, `tqName` TEXT NOT NULL, `tqInfo` TEXT NOT NULL, `isPassed` INTEGER NOT NULL, `ticketId` INTEGER NOT NULL, PRIMARY KEY(`tqId`))",
+        "fields": [
+          {
+            "fieldPath": "tqId",
+            "columnName": "tqId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tqName",
+            "columnName": "tqName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tqInfo",
+            "columnName": "tqInfo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPassed",
+            "columnName": "isPassed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ticketId",
+            "columnName": "ticketId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tqId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PracticeQuestion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pqId` INTEGER NOT NULL, `taskType` TEXT NOT NULL, `pqName` TEXT NOT NULL, `pqInfo` TEXT NOT NULL, `tqId` INTEGER NOT NULL, PRIMARY KEY(`pqId`))",
+        "fields": [
+          {
+            "fieldPath": "pqId",
+            "columnName": "pqId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskType",
+            "columnName": "taskType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pqName",
+            "columnName": "pqName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pqInfo",
+            "columnName": "pqInfo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tqId",
+            "columnName": "tqId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "pqId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Ticket",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ticketId` INTEGER NOT NULL, `ticketName` TEXT NOT NULL, `isPassed` INTEGER NOT NULL, PRIMARY KEY(`ticketId`))",
+        "fields": [
+          {
+            "fieldPath": "ticketId",
+            "columnName": "ticketId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ticketName",
+            "columnName": "ticketName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPassed",
+            "columnName": "isPassed",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ticketId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Answer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`answerId` INTEGER NOT NULL, `answerName` TEXT NOT NULL, `isTrue` INTEGER NOT NULL, `pqId` INTEGER NOT NULL, PRIMARY KEY(`answerId`))",
+        "fields": [
+          {
+            "fieldPath": "answerId",
+            "columnName": "answerId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answerName",
+            "columnName": "answerName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isTrue",
+            "columnName": "isTrue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pqId",
+            "columnName": "pqId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "answerId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a057cadb87948f07cf35f7eb9b78a695')"
+    ]
+  }
+}

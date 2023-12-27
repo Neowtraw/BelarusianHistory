@@ -2,8 +2,8 @@ package com.codingub.belarusianhistory.ui.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.ui.custom.view.SelectedView
 import com.codingub.belarusianhistory.sdk.ThemeType
+import com.codingub.belarusianhistory.ui.custom.view.SelectedView
 import com.codingub.belarusianhistory.utils.Resource
 
 class ThemeAdapter(
@@ -16,13 +16,14 @@ class ThemeAdapter(
     private var selectedPosition = lastPosition // Индекс выбранного элемента
 
 
-    inner class  ThemeViewHolder(val view: SelectedView): RecyclerView.ViewHolder(view){
+    inner class ThemeViewHolder(val view: SelectedView) : RecyclerView.ViewHolder(view) {
 
         init {
             view.setOnClickListener {
 
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION
-                    && bindingAdapterPosition != selectedPosition) {
+                    && bindingAdapterPosition != selectedPosition
+                ) {
 
                     if (selectedPosition != -1) {
                         notifyItemChanged(selectedPosition)
@@ -36,7 +37,7 @@ class ThemeAdapter(
             }
         }
 
-        fun bind(){
+        fun bind() {
             view.text = Resource.string(themeList[bindingAdapterPosition].nameRes)
         }
     }
@@ -47,8 +48,8 @@ class ThemeAdapter(
     }
 
     override fun onBindViewHolder(holder: ThemeViewHolder, position: Int) {
-       holder.view.setChecked(position == selectedPosition, animated = false)
-       holder.bind()
+        holder.view.setChecked(position == selectedPosition, animated = false)
+        holder.bind()
     }
 
     override fun getItemCount(): Int = themeList.size

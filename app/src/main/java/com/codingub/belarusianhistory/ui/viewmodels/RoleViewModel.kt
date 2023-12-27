@@ -2,7 +2,6 @@ package com.codingub.belarusianhistory.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingub.belarusianhistory.data.local.pref.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.domain.use_cases.RoleUseCase
 import com.codingub.belarusianhistory.sdk.AccessLevel

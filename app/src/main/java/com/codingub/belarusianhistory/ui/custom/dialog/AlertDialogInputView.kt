@@ -3,21 +3,20 @@ package com.codingub.belarusianhistory.ui.custom.dialog
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
-import com.codingub.belarusianhistory.databinding.AlertdialogInputItemBinding
+import com.codingub.belarusianhistory.databinding.ItemAlertdialogInputBinding
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 
 @SuppressLint("ViewConstructor")
 class AlertDialogInputView private constructor(builder: Builder) : FrameLayout(builder.context) {
 
-    private var binding: AlertdialogInputItemBinding
+    private var binding: ItemAlertdialogInputBinding
 
     init {
         val inflater = LayoutInflater.from(builder.context)
-        binding = AlertdialogInputItemBinding.inflate(inflater)
+        binding = ItemAlertdialogInputBinding.inflate(inflater)
 
         with(builder) {
             title?.let {
@@ -83,15 +82,17 @@ class AlertDialogInputView private constructor(builder: Builder) : FrameLayout(b
 
         fun hint(@StringRes hintRes: Int) = hint(Resource.string(hintRes))
 
-        fun positiveButton(@StringRes textRes: Int, onClick: (text: String) -> Unit) = positiveButton(
-            Resource.string(textRes),
-            onClick
-        )
+        fun positiveButton(@StringRes textRes: Int, onClick: (text: String) -> Unit) =
+            positiveButton(
+                Resource.string(textRes),
+                onClick
+            )
 
-        fun negativeButton(@StringRes textRes: Int, onClick: (text: String) -> Unit) = negativeButton(
-            Resource.string(textRes),
-            onClick
-        )
+        fun negativeButton(@StringRes textRes: Int, onClick: (text: String) -> Unit) =
+            negativeButton(
+                Resource.string(textRes),
+                onClick
+            )
 
         fun build(): AlertDialogInputView = AlertDialogInputView(this)
     }

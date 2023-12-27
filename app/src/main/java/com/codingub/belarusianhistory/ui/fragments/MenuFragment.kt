@@ -67,6 +67,9 @@ class MenuFragment : BaseFragment() {
         binding.cvPractice.setOnClickListener {
             pushFragment(PracticeFragment(), "practice")
         }
+        binding.cvEvents.setOnClickListener {
+            pushFragment(EventsFragment(), "events")
+        }
 
     }
 

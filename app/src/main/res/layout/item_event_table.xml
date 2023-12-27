@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    android:id="@+id/tlItem"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3.2">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFirst"
+            android:layout_width="0dp"
+            android:text="@string/definition"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/main_text"
+            android:layout_weight="1.2"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_height="match_parent"
+            android:background="@color/contrast"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSecond"
+            android:layout_width="0dp"
+            android:text="@string/description"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/main_text"
+            android:ellipsize="end"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"/>
+
+    </TableRow>
+
+</TableLayout>

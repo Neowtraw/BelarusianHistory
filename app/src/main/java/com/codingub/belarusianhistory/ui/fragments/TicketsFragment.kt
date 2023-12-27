@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
+import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
 import com.codingub.belarusianhistory.databinding.FragmentTicketsBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel

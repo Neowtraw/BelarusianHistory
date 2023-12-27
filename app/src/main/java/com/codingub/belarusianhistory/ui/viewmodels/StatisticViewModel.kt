@@ -1,13 +1,12 @@
 package com.codingub.belarusianhistory.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.data.local.pref.UserConfig
+import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
+import com.codingub.belarusianhistory.sdk.models.userdata.Group
 import com.codingub.belarusianhistory.domain.use_cases.CreateGroupUseCase
 import com.codingub.belarusianhistory.domain.use_cases.DeleteGroupUseCase
 import com.codingub.belarusianhistory.domain.use_cases.DeleteUserFromGroupUseCase

@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
+import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
 import com.codingub.belarusianhistory.databinding.FragmentTicketInfoBinding
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.base.BaseFragment

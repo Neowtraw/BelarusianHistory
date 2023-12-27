@@ -3,8 +3,8 @@ package com.codingub.belarusianhistory.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.data.remote.network.models.practices.Answer
-import com.codingub.belarusianhistory.databinding.TestItemBinding
+import com.codingub.belarusianhistory.sdk.models.practices.Answer
+import com.codingub.belarusianhistory.databinding.ItemTestBinding
 import com.codingub.belarusianhistory.utils.Font
 
 class TestAdapter(
@@ -18,7 +18,7 @@ class TestAdapter(
         correctAnswer = answerList.find { it.isTrue }
     }
 
-    inner class ViewHolder(private val binding: TestItemBinding) :
+    inner class ViewHolder(private val binding: ItemTestBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -50,6 +50,7 @@ class TestAdapter(
 
             }
         }
+
         fun bind() {
             binding.tvAnswer.apply {
                 typeface = Font.REGULAR
@@ -60,7 +61,7 @@ class TestAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = TestItemBinding.inflate(inflater, parent, false)
+        val binding = ItemTestBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 

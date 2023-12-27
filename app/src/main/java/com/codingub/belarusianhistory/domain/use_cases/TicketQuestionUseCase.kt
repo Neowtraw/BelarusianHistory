@@ -1,10 +1,9 @@
 package com.codingub.belarusianhistory.domain.use_cases
 
-import android.util.Log
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.data.remote.network.models.achieves.Achieve
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
-import com.codingub.belarusianhistory.data.repository.tickets.TicketQuestionRepository
+import com.codingub.belarusianhistory.sdk.models.achieves.Achieve
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.data.repos.TicketQuestionRepository
 import javax.inject.Inject
 
 class GetAllTqUseCase @Inject constructor(private val repository: TicketQuestionRepository) {

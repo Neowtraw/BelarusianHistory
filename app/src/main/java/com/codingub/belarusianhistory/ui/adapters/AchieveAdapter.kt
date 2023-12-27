@@ -7,20 +7,20 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.databinding.AchieveViewItemBinding
+import com.codingub.belarusianhistory.databinding.ItemAchieveViewBinding
 import com.codingub.belarusianhistory.domain.model.Achieves.Achieve
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 
-class AchieveAdapter: RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
+class AchieveAdapter : RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
 
-    private lateinit var binding: AchieveViewItemBinding
+    private lateinit var binding: ItemAchieveViewBinding
 
     var achieves: List<Achieve>
-       get() = differ.currentList
-       set(value) = differ.submitList(value)
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
 
-    private val diffCallback = object: DiffUtil.ItemCallback<Achieve>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<Achieve>() {
         override fun areItemsTheSame(oldItem: Achieve, newItem: Achieve): Boolean {
             return oldItem.id == newItem.id
         }
@@ -31,9 +31,10 @@ class AchieveAdapter: RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    inner class AchieveViewHolder (private val binding: AchieveViewItemBinding)  : RecyclerView.ViewHolder(binding.root){
+    inner class AchieveViewHolder(private val binding: ItemAchieveViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(){
+        fun bind() {
             val item = achieves[bindingAdapterPosition]
 
             binding.tvName.apply {
@@ -47,20 +48,21 @@ class AchieveAdapter: RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
             binding.ivPassed.apply {
                 setImageResource(
                     if (item.isPassed == 0) R.drawable.not_passed
-                    else R.drawable.passed)
+                    else R.drawable.passed
+                )
                 setColorFilter(
                     if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
                     else Resource.color(R.color.icon_color_passed)
                 )
             }
             val itemBackground = binding.root.background as GradientDrawable
-            if(item.isPassed == 0) itemBackground.setColor(Resource.color(R.color.achieve_not_passed))
+            if (item.isPassed == 0) itemBackground.setColor(Resource.color(R.color.achieve_not_passed))
             else itemBackground.setColor(Resource.color(R.color.bg_btn))
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchieveViewHolder {
-        binding = AchieveViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemAchieveViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AchieveViewHolder(binding)
     }
 
@@ -70,6 +72,6 @@ class AchieveAdapter: RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return  achieves.size
+        return achieves.size
     }
 }

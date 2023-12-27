@@ -39,7 +39,7 @@
 
             <include
                 android:id="@+id/groupStatistic"
-                layout="@layout/text_add_header_item" />
+                layout="@layout/item_text_add_header" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGroups"
@@ -121,7 +121,7 @@
 
                 <include
                     android:id="@+id/membersStatistic"
-                    layout="@layout/text_add_header_item" />
+                    layout="@layout/item_text_add_header" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvMembers"

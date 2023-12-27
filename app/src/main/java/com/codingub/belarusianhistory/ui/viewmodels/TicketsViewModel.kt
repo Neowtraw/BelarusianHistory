@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.Ticket
+import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
 import com.codingub.belarusianhistory.domain.use_cases.GetAllTicketsUseCase
 import com.codingub.belarusianhistory.utils.network.NetworkManager
 import dagger.hilt.android.lifecycle.HiltViewModel

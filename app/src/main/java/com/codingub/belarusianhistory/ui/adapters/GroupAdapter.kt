@@ -4,8 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.data.remote.network.models.tickets.TicketQuestion
-import com.codingub.belarusianhistory.data.remote.network.models.userdata.Group
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.sdk.models.userdata.Group
 import com.codingub.belarusianhistory.ui.custom.view.statistic.StatisticGroupItem
 
 

@@ -22,6 +22,8 @@ object EndPoints {
 
     const val ACHIEVE = "achieves"
 
+    const val EVENTS = "events"
+
     const val GROUP = "groups"
     const val INSERT_GROUP = "groups/insert"
     const val RESET_GROUP = "groups/reset"

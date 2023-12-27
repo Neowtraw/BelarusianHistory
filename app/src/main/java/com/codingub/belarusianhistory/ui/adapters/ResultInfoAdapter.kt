@@ -8,21 +8,21 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.databinding.ResultInfoItemBinding
+import com.codingub.belarusianhistory.databinding.ItemResultInfoBinding
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
 
-class ResultInfoAdapter: RecyclerView.Adapter<ResultInfoAdapter.ViewHolder>() {
+class ResultInfoAdapter : RecyclerView.Adapter<ResultInfoAdapter.ViewHolder>() {
 
-    private lateinit var binding: ResultInfoItemBinding
+    private lateinit var binding: ItemResultInfoBinding
 
     var results: List<UserPracticeAnswer>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
-    private val diffCallback = object: DiffUtil.ItemCallback<UserPracticeAnswer>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<UserPracticeAnswer>() {
         override fun areItemsTheSame(
             oldItem: UserPracticeAnswer,
             newItem: UserPracticeAnswer
@@ -40,15 +40,14 @@ class ResultInfoAdapter: RecyclerView.Adapter<ResultInfoAdapter.ViewHolder>() {
     private val differ = AsyncListDiffer(this, diffCallback)
 
 
-
-    inner class ViewHolder(binding: ResultInfoItemBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(binding: ItemResultInfoBinding) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(){
+        fun bind() {
             val item = results[bindingAdapterPosition]
 
             binding.tvHeader.apply {
-                text = "${(bindingAdapterPosition+1)}. ${item.pqInfo}"
+                text = "${(bindingAdapterPosition + 1)}. ${item.pqInfo}"
                 typeface = Font.EXTRABOLD
             }
             binding.tvRightAnswer.apply {
@@ -61,11 +60,11 @@ class ResultInfoAdapter: RecyclerView.Adapter<ResultInfoAdapter.ViewHolder>() {
             }
 
             val itemBackground = binding.root.background as GradientDrawable
-            if(item.isRight) itemBackground.apply{
+            if (item.isRight) itemBackground.apply {
                 setColor(Resource.color(R.color.is_right))
                 setStroke(2.dp, Resource.color(R.color.is_right_stroke))
             }
-            else itemBackground.apply{
+            else itemBackground.apply {
                 setColor(Resource.color(R.color.is_not_right))
                 setStroke(2.dp, Resource.color(R.color.is_not_right_stroke))
             }
@@ -75,7 +74,7 @@ class ResultInfoAdapter: RecyclerView.Adapter<ResultInfoAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = ResultInfoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemResultInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

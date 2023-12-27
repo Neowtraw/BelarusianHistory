@@ -30,9 +30,9 @@ object NetworkManager {
     }
 
     suspend fun <T : Any> awaitNetworkConnection(channel: Channel<T>, response: T) {
-        if (!NetworkManager.isConnected) {
+        if (!isConnected) {
             channel.send(response)
-            NetworkManager.awaitConnection()
+            awaitConnection()
         }
     }
  }
