@@ -1,8 +1,11 @@
 package com.codingub.belarusianhistory.data.remote.network
 
+import android.content.Context
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
 import com.codingub.belarusianhistory.utils.Constants.Injection.HISTORY_ENDPOINT
 import com.codingub.belarusianhistory.utils.Constants.Injection.IS_DEBUG
+import dagger.hilt.android.qualifiers.ApplicationContext
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,12 +16,18 @@ import javax.inject.Singleton
 
 @Singleton
 open class HistoryNetworking @Inject constructor(
-    @Named(IS_DEBUG) val isDebugMode: Boolean,
+    @Named(IS_DEBUG) private val isDebugMode: Boolean,
     @Named(HISTORY_ENDPOINT) private val historyEndpoint: String,
-    private val interceptor: HistoryInterceptor
+    @ApplicationContext private val context: Context,
+    private val appInterceptor: HistoryInterceptor,
+    private val cacheInterceptor: CacheInterceptor
 ){
     private var retrofit: Retrofit? = null
     private var okHttpClient: OkHttpClient? = null
+
+    // cache
+    val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
+    val cache = Cache(context.cacheDir, cacheSize)
 
     private fun retrofit(): Retrofit {
         if(retrofit == null) retrofit = retrofitBuilder().build()
@@ -29,7 +38,9 @@ open class HistoryNetworking @Inject constructor(
     open fun okHttpClient(): OkHttpClient {
         if (okHttpClient == null) {
             val builder: OkHttpClient.Builder = OkHttpClient.Builder()
-                .addInterceptor(interceptor)
+                .cache(cache)
+                .addNetworkInterceptor(cacheInterceptor)
+                .addInterceptor(appInterceptor)
                 .addInterceptor(HttpLoggingInterceptor().apply {
                     setLevel(
                         if (isDebugMode) HttpLoggingInterceptor.Level.BODY

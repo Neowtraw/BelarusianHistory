@@ -1,15 +1,12 @@
 package com.codingub.belarusianhistory.data.remote.network
 
 import com.codingub.belarusianhistory.data.local.prefs.UserConfig
-import com.codingub.belarusianhistory.utils.Constants.Injection.BUILD_VERSION_CODE
-import com.codingub.belarusianhistory.utils.Constants.Injection.BUILD_VERSION_NAME
 import okhttp3.Interceptor
 import okhttp3.Response
 import retrofit2.HttpException
 import javax.inject.Inject
-import javax.inject.Named
 
-class HistoryInterceptor @Inject constructor() : Interceptor{
+class HistoryInterceptor @Inject constructor() : Interceptor {
 
     private val tryCnt = 3
     private val baseInterval = 1500L
@@ -20,12 +17,12 @@ class HistoryInterceptor @Inject constructor() : Interceptor{
 
     private fun process(chain: Interceptor.Chain, attempt: Int): Response {
         var response: Response? = null
-        try{
+        try {
             val request = chain.request().newBuilder()
             request.addHeader("Authorization", UserConfig.getToken())
 
             response = chain.proceed(request.build())
-            if(attempt < tryCnt && !response.isSuccessful) {
+            if (attempt < tryCnt && !response.isSuccessful) {
                 return delayedAttempt(chain, response, attempt)
             }
             return response
@@ -41,7 +38,7 @@ class HistoryInterceptor @Inject constructor() : Interceptor{
         chain: Interceptor.Chain,
         response: Response?,
         attempt: Int,
-    ): Response{
+    ): Response {
         response?.body?.close()
         Thread.sleep(baseInterval * attempt)
         return process(chain, attempt = attempt + 1)
