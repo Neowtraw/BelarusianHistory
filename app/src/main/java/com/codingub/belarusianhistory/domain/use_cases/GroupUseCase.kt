@@ -1,13 +1,13 @@
 package com.codingub.belarusianhistory.domain.use_cases
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.userdata.Group
-import com.codingub.belarusianhistory.data.repos.GroupRepository
+import com.codingub.belarusianhistory.domain.repos.GroupRepository
+import com.codingub.belarusianhistory.sdk.models.userdata.GroupDto
 import javax.inject.Inject
 
 class CreateGroupUseCase @Inject constructor(private val repository: GroupRepository) {
 
-    suspend operator fun invoke(teacher : String, groupName : String): ServerResponse<Unit> {
+    suspend operator fun invoke(teacher: String, groupName: String): ServerResponse<Unit> {
         return repository.createGroup(teacher, groupName)
     }
 }
@@ -21,7 +21,7 @@ class DeleteGroupUseCase @Inject constructor(private val repository: GroupReposi
 
 class InviteUserToGroupUseCase @Inject constructor(private val repository: GroupRepository) {
 
-    suspend operator fun invoke(uid:String, groupId: String): ServerResponse<Unit> {
+    suspend operator fun invoke(uid: String, groupId: String): ServerResponse<Unit> {
         return repository.inviteUserToGroup(uid, groupId)
     }
 }
@@ -35,7 +35,7 @@ class DeleteUserFromGroupUseCase @Inject constructor(private val repository: Gro
 
 class GetAllGroupsUseCase @Inject constructor(private val repository: GroupRepository) {
 
-    suspend operator fun invoke(login: String): ServerResponse<List<Group>> {
+    suspend operator fun invoke(login: String): ServerResponse<List<GroupDto>> {
         return repository.getAllGroups(login)
     }
 }

@@ -2,42 +2,49 @@ package com.codingub.belarusianhistory.data.remote
 
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ACHIEVE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.AUTHENTICATE
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_RESULTS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_USER_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.EVENTS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_PQ
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_RESULTS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INVITE_USER_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.PQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_PQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_TICKET
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESULTS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ROLE_CHANGE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNIN
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TQ
-import com.codingub.belarusianhistory.sdk.models.achieves.Achieve
+import com.codingub.belarusianhistory.data.remote.network.requests.AddResultRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.CreateGroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeletePqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTicketRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTqRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.GetAllResultsRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.GroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertPqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertTicketRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertTqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.ResetResultRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
-import com.codingub.belarusianhistory.data.remote.network.requests.GroupRequest
 import com.codingub.belarusianhistory.data.remote.network.responses.AchieveResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.EventResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.GroupResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.PqResponse
+import com.codingub.belarusianhistory.data.remote.network.responses.ResultResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TicketResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TokenResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TqResponse
-import com.codingub.belarusianhistory.sdk.models.Event
+import com.codingub.belarusianhistory.sdk.AchieveType
+import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -58,7 +65,7 @@ interface HistoryAppApi {
     @POST(SIGNIN)
     suspend fun signIn(
         @Body request: LoginRequest
-    ) : TokenResponse
+    ): TokenResponse
 
     @GET(AUTHENTICATE)
     suspend fun authenticate(
@@ -99,14 +106,14 @@ interface HistoryAppApi {
     @GET("$GROUP/")
     suspend fun getAllGroups(
         @Query("user") login: String
-    ) : GroupResponse
+    ): GroupResponse
 
     /*
        Ticket
     */
 
     @GET(TICKET)
-    suspend fun getAllTickets() : TicketResponse
+    suspend fun getAllTickets(): TicketResponse
 
     @POST(INSERT_TICKET)
     suspend fun insertTicket(
@@ -123,12 +130,12 @@ interface HistoryAppApi {
    */
 
     @GET(TQ)
-    suspend fun getAllTq() : TqResponse
+    suspend fun getAllTq(): TqResponse
 
     @GET("$TQ/")
     suspend fun getTqByTicketId(
         @Query("id") ticketId: String
-    ) : TqResponse
+    ): TqResponse
 
     @POST(INSERT_TICKET)
     suspend fun insertTq(
@@ -147,7 +154,7 @@ interface HistoryAppApi {
     @GET("$PQ/")
     suspend fun getPqByTqId(
         @Query("id") tqId: String
-    ) : PqResponse
+    ): PqResponse
 
     @POST(INSERT_PQ)
     suspend fun insertPq(
@@ -164,19 +171,45 @@ interface HistoryAppApi {
    */
 
     @GET(ACHIEVE)
-    suspend fun getAllAchieves() : List<Achieve>
+    suspend fun getAllAchieves(): List<AchieveDto>
 
     @GET("$ACHIEVE/")
     suspend fun getTypeAchieves(
-        @Query("type") type: Int
+        @Query("type") type: AchieveType
     ): AchieveResponse
+
+    /*
+        Results
+     */
+
+    @GET("$RESULTS/")
+    suspend fun getTypeResults(
+        @Query("type") type: AchieveType,
+        @Query("login") login: String
+    ): ResultResponse
+
+
+    @POST(RESULTS)
+    suspend fun getAllResults(
+        @Body request: GetAllResultsRequest
+    ): ResultResponse
+
+    @POST(INSERT_RESULTS)
+    suspend fun setResult(
+        @Body request: AddResultRequest
+    )
+
+    @POST(DELETE_RESULTS)
+    suspend fun deleteResult(
+        @Body request: ResetResultRequest
+    )
 
     /*
         Events
      */
 
     @GET(EVENTS)
-    suspend fun getAllEvents() : EventResponse
+    suspend fun getAllEvents(): EventResponse
 
 
 }

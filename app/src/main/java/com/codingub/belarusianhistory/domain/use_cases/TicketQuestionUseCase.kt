@@ -1,21 +1,21 @@
 package com.codingub.belarusianhistory.domain.use_cases
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.achieves.Achieve
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
-import com.codingub.belarusianhistory.data.repos.TicketQuestionRepository
+import com.codingub.belarusianhistory.domain.repos.TicketQuestionRepository
+import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
 import javax.inject.Inject
 
 class GetAllTqUseCase @Inject constructor(private val repository: TicketQuestionRepository) {
 
-    suspend operator fun invoke(): ServerResponse<List<TicketQuestion>> {
+    suspend operator fun invoke(): ServerResponse<List<TicketQuestionDto>> {
         return repository.getAllTq()
     }
 }
 
-class GetTqByTicketIdUseCase @Inject constructor(private val repository: TicketQuestionRepository){
+class GetTqByTicketIdUseCase @Inject constructor(private val repository: TicketQuestionRepository) {
 
-    suspend operator fun invoke(ticketId: String): ServerResponse<List<TicketQuestion>> {
+    suspend operator fun invoke(ticketId: String): ServerResponse<List<TicketQuestionDto>> {
         return repository.getTqByTicketId(ticketId)
     }
 }
@@ -25,7 +25,7 @@ class InsertTqUseCase @Inject constructor(private val repository: TicketQuestion
     suspend operator fun invoke(
         name: String,
         info: String,
-        achieve: Achieve?,
+        achieve: AchieveDto?,
         ticketId: String
     ): ServerResponse<Unit> {
         return repository.insertTq(name, info, achieve, ticketId)

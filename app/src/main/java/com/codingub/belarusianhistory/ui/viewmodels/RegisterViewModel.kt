@@ -10,6 +10,7 @@ import com.codingub.belarusianhistory.ui.auth.AuthState
 import com.codingub.belarusianhistory.ui.auth.AuthUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,8 +20,7 @@ class RegisterViewModel @Inject constructor(
     private val register: RegisterUseCase,
 ) : ViewModel() {
 
-    val state = MutableLiveData(AuthState())
-    private fun currentState() = state.value!!
+    val state = MutableStateFlow(AuthState())
 
     private val resultChannel = Channel<ServerResponse<Unit>>()
     val authResults = resultChannel.receiveAsFlow()
@@ -28,15 +28,15 @@ class RegisterViewModel @Inject constructor(
     fun onEvent(event: AuthUiEvent) {
         when (event) {
             is AuthUiEvent.SignUpLoginChanged -> {
-                state.value = currentState().copy(signUpLogin = event.value)
+                state.value = state.value.copy(signUpLogin = event.value)
             }
 
             is AuthUiEvent.SignUpUsernameChanged -> {
-                state.value = currentState().copy(signUpUsername = event.value)
+                state.value =  state.value.copy(signUpUsername = event.value)
             }
 
             is AuthUiEvent.SignUpPasswordChanged -> {
-                state.value = currentState().copy(signUpPassword = event.value)
+                state.value =  state.value.copy(signUpPassword = event.value)
             }
 
             is AuthUiEvent.SignUp -> {
@@ -51,9 +51,9 @@ class RegisterViewModel @Inject constructor(
         viewModelScope.launch {
             resultChannel.send(ServerResponse.Loading(true))
             val result = register(
-                login = currentState().signUpLogin,
-                username = currentState().signUpUsername,
-                password = currentState().signUpPassword,
+                login =  state.value.signUpLogin,
+                username =  state.value.signUpUsername,
+                password =  state.value.signUpPassword,
                 accessLevel = AccessLevel.User
             )
             resultChannel.send(result)

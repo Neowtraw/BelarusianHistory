@@ -1,5 +1,6 @@
 package com.codingub.belarusianhistory.data.remote.network
 
+import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.utils.Constants.Injection.BUILD_VERSION_CODE
 import com.codingub.belarusianhistory.utils.Constants.Injection.BUILD_VERSION_NAME
 import okhttp3.Interceptor
@@ -8,13 +9,10 @@ import retrofit2.HttpException
 import javax.inject.Inject
 import javax.inject.Named
 
-class HistoryInterceptor @Inject constructor(
-    @Named(BUILD_VERSION_CODE) private val buildVersionCode: Int,
-    @Named(BUILD_VERSION_NAME) private val buildVersionName: String
-) : Interceptor{
+class HistoryInterceptor @Inject constructor() : Interceptor{
 
     private val tryCnt = 3
-    private val baseInterval = 2000L
+    private val baseInterval = 1500L
 
     override fun intercept(chain: Interceptor.Chain): Response {
         return process(chain, attempt = 1)
@@ -24,9 +22,7 @@ class HistoryInterceptor @Inject constructor(
         var response: Response? = null
         try{
             val request = chain.request().newBuilder()
-            request.addHeader("appVersion", buildVersionCode.toString())
-                .addHeader("appVersionName", buildVersionName)
-                .addHeader("source", "android")
+            request.addHeader("Authorization", UserConfig.getToken())
 
             response = chain.proceed(request.build())
             if(attempt < tryCnt && !response.isSuccessful) {

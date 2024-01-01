@@ -1,6 +1,6 @@
 package com.codingub.belarusianhistory.data.remote.network.requests
 
-import com.codingub.belarusianhistory.sdk.models.achieves.Achieve
+import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
 
 data class DeleteTqRequest (
     val questionId: String
@@ -8,7 +8,7 @@ data class DeleteTqRequest (
 data class InsertTqRequest(
     val name: String,
     val info: String,
-    val achieve: Achieve? = null,
+    val achieve: AchieveDto? = null,
 
     val ticketId: String
 )

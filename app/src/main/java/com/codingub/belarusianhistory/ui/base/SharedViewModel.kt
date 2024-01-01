@@ -3,24 +3,24 @@ package com.codingub.belarusianhistory.ui.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
 
 //used to assign the data between fragments
 class SharedViewModel : ViewModel() {
 
 
-    private val _practiceInfo = MutableLiveData<TicketQuestion>()
-    val practiceInfo : LiveData<TicketQuestion> get() = _practiceInfo
+    private val _practiceInfo = MutableLiveData<TicketQuestionDto>()
+    val practiceInfo : LiveData<TicketQuestionDto> get() = _practiceInfo
 
-    private val _ticketInfo = MutableLiveData<Ticket>()
-    val ticketInfo : LiveData<Ticket> get() = _ticketInfo
+    private val _ticketInfo = MutableLiveData<TicketDto>()
+    val ticketInfo : LiveData<TicketDto> get() = _ticketInfo
 
-    fun select(ticket: Ticket){
+    fun select(ticket: TicketDto){
         _ticketInfo.value = ticket
     }
 
-    fun select(practice: TicketQuestion){
+    fun select(practice: TicketQuestionDto){
         _practiceInfo.value = practice
     }
 }

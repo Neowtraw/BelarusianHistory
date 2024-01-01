@@ -8,14 +8,14 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
 import com.codingub.belarusianhistory.databinding.ItemTicketViewBinding
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.TicketUtil
 
 class TicketAdapter(
-    private var ticketList: List<Ticket>,
-    private inline val onTicketSelected: (Ticket) -> Unit
+    private var ticketList: List<TicketDto>,
+    private inline val onTicketSelected: (TicketDto) -> Unit
 ) : RecyclerView.Adapter<TicketAdapter.TicketsViewHolder>() {
 
     private lateinit var binding: ItemTicketViewBinding
@@ -78,7 +78,7 @@ class TicketAdapter(
             }
         }
 
-        fun binding(item: Ticket) {
+        fun binding(item: TicketDto) {
             binding.btnGoTo.apply {
                 typeface = Font.SEMIBOLD
             }

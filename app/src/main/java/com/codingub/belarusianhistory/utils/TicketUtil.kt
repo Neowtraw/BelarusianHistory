@@ -1,11 +1,11 @@
 package com.codingub.belarusianhistory.utils
 
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
 
 
 object TicketUtil {
 
-    fun groupQuestions(args: List<TicketQuestion>): String {
+    fun groupQuestions(args: List<TicketQuestionDto>): String {
         return buildString {
             args.forEachIndexed { i, arg ->
                 append("${i + 1}. ${arg.info}\n")

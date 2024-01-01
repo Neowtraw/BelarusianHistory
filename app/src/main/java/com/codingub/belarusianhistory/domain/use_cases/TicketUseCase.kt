@@ -1,14 +1,14 @@
 package com.codingub.belarusianhistory.domain.use_cases
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.achieves.Achieve
-import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
-import com.codingub.belarusianhistory.data.repos.TicketRepository
+import com.codingub.belarusianhistory.domain.repos.TicketRepository
+import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
 import javax.inject.Inject
 
 class GetAllTicketsUseCase @Inject constructor(private val repository: TicketRepository) {
 
-    suspend operator fun invoke(): ServerResponse<List<Ticket>> {
+    suspend operator fun invoke(): ServerResponse<List<TicketDto>> {
         return repository.getAllTickets()
     }
 }
@@ -18,7 +18,7 @@ class InsertTicketUseCase @Inject constructor(private val repository: TicketRepo
     suspend operator fun invoke(
         name: String,
         timer: Long,
-        achieve: Achieve?
+        achieve: AchieveDto?
     ): ServerResponse<Unit> {
         return repository.insertTicket(name, timer, achieve)
     }

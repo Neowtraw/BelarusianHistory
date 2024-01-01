@@ -2,7 +2,6 @@ package com.codingub.belarusianhistory.ui.fragments
 
 import android.graphics.Outline
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -22,10 +21,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
+import com.codingub.belarusianhistory.sdk.AchieveType
+import com.codingub.belarusianhistory.ui.adapters.AchieveAdapter
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.custom.view.CategoryAchieveView
-import com.codingub.belarusianhistory.sdk.AchievesCategory
-import com.codingub.belarusianhistory.ui.adapters.AchieveAdapter
 import com.codingub.belarusianhistory.ui.viewmodels.AchieveViewModel
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ItemDecoration
@@ -35,12 +35,13 @@ import com.codingub.belarusianhistory.utils.extension.setPaddingDp
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AchieveFragment : BaseFragment() {
 
-    private val vm : AchieveViewModel by viewModels()
+    private val vm: AchieveViewModel by viewModels()
 
     private lateinit var mainText: TextView
     private lateinit var categoriesLayout: TabLayout
@@ -72,11 +73,11 @@ class AchieveFragment : BaseFragment() {
         return rootLayout
     }
 
-    private fun createMainText(){
+    private fun createMainText() {
 
         mainText = TextView(requireContext()).apply {
             id = View.generateViewId()
-            text= Resource.string(R.string.achieves)
+            text = Resource.string(R.string.achieves)
             setTextColor(Resource.color(R.color.text_color))
             textSize = 12f.dp
             typeface = Font.EXTRABOLD
@@ -91,7 +92,7 @@ class AchieveFragment : BaseFragment() {
         }
     }
 
-    private fun createCategoriesLayout(){
+    private fun createCategoriesLayout() {
         categoriesLayout = TabLayout(requireContext()).apply {
             id = View.generateViewId()
             setBackgroundResource(R.color.bg)
@@ -105,11 +106,11 @@ class AchieveFragment : BaseFragment() {
                 }
             }
 
-            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     val categoryView = tab.customView as CategoryAchieveView
                     categoryView.setChecked(true, animated = true)
-                    lifecycleScope.launch(Dispatchers.IO){
+                    lifecycleScope.launch(Dispatchers.IO) {
                         vm.updateAchieves(categoryView.category)
                     }
                 }
@@ -123,7 +124,7 @@ class AchieveFragment : BaseFragment() {
 
         }
 
-        val categories = AchievesCategory.values()
+        val categories = AchieveType.values()
         categories.forEachIndexed { index, category ->
             categoriesLayout.apply {
                 newTab().apply {
@@ -141,7 +142,7 @@ class AchieveFragment : BaseFragment() {
         }
     }
 
-    private fun createAchievesList(){
+    private fun createAchievesList() {
 
         achieveView = RecyclerView(requireContext()).apply {
             id = View.generateViewId()
@@ -154,36 +155,44 @@ class AchieveFragment : BaseFragment() {
         }
     }
 
-    private fun createFrameLayout(){
+    private fun createFrameLayout() {
         frameLayout = FrameLayout(requireContext()).apply {
             id = View.generateViewId()
 
-            addView(achieveView, ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-            ))
-            addView(emptyText, ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                600.dp
-            ))
+            addView(
+                achieveView, ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_PARENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                )
+            )
+            addView(
+                emptyText, ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_PARENT,
+                    600.dp
+                )
+            )
         }
 
     }
 
-    private fun createRootLayout(){
+    private fun createRootLayout() {
         rootLayout = MotionLayout(requireContext()).apply {
             setBackgroundResource(R.color.bg)
             setPadding(Resource.dimen(R.dimen.main_padding).toInt())
 
             addView(mainText, ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT
+                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                setMargins(0, 0,20.dp,0)
+                setMargins(0, 0, 20.dp, 0)
             })
 
-            addView(categoriesLayout, ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT
-            ))
+            addView(
+                categoriesLayout, ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                )
+            )
 
             addView(
                 frameLayout, ConstraintLayout.LayoutParams(
@@ -194,33 +203,75 @@ class AchieveFragment : BaseFragment() {
 
         }
 
-        val startSet = ConstraintSet().apply{
+        val startSet = ConstraintSet().apply {
             clone(rootLayout)
 
             connect(mainText.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0)
             setAlpha(mainText.id, 1f)
 
-            connect(categoriesLayout.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 0)
-            connect(categoriesLayout.id, ConstraintSet.TOP, mainText.id, ConstraintSet.BOTTOM, 20.dp)
-            connect(categoriesLayout.id, ConstraintSet.END,  ConstraintSet.PARENT_ID, ConstraintSet.END, 0)
+            connect(
+                categoriesLayout.id,
+                ConstraintSet.START,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.START,
+                0
+            )
+            connect(
+                categoriesLayout.id,
+                ConstraintSet.TOP,
+                mainText.id,
+                ConstraintSet.BOTTOM,
+                20.dp
+            )
+            connect(
+                categoriesLayout.id,
+                ConstraintSet.END,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.END,
+                0
+            )
             setAlpha(categoriesLayout.id, 1f)
-            connect(frameLayout.id, ConstraintSet.TOP, categoriesLayout.id, ConstraintSet.BOTTOM, 16.dp)
+            connect(
+                frameLayout.id,
+                ConstraintSet.TOP,
+                categoriesLayout.id,
+                ConstraintSet.BOTTOM,
+                16.dp
+            )
 
 
             applyTo(rootLayout)
         }
 
-        val endSet = ConstraintSet().apply{
+        val endSet = ConstraintSet().apply {
             clone(rootLayout)
 
             connect(mainText.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0)
             setAlpha(mainText.id, 0f)
 
             connect(categoriesLayout.id, ConstraintSet.TOP, mainText.id, ConstraintSet.BOTTOM, 0)
-            connect(categoriesLayout.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 0)
-            connect(categoriesLayout.id, ConstraintSet.END,  ConstraintSet.PARENT_ID, ConstraintSet.END, 0)
+            connect(
+                categoriesLayout.id,
+                ConstraintSet.START,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.START,
+                0
+            )
+            connect(
+                categoriesLayout.id,
+                ConstraintSet.END,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.END,
+                0
+            )
             setAlpha(categoriesLayout.id, 0f)
-            connect(frameLayout.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 16.dp)
+            connect(
+                frameLayout.id,
+                ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.TOP,
+                16.dp
+            )
 
         }
 
@@ -257,16 +308,40 @@ class AchieveFragment : BaseFragment() {
 
 
     override fun observeChanges() {
-        vm.displayedAchieves.observe(this@AchieveFragment){
+        lifecycleScope.launch {
+            vm.data.collectLatest { (achievesResponse, resultsResponse) ->
+                when {
+                    achievesResponse is ServerResponse.Loading || resultsResponse is ServerResponse.Loading -> {
+                        // Обработка состояния загрузки обеих запросов
+                    }
 
-            if(it.isNullOrEmpty()){
-                achieveAdapter.achieves = emptyList()
-                emptyText.visibility = View.VISIBLE
-                achieveView.visibility = View.INVISIBLE
-            }else{
-                achieveAdapter.achieves = it
-                emptyText.visibility = View.INVISIBLE
-                achieveView.visibility = View.VISIBLE
+                    achievesResponse is ServerResponse.OK && resultsResponse is ServerResponse.OK -> {
+                        vm.getAchievesType()
+
+                    }
+
+                    achievesResponse is ServerResponse.Error || resultsResponse is ServerResponse.Error -> {
+                        // Обработка ошибок при получении данных
+                    }
+
+                    else -> {
+                        // Другие возможные сценарии
+                    }
+                }
+            }
+        }
+        lifecycleScope.launch {
+
+            vm.articles.collectLatest {
+                if (it.isEmpty()) {
+                    achieveAdapter.achieves = emptyList()
+                    emptyText.visibility = View.VISIBLE
+                    achieveView.visibility = View.INVISIBLE
+                } else {
+                    achieveAdapter.achieves = it
+                    emptyText.visibility = View.INVISIBLE
+                    achieveView.visibility = View.VISIBLE
+                }
             }
         }
     }

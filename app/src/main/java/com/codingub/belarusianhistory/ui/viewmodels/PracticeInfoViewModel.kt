@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.codingub.belarusianhistory.sdk.models.practices.PracticeQuestion
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,8 +12,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PracticeInfoViewModel @Inject constructor() : ViewModel() {
 
-    private val _ticketQuestion = MutableLiveData<TicketQuestion>()
-    val ticketQuestion : LiveData<TicketQuestion> get() = _ticketQuestion
+    private val _ticketQuestion = MutableLiveData<TicketQuestionDto>()
+    val ticketQuestion : LiveData<TicketQuestionDto> get() = _ticketQuestion
 
     private var position : Int = 0
 
@@ -22,7 +22,7 @@ class PracticeInfoViewModel @Inject constructor() : ViewModel() {
     private val _resultList = MutableLiveData<MutableList<UserPracticeAnswer>>()
     val resultList : LiveData<MutableList<UserPracticeAnswer>> get() = _resultList
 
-    fun selectTicketQuestion(ticketQuestion: TicketQuestion){
+    fun selectTicketQuestion(ticketQuestion: TicketQuestionDto){
         _ticketQuestion.value = ticketQuestion
     }
 

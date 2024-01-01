@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.userdata.Group
+import com.codingub.belarusianhistory.sdk.models.userdata.GroupDto
 import com.codingub.belarusianhistory.domain.use_cases.CreateGroupUseCase
 import com.codingub.belarusianhistory.domain.use_cases.DeleteGroupUseCase
 import com.codingub.belarusianhistory.domain.use_cases.DeleteUserFromGroupUseCase
@@ -31,7 +31,7 @@ class StatisticViewModel @Inject constructor(
 ) : ViewModel() {
 
     //for showing current groups with custom shimmer
-    private val getGroupChannel = Channel<ServerResponse<List<Group>>>()
+    private val getGroupChannel = Channel<ServerResponse<List<GroupDto>>>()
     val groupState = getGroupChannel.receiveAsFlow()
 
     private val createGroupChannel = Channel<ServerResponse<Unit>>()
@@ -46,7 +46,7 @@ class StatisticViewModel @Inject constructor(
     private val deleteUserGroupChannel = Channel<ServerResponse<Unit>>()
     val deleteUserGroupState = deleteUserGroupChannel.receiveAsFlow()
 
-    val curGroup : MutableLiveData<Group?> = MutableLiveData(null)
+    val curGroup : MutableLiveData<GroupDto?> = MutableLiveData(null)
 
     init {
         getGroups()

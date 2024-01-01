@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
 import com.codingub.belarusianhistory.databinding.FragmentPracticeBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
@@ -35,7 +35,7 @@ class PracticeFragment : BaseFragment() {
     private lateinit var binding: FragmentPracticeBinding
     private lateinit var practiceAdapter: PracticeAdapter
 
-    private val practiceList = mutableListOf<TicketQuestion>()
+    private val practiceList = mutableListOf<TicketQuestionDto>()
 
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {

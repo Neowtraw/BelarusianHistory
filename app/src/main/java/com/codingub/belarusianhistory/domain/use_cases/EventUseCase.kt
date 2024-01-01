@@ -1,6 +1,6 @@
 package com.codingub.belarusianhistory.domain.use_cases
 
-import com.codingub.belarusianhistory.data.repos.EventRepository
+import com.codingub.belarusianhistory.domain.repos.EventRepository
 import javax.inject.Inject
 
 class GetAllEventsUseCase @Inject constructor(

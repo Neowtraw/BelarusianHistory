@@ -2,15 +2,15 @@ package com.codingub.belarusianhistory.sdk.models
 
 import com.codingub.belarusianhistory.sdk.models.practices.Answer
 
-data class CustomTicketQuestion(
+data class CustomTicketQuestionDto(
     val id : String,
     val name: String,
     val info: String,
 
-    var practices: List<CustomPracticeQuestion> = emptyList()
+    var practices: List<CustomPracticeQuestionDto> = emptyList()
 )
 
-data class CustomPracticeQuestion(
+data class CustomPracticeQuestionDto(
     val name : String,
     val taskType: Int, //TaskType
     val answers: List<Answer> = emptyList()

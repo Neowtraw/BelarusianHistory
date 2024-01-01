@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
 import com.codingub.belarusianhistory.databinding.FragmentTicketsBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
@@ -35,7 +35,7 @@ class TicketsFragment : BaseFragment() {
     private lateinit var binding: FragmentTicketsBinding
     private lateinit var ticketAdapter: TicketAdapter
 
-    private val ticketsList = mutableListOf<Ticket>()
+    private val ticketsList = mutableListOf<TicketDto>()
 
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {

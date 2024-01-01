@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.codingub.belarusianhistory.databinding.FragmentMenuBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.viewmodels.MenuViewModel
 import com.codingub.belarusianhistory.utils.Font
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class MenuFragment : BaseFragment() {
@@ -36,28 +40,28 @@ class MenuFragment : BaseFragment() {
     }
 
     //Creation
-    private fun createMenuEvents(){
+    private fun createMenuEvents() {
         binding.tvEvents.typeface = Font.EXTRABOLD
         binding.tvEventsInfo.typeface = Font.REGULAR
     }
 
-    private fun createMenuPractice(){
+    private fun createMenuPractice() {
         binding.tvPractice.typeface = Font.EXTRABOLD
         binding.tvPracticeScore.typeface = Font.REGULAR
     }
 
-    private fun createMenuTickets(){
+    private fun createMenuTickets() {
         binding.tvTickets.typeface = Font.EXTRABOLD
         binding.tvTicketsScore.typeface = Font.REGULAR
     }
 
-    private fun createMenuAchieves(){
+    private fun createMenuAchieves() {
         binding.tvAchieves.typeface = Font.EXTRABOLD
         binding.tvAchievesInfo.typeface = Font.REGULAR
         binding.tvAchievesScore.typeface = Font.REGULAR
     }
 
-    private fun setupListeners(){
+    private fun setupListeners() {
         binding.cvTickets.setOnClickListener {
             pushFragment(TicketsFragment(), "tickets")
         }
@@ -74,27 +78,30 @@ class MenuFragment : BaseFragment() {
     }
 
     override fun observeChanges() {
-        with(vm){
-//            ticketAchieves.observe(this@MenuFragment){
-//                menuTickets.infoText = it.toString()
-//            }
-//            practiceAchieves.observe(this@MenuFragment){
-//                menuPractice.infoText = it.toString()
-//            }
-//            ticketAchievesPassed.observe(this@MenuFragment){
-//                menuTickets.infoTextPassed = it.toString()
-//            }
-//            practiceAchievesPassed.observe(this@MenuFragment){
-//                menuPractice.infoTextPassed = it.toString()
-//            }
-//            allAchieves.observe(this@MenuFragment){
-//                menuAchieves.infoText = it.toString()
-//            }
-//            allAchievesPassed.observe(this@MenuFragment){
-//                menuAchieves.infoTextPassed = it.toString()
-//            }
+        with(vm) {
+            lifecycleScope.launch {
+                tickets.collect {
+                    withContext(Dispatchers.Main) {
+                        binding.tvTicketsScore.text = it
+                    }
+                }
+            }
+            lifecycleScope.launch {
+
+                achieves.collect {
+                    withContext(Dispatchers.Main) {
+                        binding.tvAchievesScore.text = it
+                    }
+                }
+            }
+            lifecycleScope.launch {
+
+                practice.collect {
+                    withContext(Dispatchers.Main) {
+                        binding.tvPracticeScore.text = it
+                    }
+                }
+            }
         }
-
     }
-
 }

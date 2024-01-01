@@ -41,7 +41,7 @@ android {
 
             buildConfigField("String",
                 "history_endpoint",
-                "\"http://192.168.21.221:8080/\"")
+                "\"http://192.168.204.244:8080/\"")
         }
         release {
             isDebuggable = false
@@ -54,7 +54,7 @@ android {
             
             buildConfigField("String",
                 "history_endpoint",
-                "\"http://192.168.21.221:8080/\"")
+                "\"http://192.168.204.244:8080/\"")
         }
     }
 
@@ -148,6 +148,10 @@ dependencies {
     implementation ("com.google.mlkit:translate:17.0.1")
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
+
+    // serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
 }
 
 kapt {

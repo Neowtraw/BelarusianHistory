@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.ItemAchieveViewBinding
-import com.codingub.belarusianhistory.domain.model.Achieves.Achieve
+import com.codingub.belarusianhistory.ui.viewmodels.AchieveStateUi
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 
@@ -16,16 +16,16 @@ class AchieveAdapter : RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() 
 
     private lateinit var binding: ItemAchieveViewBinding
 
-    var achieves: List<Achieve>
+    var achieves: List<AchieveStateUi>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Achieve>() {
-        override fun areItemsTheSame(oldItem: Achieve, newItem: Achieve): Boolean {
-            return oldItem.id == newItem.id
+    private val diffCallback = object : DiffUtil.ItemCallback<AchieveStateUi>() {
+        override fun areItemsTheSame(oldItem: AchieveStateUi, newItem: AchieveStateUi): Boolean {
+            return oldItem.achieve.id == newItem.achieve.id
         }
 
-        override fun areContentsTheSame(oldItem: Achieve, newItem: Achieve): Boolean {
+        override fun areContentsTheSame(oldItem: AchieveStateUi, newItem: AchieveStateUi): Boolean {
             return oldItem == newItem
         }
     }
@@ -38,25 +38,25 @@ class AchieveAdapter : RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() 
             val item = achieves[bindingAdapterPosition]
 
             binding.tvName.apply {
-                text = item.name
+                text = item.achieve.name
                 typeface = Font.SEMIBOLD
             }
             binding.tvInfo.apply {
-                text = item.info
+                text = item.achieve.info
                 typeface = Font.REGULAR
             }
             binding.ivPassed.apply {
                 setImageResource(
-                    if (item.isPassed == 0) R.drawable.not_passed
+                    if (item.isPassed) R.drawable.not_passed
                     else R.drawable.passed
                 )
                 setColorFilter(
-                    if (item.isPassed == 0) Resource.color(R.color.icon_color_not_passed)
+                    if (!item.isPassed) Resource.color(R.color.icon_color_not_passed)
                     else Resource.color(R.color.icon_color_passed)
                 )
             }
             val itemBackground = binding.root.background as GradientDrawable
-            if (item.isPassed == 0) itemBackground.setColor(Resource.color(R.color.achieve_not_passed))
+            if (!item.isPassed) itemBackground.setColor(Resource.color(R.color.achieve_not_passed))
             else itemBackground.setColor(Resource.color(R.color.bg_btn))
         }
     }

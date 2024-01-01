@@ -3,13 +3,13 @@ package com.codingub.belarusianhistory.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
 import com.codingub.belarusianhistory.databinding.ItemPracticeViewBinding
 import com.codingub.belarusianhistory.utils.Font
 
 class PracticeAdapter(
-    private var practiceList: List<TicketQuestion>,
-    private inline val onPracticeSelected: (TicketQuestion) -> Unit
+    private var practiceList: List<TicketQuestionDto>,
+    private inline val onPracticeSelected: (TicketQuestionDto) -> Unit
 ) : RecyclerView.Adapter<PracticeAdapter.PracticeViewHolder>() {
 
     private lateinit var binding: ItemPracticeViewBinding
@@ -23,7 +23,7 @@ class PracticeAdapter(
             }
         }
 
-        fun binding(item: TicketQuestion) {
+        fun binding(item: TicketQuestionDto) {
             binding.tvPractice.apply {
                 text = item.name
                 typeface = Font.REGULAR

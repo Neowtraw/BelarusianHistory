@@ -6,23 +6,23 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.databinding.ItemEventTableBinding
-import com.codingub.belarusianhistory.sdk.models.Event
+import com.codingub.belarusianhistory.sdk.models.events.EventDto
 import com.codingub.belarusianhistory.utils.Font
 
 class EventTableAdapter() : RecyclerView.Adapter<EventTableAdapter.ViewHolder>() {
 
     private lateinit var binding: ItemEventTableBinding
 
-    var events: List<Event>
+    var events: List<EventDto>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Event>() {
-        override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<EventDto>() {
+        override fun areItemsTheSame(oldItem: EventDto, newItem: EventDto): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean {
+        override fun areContentsTheSame(oldItem: EventDto, newItem: EventDto): Boolean {
             return oldItem == newItem
         }
     }

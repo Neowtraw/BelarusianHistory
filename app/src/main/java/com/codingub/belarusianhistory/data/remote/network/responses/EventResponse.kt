@@ -1,8 +1,7 @@
 package com.codingub.belarusianhistory.data.remote.network.responses
 
-import com.codingub.belarusianhistory.sdk.models.Event
-import com.google.gson.annotations.SerializedName
+import com.codingub.belarusianhistory.sdk.models.events.EventDto
 
 data class EventResponse(
-   val events: List<Event>
+   val events: List<EventDto>
 )

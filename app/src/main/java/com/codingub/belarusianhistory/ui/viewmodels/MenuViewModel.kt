@@ -1,66 +1,78 @@
 package com.codingub.belarusianhistory.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingub.belarusianhistory.domain.use_case.GetAllPracticeAchieves
-import com.codingub.belarusianhistory.domain.use_case.GetAllTicketAchieves
-import com.codingub.belarusianhistory.domain.use_case.GetPracticeAchievesByPassed
-import com.codingub.belarusianhistory.domain.use_case.GetTicketAchievesByPassed
+import com.codingub.belarusianhistory.data.local.prefs.UserConfig
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
+import com.codingub.belarusianhistory.domain.use_cases.GetAllAchievesUseCase
+import com.codingub.belarusianhistory.domain.use_cases.GetAllResultsUseCase
+import com.codingub.belarusianhistory.domain.use_cases.GetTypeResultsUseCase
+import com.codingub.belarusianhistory.sdk.AchieveType
+import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.sdk.models.userdata.ResultDto
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class MenuViewModel @Inject constructor(
-    private val getAllPracticeAchieves : GetAllPracticeAchieves,
-    private val getAllTicketAchieves: GetAllTicketAchieves,
-    private val getTicketAchievesByPassed: GetTicketAchievesByPassed,
-    private val getPracticeAchievesByPassed: GetPracticeAchievesByPassed
+    private val getAllAchievesUseCase: GetAllAchievesUseCase,
+    private val getAllResultsUseCase: GetAllResultsUseCase
 ) : ViewModel() {
 
-    private val _ticketAchievesPassed = MutableLiveData<Int>()
-    private val _practiceAchievesPassed = MutableLiveData<Int>()
-    private val _ticketAchieves = MutableLiveData<Int>()
-    private val _practiceAchieves = MutableLiveData<Int>()
-    private val _allAchieves = MutableLiveData<Int>()
-    private val _allAchievesPassed = MutableLiveData<Int>()
+    private val _results = MutableStateFlow<ServerResponse<List<ResultDto>>>(ServerResponse.Loading())
+    private val _achieves = MutableStateFlow<ServerResponse<List<AchieveDto>>>(ServerResponse.Loading())
 
 
-    //чтобы передавать в код
-    val ticketAchievesPassed : LiveData<Int> get() = _ticketAchievesPassed
-    val practiceAchievesPassed : LiveData<Int> get() = _practiceAchievesPassed
-    val ticketAchieves : LiveData<Int> get() = _ticketAchieves
-    val practiceAchieves : LiveData<Int> get() = _practiceAchieves
-    val allAchieves : LiveData<Int> get() = _allAchieves
-    val allAchievesPassed : LiveData<Int> get() = _allAchievesPassed
+    //practice
+    val practice = combine(_results, _achieves) { results, achieves ->
+        val practiceAchieves = achieves.data?.filter { it.type == AchieveType.PRACTICE } ?: emptyList()
+        val practiceResults  = results.data?.filter { practiceAchieves.map{it.id}.contains(it.achieveId) } ?: emptyList()
+
+        "${practiceResults.size}/${practiceAchieves.size}"
+    }.stateIn(
+        viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = "0/0"
+    )
+
+    // achieves
+    val achieves = combine(_results, _achieves) { results, achieves ->
+
+        "${results.data?.size ?: 0}/${achieves.data?.size ?: 0}"
+    }.stateIn(
+        viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = "0/0"
+    )
+
+    // tickets
+    val tickets = combine(_results, _achieves) { results, achieves ->
+        val ticketAchieves = achieves.data?.filter { it.type == AchieveType.TICKET } ?: emptyList()
+        val ticketResults  = results.data?.filter { ticketAchieves.map{it.id}.contains(it.achieveId) } ?: emptyList()
+
+        "${ticketResults.size}/${ticketAchieves.size}"
+    }.stateIn(
+        viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = "0/0"
+    )
 
 
+    // get data for { results / achieves }
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            val passedTicketAchieves = getTicketAchievesByPassed(1)
-            _ticketAchievesPassed.postValue(passedTicketAchieves.size)
-
-            val passedPracticeAchieves = getPracticeAchievesByPassed(1)
-            _practiceAchievesPassed.postValue(passedPracticeAchieves.size)
-
-            _allAchievesPassed.postValue(passedPracticeAchieves.size
-                    + passedTicketAchieves.size)
-        }
-
-        viewModelScope.launch(Dispatchers.IO) {
-            val tickAchieves = getAllTicketAchieves()
-            _ticketAchieves.postValue(tickAchieves.size)
-
-            val pracAchieves = getAllPracticeAchieves()
-            _practiceAchieves.postValue(pracAchieves.size)
-
-            _allAchieves.postValue(pracAchieves.size + tickAchieves.size)
-        }
-
+        getData()
     }
 
+    private fun getData() {
+        viewModelScope.launch {
+            _achieves.value = getAllAchievesUseCase()
+            _results.value = getAllResultsUseCase(userLogin = UserConfig.getLogin())
+        }
+    }
 }

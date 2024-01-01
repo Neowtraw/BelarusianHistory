@@ -1,12 +1,9 @@
 package com.codingub.belarusianhistory.ui.viewmodels
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
 import com.codingub.belarusianhistory.domain.use_cases.GetAllTicketsUseCase
 import com.codingub.belarusianhistory.utils.network.NetworkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,10 +20,10 @@ class TicketsViewModel @Inject constructor(
     private val getAllTickets: GetAllTicketsUseCase
 ) : ViewModel() {
 
-    private val _tickets: MutableStateFlow<List<Ticket>> = MutableStateFlow(emptyList())
+    private val _tickets: MutableStateFlow<List<TicketDto>> = MutableStateFlow(emptyList())
     val tickets = _tickets.asStateFlow()
 
-    private val resultChannel = Channel<ServerResponse<List<Ticket>>>()
+    private val resultChannel = Channel<ServerResponse<List<TicketDto>>>()
     val ticketsState = resultChannel.receiveAsFlow()
 
     init{

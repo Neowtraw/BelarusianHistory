@@ -7,7 +7,7 @@ import android.text.TextUtils
 import android.view.Gravity
 import androidx.appcompat.widget.AppCompatTextView
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.sdk.AchievesCategory
+import com.codingub.belarusianhistory.sdk.AchieveType
 import com.codingub.belarusianhistory.utils.DrawableUtil
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
@@ -21,7 +21,7 @@ import com.codingub.belarusianhistory.utils.extension.textSizeDp
 @SuppressLint("ViewConstructor")
 class CategoryAchieveView(
     context: Context,
-    val category: AchievesCategory
+    val category: AchieveType
 ) : AppCompatTextView(context) {
 
     var isChecked: Boolean = false

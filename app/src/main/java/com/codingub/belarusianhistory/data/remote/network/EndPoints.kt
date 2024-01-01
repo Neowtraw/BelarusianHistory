@@ -22,10 +22,15 @@ object EndPoints {
 
     const val ACHIEVE = "achieves"
 
+    const val RESULTS = "results"
+    const val INSERT_RESULTS = "results/insert"
+    const val DELETE_RESULTS = ""
+
     const val EVENTS = "events"
 
     const val GROUP = "groups"
     const val INSERT_GROUP = "groups/insert"
     const val RESET_GROUP = "groups/reset"
     const val INVITE_USER_GROUP = "groups/users/invite"
-    const val DELETE_USER_GROUP = "groups/users/reset"}
+    const val DELETE_USER_GROUP = "groups/users/reset"
+}

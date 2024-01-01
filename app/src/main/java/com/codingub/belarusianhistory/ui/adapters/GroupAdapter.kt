@@ -4,25 +4,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestion
-import com.codingub.belarusianhistory.sdk.models.userdata.Group
+import com.codingub.belarusianhistory.sdk.models.userdata.GroupDto
 import com.codingub.belarusianhistory.ui.custom.view.statistic.StatisticGroupItem
 
 
 class GroupAdapter(
-    private inline val onGroupSelected: (Group) -> Unit
+    private inline val onGroupSelected: (GroupDto) -> Unit
 ) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
-    var groups: List<Group>
+    var groups: List<GroupDto>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Group>() {
-        override fun areItemsTheSame(oldItem: Group, newItem: Group): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<GroupDto>() {
+        override fun areItemsTheSame(oldItem: GroupDto, newItem: GroupDto): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Group, newItem: Group): Boolean {
+        override fun areContentsTheSame(oldItem: GroupDto, newItem: GroupDto): Boolean {
             return oldItem == newItem
         }
     }

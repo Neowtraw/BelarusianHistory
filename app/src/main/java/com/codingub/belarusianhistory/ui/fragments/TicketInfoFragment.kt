@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.sdk.models.tickets.Ticket
+import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
 import com.codingub.belarusianhistory.databinding.FragmentTicketInfoBinding
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.base.BaseFragment
@@ -57,7 +57,7 @@ class TicketInfoFragment : BaseFragment(){
     }
 
 
-    private fun updateTicket(ticket: Ticket){
+    private fun updateTicket(ticket: TicketDto){
         binding.tvTicketNumber.apply{
             text = ticket.name
             typeface = Font.EXTRABOLD
