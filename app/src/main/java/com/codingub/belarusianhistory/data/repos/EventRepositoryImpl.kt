@@ -3,7 +3,7 @@ package com.codingub.belarusianhistory.data.repos
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.domain.repos.EventRepository
-import com.codingub.belarusianhistory.sdk.models.events.EventDto
+import com.codingub.belarusianhistory.data.models.events.EventDto
 import retrofit2.HttpException
 import java.util.concurrent.CancellationException
 import javax.inject.Inject

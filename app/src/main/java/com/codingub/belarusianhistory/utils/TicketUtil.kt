@@ -1,6 +1,6 @@
 package com.codingub.belarusianhistory.utils
 
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
+import com.codingub.belarusianhistory.data.models.tickets.TicketQuestionDto
 
 
 object TicketUtil {

@@ -3,8 +3,8 @@ package com.codingub.belarusianhistory.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.codingub.belarusianhistory.sdk.models.practices.PracticeQuestion
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
+import com.codingub.belarusianhistory.data.models.practices.PracticeQuestion
+import com.codingub.belarusianhistory.data.models.tickets.TicketQuestionDto
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

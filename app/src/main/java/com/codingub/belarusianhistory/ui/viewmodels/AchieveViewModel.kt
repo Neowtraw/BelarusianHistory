@@ -7,8 +7,8 @@ import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.domain.use_cases.GetTypeResultsUseCase
 import com.codingub.belarusianhistory.domain.use_cases.GetTypeAchievesUseCase
 import com.codingub.belarusianhistory.sdk.AchieveType
-import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
-import com.codingub.belarusianhistory.sdk.models.userdata.ResultDto
+import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.models.userdata.ResultDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

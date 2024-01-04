@@ -2,8 +2,8 @@ package com.codingub.belarusianhistory.data.repos
 
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
+import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.models.tickets.TicketDto
 import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTicketRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertTicketRequest
 import com.codingub.belarusianhistory.domain.repos.TicketRepository

@@ -39,6 +39,18 @@
             android:textColor="@color/add_color"
             android:textSize="@dimen/header_text" />
 
+        <!-- shimmer -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvShimmer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
     </FrameLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

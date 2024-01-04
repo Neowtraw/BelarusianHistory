@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/main_padding">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ticket_name"
+        android:imeOptions="actionNone"
+        android:inputType="text"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/description"
+        android:imeOptions="actionNone"
+        android:inputType="text"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
+
+</LinearLayout>

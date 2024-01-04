@@ -106,5 +106,9 @@
     <string name="add_action">Добавить</string>
     <string name="members_group_empty">В группе нет пользователей</string>
 
+    <string name="change">Изменить</string>
+    <string name="time_form">Мин : Сек</string>
+    <string name="mins">Мин</string>
+
 
 </resources>

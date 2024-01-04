@@ -1,7 +1,7 @@
 package com.codingub.belarusianhistory.data.remote.network.requests
 
 import com.codingub.belarusianhistory.sdk.AchieveType
-import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
 import com.google.gson.annotations.SerializedName
 
 data class AddResultRequest(

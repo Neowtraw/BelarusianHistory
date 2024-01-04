@@ -1,8 +1,8 @@
 package com.codingub.belarusianhistory.domain.repos
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
+import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.models.tickets.TicketDto
 
 interface TicketRepository {
     suspend fun getAllTickets(): ServerResponse<List<TicketDto>>

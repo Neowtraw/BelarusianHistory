@@ -1,6 +1,6 @@
 package com.codingub.belarusianhistory.data.remote.network.requests
 
-import com.codingub.belarusianhistory.sdk.models.practices.Answer
+import com.codingub.belarusianhistory.data.models.practices.Answer
 
 data class InsertPqRequest(
     val taskType: Int,

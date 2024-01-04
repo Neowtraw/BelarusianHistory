@@ -88,14 +88,29 @@
         android:textColorHint="@color/add_color"
         android:textSize="@dimen/main_text" />
 
-    <Button
-        android:id="@+id/btnRegister"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/item_rounded_contrast"
-        android:text="@string/register"
-        android:textSize="@dimen/main_text" />
+        android:padding="@dimen/main_text"
+        android:background="@drawable/item_rounded_contrast">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:text="@string/register"
+            android:textSize="@dimen/main_text" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTransition"

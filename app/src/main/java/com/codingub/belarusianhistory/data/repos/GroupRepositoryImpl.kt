@@ -2,7 +2,7 @@ package com.codingub.belarusianhistory.data.repos
 
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.userdata.GroupDto
+import com.codingub.belarusianhistory.data.models.userdata.GroupDto
 import com.codingub.belarusianhistory.data.remote.network.requests.CreateGroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.GroupRequest
 import com.codingub.belarusianhistory.domain.repos.GroupRepository

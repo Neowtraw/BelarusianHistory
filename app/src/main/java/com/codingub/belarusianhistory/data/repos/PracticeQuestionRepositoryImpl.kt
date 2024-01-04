@@ -2,8 +2,8 @@ package com.codingub.belarusianhistory.data.repos
 
 import com.codingub.belarusianhistory.data.remote.HistoryAppApi
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.practices.Answer
-import com.codingub.belarusianhistory.sdk.models.practices.PracticeQuestion
+import com.codingub.belarusianhistory.data.models.practices.Answer
+import com.codingub.belarusianhistory.data.models.practices.PracticeQuestion
 import com.codingub.belarusianhistory.data.remote.network.requests.DeletePqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertPqRequest
 import com.codingub.belarusianhistory.domain.repos.PracticeQuestionRepository

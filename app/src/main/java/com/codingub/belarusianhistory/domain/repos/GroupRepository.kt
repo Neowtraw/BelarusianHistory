@@ -1,7 +1,7 @@
 package com.codingub.belarusianhistory.domain.repos
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.userdata.GroupDto
+import com.codingub.belarusianhistory.data.models.userdata.GroupDto
 
 interface GroupRepository {
 

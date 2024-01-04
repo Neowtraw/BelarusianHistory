@@ -44,7 +44,7 @@ import com.codingub.belarusianhistory.data.remote.network.responses.TicketRespon
 import com.codingub.belarusianhistory.data.remote.network.responses.TokenResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TqResponse
 import com.codingub.belarusianhistory.sdk.AchieveType
-import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header

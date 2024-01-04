@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.userdata.GroupDto
+import com.codingub.belarusianhistory.data.models.userdata.GroupDto
 import com.codingub.belarusianhistory.domain.use_cases.CreateGroupUseCase
 import com.codingub.belarusianhistory.domain.use_cases.DeleteGroupUseCase
 import com.codingub.belarusianhistory.domain.use_cases.DeleteUserFromGroupUseCase

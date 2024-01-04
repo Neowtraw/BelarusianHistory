@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.R
-import com.codingub.belarusianhistory.sdk.models.practices.PracticeQuestion
+import com.codingub.belarusianhistory.data.models.practices.PracticeQuestion
 import com.codingub.belarusianhistory.databinding.FragmentDateOrderBinding
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.TaskFragment
-import com.codingub.belarusianhistory.ui.adapters.DateOrderAdapter
+import com.codingub.belarusianhistory.ui.adapters.practice.DateOrderAdapter
 import com.codingub.belarusianhistory.ui.custom.item_decoration.DateOrderItemDecoration
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource

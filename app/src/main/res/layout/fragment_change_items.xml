@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/main_padding"
+        android:paddingBottom="@dimen/main_padding">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tickets"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/main_text"
+            android:layout_weight="1"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/save"
+            android:src="@drawable/checkmark"
+            android:tint="@color/contrast"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/plus"
+            android:src="@drawable/plus"
+            android:tint="@color/contrast"
+            android:layout_marginStart="@dimen/main_divider"
+            android:layout_marginEnd="@dimen/main_divider"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/minus"
+            android:src="@drawable/minus"
+            android:tint="@color/contrast"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

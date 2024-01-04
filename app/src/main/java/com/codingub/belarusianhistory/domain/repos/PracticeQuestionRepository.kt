@@ -1,8 +1,8 @@
 package com.codingub.belarusianhistory.domain.repos
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.practices.Answer
-import com.codingub.belarusianhistory.sdk.models.practices.PracticeQuestion
+import com.codingub.belarusianhistory.data.models.practices.Answer
+import com.codingub.belarusianhistory.data.models.practices.PracticeQuestion
 
 interface PracticeQuestionRepository {
     suspend fun getPqByTqId(TqId: String) : ServerResponse<List<PracticeQuestion>>

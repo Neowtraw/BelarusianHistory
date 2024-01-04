@@ -2,8 +2,8 @@ package com.codingub.belarusianhistory.domain.use_cases
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.domain.repos.TicketRepository
-import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
+import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.models.tickets.TicketDto
 import javax.inject.Inject
 
 class GetAllTicketsUseCase @Inject constructor(private val repository: TicketRepository) {

@@ -2,8 +2,8 @@ package com.codingub.belarusianhistory.domain.use_cases
 
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.domain.repos.PracticeQuestionRepository
-import com.codingub.belarusianhistory.sdk.models.practices.Answer
-import com.codingub.belarusianhistory.sdk.models.practices.PracticeQuestion
+import com.codingub.belarusianhistory.data.models.practices.Answer
+import com.codingub.belarusianhistory.data.models.practices.PracticeQuestion
 import javax.inject.Inject
 
 class GetPqByTqIdUseCase @Inject constructor(private val repository: PracticeQuestionRepository) {

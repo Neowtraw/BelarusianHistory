@@ -14,11 +14,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketDto
 import com.codingub.belarusianhistory.databinding.FragmentTicketsBinding
+import com.codingub.belarusianhistory.data.models.tickets.TicketDto
+import com.codingub.belarusianhistory.ui.adapters.ShimmerContentListAdapter
+import com.codingub.belarusianhistory.ui.adapters.ticket.TicketAdapter
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
-import com.codingub.belarusianhistory.ui.adapters.TicketAdapter
 import com.codingub.belarusianhistory.ui.viewmodels.TicketsViewModel
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
@@ -34,6 +35,7 @@ class TicketsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTicketsBinding
     private lateinit var ticketAdapter: TicketAdapter
+    private lateinit var shimmerAdapter: ShimmerContentListAdapter
 
     private val ticketsList = mutableListOf<TicketDto>()
 
@@ -47,7 +49,7 @@ class TicketsFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun createUI(){
+    private fun createUI() {
         binding.tvHeader.typeface = Font.EXTRABOLD
         binding.tvEmptyTicket.typeface = Font.EXTRABOLD
 
@@ -60,6 +62,14 @@ class TicketsFragment : BaseFragment() {
             adapter = ticketAdapter
             addItemDecoration(createItemDecoration(6.dp))
         }
+
+        binding.rvShimmer.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            shimmerAdapter = ShimmerContentListAdapter()
+            overScrollMode = View.OVER_SCROLL_NEVER
+            adapter = shimmerAdapter
+            addItemDecoration(createItemDecoration(6.dp))
+        }
     }
 
 
@@ -70,23 +80,31 @@ class TicketsFragment : BaseFragment() {
                     ticketsState.collectLatest {
                         when (it) {
                             is ServerResponse.Loading -> {
-                                /**
-                                 * ЗДЕСЬ ТВОЙ КОД
-                                 */
+                                binding.rvShimmer.visibility = View.VISIBLE
+                                binding.shimmer.startShimmer()
+                                binding.rvTicket.visibility = View.GONE
+                                binding.tvEmptyTicket.visibility = View.GONE
                             }
+
                             is ServerResponse.OK -> {
-                                if(it.value.isNullOrEmpty()){
+                                binding.rvShimmer.visibility = View.GONE
+                                binding.shimmer.stopShimmer()
+
+                                if (it.value.isNullOrEmpty()) {
                                     binding.tvEmptyTicket.visibility = View.VISIBLE
-                                } else{
+                                } else {
                                     binding.rvTicket.visibility = View.VISIBLE
                                     ticketsList.clear()
                                     ticketsList.addAll(it.value)
                                     ticketAdapter.notifyDataSetChanged()
                                 }
                             }
+
                             is ServerResponse.Error -> {
-                                Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG).show()
+                                Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG)
+                                    .show()
                             }
+
                             else -> {}
                         }
                     }
@@ -110,7 +128,7 @@ class TicketsFragment : BaseFragment() {
                 val position = parent.getChildAdapterPosition(view)
 
                 outRect.bottom = spacing
-                if(position % 3 == 0 && position != 0){
+                if (position % 3 == 0 && position != 0) {
                     outRect.top = spacing * 4
                 }
             }

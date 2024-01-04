@@ -10,6 +10,7 @@
     android:padding="@dimen/main_padding"
     tools:context=".ui.fragments.MenuFragment">
 
+    <!-- Header -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvHeader"
         android:layout_width="wrap_content"
@@ -20,6 +21,8 @@
         android:textColor="@color/text_color"
         android:textSize="@dimen/header_text" />
 
+
+    <!-- Content -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvEvents"
         android:layout_width="match_parent"
@@ -254,5 +257,4 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>

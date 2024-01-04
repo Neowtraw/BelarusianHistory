@@ -10,6 +10,7 @@
 
 
     <dimen name="main_padding">16dp</dimen>
+    <dimen name="main_divider">8dp</dimen>
     <dimen name="main_margin">16dp</dimen>
     <dimen name="task_padding">560dp</dimen>
 

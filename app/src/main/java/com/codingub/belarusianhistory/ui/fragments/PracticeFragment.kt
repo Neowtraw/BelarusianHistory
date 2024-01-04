@@ -14,11 +14,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
-import com.codingub.belarusianhistory.sdk.models.tickets.TicketQuestionDto
+import com.codingub.belarusianhistory.data.models.tickets.TicketQuestionDto
 import com.codingub.belarusianhistory.databinding.FragmentPracticeBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
-import com.codingub.belarusianhistory.ui.adapters.PracticeAdapter
+import com.codingub.belarusianhistory.ui.adapters.practice.PracticeAdapter
+import com.codingub.belarusianhistory.ui.adapters.ShimmerContentListAdapter
 import com.codingub.belarusianhistory.ui.viewmodels.PracticeViewModel
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
@@ -34,6 +35,8 @@ class PracticeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentPracticeBinding
     private lateinit var practiceAdapter: PracticeAdapter
+    private lateinit var shimmerAdapter: ShimmerContentListAdapter
+
 
     private val practiceList = mutableListOf<TicketQuestionDto>()
 
@@ -59,6 +62,14 @@ class PracticeFragment : BaseFragment() {
             adapter = practiceAdapter
             addItemDecoration(createItemDecoration(6.dp))
         }
+
+        binding.rvShimmer.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            shimmerAdapter = ShimmerContentListAdapter()
+            adapter = shimmerAdapter
+            overScrollMode = View.OVER_SCROLL_NEVER
+            addItemDecoration(createItemDecoration(6.dp))
+        }
     }
 
     override fun observeChanges() {
@@ -68,11 +79,15 @@ class PracticeFragment : BaseFragment() {
                     practiceState.collectLatest {
                         when (it) {
                             is ServerResponse.Loading -> {
-                                /**
-                                 * ЗДЕСЬ ТВОЙ КОД
-                                 */
+                                binding.rvShimmer.visibility = View.VISIBLE
+                                binding.shimmer.startShimmer()
+                                binding.tvEmptyPractice.visibility = View.GONE
+                                binding.rvPractice.visibility = View.GONE
                             }
                             is ServerResponse.OK -> {
+                                binding.rvShimmer.visibility = View.GONE
+                                binding.shimmer.stopShimmer()
+
                                 if(it.value.isNullOrEmpty()){
                                     binding.tvEmptyPractice.visibility = View.VISIBLE
                                 } else{

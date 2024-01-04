@@ -23,8 +23,8 @@ import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentStatisticBinding
 import com.codingub.belarusianhistory.sdk.AccessLevel
-import com.codingub.belarusianhistory.ui.adapters.GroupAdapter
-import com.codingub.belarusianhistory.ui.adapters.GroupStatisticAdapter
+import com.codingub.belarusianhistory.ui.adapters.group.GroupAdapter
+import com.codingub.belarusianhistory.ui.adapters.group.GroupStatisticAdapter
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialogInputView

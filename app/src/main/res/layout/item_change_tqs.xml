@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_rounded_bg"
+    android:padding="@dimen/main_padding"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTicketQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:text="@string/ticket_question"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text"
+        android:hint="@string/ticket_name"
+        android:imeOptions="actionNone"
+        android:inputType="text"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text"
+        android:hint="@string/description"
+        android:imeOptions="actionNone"
+        android:inputType="text"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/main_padding"
+        android:paddingBottom="@dimen/main_padding">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAchieve"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/achieve"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/main_text"
+            android:layout_weight="1"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/show"
+            android:src="@drawable/ic_show"
+            android:tint="@color/contrast"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            />
+    </LinearLayout>
+
+    <!-- hidden content -->
+    <include
+        android:id="@+id/achieve"
+        android:visibility="gone"
+        layout="@layout/item_change_achieve" />
+
+    <!-- Save/Change -->
+    <Button
+        android:id="@+id/btnAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/main_text"
+        android:text="@string/change"
+        android:textColor="@color/text_color"
+        android:textAllCaps="false"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/item_outline_rounded"/>
+
+</LinearLayout>

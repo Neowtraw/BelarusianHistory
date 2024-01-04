@@ -8,8 +8,8 @@ import com.codingub.belarusianhistory.domain.use_cases.GetAllAchievesUseCase
 import com.codingub.belarusianhistory.domain.use_cases.GetAllResultsUseCase
 import com.codingub.belarusianhistory.domain.use_cases.GetTypeResultsUseCase
 import com.codingub.belarusianhistory.sdk.AchieveType
-import com.codingub.belarusianhistory.sdk.models.achieves.AchieveDto
-import com.codingub.belarusianhistory.sdk.models.userdata.ResultDto
+import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.models.userdata.ResultDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

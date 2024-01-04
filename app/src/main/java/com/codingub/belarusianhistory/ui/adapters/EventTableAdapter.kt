@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.databinding.ItemEventTableBinding
-import com.codingub.belarusianhistory.sdk.models.events.EventDto
+import com.codingub.belarusianhistory.data.models.events.EventDto
 import com.codingub.belarusianhistory.utils.Font
 
 class EventTableAdapter() : RecyclerView.Adapter<EventTableAdapter.ViewHolder>() {

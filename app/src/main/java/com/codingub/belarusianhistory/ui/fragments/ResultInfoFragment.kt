@@ -12,7 +12,7 @@ import com.codingub.belarusianhistory.databinding.FragmentResultInfoBinding
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
-import com.codingub.belarusianhistory.ui.adapters.ResultInfoAdapter
+import com.codingub.belarusianhistory.ui.adapters.practice.ResultInfoAdapter
 import com.codingub.belarusianhistory.ui.viewmodels.ResultInfoViewModel
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ItemDecoration
