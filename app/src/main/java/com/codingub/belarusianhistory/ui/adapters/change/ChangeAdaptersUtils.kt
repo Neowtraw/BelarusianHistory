@@ -25,7 +25,6 @@ object ChangeAdaptersUtils {
     }
 
     // animation
-
     fun animateShowIcon(view: View, isShowed: Boolean) {
         val fromDegree = if (isShowed) 0f else 180f
         val toDegree = if (isShowed) 180f else 0f
@@ -76,12 +75,6 @@ object ChangeAdaptersUtils {
         }
     }
 
-}
-
-enum class ChangeType {
-    PRACTICE,
-    TICKETS,
-    TQS
 }
 
 // for checking empty values

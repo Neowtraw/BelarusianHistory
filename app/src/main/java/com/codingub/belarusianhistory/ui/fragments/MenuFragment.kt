@@ -8,6 +8,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.codingub.belarusianhistory.databinding.FragmentMenuBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
+import com.codingub.belarusianhistory.ui.fragments.practice.PracticeFragment
+import com.codingub.belarusianhistory.ui.fragments.ticket.EventsFragment
+import com.codingub.belarusianhistory.ui.fragments.ticket.TicketsFragment
 import com.codingub.belarusianhistory.ui.viewmodels.MenuViewModel
 import com.codingub.belarusianhistory.utils.Font
 import dagger.hilt.android.AndroidEntryPoint

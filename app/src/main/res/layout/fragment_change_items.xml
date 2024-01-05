@@ -2,11 +2,14 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/main_padding"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingTop="@dimen/main_padding"
         android:paddingBottom="@dimen/main_padding">
@@ -15,43 +18,58 @@
             android:id="@+id/tvHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/tickets"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/main_text"
             android:layout_weight="1"
-            />
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/header_text" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/save"
-            android:src="@drawable/checkmark"
-            android:tint="@color/contrast"
+            android:id="@+id/checkmark"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            />
+            android:visibility="invisible"
+            android:src="@drawable/checkmark"
+            android:tint="@color/contrast" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/plus"
-            android:src="@drawable/plus"
-            android:tint="@color/contrast"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginStart="@dimen/main_divider"
             android:layout_marginEnd="@dimen/main_divider"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            />
+            android:src="@drawable/plus"
+            android:tint="@color/contrast" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/minus"
-            android:src="@drawable/minus"
-            android:tint="@color/contrast"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            />
+            android:id="@+id/delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+                android:src="@drawable/selector_trash"
+            android:tint="@color/contrast" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvContent"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/checkmark"
+            android:tint="@color/contrast"
+            android:backgroundTint="@color/bg_btn"
+            android:contentDescription="@string/tickets"
+            android:layout_margin="16dp" />
+
+    </FrameLayout>
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.auth
 
 import android.os.Bundle
 import android.util.Log
@@ -15,8 +15,9 @@ import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentRoleBinding
 import com.codingub.belarusianhistory.ui.adapters.RoleAdapter
-import com.codingub.belarusianhistory.ui.viewmodels.RoleViewModel
+import com.codingub.belarusianhistory.ui.viewmodels.auth.RoleViewModel
 import com.codingub.belarusianhistory.ui.base.BaseFragment
+import com.codingub.belarusianhistory.ui.fragments.MenuFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ItemDecoration
 import com.codingub.belarusianhistory.utils.extension.dp

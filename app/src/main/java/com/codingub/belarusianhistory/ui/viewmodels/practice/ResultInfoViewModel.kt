@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.viewmodels
+package com.codingub.belarusianhistory.ui.viewmodels.practice
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

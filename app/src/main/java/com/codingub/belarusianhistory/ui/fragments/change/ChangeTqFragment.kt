@@ -1,16 +1,22 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.change
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.codingub.belarusianhistory.databinding.FragmentChangeItemsBinding
+import com.codingub.belarusianhistory.ui.adapters.change.ChangePracticeAdapter
+import com.codingub.belarusianhistory.ui.adapters.change.ChangeTicketAdapter
+import com.codingub.belarusianhistory.ui.adapters.change.ChangeTicketQuestionAdapter
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.utils.Font
+import dagger.hilt.android.AndroidEntryPoint
 
-class ChangeItemsFragment : BaseFragment() {
+@AndroidEntryPoint
+class ChangeTqFragment : BaseFragment() {
 
     private lateinit var binding: FragmentChangeItemsBinding
+    private var tqAdapter: ChangeTicketQuestionAdapter? = null
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         binding = FragmentChangeItemsBinding.inflate(inf, con, false)
@@ -28,15 +34,11 @@ class ChangeItemsFragment : BaseFragment() {
 
     private fun selectListeners() {
         with(binding){
-            save.setOnClickListener {
 
-            }
             plus.setOnClickListener {
 
             }
-            minus.setOnClickListener {
 
-            }
         }
     }
 

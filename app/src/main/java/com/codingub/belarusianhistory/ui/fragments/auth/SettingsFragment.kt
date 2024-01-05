@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.auth
 
 import android.content.res.ColorStateList
 import android.graphics.Outline

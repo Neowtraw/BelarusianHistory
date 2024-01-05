@@ -30,15 +30,16 @@ import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.TaskFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialogView
-import com.codingub.belarusianhistory.ui.fragments.LoginFragment
+import com.codingub.belarusianhistory.ui.fragments.auth.LoginFragment
 import com.codingub.belarusianhistory.ui.fragments.MenuFragment
-import com.codingub.belarusianhistory.ui.fragments.PracticeInfoFragment
-import com.codingub.belarusianhistory.ui.fragments.RegisterFragment
-import com.codingub.belarusianhistory.ui.fragments.ResultInfoFragment
-import com.codingub.belarusianhistory.ui.fragments.RoleFragment
-import com.codingub.belarusianhistory.ui.fragments.SettingsFragment
+import com.codingub.belarusianhistory.ui.fragments.practice.PracticeInfoFragment
+import com.codingub.belarusianhistory.ui.fragments.auth.RegisterFragment
+import com.codingub.belarusianhistory.ui.fragments.practice.ResultInfoFragment
+import com.codingub.belarusianhistory.ui.fragments.auth.RoleFragment
+import com.codingub.belarusianhistory.ui.fragments.auth.SettingsFragment
 import com.codingub.belarusianhistory.ui.fragments.StatisticFragment
-import com.codingub.belarusianhistory.ui.fragments.TicketInfoFragment
+import com.codingub.belarusianhistory.ui.fragments.change.ChangeTicketFragment
+import com.codingub.belarusianhistory.ui.fragments.ticket.TicketInfoFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ImageUtil
@@ -109,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             binding.ivTbLogo.setOnClickListener {
                 when (supportFragmentManager.fragments.last()) {
                     is MenuFragment -> {
-                        pushFragment(StatisticFragment(), "statistic", R.id.fragment_container_view)
+                        pushFragment(ChangeTicketFragment(), "statistic", R.id.fragment_container_view)
                     }
 
                     is RoleFragment, is RegisterFragment, is LoginFragment -> {}

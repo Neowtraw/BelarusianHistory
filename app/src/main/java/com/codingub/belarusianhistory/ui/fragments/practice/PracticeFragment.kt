@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.practice
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -20,7 +20,7 @@ import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.adapters.practice.PracticeAdapter
 import com.codingub.belarusianhistory.ui.adapters.ShimmerContentListAdapter
-import com.codingub.belarusianhistory.ui.viewmodels.PracticeViewModel
+import com.codingub.belarusianhistory.ui.viewmodels.practice.PracticeViewModel
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint

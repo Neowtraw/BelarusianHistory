@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.practice
 
 import android.os.Bundle
 import android.view.LayoutInflater

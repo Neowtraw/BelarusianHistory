@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.ticket
 
 import android.os.Bundle
 import android.os.Handler
@@ -18,6 +18,7 @@ import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialog
 import com.codingub.belarusianhistory.ui.custom.dialog.AlertDialogView
 import com.codingub.belarusianhistory.ui.adapters.ticket.TicketInfoAdapter
+import com.codingub.belarusianhistory.ui.fragments.MenuFragment
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint

@@ -13,8 +13,7 @@ import com.codingub.belarusianhistory.databinding.ItemChangeTqsBinding
 import com.codingub.belarusianhistory.utils.Font
 
 class ChangeTicketQuestionAdapter(
-    val onChangeClicked: (AddItemState<TicketQuestionDto>) -> Unit,
-    val onDeleteSelected: () -> Unit
+    val onDeleteSelected: (TicketQuestionDto) -> Unit
 ) : RecyclerView.Adapter<ChangeTicketQuestionAdapter.TicketQuestionsViewHolder>() {
 
     var tqs: List<TicketQuestionDto>
@@ -41,18 +40,10 @@ class ChangeTicketQuestionAdapter(
     // for deleting items
     val isRemoving: Boolean = false
 
+    // achieve animation
+    private var isShowed: Boolean = false
+
     private lateinit var binding: ItemChangeTqsBinding
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChangeTicketQuestionAdapter.TicketQuestionsViewHolder {
-        binding = ItemChangeTqsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TicketQuestionsViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: TicketQuestionsViewHolder, position: Int) {
-        holder.binding()
-    }
-
-    override fun getItemCount(): Int = tqs.size
 
     // ticket questions
     inner class TicketQuestionsViewHolder(binding: ItemChangeTqsBinding) :
@@ -64,28 +55,65 @@ class ChangeTicketQuestionAdapter(
 
         fun binding() {
             with(binding) {
+                // typeface
                 tvTicketQuestion.typeface = Font.SEMIBOLD
                 tvAchieve.typeface = Font.SEMIBOLD
-                tvName.typeface = Font.REGULAR
-                tvDescription.typeface = Font.REGULAR
-
                 achieve.etName.typeface = Font.REGULAR
                 achieve.etDescription.typeface = Font.REGULAR
+
+                // set
+                tvName.apply {
+                    typeface = Font.REGULAR
+                    setText(tqs[bindingAdapterPosition].name)
+                }
+                tvDescription.apply {
+                    typeface = Font.REGULAR
+                    setText(tqs[bindingAdapterPosition].info)
+                }
+                tqs[bindingAdapterPosition].achieve?.let {
+                    achieve.etName.setText(it.name)
+                    achieve.etDescription.setText(it.info)
+                }
             }
         }
 
         private fun setupListeners() {
             with(binding){
                 show.setOnClickListener {
-
+                    require(isRemoving.not()) {
+                        isShowed = !isShowed
+                        if (isShowed) ChangeAdaptersUtils.showAchieve(root)
+                        else ChangeAdaptersUtils.hideAchieve(root)
+                        ChangeAdaptersUtils.animateShowIcon(
+                            show,
+                            isShowed
+                        )
+                    }
                 }
-
-                btnAction.setOnClickListener {
+                root.setOnClickListener {
+                    if (isRemoving) {
+                        root.isSelected = !root.isSelected
+                        onDeleteSelected(tqs[bindingAdapterPosition])
+                    }
+                }
+                btnChangePractice.setOnClickListener {
 
                 }
             }
         }
     }
+
+    /*
+        Adapter Settings
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChangeTicketQuestionAdapter.TicketQuestionsViewHolder {
+        binding = ItemChangeTqsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TicketQuestionsViewHolder(binding)
+    }
+    override fun onBindViewHolder(holder: TicketQuestionsViewHolder, position: Int) {
+        holder.binding()
+    }
+    override fun getItemCount(): Int = tqs.size
 }
 
 

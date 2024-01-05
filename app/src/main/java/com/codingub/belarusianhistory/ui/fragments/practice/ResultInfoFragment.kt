@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.practice
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,7 +13,8 @@ import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.adapters.practice.ResultInfoAdapter
-import com.codingub.belarusianhistory.ui.viewmodels.ResultInfoViewModel
+import com.codingub.belarusianhistory.ui.fragments.MenuFragment
+import com.codingub.belarusianhistory.ui.viewmodels.practice.ResultInfoViewModel
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.ItemDecoration
 import com.codingub.belarusianhistory.utils.extension.dp

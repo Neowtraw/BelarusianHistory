@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.ticket
 
 import android.graphics.Rect
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.fragments
+package com.codingub.belarusianhistory.ui.fragments.practice
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.sdk.TaskType
 import com.codingub.belarusianhistory.sdk.UserPracticeAnswer
 import com.codingub.belarusianhistory.ui.base.TaskFragment
-import com.codingub.belarusianhistory.ui.viewmodels.PracticeInfoViewModel
+import com.codingub.belarusianhistory.ui.viewmodels.practice.PracticeInfoViewModel
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_rounded_bg"
+    android:background="@drawable/selector_change_items"
     android:orientation="vertical"
     android:padding="@dimen/main_padding">
 
@@ -25,17 +25,34 @@
         android:textColor="@color/text_color"
         android:textSize="@dimen/main_text" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etTimer"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/main_divider"
-        android:textSize="@dimen/main_text"
-        android:textColor="@color/text_color"
         android:gravity="center"
-        android:hint="@string/time_form"
-        android:layout_gravity="center"
-        android:background="@drawable/item_outline_rounded"/>
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_outline_rounded"
+            android:gravity="center"
+            android:hint="@string/time_form"
+            android:padding="@dimen/main_divider"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/main_text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="@string/mins"
+            android:textColor="@color/add_color"
+            android:textSize="@dimen/add_text" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,29 +72,15 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/show"
-            android:src="@drawable/ic_show"
-            android:tint="@color/contrast"
             android:layout_width="20dp"
-            android:layout_height="20dp" />
+            android:layout_height="20dp"
+            android:src="@drawable/ic_show"
+            android:tint="@color/contrast" />
 
     </LinearLayout>
 
     <!-- hidden content -->
     <include
         android:id="@+id/achieve"
-        layout="@layout/item_change_achieve"
-        android:visibility="gone" />
-
-    <!-- Save/Change -->
-    <Button
-        android:id="@+id/btnAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/item_outline_rounded"
-        android:text="@string/change"
-        android:textAllCaps="false"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/main_text" />
-
+        layout="@layout/item_change_achieve" />
 </LinearLayout>

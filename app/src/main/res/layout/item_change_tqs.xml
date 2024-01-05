@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_rounded_bg"
+    android:background="@drawable/selector_change_items"
     android:padding="@dimen/main_padding"
     android:orientation="vertical">
 
@@ -70,14 +70,23 @@
 
     <!-- Save/Change -->
     <Button
-        android:id="@+id/btnAction"
+        android:id="@+id/btnChangePractice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/main_text"
-        android:text="@string/change"
+        android:text="@string/practice"
         android:textColor="@color/text_color"
         android:textAllCaps="false"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/item_outline_rounded"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/add_text"
+        android:textColor="@color/add_color"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:text="Билет 1"/>
 
 </LinearLayout>

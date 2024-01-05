@@ -1,4 +1,4 @@
-package com.codingub.belarusianhistory.ui.viewmodels
+package com.codingub.belarusianhistory.ui.viewmodels.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
