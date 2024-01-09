@@ -20,4 +20,8 @@ interface TicketQuestionRepository {
     suspend fun deleteTq(
         questionId: String
     ): ServerResponse<Unit>
+
+    suspend fun deletePqsByIds(
+        ids: List<String>
+    ): ServerResponse<Unit>
 }

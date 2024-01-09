@@ -10,15 +10,18 @@ object EndPoints {
 
     const val TICKET = "tickets"
     const val INSERT_TICKET = "tickets/insert"
-    const val RESET_TICKET = "tickets/reset"
+    const val RESET_TICKET = "tickets/reset/name"
+    const val RESET_TICKETS = "tickets/reset/ids"
 
     const val TQ = "tq"
     const val INSERT_TQ = "tq/insert"
-    const val RESET_TQ = "tq/reset"
+    const val RESET_TQ = "tq/reset/id"
+    const val RESET_TQS = "tq/reset/ids"
 
     const val PQ = "pq"
     const val INSERT_PQ = "pq/insert"
-    const val RESET_PQ = "pq/reset"
+    const val RESET_PQ = "pq/reset/id"
+    const val RESET_PQS = "pq/reset/ids"
 
     const val ACHIEVE = "achieves"
 

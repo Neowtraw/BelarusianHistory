@@ -25,36 +25,74 @@
         android:textColor="@color/text_color"
         android:textSize="@dimen/main_text" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/etTimer"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_outline_rounded"
-            android:gravity="center"
-            android:hint="@string/time_form"
-            android:padding="@dimen/main_divider"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/main_text" />
+            android:layout_gravity="center">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etMins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_outline_rounded"
+                android:gravity="center"
+                android:hint="@string/time_format_ticket"
+                android:paddingTop="@dimen/main_divider"
+                android:maxLength="2"
+                android:inputType="number"
+                android:paddingBottom="@dimen/main_divider"
+                android:paddingStart="@dimen/main_padding"
+                android:paddingEnd="@dimen/main_padding"                android:textColor="@color/text_color"
+                android:textSize="@dimen/main_text" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timer_divider"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/main_text"
+                android:paddingStart="@dimen/main_divider"
+                android:paddingEnd="@dimen/main_divider"
+                />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etSecs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_outline_rounded"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="@string/time_format_ticket"
+                android:paddingTop="@dimen/main_divider"
+                android:paddingBottom="@dimen/main_divider"
+                android:paddingStart="@dimen/main_padding"
+                android:paddingEnd="@dimen/main_padding"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/main_text" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5dp"
             android:text="@string/mins"
+            android:layout_gravity="center_vertical|end"
+            android:paddingEnd="50dp"
             android:textColor="@color/add_color"
             android:textSize="@dimen/add_text" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </FrameLayout>
 
 
     <LinearLayout
+        android:id="@+id/llAchieve"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -83,4 +121,35 @@
     <include
         android:id="@+id/achieve"
         layout="@layout/item_change_achieve" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnGoToTqs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/ticket_questions"
+            android:textSize="@dimen/main_text"
+            android:textAllCaps="false"
+            android:textColor="@color/main_color"
+            android:paddingStart="@dimen/main_divider"
+            android:paddingEnd="@dimen/main_divider"
+            android:background="@drawable/item_outline_rounded"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnAcceptChanges"
+            android:layout_width="40dp"
+            android:clickable="true"
+            android:layout_height="40dp"
+            android:visibility="invisible"
+            android:src="@drawable/checkmark"
+            android:padding="10dp"
+            android:elevation="8dp"
+            android:layout_margin="4dp"
+            android:layout_gravity="end|center"
+            android:background="@drawable/item_rounded_contrast"/>
+    </FrameLayout>
 </LinearLayout>

@@ -8,6 +8,10 @@ data class InsertTicketRequest(
     val achieve: AchieveDto? = null
 )
 
-data class DeleteTicketRequest(
+data class ResetTicketRequest(
     val name: String
+)
+
+data class ResetTicketsRequest(
+    val ids: List<String>
 )

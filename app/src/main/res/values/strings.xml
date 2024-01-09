@@ -109,6 +109,9 @@
     <string name="change">Изменить</string>
     <string name="time_form">Мин : Сек</string>
     <string name="mins">Мин</string>
+    <string name="ticket_questions">Теоретические вопросы</string>
+    <string name="time_format_ticket">00</string>
+    <string name="timer_divider">:</string>
 
 
 </resources>

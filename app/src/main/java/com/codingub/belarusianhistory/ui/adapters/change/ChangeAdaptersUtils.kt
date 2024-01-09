@@ -77,6 +77,11 @@ object ChangeAdaptersUtils {
 
 }
 
+enum class DeleteType {
+    LOCAL,
+    REMOTE
+}
+
 // for checking empty values
 sealed class AddItemState<T> {
     class OK<T> : AddItemState<T>()

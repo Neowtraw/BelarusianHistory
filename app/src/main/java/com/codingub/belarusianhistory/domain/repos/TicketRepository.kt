@@ -16,4 +16,8 @@ interface TicketRepository {
     suspend fun resetTicket(
         name: String
     ): ServerResponse<Unit>
+
+    suspend fun deleteTicketsByIds(
+        ids: List<String>
+    ) : ServerResponse<Unit>
 }

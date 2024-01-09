@@ -4,7 +4,6 @@ import android.graphics.Rect
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +17,17 @@ import com.codingub.belarusianhistory.data.models.tickets.TicketDto
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentChangeItemsBinding
 import com.codingub.belarusianhistory.ui.adapters.change.ChangeTicketAdapter
+import com.codingub.belarusianhistory.ui.adapters.change.ChangeTicketDto
+import com.codingub.belarusianhistory.ui.adapters.change.DeleteType
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.viewmodels.change.ChangeTicketViewModel
+import com.codingub.belarusianhistory.ui.viewmodels.change.DeletedUiState
+import com.codingub.belarusianhistory.ui.viewmodels.change.InsertedUiState
 import com.codingub.belarusianhistory.utils.Font
 import com.codingub.belarusianhistory.utils.Resource
 import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,8 +37,6 @@ class ChangeTicketFragment : BaseFragment() {
     private var ticketsAdapter: ChangeTicketAdapter? = null
 
     private val vm by viewModels<ChangeTicketViewModel>()
-
-    val deletedTickets: MutableList<TicketDto> = mutableListOf()
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         binding = FragmentChangeItemsBinding.inflate(inf, con, false)
@@ -57,35 +59,31 @@ class ChangeTicketFragment : BaseFragment() {
 
     private fun createTicketList() {
         binding.rvContent.apply {
-            ticketsAdapter = ChangeTicketAdapter {
-                deletedTickets.add(it)
-            }
+            ticketsAdapter = ChangeTicketAdapter(
+                onSaveClicked = { ticket, position ->
+                    vm.saveChanges(ticket.item)
+                },
+                onGoToSelected = {
+                    pushFragment(ChangeTqFragment(), "change_tq")
+                })
             layoutManager = LinearLayoutManager(requireContext())
             adapter = ticketsAdapter
-            addItemDecoration(createItemDecoration(6.dp))
+            addItemDecoration(createItemDecoration(10.dp))
         }
     }
 
     private fun selectListeners() {
         with(binding) {
 
+            // plus
             plus.setOnClickListener {
                 addNewElement()
             }
+
+            // delete
             delete.setOnClickListener {
                 vm.isRemoved = !vm.isRemoved.also { bool ->
-                    if (bool) {
-                        Log.d("", ticketsAdapter!!.tickets.size.toString())
-                        ticketsAdapter!!.tickets.forEachIndexed { i, _ ->
-                            binding.rvContent.post {
-                                val holder =
-                                    binding.rvContent.findViewHolderForAdapterPosition(i) as ChangeTicketAdapter.TicketsViewHolder
-                                holder.binding.root.isSelected = false
-                            }
-                        }
-
-                        deletedTickets.clear()
-                    }
+                    if (bool) unselectAllElements()
                 }
                 ticketsAdapter?.isRemoving = vm.isRemoved
                 delete.isSelected = !delete.isSelected
@@ -98,31 +96,69 @@ class ChangeTicketFragment : BaseFragment() {
                     state?.start()
                 }
 
-
-            }
-            checkmark.setOnClickListener {
-                deleteElements()
             }
 
+            // checkmark
+            checkmark.setOnClickListener { deleteElements() }
         }
     }
 
+    private fun unselectAllElements() {
+        val itemCount = ticketsAdapter?.itemCount ?: 0
+
+        for (i in 0 until itemCount) {
+            binding.rvContent.post {
+                val holder =
+                    binding.rvContent.findViewHolderForAdapterPosition(i)
+                if (holder != null) {
+                    val vh = holder as ChangeTicketAdapter.TicketsViewHolder
+                    vh.binding.root.isSelected = false
+                }
+            }
+        }
+        ticketsAdapter?.selectedTickets?.clear()
+    }
+
     private fun addNewElement() {
-        ticketsAdapter?.tickets?.add(
-            index = 0,
-            element = TicketDto(name = "", timer = 0L, tqs = emptyList(), achievement = null)
-        )
-        ticketsAdapter?.notifyItemRangeChanged(0, ticketsAdapter?.tickets!!.size)
-        vm.setChanged()
+        val tickets = ticketsAdapter?.selectedTickets!!
+        val locale = tickets.filter { it.deleteType == DeleteType.LOCAL }
+        if (locale.isEmpty()) {
+            ticketsAdapter?.addItem(
+                ChangeTicketDto(
+                    TicketDto(
+                        name = "",
+                        timer = 0L,
+                        tqs = emptyList(),
+                        achievement = null
+                    ), DeleteType.LOCAL
+                )
+            )
+            return
+        }
+
+        Toast.makeText(requireContext(), "Вы уже создали новый билет", Toast.LENGTH_SHORT).show()
     }
 
     private fun deleteElements() {
-        vm.deleteTickets(deletedTickets)
-        vm.isRemoved = false
-        binding.checkmark.visibility = View.INVISIBLE
-        binding.delete.isSelected = false
+        vm.setDeleteState(DeletedUiState.Loading)
+        val tickets = ticketsAdapter?.selectedTickets!!
 
-        deletedTickets.clear()
+        val locale = tickets.filter { it.deleteType == DeleteType.LOCAL }
+        val remote = tickets.filter { it.deleteType == DeleteType.REMOTE }
+
+        when {
+            locale.isNotEmpty() && remote.isEmpty() -> {
+                ticketsAdapter?.removeItems(locale)
+                vm.setDeleteState(DeletedUiState.Deleted)
+            }
+
+            remote.isNotEmpty() -> {
+                vm.deleteTickets(remote.map { it.item })
+                ticketsAdapter?.removeItems(remote)
+            }
+        }
+
+        ticketsAdapter?.selectedTickets?.clear()
     }
 
     override fun observeChanges() {
@@ -131,7 +167,10 @@ class ChangeTicketFragment : BaseFragment() {
                 tickets.collect {
                     when (it) {
                         is ServerResponse.OK -> {
-                            ticketsAdapter?.tickets = it.value?.toMutableList() ?: mutableListOf()
+                            val data = it.value?.toMutableList() ?: mutableListOf()
+                            ticketsAdapter?.tickets =
+                                data.map { tick -> ChangeTicketDto(tick, DeleteType.REMOTE) }
+                                    .toMutableList()
                             ticketsAdapter?.notifyItemRangeChanged(
                                 0,
                                 ticketsAdapter?.tickets!!.size
@@ -140,11 +179,11 @@ class ChangeTicketFragment : BaseFragment() {
 
                         is ServerResponse.Loading -> {
                             Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
-
                         }
 
                         is ServerResponse.Error -> {
-                            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT)
+                                .show()
                         }
 
                         else -> {}
@@ -152,7 +191,45 @@ class ChangeTicketFragment : BaseFragment() {
                 }
             }
             lifecycleScope.launch {
-                isChanged.collect { if (isChanged.value) binding.fab.visibility = View.VISIBLE }
+                isTicketInserted.collectLatest {
+                    when (it) {
+                        is InsertedUiState.Loading -> {
+                            Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
+                        }
+
+                        is InsertedUiState.Inserted -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "Successfully inserted",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        is InsertedUiState.Failed -> {
+                            Toast.makeText(requireContext(), it.error, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            }
+            lifecycleScope.launch {
+                isTicketsDeleted.collectLatest {
+                    when (it) {
+                        is DeletedUiState.Loading -> {
+                            Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
+                        }
+
+                        is DeletedUiState.Deleted -> {
+                            vm.isRemoved = false
+                            ticketsAdapter?.isRemoving = false
+                            binding.checkmark.visibility = View.INVISIBLE
+                            binding.delete.isSelected = false
+                        }
+
+                        is DeletedUiState.Failed -> {
+                            Toast.makeText(requireContext(), it.error, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
             }
         }
     }
@@ -167,12 +244,7 @@ private fun createItemDecoration(spacing: Int): RecyclerView.ItemDecoration {
             parent: RecyclerView,
             state: RecyclerView.State
         ) {
-            val position = parent.getChildAdapterPosition(view)
-
             outRect.bottom = spacing
-            if (position % 3 == 0 && position != 0) {
-                outRect.top = spacing * 4
-            }
         }
     }
 }

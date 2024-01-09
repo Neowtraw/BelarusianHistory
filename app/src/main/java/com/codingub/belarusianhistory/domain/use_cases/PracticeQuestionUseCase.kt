@@ -4,6 +4,7 @@ import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.domain.repos.PracticeQuestionRepository
 import com.codingub.belarusianhistory.data.models.practices.Answer
 import com.codingub.belarusianhistory.data.models.practices.PracticeQuestion
+import com.codingub.belarusianhistory.domain.repos.TicketRepository
 import javax.inject.Inject
 
 class GetPqByTqIdUseCase @Inject constructor(private val repository: PracticeQuestionRepository) {
@@ -30,4 +31,8 @@ class ResetPqUseCase @Inject constructor(private val repository: PracticeQuestio
     suspend operator fun invoke(questionId: String): ServerResponse<Unit> {
         return repository.deletePq(questionId)
     }
+}
+
+class DeletePqsByIdsUseCase @Inject constructor(private val repository: PracticeQuestionRepository) {
+    suspend operator fun invoke(ids: List<String>) = repository.deletePqsByIds(ids)
 }

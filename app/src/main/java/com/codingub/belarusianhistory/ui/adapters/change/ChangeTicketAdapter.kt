@@ -1,7 +1,7 @@
 package com.codingub.belarusianhistory.ui.adapters.change
 
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
@@ -13,15 +13,20 @@ import com.codingub.belarusianhistory.ui.adapters.change.ChangeAdaptersUtils.ani
 import com.codingub.belarusianhistory.ui.adapters.change.ChangeAdaptersUtils.hideAchieve
 import com.codingub.belarusianhistory.ui.adapters.change.ChangeAdaptersUtils.showAchieve
 import com.codingub.belarusianhistory.utils.Font
-import okhttp3.internal.notifyAll
 
+
+data class ChangeTicketDto(
+    val item: TicketDto,
+    val deleteType: DeleteType
+)
 
 class ChangeTicketAdapter(
-    val onDeleteSelected: (TicketDto) -> Unit
+    val onSaveClicked: (ChangeTicketDto, Int) -> Unit,
+    val onGoToSelected: (String) -> Unit,
 ) : RecyclerView.Adapter<ChangeTicketAdapter.TicketsViewHolder>() {
 
-    var tickets: MutableList<TicketDto> = mutableListOf()
-
+    var tickets: MutableList<ChangeTicketDto> = mutableListOf()
+    var selectedTickets: MutableList<ChangeTicketDto> = mutableListOf()
 
     var isRemoving: Boolean = false
     private var isShowed: Boolean = false
@@ -34,12 +39,6 @@ class ChangeTicketAdapter(
     inner class TicketsViewHolder(val binding: ItemChangeTicketsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun unselectItem() {
-            Log.d("", "unselected ${bindingAdapterPosition} successfully")
-            ticketsBinding.root.isSelected = false
-            notifyDataSetChanged()
-        }
-
         fun binding() {
             setupListeners()
 
@@ -48,16 +47,18 @@ class ChangeTicketAdapter(
                 tvTicket.typeface = Font.SEMIBOLD
                 tvAchieve.typeface = Font.SEMIBOLD
                 tvTimer.typeface = Font.REGULAR
-                
-                etTimer.typeface = Font.REGULAR
+                btnGoToTqs.typeface = Font.REGULAR
+
+                etMins.typeface = Font.REGULAR
+                etSecs.typeface = Font.REGULAR
                 achieve.etName.typeface = Font.REGULAR
                 achieve.etDescription.typeface = Font.REGULAR
 
                 // set data
                 etName.typeface = Font.REGULAR
-                etName.setText(tickets[bindingAdapterPosition].name)
+                etName.setText(tickets[bindingAdapterPosition].item.name)
 
-                tickets[bindingAdapterPosition].achievement?.let {
+                tickets[bindingAdapterPosition].item.achievement?.let {
                     achieve.etName.setText(it.name)
                     achieve.etDescription.setText(it.info)
                 }
@@ -69,60 +70,78 @@ class ChangeTicketAdapter(
 
                 val ticket = tickets[bindingAdapterPosition]
                 etName.addTextChangedListener { s ->
-                    ticket.name = s.toString()
+                    ticket.item.name = s.toString()
+                    showSaveBtn()
                 }
                 achieve.etName.addTextChangedListener { s ->
-                    if (ticket.achievement == null) {
-                        ticket.achievement =
+                    if (ticket.item.achievement == null) {
+                        ticket.item.achievement =
                             AchieveDto(name = s.toString(), info = "", type = AchieveType.TICKET)
                         return@addTextChangedListener
                     }
-                    ticket.achievement!!.name = s.toString()
+                    ticket.item.achievement!!.name = s.toString()
+                    showSaveBtn()
                 }
                 achieve.etDescription.addTextChangedListener { s ->
-                    if (ticket.achievement == null) {
-                        ticket.achievement =
+                    if (ticket.item.achievement == null) {
+                        ticket.item.achievement =
                             AchieveDto(name = "", info = s.toString(), type = AchieveType.TICKET)
                         return@addTextChangedListener
                     }
-                    ticket.achievement!!.name = s.toString()
+                    ticket.item.achievement!!.name = s.toString()
+                    showSaveBtn()
                 }
-                etTimer.addTextChangedListener { s ->
-                    s?.let {
-                        val userInput = it.toString().replace("[^\\d]".toRegex(), "")
-                        val formatted = buildString {
-                            userInput.take(4).forEachIndexed { index, char ->
-                                append(char)
-                                if (index == 1) {
-                                    append(" : ")
-                                }
-                            }
-                        }
-                        if (formatted != it.toString()) {
-                            etTimer.setText(formatted)
-                            etTimer.setSelection(formatted.length)
-                        }
+                etMins.addTextChangedListener {
+                    val mins =
+                        etMins.text.toString().toLongOrNull() ?: return@addTextChangedListener
+                    val secs =
+                        etSecs.text.toString().toLongOrNull() ?: return@addTextChangedListener
 
-                        tickets[bindingAdapterPosition].timer = etTimer.text.toString().toLong()
+                    tickets[bindingAdapterPosition].item.timer = mins * 60 + secs
+                    showSaveBtn()
+                }
+                etMins.addTextChangedListener {
+                    val mins =
+                        etMins.text.toString().toLongOrNull() ?: return@addTextChangedListener
+                    val secs =
+                        etSecs.text.toString().toLongOrNull() ?: return@addTextChangedListener
+
+                    tickets[bindingAdapterPosition].item.timer = mins * 60 + secs
+                    showSaveBtn()
+                }
+                llAchieve.setOnClickListener {
+                    if (isRemoving.not()) {
+                        isShowed = !isShowed
+
+                        if (isShowed) showAchieve(achieve.root)
+                        else hideAchieve(achieve.root)
+                        animateShowIcon(
+                            show,
+                            isShowed
+                        )
                     }
                 }
-                show.setOnClickListener {
-                    isShowed = !isShowed
+                btnGoToTqs.setOnClickListener {
+                    if (isRemoving.not())
+                        onGoToSelected(tickets[bindingAdapterPosition].item.id)
+                }
+                btnAcceptChanges.setOnClickListener {
+                    if (isRemoving.not())
+                        onSaveClicked(tickets[bindingAdapterPosition], bindingAdapterPosition)
+                    binding.btnAcceptChanges.visibility = View.INVISIBLE
 
-                    if (isShowed) showAchieve(achieve.root)
-                    else hideAchieve(achieve.root)
-                    animateShowIcon(
-                        show,
-                        isShowed
-                    )
                 }
                 root.setOnClickListener {
                     if (isRemoving) {
                         root.isSelected = !root.isSelected
-                        onDeleteSelected(ticket)
+                        selectedTickets.add(tickets[bindingAdapterPosition])
                     }
                 }
             }
+        }
+
+        private fun showSaveBtn() {
+            binding.btnAcceptChanges.visibility = View.VISIBLE
         }
     }
 
@@ -141,6 +160,43 @@ class ChangeTicketAdapter(
 
     override fun onBindViewHolder(holder: TicketsViewHolder, position: Int) = holder.binding()
     override fun getItemCount(): Int = tickets.size
+
+    /*
+        Additional
+     */
+
+
+    fun removeItems(localTickets: List<ChangeTicketDto>) {
+        val positionsToRemove = mutableListOf<Int>()
+
+        localTickets.forEach { ticket ->
+            val index = tickets.indexOf(ticket)
+            if (index != -1) {
+                positionsToRemove.add(index)
+            }
+        }
+
+        val uniqueSortedPositions = positionsToRemove.distinct().sortedDescending()
+
+        uniqueSortedPositions.forEach { position ->
+            if (position < tickets.size && position < selectedTickets.size) {
+                tickets.removeAt(position)
+                selectedTickets.removeAt(position)
+                notifyItemRemoved(position)
+            }
+        }
+    }
+
+    fun addItem(ticket: ChangeTicketDto) {
+        val existingIndex = tickets.indexOf(ticket)
+        if (existingIndex == -1) {
+            tickets.add(ticket)
+            selectedTickets.add(ticket)
+
+            notifyItemInserted(tickets.size - 1)
+        }
+    }
+
 }
 
 

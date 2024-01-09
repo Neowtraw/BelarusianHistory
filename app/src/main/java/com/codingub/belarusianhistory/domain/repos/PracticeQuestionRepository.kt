@@ -17,4 +17,8 @@ interface PracticeQuestionRepository {
     suspend fun deletePq(
         questionId: String
     ): ServerResponse<Unit>
+
+    suspend fun deletePqsByIds(
+        ids: List<String>
+    ): ServerResponse<Unit>
 }

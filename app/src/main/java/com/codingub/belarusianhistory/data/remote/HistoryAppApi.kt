@@ -1,5 +1,6 @@
 package com.codingub.belarusianhistory.data.remote
 
+import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ACHIEVE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.AUTHENTICATE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_RESULTS
@@ -10,11 +11,16 @@ import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_PQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_RESULTS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_TICKET
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_TQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INVITE_USER_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.PQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_PQ
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_PQS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_TICKET
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_TICKETS
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_TQ
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_TQS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESULTS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ROLE_CHANGE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNIN
@@ -23,9 +29,6 @@ import com.codingub.belarusianhistory.data.remote.network.EndPoints.TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TQ
 import com.codingub.belarusianhistory.data.remote.network.requests.AddResultRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.CreateGroupRequest
-import com.codingub.belarusianhistory.data.remote.network.requests.DeletePqRequest
-import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTicketRequest
-import com.codingub.belarusianhistory.data.remote.network.requests.DeleteTqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.GetAllResultsRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.GroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertPqRequest
@@ -33,7 +36,13 @@ import com.codingub.belarusianhistory.data.remote.network.requests.InsertTicketR
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertTqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.ResetPqRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.ResetPqsRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.ResetResultRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.ResetTicketRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.ResetTicketsRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.ResetTqRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.ResetTqsRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RoleRequest
 import com.codingub.belarusianhistory.data.remote.network.responses.AchieveResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.EventResponse
@@ -44,7 +53,6 @@ import com.codingub.belarusianhistory.data.remote.network.responses.TicketRespon
 import com.codingub.belarusianhistory.data.remote.network.responses.TokenResponse
 import com.codingub.belarusianhistory.data.remote.network.responses.TqResponse
 import com.codingub.belarusianhistory.sdk.AchieveType
-import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -120,9 +128,14 @@ interface HistoryAppApi {
         @Body request: InsertTicketRequest
     )
 
+    @POST(RESET_TICKETS)
+    suspend fun resetTicketsByIds(
+        @Body request: ResetTicketsRequest
+    )
+
     @POST(RESET_TICKET)
     suspend fun resetTicket(
-        @Body request: DeleteTicketRequest
+        @Body request: ResetTicketRequest
     )
 
     /*
@@ -137,14 +150,19 @@ interface HistoryAppApi {
         @Query("id") ticketId: String
     ): TqResponse
 
-    @POST(INSERT_TICKET)
+    @POST(INSERT_TQ)
     suspend fun insertTq(
         @Body request: InsertTqRequest
     )
 
-    @POST(RESET_TICKET)
-    suspend fun deleteTq(
-        @Body request: DeleteTqRequest
+    @POST(RESET_TQ)
+    suspend fun resetTq(
+        @Body request: ResetTqRequest
+    )
+
+    @POST(RESET_TQS)
+    suspend fun resetTqsByIds(
+        @Body request: ResetTqsRequest
     )
 
     /*
@@ -162,8 +180,13 @@ interface HistoryAppApi {
     )
 
     @POST(RESET_PQ)
-    suspend fun deletePq(
-        @Body request: DeletePqRequest
+    suspend fun resetPq(
+        @Body request: ResetPqRequest
+    )
+
+    @POST(RESET_PQS)
+    suspend fun resetPqsByIds(
+        @Body request: ResetPqsRequest
     )
 
     /*

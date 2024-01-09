@@ -9,6 +9,10 @@ data class InsertPqRequest(
     val answers: List<Answer>,
     )
 
-data class DeletePqRequest (
+data class ResetPqRequest (
     val questionId: String
+)
+
+data class ResetPqsRequest (
+    val ids: List<String>
 )

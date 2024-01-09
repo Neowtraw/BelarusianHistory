@@ -93,6 +93,9 @@
     <string name="change">Змяніць</string>
     <string name="time_form">Miн : Cяк</string>
     <string name="mins">Miн</string>
+    <string name="ticket_questions">Теоретические вопросы</string>
+    <string name="time_format_ticket">00</string>
+    <string name="timer_divider">:</string>
 
 
 </resources>
