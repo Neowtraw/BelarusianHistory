@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btnGoToTqs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/item_outline_rounded"
+        android:paddingStart="@dimen/main_divider"
+        android:paddingEnd="@dimen/main_divider"
+        android:text="@string/ticket_questions"
+        android:textAllCaps="false"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/main_text" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnAcceptChanges"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end|center"
+        android:background="@drawable/item_rounded_contrast"
+        android:clickable="true"
+        android:layout_margin="3dp"
+        android:elevation="3dp"
+        android:padding="10dp"
+        android:src="@drawable/checkmark"
+        android:visibility="invisible" />
+</FrameLayout>

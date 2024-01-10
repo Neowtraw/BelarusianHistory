@@ -1,5 +1,6 @@
 package com.codingub.belarusianhistory.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.data.local.prefs.UserConfig
@@ -31,36 +32,50 @@ class MenuViewModel @Inject constructor(
 
     //practice
     val practice = combine(_results, _achieves) { results, achieves ->
-        val practiceAchieves = achieves.data?.filter { it.type == AchieveType.PRACTICE } ?: emptyList()
-        val practiceResults  = results.data?.filter { practiceAchieves.map{it.id}.contains(it.achieveId) } ?: emptyList()
-
-        "${practiceResults.size}/${practiceAchieves.size}"
+        if(results is ServerResponse.OK && achieves is ServerResponse.OK) {
+            val practiceAchieves =
+                achieves.value?.filter { it.type == AchieveType.PRACTICE } ?: emptyList()
+            val practiceResults =
+                results.value?.filter { practiceAchieves.map { it.id }.contains(it.achieveId) }
+                    ?: emptyList()
+            
+            "${practiceResults.size}/${practiceAchieves.size}"
+        } else {
+            "0/0"
+        }
     }.stateIn(
         viewModelScope,
         started = SharingStarted.WhileSubscribed(),
-        initialValue = "0/0"
+        initialValue = ""
     )
 
     // achieves
     val achieves = combine(_results, _achieves) { results, achieves ->
-
-        "${results.data?.size ?: 0}/${achieves.data?.size ?: 0}"
+        if(results is ServerResponse.OK && achieves is ServerResponse.OK) {
+            "${results.value?.size ?: 0}/${achieves.value?.size ?: 0}"
+        } else {
+            "${results.data?.size ?: 0}/${achieves.data?.size ?: 0}"
+        }
     }.stateIn(
         viewModelScope,
         started = SharingStarted.WhileSubscribed(),
-        initialValue = "0/0"
+        initialValue = ""
     )
 
     // tickets
     val tickets = combine(_results, _achieves) { results, achieves ->
-        val ticketAchieves = achieves.data?.filter { it.type == AchieveType.TICKET } ?: emptyList()
-        val ticketResults  = results.data?.filter { ticketAchieves.map{it.id}.contains(it.achieveId) } ?: emptyList()
+        if(results is ServerResponse.OK && achieves is ServerResponse.OK) {
+            val ticketAchieves = achieves.value?.filter { it.type == AchieveType.TICKET } ?: emptyList()
+            val ticketResults  = results.value?.filter { ticketAchieves.map{it.id}.contains(it.achieveId) } ?: emptyList()
 
-        "${ticketResults.size}/${ticketAchieves.size}"
+            "${ticketResults.size}/${ticketAchieves.size}"
+        } else {
+            "0/0"
+        }
     }.stateIn(
         viewModelScope,
         started = SharingStarted.WhileSubscribed(),
-        initialValue = "0/0"
+        initialValue = ""
     )
 
 

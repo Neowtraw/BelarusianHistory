@@ -2,11 +2,11 @@ package com.codingub.belarusianhistory.ui.viewmodels.change
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingub.belarusianhistory.data.models.tickets.TicketDto
 import com.codingub.belarusianhistory.data.models.tickets.TicketQuestionDto
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.domain.use_cases.DeleteTqsByIdsUseCase
 import com.codingub.belarusianhistory.domain.use_cases.GetAllTqUseCase
+import com.codingub.belarusianhistory.domain.use_cases.GetTqByTicketIdUseCase
 import com.codingub.belarusianhistory.domain.use_cases.InsertTqUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChangeTqViewModel @Inject constructor(
-    private val getAllTqUseCase: GetAllTqUseCase,
+    private val getTqByTicketIdUseCase: GetTqByTicketIdUseCase,
     private val insertTqUseCase: InsertTqUseCase,
     private val deleteTqsByIdsUseCase: DeleteTqsByIdsUseCase
 ) : ViewModel() {
@@ -26,7 +26,7 @@ class ChangeTqViewModel @Inject constructor(
     val isTqDeleted = _isTqDeleted.asStateFlow()
 
     private val _isTqInserted = MutableStateFlow<InsertedUiState>(InsertedUiState.Inserted)
-    val isTqInserted = _isTqDeleted.asStateFlow()
+    val isTqInserted = _isTqInserted.asStateFlow()
 
     // initialize
     private val _tqs =
@@ -35,10 +35,9 @@ class ChangeTqViewModel @Inject constructor(
 
     var isRemoved: Boolean = false
 
-    init {
+    fun getTqs(ticketId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val data = getAllTqUseCase()
-            _tqs.value = data
+            _tqs.value = getTqByTicketIdUseCase(ticketId)
         }
     }
 
@@ -63,9 +62,9 @@ class ChangeTqViewModel @Inject constructor(
     }
 
     // deleted
-    fun deleteTickets(tickets: List<TicketDto>) {
+    fun deleteItems(items: List<TicketQuestionDto>) {
         viewModelScope.launch {
-            val data = deleteTqsByIdsUseCase(tickets.map { it.id })
+            val data = deleteTqsByIdsUseCase(items.map { it.id })
             _isTqDeleted.value = when (data) {
                 is ServerResponse.OK -> DeletedUiState.Deleted
                 is ServerResponse.Error -> DeletedUiState.Failed(data.errorMessage)

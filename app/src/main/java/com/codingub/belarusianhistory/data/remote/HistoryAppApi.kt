@@ -1,6 +1,7 @@
 package com.codingub.belarusianhistory.data.remote
 
 import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.remote.network.Cacheable
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ACHIEVE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.AUTHENTICATE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_RESULTS
@@ -142,6 +143,7 @@ interface HistoryAppApi {
       TicketQuestion
    */
 
+    @Cacheable
     @GET(TQ)
     suspend fun getAllTq(): TqResponse
 
@@ -193,8 +195,9 @@ interface HistoryAppApi {
       Achieves
    */
 
+    @Cacheable
     @GET(ACHIEVE)
-    suspend fun getAllAchieves(): List<AchieveDto>
+    suspend fun getAllAchieves(): AchieveResponse
 
     @GET("$ACHIEVE/")
     suspend fun getTypeAchieves(
@@ -210,7 +213,6 @@ interface HistoryAppApi {
         @Query("type") type: AchieveType,
         @Query("login") login: String
     ): ResultResponse
-
 
     @POST(RESULTS)
     suspend fun getAllResults(
@@ -231,6 +233,7 @@ interface HistoryAppApi {
         Events
      */
 
+    @Cacheable
     @GET(EVENTS)
     suspend fun getAllEvents(): EventResponse
 

@@ -41,6 +41,7 @@ class AchieveViewModel @Inject constructor(
                 )
             }
 
+
             val achieves = achievesDeferred.await()
             val userResults = userResultsDeferred.await()
 
@@ -50,10 +51,11 @@ class AchieveViewModel @Inject constructor(
 
     fun getAchievesType() {
 
-        data.value.second.data?.let{ results ->
+        if( data.value.second is ServerResponse.OK && data.value.first is ServerResponse.OK )
+        (data.value.second as ServerResponse.OK<List<ResultDto>>).value!!.let{ results ->
             val ids = results.map { it.id }
 
-            _articles.value = data.value.first.data!!.map {
+            _articles.value = (data.value.first as ServerResponse.OK<List<AchieveDto>>).value!!.map {
                 AchieveStateUi(
                     achieve = it,
                     isPassed = ids.contains(it.id)

@@ -34,9 +34,11 @@ class TicketQuestionRepositoryImpl @Inject constructor(
             val result = api.getTqByTicketId(ticketId = ticketId)
             ServerResponse.OK(result.tqList)
         } catch (e: HttpException) {
+            e.printStackTrace()
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception) {
             if (e is CancellationException) throw e
+            e.printStackTrace()
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_change_items"
-    android:padding="@dimen/main_padding"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/main_padding">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTicketQuestion"
@@ -16,77 +16,37 @@
         android:textSize="@dimen/main_text" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/tvName"
+        android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/main_text"
         android:hint="@string/ticket_name"
         android:imeOptions="actionNone"
         android:inputType="text"
-        />
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/tvDescription"
+        android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/main_text"
         android:hint="@string/description"
         android:imeOptions="actionNone"
         android:inputType="text"
-        />
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/main_padding"
-        android:paddingBottom="@dimen/main_padding">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvAchieve"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/achieve"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/main_text"
-            android:layout_weight="1"
-            />
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/show"
-            android:src="@drawable/ic_show"
-            android:tint="@color/contrast"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            />
-    </LinearLayout>
+    <include
+        android:id="@+id/achieveHeader"
+        layout="@layout/item_change_achieve_header" />
 
     <!-- hidden content -->
     <include
         android:id="@+id/achieve"
-        android:visibility="gone"
         layout="@layout/item_change_achieve" />
 
     <!-- Save/Change -->
-    <Button
-        android:id="@+id/btnChangePractice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/main_text"
-        android:text="@string/practice"
-        android:textColor="@color/text_color"
-        android:textAllCaps="false"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/item_outline_rounded"/>
+    <include
+        android:id="@+id/action"
+        layout="@layout/item_change_goto" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/add_text"
-        android:textColor="@color/add_color"
-        android:gravity="center"
-        android:paddingTop="4dp"
-        android:text="Билет 1"/>
-
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llAchieve"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/main_padding"
+    android:paddingBottom="@dimen/main_padding">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAchieve"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/achieve"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/show"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_show"
+        android:tint="@color/contrast" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

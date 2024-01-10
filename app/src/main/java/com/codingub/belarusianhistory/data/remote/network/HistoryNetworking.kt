@@ -26,8 +26,8 @@ open class HistoryNetworking @Inject constructor(
     private var okHttpClient: OkHttpClient? = null
 
     // cache
-    val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
-    val cache = Cache(context.cacheDir, cacheSize)
+    private val cacheSize = (10 * 1024 * 1024L) // 10 MB
+    private val cache = Cache(context.cacheDir, cacheSize)
 
     private fun retrofit(): Retrofit {
         if(retrofit == null) retrofit = retrofitBuilder().build()

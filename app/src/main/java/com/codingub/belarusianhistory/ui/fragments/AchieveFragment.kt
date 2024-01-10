@@ -2,6 +2,7 @@ package com.codingub.belarusianhistory.ui.fragments
 
 import android.graphics.Outline
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -316,8 +317,11 @@ class AchieveFragment : BaseFragment() {
                     }
 
                     achievesResponse is ServerResponse.OK && resultsResponse is ServerResponse.OK -> {
+                        Log.d("222", vm.articles.value.toString())
                         vm.getAchievesType()
-
+                        Log.d("222", vm.articles.value.toString())
+                        achieveAdapter.achieves = vm.articles.value
+                        achieveAdapter.notifyDataSetChanged()
                     }
 
                     achievesResponse is ServerResponse.Error || resultsResponse is ServerResponse.Error -> {

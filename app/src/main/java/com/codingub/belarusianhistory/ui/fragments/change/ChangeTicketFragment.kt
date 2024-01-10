@@ -1,6 +1,5 @@
 package com.codingub.belarusianhistory.ui.fragments.change
 
-import android.graphics.Rect
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.data.models.tickets.TicketDto
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
@@ -56,15 +54,20 @@ class ChangeTicketFragment : BaseFragment() {
         }
     }
 
-
     private fun createTicketList() {
         binding.rvContent.apply {
             ticketsAdapter = ChangeTicketAdapter(
                 onSaveClicked = { ticket, position ->
                     vm.saveChanges(ticket.item)
                 },
-                onGoToSelected = {
-                    pushFragment(ChangeTqFragment(), "change_tq")
+                onGoToSelected = { id ->
+                    val fragment = ChangeTqFragment().also {
+                        it.arguments = Bundle().apply {
+                            putSerializable("ticketId", id)
+                        }
+                    }
+
+                    pushFragment(fragment, "change_tq")
                 })
             layoutManager = LinearLayoutManager(requireContext())
             adapter = ticketsAdapter
@@ -95,70 +98,11 @@ class ChangeTicketFragment : BaseFragment() {
                     val state = delete.drawable.current as? AnimatedVectorDrawable
                     state?.start()
                 }
-
             }
 
             // checkmark
             checkmark.setOnClickListener { deleteElements() }
         }
-    }
-
-    private fun unselectAllElements() {
-        val itemCount = ticketsAdapter?.itemCount ?: 0
-
-        for (i in 0 until itemCount) {
-            binding.rvContent.post {
-                val holder =
-                    binding.rvContent.findViewHolderForAdapterPosition(i)
-                if (holder != null) {
-                    val vh = holder as ChangeTicketAdapter.TicketsViewHolder
-                    vh.binding.root.isSelected = false
-                }
-            }
-        }
-        ticketsAdapter?.selectedTickets?.clear()
-    }
-
-    private fun addNewElement() {
-        val tickets = ticketsAdapter?.selectedTickets!!
-        val locale = tickets.filter { it.deleteType == DeleteType.LOCAL }
-        if (locale.isEmpty()) {
-            ticketsAdapter?.addItem(
-                ChangeTicketDto(
-                    TicketDto(
-                        name = "",
-                        timer = 0L,
-                        tqs = emptyList(),
-                        achievement = null
-                    ), DeleteType.LOCAL
-                )
-            )
-            return
-        }
-
-        Toast.makeText(requireContext(), "Вы уже создали новый билет", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun deleteElements() {
-        vm.setDeleteState(DeletedUiState.Loading)
-        val tickets = ticketsAdapter?.selectedTickets!!
-
-        val locale = tickets.filter { it.deleteType == DeleteType.LOCAL }
-        val remote = tickets.filter { it.deleteType == DeleteType.REMOTE }
-
-        when {
-            locale.isNotEmpty() && remote.isEmpty() -> {
-                ticketsAdapter?.removeItems(locale)
-                vm.setDeleteState(DeletedUiState.Deleted)
-            }
-
-            remote.isNotEmpty() -> {
-                vm.deleteTickets(remote.map { it.item })
-                ticketsAdapter?.removeItems(remote)
-            }
-        }
-
-        ticketsAdapter?.selectedTickets?.clear()
     }
 
     override fun observeChanges() {
@@ -168,12 +112,12 @@ class ChangeTicketFragment : BaseFragment() {
                     when (it) {
                         is ServerResponse.OK -> {
                             val data = it.value?.toMutableList() ?: mutableListOf()
-                            ticketsAdapter?.tickets =
+                            ticketsAdapter?.items =
                                 data.map { tick -> ChangeTicketDto(tick, DeleteType.REMOTE) }
                                     .toMutableList()
                             ticketsAdapter?.notifyItemRangeChanged(
                                 0,
-                                ticketsAdapter?.tickets!!.size
+                                ticketsAdapter?.items!!.size
                             )
                         }
 
@@ -222,7 +166,12 @@ class ChangeTicketFragment : BaseFragment() {
                             vm.isRemoved = false
                             ticketsAdapter?.isRemoving = false
                             binding.checkmark.visibility = View.INVISIBLE
-                            binding.delete.isSelected = false
+
+                            if (binding.delete.drawable is StateListDrawable) {
+                                binding.delete.isSelected = false
+                                val state = binding.delete.drawable.current as? AnimatedVectorDrawable
+                                state?.start()
+                            }
                         }
 
                         is DeletedUiState.Failed -> {
@@ -233,18 +182,69 @@ class ChangeTicketFragment : BaseFragment() {
             }
         }
     }
-}
 
+    /*
+        Additional
+     */
 
-private fun createItemDecoration(spacing: Int): RecyclerView.ItemDecoration {
-    return object : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            outRect.bottom = spacing
+    private fun unselectAllElements() {
+        val itemCount = ticketsAdapter?.itemCount ?: 0
+
+        for (i in 0 until itemCount) unselectElement(position = i)
+        ticketsAdapter?.selectedItems?.clear()
+    }
+
+    private fun unselectElement(position: Int) {
+        binding.rvContent.post {
+            val holder =
+                binding.rvContent.findViewHolderForAdapterPosition(position)
+            if (holder != null) {
+                val vh = holder as ChangeTicketAdapter.TicketsViewHolder
+                vh.binding.root.isSelected = false
+            }
         }
+    }
+
+    private fun addNewElement() {
+        val tickets = ticketsAdapter?.selectedItems!!
+        val locale = tickets.filter { it.deleteType == DeleteType.LOCAL }
+        if (locale.isEmpty()) {
+            ticketsAdapter?.addItem(
+                ChangeTicketDto(
+                    TicketDto(
+                        name = "",
+                        timer = 0L,
+                        tqs = emptyList(),
+                        achievement = null
+                    ), DeleteType.LOCAL
+                )
+            )
+            unselectElement(ticketsAdapter?.itemCount?.minus(1) ?: return)
+            return
+        }
+
+        Toast.makeText(requireContext(), "Вы уже создали новый билет", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteElements() {
+        vm.setDeleteState(DeletedUiState.Loading)
+        val tickets = ticketsAdapter?.selectedItems!!
+
+        val locale = tickets.filter { it.deleteType == DeleteType.LOCAL }
+        val remote = tickets.filter { it.deleteType == DeleteType.REMOTE }
+
+        when {
+            locale.isNotEmpty() && remote.isEmpty() -> {
+                ticketsAdapter?.removeItems(locale)
+                vm.setDeleteState(DeletedUiState.Deleted)
+            }
+
+            remote.isNotEmpty() -> {
+                vm.deleteTickets(remote.map { it.item })
+                ticketsAdapter?.removeItems(remote)
+            }
+        }
+
+        ticketsAdapter?.selectedItems?.clear()
     }
 }

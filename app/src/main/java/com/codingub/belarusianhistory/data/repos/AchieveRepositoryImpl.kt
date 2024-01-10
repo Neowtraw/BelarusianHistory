@@ -15,11 +15,13 @@ class AchieveRepositoryImpl @Inject constructor(
 
     override suspend fun getAllAchieves() : ServerResponse<List<AchieveDto>>{
         return try{
-            val result = api.getAllAchieves()
+            val result = api.getAllAchieves().achieveList
             ServerResponse.OK(result)
         } catch (e: HttpException){
-                ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
+            e.printStackTrace()
+            ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            e.printStackTrace()
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }
@@ -29,8 +31,10 @@ class AchieveRepositoryImpl @Inject constructor(
             val result = api.getTypeAchieves(type = type)
             ServerResponse.OK(result.achieveList)
         } catch (e: HttpException){
+            e.printStackTrace()
             ServerResponse.Error(e.response()?.errorBody()?.string() ?: "Unknown error")
         } catch (e: Exception){
+            e.printStackTrace()
             ServerResponse.Error(e.message ?: "Unknown error")
         }
     }

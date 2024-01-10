@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/item_rounded_bg"
-    android:padding="@dimen/main_padding"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/main_padding">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPractice"
@@ -19,44 +19,59 @@
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/main_text"
         android:hint="@string/ticket_name"
         android:imeOptions="actionNone"
         android:inputType="text"
-        />
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/main_text"
         android:hint="@string/description"
         android:imeOptions="actionNone"
         android:inputType="text"
-        />
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
 
+    <!-- practice type -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
-    <!-- answers -->
+    <!-- answers START -->
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/main_text"
         android:hint="@string/description"
         android:imeOptions="actionNone"
         android:inputType="text"
-        />
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/main_text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnswer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+    <!-- answers END -->
 
-</LinearLayout>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnAcceptChanges"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end|center"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="@dimen/main_padding"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/item_rounded_contrast"
+        android:clickable="true"
+        android:elevation="3dp"
+        android:padding="10dp"
+        android:src="@drawable/checkmark"
+        android:visibility="invisible" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
