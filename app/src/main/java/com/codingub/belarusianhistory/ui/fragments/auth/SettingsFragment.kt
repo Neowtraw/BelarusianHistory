@@ -79,7 +79,7 @@ class SettingsFragment : BaseFragment() {
         binding.tlLanguages.apply {
             setBackgroundResource(Resource.drawable("item_rounded_settings"))
             val background = this.background as GradientDrawable
-            background.color = ColorStateList.valueOf(Resource.color(R.color.bg_btn))
+            background.color = ColorStateList.valueOf(Resource.color(R.color.bg_second))
             tabMode = TabLayout.MODE_AUTO
             overScrollMode = View.OVER_SCROLL_NEVER
             setSelectedTabIndicator(null)

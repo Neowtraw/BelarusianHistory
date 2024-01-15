@@ -36,7 +36,7 @@ class CategoryAchieveView(
             setTextColor(colorText.mixWith(colorTextChecked, ratio = value))
         }
 
-    private val colorBg: Int = Resource.color(R.color.bg_btn)
+    private val colorBg: Int = Resource.color(R.color.bg_second)
     private val colorBgChecked: Int = Resource.color(R.color.bg_btn_checked)
     private val colorText: Int = Resource.color(R.color.text_not_checked)
     private val colorTextChecked: Int = Resource.color(R.color.text_color)

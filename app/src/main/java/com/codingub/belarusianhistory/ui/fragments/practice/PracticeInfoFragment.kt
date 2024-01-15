@@ -47,7 +47,7 @@ class PracticeInfoFragment : BaseFragment() {
         }
         binding.progressBar.apply {
             max = progressSize
-            progressBackgroundTintList = ColorStateList.valueOf(Resource.color(R.color.bg_btn))
+            progressBackgroundTintList = ColorStateList.valueOf(Resource.color(R.color.bg_second))
             progressTintList = ColorStateList.valueOf(Resource.color(R.color.contrast))
             //поменять setOnClickListener на изменение фрагмента
             binding.btnCheck.apply {

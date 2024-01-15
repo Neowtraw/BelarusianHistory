@@ -52,8 +52,8 @@ class AchieveViewModel @Inject constructor(
     fun getAchievesType() {
 
         if( data.value.second is ServerResponse.OK && data.value.first is ServerResponse.OK )
-        (data.value.second as ServerResponse.OK<List<ResultDto>>).value!!.let{ results ->
-            val ids = results.map { it.id }
+        (data.value.second as ServerResponse.OK<List<ResultDto>>).value.let{ results ->
+            val ids = results!!.map { it.id }
 
             _articles.value = (data.value.first as ServerResponse.OK<List<AchieveDto>>).value!!.map {
                 AchieveStateUi(

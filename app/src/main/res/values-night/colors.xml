@@ -6,7 +6,7 @@
     <color name="toolbar">#161525</color>
     <color name="stbar">#130F1E</color>
     <color name="navbar">#130F1E</color>
-    <color name="bg_btn">#2E2B4C</color>
+    <color name="bg_second">#2E2B4C</color>
     <color name="bg_btn_checked">#357FA8</color>
     <color name="contrast">#357FA8</color>
     <color name="text_not_checked">#CBCACA</color>

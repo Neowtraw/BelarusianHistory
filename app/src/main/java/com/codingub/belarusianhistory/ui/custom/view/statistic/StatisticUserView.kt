@@ -130,7 +130,7 @@ class StatisticUserView(
         // background
         gradient = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
-            color = ColorStateList.valueOf(Resource.color(R.color.bg_btn))
+            color = ColorStateList.valueOf(Resource.color(R.color.bg_second))
             cornerRadius = resources.getDimension(R.dimen.corner_icon_radius)
 
         }

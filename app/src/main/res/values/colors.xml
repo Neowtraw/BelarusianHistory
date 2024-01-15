@@ -9,8 +9,10 @@
     <color name="toolbar">#EFEFEF</color>
     <color name="stbar">#D6D6D6</color>
     <color name="navbar">#D6D6D6</color>
-    <color name="bg_btn">#CED7DE</color>
+    <color name="bg_second">#CED7DE</color>
+    <color name="bg_half_transparent">#BFCED7DE</color>
     <color name="bg_btn_checked">#C3203F</color>
+    <color name="bg_loading">#B3000000</color>
     <color name="contrast">#C3203F</color>
     <color name="text_not_checked">#4C4C4C</color>
     <color name="achieve_not_passed">#A4ABB4</color>

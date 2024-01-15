@@ -57,7 +57,7 @@ class AchieveAdapter : RecyclerView.Adapter<AchieveAdapter.AchieveViewHolder>() 
             }
             val itemBackground = binding.root.background as GradientDrawable
             if (!item.isPassed) itemBackground.setColor(Resource.color(R.color.achieve_not_passed))
-            else itemBackground.setColor(Resource.color(R.color.bg_btn))
+            else itemBackground.setColor(Resource.color(R.color.bg_second))
         }
     }
 

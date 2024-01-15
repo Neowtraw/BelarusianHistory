@@ -17,4 +17,5 @@
 
     <!-- MainFragment -->
     <dimen name="corner_icon_radius">27dp</dimen>
+    <dimen name="main_corner">27dp</dimen>
  </resources>

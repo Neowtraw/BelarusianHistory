@@ -36,7 +36,7 @@ class ThemeListView(
     init{
         setWillNotDraw(false)
 
-        backgroundPaint.color = Resource.color(R.color.bg_btn)
+        backgroundPaint.color = Resource.color(R.color.bg_second)
         orientation = VERTICAL
 
 

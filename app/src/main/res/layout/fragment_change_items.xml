@@ -64,7 +64,7 @@
             android:layout_gravity="end|bottom"
             android:src="@drawable/checkmark"
             android:tint="@color/contrast"
-            android:backgroundTint="@color/bg_btn"
+            android:backgroundTint="@color/bg_second"
             android:contentDescription="@string/tickets"
             android:layout_margin="16dp" />
 

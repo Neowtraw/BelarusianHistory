@@ -16,6 +16,9 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -39,6 +42,7 @@ import com.codingub.belarusianhistory.ui.fragments.auth.RoleFragment
 import com.codingub.belarusianhistory.ui.fragments.auth.SettingsFragment
 import com.codingub.belarusianhistory.ui.fragments.StatisticFragment
 import com.codingub.belarusianhistory.ui.fragments.change.ChangeTicketFragment
+import com.codingub.belarusianhistory.ui.fragments.map.MapFragment
 import com.codingub.belarusianhistory.ui.fragments.ticket.TicketInfoFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
@@ -83,12 +87,16 @@ class MainActivity : AppCompatActivity() {
                 vm.isLoading.value
             }
         }
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         super.onCreate(savedInstanceState)
         Instance = this
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        hideSystemUI()
 
         createToolbar()
         back()
@@ -110,7 +118,7 @@ class MainActivity : AppCompatActivity() {
             binding.ivTbLogo.setOnClickListener {
                 when (supportFragmentManager.fragments.last()) {
                     is MenuFragment -> {
-                        pushFragment(ChangeTicketFragment(), "statistic", R.id.fragment_container_view)
+                        pushFragment(MapFragment(), "statistic", R.id.fragment_container_view)
                     }
 
                     is RoleFragment, is RegisterFragment, is LoginFragment -> {}
@@ -253,7 +261,7 @@ class MainActivity : AppCompatActivity() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
         isSettingsIconVisible = currentFragment is MenuFragment
         supportActionBar?.show()
-        if(currentFragment is LoginFragment || currentFragment is RegisterFragment){
+        if(currentFragment is LoginFragment || currentFragment is RegisterFragment || currentFragment is MapFragment){
             supportActionBar?.hide()
         }
 
@@ -331,5 +339,23 @@ class MainActivity : AppCompatActivity() {
                 alertDialog = null
             }
         }.also { it.show() }
+    }
+
+    private fun showSystemUI() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, binding.root).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
+        }
+    }
+
+    private fun hideSystemUI() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, binding.root).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
     }
 }

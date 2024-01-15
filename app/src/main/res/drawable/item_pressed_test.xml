@@ -20,7 +20,7 @@
     <item>
         <shape>
             <corners android:radius="@dimen/corner_icon_radius" />
-            <solid android:color="@color/bg_btn" />
+            <solid android:color="@color/bg_second" />
         </shape>
     </item>
 </selector>
