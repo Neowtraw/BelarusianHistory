@@ -16,7 +16,7 @@
         app:verticalPanEnabled="true"
         app:maxZoom="6.0"
         app:maxZoomType="zoom"
-        app:minZoom="3.0"
+        app:minZoom="2.0"
         app:minZoomType="zoom"
         app:oneFingerScrollEnabled="true"
         app:overPinchable="true"
@@ -33,23 +33,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/interactiveMap"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/interactive_map_test" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/label"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:gravity="center"
-                android:text="ТЕССТТТ"
-                android:textColor="@color/white" />
+                android:tint="@color/black"
+                android:src="@drawable/plus" />
 
         </FrameLayout>
 
     </com.otaliastudios.zoom.ZoomLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@dimen/main_padding"
+        android:thumb="@drawable/custom_thumb"
+        android:progressDrawable="@drawable/custom_progress" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnAdd"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/plus"
+        android:layout_marginBottom="@dimen/main_padding"
+        android:layout_marginStart="@dimen/main_padding"
+        android:layout_gravity="bottom"
+        android:padding="@dimen/main_padding"
+        android:background="@drawable/item_rounded_bg"/>
 
     <!-- Info -->
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -65,7 +86,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgInfo"
-            android:layout_width="300dp"
+            android:layout_width="250dp"
             android:layout_height="120dp"
             android:layout_marginBottom="@dimen/main_divider"
             android:background="@drawable/round_outline"
@@ -73,15 +94,30 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_icon" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvHeaderInfo"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/main_divider"
-            android:gravity="center"
-            android:text="@string/ticket"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/gen_text" />
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHeaderInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/main_divider"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="@string/ticket"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/gen_text" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/edit"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_edit"
+                android:tint="@color/contrast" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDescriptionInfo"

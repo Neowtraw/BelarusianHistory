@@ -8,6 +8,7 @@
     <color name="navbar">#130F1E</color>
     <color name="bg_second">#2E2B4C</color>
     <color name="bg_btn_checked">#357FA8</color>
+    <color name="bg_half_transparent">#BF2E2B4C</color>
     <color name="contrast">#357FA8</color>
     <color name="text_not_checked">#CBCACA</color>
     <color name="achieve_not_passed">#1B1839</color>

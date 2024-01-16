@@ -9,7 +9,6 @@
         android:name=".App"
 
         android:largeHeap="true"
-        android:hardwareAccelerated="false"
 
         android:usesCleartextTraffic="true"
         android:enableOnBackInvokedCallback="true"
