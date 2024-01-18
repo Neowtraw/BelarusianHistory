@@ -3,6 +3,7 @@ package com.codingub.belarusianhistory.di
 import com.codingub.belarusianhistory.data.repos.AchieveRepositoryImpl
 import com.codingub.belarusianhistory.data.repos.EventRepositoryImpl
 import com.codingub.belarusianhistory.data.repos.GroupRepositoryImpl
+import com.codingub.belarusianhistory.data.repos.MapRepositoryImpl
 import com.codingub.belarusianhistory.data.repos.PracticeQuestionRepositoryImpl
 import com.codingub.belarusianhistory.data.repos.TicketQuestionRepositoryImpl
 import com.codingub.belarusianhistory.data.repos.TicketRepositoryImpl
@@ -10,6 +11,7 @@ import com.codingub.belarusianhistory.data.repos.UserRepositoryImpl
 import com.codingub.belarusianhistory.domain.repos.AchieveRepository
 import com.codingub.belarusianhistory.domain.repos.EventRepository
 import com.codingub.belarusianhistory.domain.repos.GroupRepository
+import com.codingub.belarusianhistory.domain.repos.MapRepository
 import com.codingub.belarusianhistory.domain.repos.PracticeQuestionRepository
 import com.codingub.belarusianhistory.domain.repos.TicketQuestionRepository
 import com.codingub.belarusianhistory.domain.repos.TicketRepository
@@ -44,5 +46,8 @@ abstract class ReposModule {
 
     @Binds
     abstract fun providesEventRepository(repository: EventRepositoryImpl): EventRepository
+
+    @Binds
+    abstract fun providesMapRepository(repository: MapRepositoryImpl): MapRepository
 
 }

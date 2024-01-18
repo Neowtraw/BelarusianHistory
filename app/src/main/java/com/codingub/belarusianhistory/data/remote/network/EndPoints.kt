@@ -36,4 +36,10 @@ object EndPoints {
     const val RESET_GROUP = "groups/reset"
     const val INVITE_USER_GROUP = "groups/users/invite"
     const val DELETE_USER_GROUP = "groups/users/reset"
+
+    const val MAP_TYPE = "maptype"
+    const val MAP = "maptype/period/map"
+    const val DELETE_MAP = "maptype/period/map/delete"
+    const val ADD_LABEL = "maptype/period/map/label/add"
+    const val UPDATE_LABEL = "maptype/period/map/label/update"
 }

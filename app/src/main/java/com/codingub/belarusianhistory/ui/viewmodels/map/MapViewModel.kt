@@ -1,10 +1,14 @@
-package com.codingub.belarusianhistory.ui.viewmodels
+package com.codingub.belarusianhistory.ui.viewmodels.map
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.data.models.map.MapDto
-import com.codingub.belarusianhistory.data.models.map.MapItemDto
+import com.codingub.belarusianhistory.data.models.map.MapLabelDto
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
+import com.codingub.belarusianhistory.domain.use_cases.AddLabelOnMapUseCase
+import com.codingub.belarusianhistory.domain.use_cases.DeleteLabelFromMapUseCase
+import com.codingub.belarusianhistory.domain.use_cases.GetMapUseCase
+import com.codingub.belarusianhistory.domain.use_cases.UpdateLabelOnMapUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,13 +18,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class ItemAddedState(
-    var item: MapItemDto? = null,
+    var item: MapLabelDto? = null,
     var onError: String? = null,
     var isItemAdded: Boolean = false
 )
 
 @HiltViewModel
-class MapViewModel @Inject constructor() : ViewModel() {
+class MapViewModel @Inject constructor(
+    private val addLabelOnMapUseCase: AddLabelOnMapUseCase,
+    private val updateLabelOnMapUseCase: UpdateLabelOnMapUseCase,
+    private val deleteLabelFromMapUseCase: DeleteLabelFromMapUseCase,
+    private val getMapUseCase: GetMapUseCase
+) : ViewModel() {
 
     private val _isInfoShowed = MutableStateFlow(false)
     val isInfoShowed = _isInfoShowed.asStateFlow()

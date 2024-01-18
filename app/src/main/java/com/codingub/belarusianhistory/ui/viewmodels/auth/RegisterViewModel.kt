@@ -20,7 +20,7 @@ class RegisterViewModel @Inject constructor(
     private val register: RegisterUseCase,
 ) : ViewModel() {
 
-    val state = MutableStateFlow(AuthState())
+    private val state = MutableStateFlow(AuthState())
 
     private val resultChannel = Channel<ServerResponse<Unit>>()
     val authResults = resultChannel.receiveAsFlow()

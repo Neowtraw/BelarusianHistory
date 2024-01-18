@@ -45,7 +45,7 @@
                 android:layout_height="24dp"
                 android:gravity="center"
                 android:tint="@color/black"
-                android:src="@drawable/plus" />
+                android:src="@drawable/ic_marker" />
 
         </FrameLayout>
 

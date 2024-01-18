@@ -1,7 +1,9 @@
 package com.codingub.belarusianhistory.data.models.map
 
-data class MapItemDto(
-    val id: String,
+import java.util.UUID
+
+data class MapLabelDto(
+    val id: String = UUID.randomUUID().toString(),
     val x: Float,
     val y: Float,
     val title: String,

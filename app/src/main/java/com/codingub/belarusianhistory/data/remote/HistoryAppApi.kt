@@ -1,9 +1,14 @@
 package com.codingub.belarusianhistory.data.remote
 
 import com.codingub.belarusianhistory.data.models.achieves.AchieveDto
+import com.codingub.belarusianhistory.data.models.map.MapDto
+import com.codingub.belarusianhistory.data.models.map.MapTypeDto
 import com.codingub.belarusianhistory.data.remote.network.Cacheable
+import com.codingub.belarusianhistory.data.remote.network.EndPoints
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.ACHIEVE
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.ADD_LABEL
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.AUTHENTICATE
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_MAP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_RESULTS
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.DELETE_USER_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.EVENTS
@@ -14,6 +19,8 @@ import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_RESUL
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INSERT_TQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.INVITE_USER_GROUP
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.MAP
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.MAP_TYPE
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.PQ
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_GROUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.RESET_PQ
@@ -28,6 +35,7 @@ import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNIN
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.SIGNUP
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TICKET
 import com.codingub.belarusianhistory.data.remote.network.EndPoints.TQ
+import com.codingub.belarusianhistory.data.remote.network.EndPoints.UPDATE_LABEL
 import com.codingub.belarusianhistory.data.remote.network.requests.AddResultRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.CreateGroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.GetAllResultsRequest
@@ -35,6 +43,7 @@ import com.codingub.belarusianhistory.data.remote.network.requests.GroupRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertPqRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertTicketRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.InsertTqRequest
+import com.codingub.belarusianhistory.data.remote.network.requests.LabelRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.LoginRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.RegisterRequest
 import com.codingub.belarusianhistory.data.remote.network.requests.ResetPqRequest
@@ -55,6 +64,7 @@ import com.codingub.belarusianhistory.data.remote.network.responses.TokenRespons
 import com.codingub.belarusianhistory.data.remote.network.responses.TqResponse
 import com.codingub.belarusianhistory.sdk.AchieveType
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -237,5 +247,31 @@ interface HistoryAppApi {
     @GET(EVENTS)
     suspend fun getAllEvents(): EventResponse
 
+    /*
+        Map
+     */
 
+    @Cacheable
+    @GET(MAP_TYPE)
+    suspend fun getMapTypes(): List<MapTypeDto>
+
+    @GET("${MAP}/")
+    suspend fun getMap(
+        @Query("periodId") periodId: String
+    ): MapDto
+
+    @DELETE(DELETE_MAP)
+    suspend fun deleteLabelFromMap(
+        @Query("id") id: String // label
+    )
+
+    @POST(ADD_LABEL)
+    suspend fun addLabelOnMap(
+        @Body label: LabelRequest
+    )
+
+    @POST(UPDATE_LABEL)
+    suspend fun updateLabelOnMap(
+        @Body label: LabelRequest
+    )
 }

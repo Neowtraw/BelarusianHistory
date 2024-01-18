@@ -1,6 +1,5 @@
 package com.codingub.belarusianhistory.ui.fragments.map
 
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -9,8 +8,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
-import android.view.animation.DecelerateInterpolator
 import android.view.animation.TranslateAnimation
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -18,9 +17,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentInteractiveMapBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
-import com.codingub.belarusianhistory.ui.viewmodels.MapViewModel
+import com.codingub.belarusianhistory.ui.viewmodels.map.MapViewModel
 import com.codingub.belarusianhistory.utils.Font
-import com.codingub.belarusianhistory.utils.extension.dp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,6 +28,8 @@ class MapFragment : BaseFragment() {
 
     private lateinit var binding: FragmentInteractiveMapBinding
     private val vm by viewModels<MapViewModel>()
+
+    private val labels: List<ImageView> = emptyList()
 
     override fun create() {
         super.create()
