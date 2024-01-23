@@ -41,7 +41,7 @@ android {
 
             buildConfigField("String",
                 "history_endpoint",
-                "\"http://192.168.154.173:8080/\"")
+                "\"http://192.168.16.23:8080/\"")
         }
         release {
             isDebuggable = false
@@ -54,7 +54,7 @@ android {
             
             buildConfigField("String",
                 "history_endpoint",
-                "\"http://192.168.154.173:8080/\"")
+                "\"http://192.168.16.23:8080/\"")
         }
     }
 

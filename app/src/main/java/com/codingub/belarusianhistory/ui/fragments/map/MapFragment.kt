@@ -12,9 +12,6 @@ import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.codingub.belarusianhistory.R
 import com.codingub.belarusianhistory.databinding.FragmentInteractiveMapBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.viewmodels.map.MapViewModel
@@ -40,13 +37,15 @@ class MapFragment : BaseFragment() {
         binding = FragmentInteractiveMapBinding.inflate(inf, con, false)
 
 
-        activity?.let {
-            Glide.with(it.applicationContext)
-                .load(R.drawable.interactive_map_test)
-                .override(4000, 3000)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
-                .into(binding.interactiveMap)
-        }
+//        activity?.let {
+//            Glide.with(it.applicationContext)
+//                .load(R.drawable.interactive_map_test)
+//                .override(4000, 3000)
+//                .diskCacheStrategy(DiskCacheStrategy.DATA)
+//                .into(binding.interactiveMap)
+//        }
+
+
 
         setGeneralUI()
         observeChanges()
@@ -68,7 +67,7 @@ class MapFragment : BaseFragment() {
     @SuppressLint("ClickableViewAccessibility")
     private fun setupListeners() {
         binding.btnAdd.setOnClickListener {
-            vm.setLabelAdded(!vm.addedState.value.isItemAdded)
+            vm.setLabelAdded(!vm.addedState.value.isItemSelected)
         }
 
         binding.label.setOnClickListener {
@@ -81,7 +80,7 @@ class MapFragment : BaseFragment() {
         }
 
         binding.interactiveMap.setOnTouchListener { _, event ->
-            if (vm.addedState.value.isItemAdded)
+            if (vm.addedState.value.isItemSelected)
                 handleAddLabelTouch(event)
             true
         }

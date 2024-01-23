@@ -17,14 +17,15 @@ class PeriodViewModel @Inject constructor(
     private val getMapTypesUseCase: GetMapTypesUseCase
 ) : ViewModel() {
 
-    private val _types : MutableStateFlow<ServerResponse<List<MapTypeDto>>> =  MutableStateFlow(ServerResponse.Loading())
+    private val _types: MutableStateFlow<ServerResponse<List<MapTypeDto>>> =
+        MutableStateFlow(ServerResponse.Loading())
     val types = _types.asStateFlow()
 
     init {
         getTypes()
     }
 
-    fun getTypes() {
+    private fun getTypes() {
         viewModelScope.launch(Dispatchers.IO) {
             _types.value = getMapTypesUseCase()
         }
