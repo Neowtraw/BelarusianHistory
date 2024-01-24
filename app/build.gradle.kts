@@ -2,14 +2,14 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 
-    //binding
+    // parcelable
     id ("kotlin-parcelize")
 
-    //Hilt
+    // Hilt
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
 
-    //Firebase translater
+    // Firebase translator
     id("com.google.gms.google-services")
 }
 
@@ -45,7 +45,7 @@ android {
         }
         release {
             isDebuggable = false
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -83,7 +83,7 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.core:core-animation:1.0.0-rc01")
-    implementation("androidx.core:core-ktx:+")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -123,7 +123,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version") //для работы корутин
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-        testImplementation("androidx.room:room-testing:$room_version")
+    testImplementation("androidx.room:room-testing:$room_version")
 
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
@@ -156,6 +156,9 @@ dependencies {
 
     // zoom
     implementation("com.otaliastudios:zoomlayout:1.9.0")
+
+    // leakCanary
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:3.0-alpha-1")
 }
 
 kapt {

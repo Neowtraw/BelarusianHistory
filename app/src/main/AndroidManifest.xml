@@ -7,9 +7,6 @@
 
     <application
         android:name=".App"
-
-        android:largeHeap="true"
-
         android:usesCleartextTraffic="true"
         android:enableOnBackInvokedCallback="true"
         android:allowBackup="true"

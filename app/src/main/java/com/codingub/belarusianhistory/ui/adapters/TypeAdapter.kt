@@ -20,25 +20,23 @@ class TypeAdapter(
 
     inner class ViewHolder(private val binding: ItemPeriodBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        val type = types[bindingAdapterPosition]
-
         init{
             binding.root.setOnClickListener{
-                onPeriodSelected(type)
+                onPeriodSelected(types[bindingAdapterPosition])
             }
         }
 
         internal fun binding(context: Context) {
             binding.tvTitle.apply {
                 typeface = Font.SEMIBOLD
-                text = type.title
+                text = types[bindingAdapterPosition].title
             }
             binding.tvDescription.apply {
                 typeface = Font.REGULAR
-                text = type.description
+                text = types[bindingAdapterPosition].description
             }
             Glide.with(context)
-                .load(type.image)
+                .load(types[bindingAdapterPosition].image)
                 .override(4000, 3000)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .into(binding.imgType)

@@ -10,21 +10,33 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.ImageView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.codingub.belarusianhistory.R
+import com.codingub.belarusianhistory.data.models.map.MapTypeDto
+import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentInteractiveMapBinding
 import com.codingub.belarusianhistory.ui.base.BaseFragment
+import com.codingub.belarusianhistory.ui.base.SharedViewModel
 import com.codingub.belarusianhistory.ui.viewmodels.map.MapViewModel
 import com.codingub.belarusianhistory.utils.Font
+import com.codingub.belarusianhistory.utils.extension.dp
+import com.codingub.belarusianhistory.utils.extension.serializable
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class MapFragment : BaseFragment() {
 
     private lateinit var binding: FragmentInteractiveMapBinding
     private val vm by viewModels<MapViewModel>()
+    private val sharedVm by activityViewModels<SharedViewModel>()
 
     private val labels: List<ImageView> = emptyList()
 
@@ -35,15 +47,6 @@ class MapFragment : BaseFragment() {
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         binding = FragmentInteractiveMapBinding.inflate(inf, con, false)
-
-
-//        activity?.let {
-//            Glide.with(it.applicationContext)
-//                .load(R.drawable.interactive_map_test)
-//                .override(4000, 3000)
-//                .diskCacheStrategy(DiskCacheStrategy.DATA)
-//                .into(binding.interactiveMap)
-//        }
 
 
 
@@ -67,20 +70,11 @@ class MapFragment : BaseFragment() {
     @SuppressLint("ClickableViewAccessibility")
     private fun setupListeners() {
         binding.btnAdd.setOnClickListener {
-            vm.setLabelAdded(!vm.addedState.value.isItemSelected)
-        }
-
-        binding.label.setOnClickListener {
-            vm.setInfoShowed(!vm.isInfoShowed.value)
-            if(vm.isInfoShowed.value) {
-                show(binding.labelInfo)
-                return@setOnClickListener
-            }
-            hide(binding.labelInfo)
+            vm.onLabelAddedEvent(MapViewModel.LabelAddedEvent.OnItemSelected(!vm.addedState.value.isItemAdded))
         }
 
         binding.interactiveMap.setOnTouchListener { _, event ->
-            if (vm.addedState.value.isItemSelected)
+            if (vm.addedState.value.isItemAdded)
                 handleAddLabelTouch(event)
             true
         }
@@ -90,8 +84,8 @@ class MapFragment : BaseFragment() {
 
         when (event.action) {
             MotionEvent.ACTION_UP -> {
-                binding.label.x = event.x
-                binding.label.y = event.y
+//                binding.label.x = event.x
+//                binding.label.y = event.y
             }
         }
         return true
@@ -99,17 +93,115 @@ class MapFragment : BaseFragment() {
 
 
     override fun observeChanges() {
+        lifecycleScope.launch {
+            sharedVm.mapType.collectLatest {
+                vm.getMap(it!!.periods.first().id)
+            }
+        }
         with(vm) {
             lifecycleScope.launch {
-                addedState.collectLatest {
+                map.collectLatest { result ->
+                    when(result) {
+                        is ServerResponse.OK -> {
+                            binding.loading.visibility = View.GONE
+                            withContext(Dispatchers.Main) {
+                                activity?.let {
+                                    Glide.with(it.applicationContext)
+                                        .load(result.value?.map)
+                                        .override(4000, 3000)
+                                        .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                        .into(binding.interactiveMap)
+                                }
 
+                                for(label in result.value?.labels!!) {
+                                    val imageView = ImageView(context).apply {
+                                        setImageResource(R.drawable.ic_marker)
+                                        x = label.x
+                                        y = label.y
+                                        layoutParams = ViewGroup.LayoutParams(100.dp, 100.dp)
+                                        setOnClickListener {
+                                            vm.onLabelUpdatedEvent(MapViewModel.LabelUpdatedEvent.OnLabelInfoShowed(!vm.updatedState.value.isLabelInfoShowed))
+                                            if (vm.updatedState.value.isLabelInfoShowed) {
+                                                binding.tvHeaderInfo.text = label.title
+                                                binding.tvDescriptionInfo.text = label.description
+                                                activity?.let {
+                                                    Glide.with(it.applicationContext)
+                                                        .load(label.image)
+                                                        .into(binding.imgInfo)
+                                                }
+                                                show(binding.labelInfo)
+                                                return@setOnClickListener
+                                            }
+                                            hide(binding.labelInfo)
+                                        }
+                                    }
+                                    binding.labelContainer.addView(imageView)
+                                }
+                            }
+                        }
+                        is ServerResponse.Error -> {
+                            binding.loading.visibility = View.GONE
+
+                        }
+                        is ServerResponse.Loading -> {
+                            binding.loading.visibility = View.VISIBLE
+                        }
+                        else -> {}
+                    }
+                }
+            }
+            lifecycleScope.launch {
+                addedState.collectLatest { result ->
+                    when(result.response) {
+                        is ServerResponse.OK -> {
+                            binding.loading.visibility = View.GONE
+                        }
+                        is ServerResponse.Error -> {
+                            binding.loading.visibility = View.GONE
+
+                        }
+                        is ServerResponse.Loading -> {
+                            binding.loading.visibility = View.VISIBLE
+                        }
+                        else -> {}
+                    }
 
                 }
             }
 
             lifecycleScope.launch {
-                isInfoShowed.collectLatest {
+                updatedState.collectLatest { result ->
+                    when(result.response) {
+                        is ServerResponse.OK -> {
+                            binding.loading.visibility = View.GONE
 
+                        }
+                        is ServerResponse.Error -> {
+                            binding.loading.visibility = View.GONE
+
+                        }
+                        is ServerResponse.Loading -> {
+                            binding.loading.visibility = View.VISIBLE
+                        }
+                        else -> {}
+                    }
+                }
+            }
+
+            lifecycleScope.launch {
+                deletedState.collectLatest { result ->
+                    when(result.response) {
+                        is ServerResponse.OK -> {
+                            binding.loading.visibility = View.GONE
+                        }
+                        is ServerResponse.Error -> {
+                            binding.loading.visibility = View.GONE
+                        }
+                        is ServerResponse.Loading -> {
+                            binding.loading.visibility = View.VISIBLE
+                        }
+                        else -> {}
+                    }
                 }
             }
         }
@@ -118,7 +210,7 @@ class MapFragment : BaseFragment() {
     /*
         Additional
      */
-    fun show(view: View) {
+    private fun show(view: View) {
         val animation = TranslateAnimation(
             Animation.RELATIVE_TO_PARENT, 1.0f,
             Animation.RELATIVE_TO_PARENT, 0.0f,
@@ -140,7 +232,7 @@ class MapFragment : BaseFragment() {
         view.startAnimation(animation)
     }
 
-    fun hide(view: View) {
+    private fun hide(view: View) {
         val animation = TranslateAnimation(
             Animation.RELATIVE_TO_PARENT, 0.0f,
             Animation.RELATIVE_TO_PARENT, 1.0f,

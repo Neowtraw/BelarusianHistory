@@ -43,6 +43,7 @@ import com.codingub.belarusianhistory.ui.fragments.auth.SettingsFragment
 import com.codingub.belarusianhistory.ui.fragments.StatisticFragment
 import com.codingub.belarusianhistory.ui.fragments.change.ChangeTicketFragment
 import com.codingub.belarusianhistory.ui.fragments.map.MapFragment
+import com.codingub.belarusianhistory.ui.fragments.map.MapTypeFragment
 import com.codingub.belarusianhistory.ui.fragments.ticket.TicketInfoFragment
 import com.codingub.belarusianhistory.utils.AssetUtil
 import com.codingub.belarusianhistory.utils.Font
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             binding.ivTbLogo.setOnClickListener {
                 when (supportFragmentManager.fragments.last()) {
                     is MenuFragment -> {
-                        pushFragment(MapFragment(), "statistic", R.id.fragment_container_view)
+                        pushFragment(MapTypeFragment(), "statistic", R.id.fragment_container_view)
                     }
 
                     is RoleFragment, is RegisterFragment, is LoginFragment -> {}

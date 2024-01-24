@@ -38,13 +38,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/label"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:gravity="center"
-                android:tint="@color/black"
-                android:src="@drawable/ic_marker" />
+            <FrameLayout
+                android:id="@+id/labelContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </FrameLayout>
 
