@@ -23,6 +23,16 @@
             <meta-data android:name="com.google.firebase.components:componentRegistrar" android:value="com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateModelRegistrar" />
         </service>
 
+        <service android:name="com.google.android.gms.metadata.ModuleDependencies"
+            android:enabled="false"
+            android:exported="false"
+            tools:ignore="MissingClass">
+            <intent-filter>
+                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+            </intent-filter>
+            <meta-data android:name="photopicker_activity:0:required" android:value="" />
+        </service>
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"

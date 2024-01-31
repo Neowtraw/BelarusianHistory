@@ -41,7 +41,7 @@ android {
 
             buildConfigField("String",
                 "history_endpoint",
-                "\"http://192.168.16.23:8080/\"")
+                    "\"http://192.168.171.251:8080/\"")
         }
         release {
             isDebuggable = false
@@ -54,7 +54,7 @@ android {
             
             buildConfigField("String",
                 "history_endpoint",
-                "\"http://192.168.16.23:8080/\"")
+                "\"http://192.168.171.251:8080/\"")
         }
     }
 
@@ -158,7 +158,7 @@ dependencies {
     implementation("com.otaliastudios:zoomlayout:1.9.0")
 
     // leakCanary
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:3.0-alpha-1")
+   // debugImplementation("com.squareup.leakcanary:leakcanary-android:3.0-alpha-1")
 }
 
 kapt {

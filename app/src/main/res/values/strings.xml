@@ -114,6 +114,7 @@
     <string name="timer_divider">:</string>
     <string name="play_animation">Включить анимацию</string>
     <string name="map_type_header">Выберите тип карты</string>
+    <string name="add_animation">Добавить анимацию</string>
 
 
 </resources>

@@ -1,7 +1,9 @@
 package com.codingub.belarusianhistory.ui.viewmodels.map
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.codingub.belarusianhistory.data.local.prefs.UserConfig
 import com.codingub.belarusianhistory.data.models.map.MapDto
 import com.codingub.belarusianhistory.data.models.map.MapLabelDto
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
@@ -32,6 +34,15 @@ class MapViewModel @Inject constructor(
     private val getMapUseCase: GetMapUseCase
 ) : ViewModel() {
 
+    private val _isAddedAvailable = MutableStateFlow(false)
+    val isAddedAvailable = _isAddedAvailable.asStateFlow()
+
+    private val _isDeletedAvailable = MutableStateFlow(false)
+    val isDeletedAvailable = _isDeletedAvailable.asStateFlow()
+
+    private val _isUpdatedAvailable = MutableStateFlow(false)
+    val isUpdatedAvailable = _isUpdatedAvailable.asStateFlow()
+
     private val _updatedState = MutableStateFlow(LabelUpdatedState())
     val updatedState = _updatedState.asStateFlow()
 
@@ -52,22 +63,30 @@ class MapViewModel @Inject constructor(
     }
 
     private fun addLabel() {
-        require(_addedState.value.isItemAdded) {
             viewModelScope.launch(Dispatchers.IO) {
+                Log.d("", "оно сюда заходит")
                 onLabelAddedEvent(
                     LabelAddedEvent.OnResponseReceived(
                         addLabelOnMapUseCase(
-                            _addedState.value.item ?: return@launch
+                            MapLabelDto(
+                                x = addedState.value.x !!,
+                                y = addedState.value.y!!,
+                                title = addedState.value.title !!,
+                                description = addedState.value.description!!,
+                                animation = addedState.value.animation,
+                                image = addedState.value.image,
+                                creatorLogin = UserConfig.getLogin(),
+                                mapId = (map.value as ServerResponse.OK).value!!.id
+                            )
                         )
                     )
                 )
             }
-        }
-        onLabelAddedEvent(event = LabelAddedEvent.OnItemSelected(false))
+
     }
 
     private fun deleteLabel() {
-        require(_deletedState.value.isItemDeleted) {
+        require(isDeletedAvailable.value) {
             viewModelScope.launch(Dispatchers.IO) {
                 onLabelDeletedEvent(
                     LabelDeletedEvent.OnResponseReceived(
@@ -76,20 +95,18 @@ class MapViewModel @Inject constructor(
                 )
             }
         }
-        onLabelDeletedEvent(event = LabelDeletedEvent.OnItemSelected(false))
     }
 
     private fun updateLabel() {
-        require(_updatedState.value.isLabelInfoShowed) {
+        require(isUpdatedAvailable.value) {
             viewModelScope.launch(Dispatchers.IO) {
                 onLabelUpdatedEvent(
                     LabelUpdatedEvent.OnResponseReceived(
-                        updateLabelOnMapUseCase(label = _updatedState.value.item ?: return@launch)
+                        updateLabelOnMapUseCase(label = _updatedState.value.label ?: return@launch)
                     )
                 )
             }
         }
-        onLabelUpdatedEvent(event = LabelUpdatedEvent.OnLabelInfoShowed(false))
     }
 
     fun onEvent(event: MenuEvent) {
@@ -116,19 +133,13 @@ class MapViewModel @Inject constructor(
         when (event) {
             is LabelUpdatedEvent.OnLabelUpdated -> {
                 _updatedState.update {
-                    it.copy(item = event.label)
+                    it.copy(label = event.label)
                 }
             }
 
             is LabelUpdatedEvent.OnResponseReceived -> {
                 _updatedState.update {
                     it.copy(response = event.response)
-                }
-            }
-
-            is LabelUpdatedEvent.OnLabelInfoShowed -> {
-                _updatedState.update {
-                    it.copy(isLabelInfoShowed = event.state)
                 }
             }
         }
@@ -147,35 +158,39 @@ class MapViewModel @Inject constructor(
                     it.copy(response = event.response)
                 }
             }
-
-            is LabelDeletedEvent.OnItemSelected -> {
-                _deletedState.update {
-                    it.copy(isItemDeleted = event.state)
-                }
-            }
-
-            else -> {}
         }
     }
 
     fun onLabelAddedEvent(event: LabelAddedEvent) {
         when (event) {
-            is LabelAddedEvent.OnLabelAdded -> {
+            is LabelAddedEvent.OnTitleSet -> {
                 _addedState.update {
                     it.copy(
-                        item = MapLabelDto(
-                            title = event.title,
-                            description = event.description,
-                            animation = event.animation,
-                            image = event.image,
-                            creatorId = event.creatorId,
-                            x = event.x,
-                            y = event.y,
-                            mapId = map.value.data!!.id
-                        )
+                        title = event.title
                     )
                 }
-                return
+            }
+            is LabelAddedEvent.OnDescriptionSet -> {
+                _addedState.update {
+                    it.copy(
+                        description = event.description
+                    )
+                }
+            }
+            is LabelAddedEvent.OnSetCoordinates -> {
+                _addedState.update {
+                    it.copy(x = event.x, y = event.y)
+                }
+            }
+            is LabelAddedEvent.OnSetImage -> {
+                _addedState.update {
+                    it.copy(image = event.image)
+                }
+            }
+            is LabelAddedEvent.OnSetAnimation -> {
+                _addedState.update {
+                    it.copy(animation = event.animation)
+                }
             }
 
             is LabelAddedEvent.OnResponseReceived -> {
@@ -184,64 +199,62 @@ class MapViewModel @Inject constructor(
                 }
             }
 
-            is LabelAddedEvent.OnItemSelected -> {
-                _addedState.update {
-                    it.copy(isItemAdded = event.state)
-                }
-            }
-
-            else -> {}
         }
     }
 
+    fun changeAddedAvailable(state: Boolean) {
+        _isAddedAvailable.value = state
+    }
+
+    fun changeUpdatedAvailable(state: Boolean) {
+        _isUpdatedAvailable.value = state
+    }
+
+    fun changeDeletedAvailable(state: Boolean) {
+        _isDeletedAvailable.value = state
+    }
 
     /*
       Additional
    */
 
     data class LabelUpdatedState(
-        var item: MapLabelDto? = null,
+        val label: MapLabelDto? = null,
         var response: ServerResponse<Unit>? = null,
-        var isLabelInfoShowed: Boolean = false
     )
 
     data class LabelAddedState(
-        var item: MapLabelDto? = null,
+        var title: String? = null,
+        val description: String? = null,
+        val x: Float? = null,
+        val y: Float? = null,
+        val image: String? = null,
+        val animation: String? = null,
         var response: ServerResponse<Unit>? = null,
-        var isItemAdded: Boolean = false
     )
 
     data class LabelDeletedState(
         var id: String? = null,
         var response: ServerResponse<Unit>? = null,
-        var isItemDeleted: Boolean = false
     )
 
     sealed class LabelUpdatedEvent {
         data class OnLabelUpdated(val label: MapLabelDto) : LabelUpdatedEvent()
         data class OnResponseReceived(val response: ServerResponse<Unit>) : LabelUpdatedEvent()
-        data class OnLabelInfoShowed(val state: Boolean) : LabelUpdatedEvent()
     }
 
     sealed class LabelDeletedEvent {
         data class OnLabelDeleted(val id: String) : LabelDeletedEvent()
         data class OnResponseReceived(val response: ServerResponse<Unit>) : LabelDeletedEvent()
-        data class OnItemSelected(val state: Boolean) : LabelDeletedEvent()
     }
 
 
     sealed class LabelAddedEvent {
-        data class OnLabelAdded(
-            val x: Float,
-            val y: Float,
-            val title: String,
-            val description: String,
-            val animation: String? = null,
-            val image: String? = null,
-            val creatorId: String
-        ) : LabelAddedEvent()
-
+        data class OnTitleSet(val title: String?): LabelAddedEvent()
+        data class OnDescriptionSet(val description: String?): LabelAddedEvent()
+        data class OnSetCoordinates(val x: Float, val y: Float): LabelAddedEvent()
+        data class OnSetImage(val image: String?): LabelAddedEvent()
+        data class OnSetAnimation(val animation: String?): LabelAddedEvent()
         data class OnResponseReceived(val response: ServerResponse<Unit>) : LabelAddedEvent()
-        data class OnItemSelected(val state: Boolean) : LabelAddedEvent()
     }
 }

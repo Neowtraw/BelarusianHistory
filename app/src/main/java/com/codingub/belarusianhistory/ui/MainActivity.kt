@@ -2,6 +2,7 @@ package com.codingub.belarusianhistory.ui
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
@@ -57,7 +58,7 @@ import java.util.Locale
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
     private val vm: MainViewModel by viewModels()
 
     private var isSettingsIconVisible = false
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         Instance = this
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
+        val view = binding?.root
         setContentView(view)
 
         hideSystemUI()
@@ -110,13 +111,13 @@ class MainActivity : AppCompatActivity() {
      */
 
     private fun createToolbar() {
-        setSupportActionBar(binding.toolbar)
-        binding.toolbar.apply {
+        setSupportActionBar(binding?.toolbar)
+        binding?.toolbar.apply {
             ImageUtil.load(AssetUtil.imagesImageUri("icon")) {
-                binding.ivTbLogo.setImageDrawable(it)
-                binding.ivTbLogo.scaleType = ImageView.ScaleType.FIT_CENTER
+                binding?.ivTbLogo?.setImageDrawable(it)
+                binding?.ivTbLogo?.scaleType = ImageView.ScaleType.FIT_CENTER
             }
-            binding.ivTbLogo.setOnClickListener {
+            binding?.ivTbLogo?.setOnClickListener {
                 when (supportFragmentManager.fragments.last()) {
                     is MenuFragment -> {
                         pushFragment(MapTypeFragment(), "statistic", R.id.fragment_container_view)
@@ -129,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            binding.tvLogin.apply {
+            binding?.tvLogin?.apply {
                 text = UserConfig.getLogin()
                 typeface = Font.EXTRABOLD
             }
@@ -144,12 +145,12 @@ class MainActivity : AppCompatActivity() {
                     .load(AssetUtil.imagesImageUri("profile"))
                     .fitCenter()
                     .circleCrop()
-                    .into(binding.ivTbLogo)
+                    .into(binding?.ivTbLogo!!)
             }
 
             else -> {
                 ImageUtil.load(AssetUtil.imagesImageUri("icon")) {
-                    binding.ivTbLogo.apply {
+                    binding?.ivTbLogo?.apply {
                         setImageDrawable(it)
                         scaleType = ImageView.ScaleType.FIT_CENTER
                     }
@@ -316,6 +317,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
     /*
         Additional
      */
@@ -344,7 +350,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, binding.root).let { controller ->
+        WindowInsetsControllerCompat(window, binding?.root!!).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
             controller.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
@@ -353,10 +359,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, binding.root).let { controller ->
+        WindowInsetsControllerCompat(window, binding?.root!!).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
             controller.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
 }
+
+fun Context.isValidGlideContext() = this !is Activity || (!this.isDestroyed && !this.isFinishing)

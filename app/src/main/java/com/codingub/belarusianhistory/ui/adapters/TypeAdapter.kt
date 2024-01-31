@@ -38,7 +38,7 @@ class TypeAdapter(
             Glide.with(context)
                 .load(types[bindingAdapterPosition].image)
                 .override(4000, 3000)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
+               // .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .into(binding.imgType)
         }
     }

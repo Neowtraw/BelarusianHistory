@@ -10,6 +10,6 @@ data class MapLabelDto(
     val description: String,
     val animation: String? = null,
     val image: String? = null,
-    val creatorId: String,
+    val creatorLogin: String,
     val mapId: String
 )

@@ -39,7 +39,7 @@ open class HistoryNetworking @Inject constructor(
         if (okHttpClient == null) {
             val builder: OkHttpClient.Builder = OkHttpClient.Builder()
                 .cache(cache)
-                .addNetworkInterceptor(cacheInterceptor)
+                //.addNetworkInterceptor(cacheInterceptor)
                 .addInterceptor(appInterceptor)
                 .addInterceptor(HttpLoggingInterceptor().apply {
                     setLevel(
