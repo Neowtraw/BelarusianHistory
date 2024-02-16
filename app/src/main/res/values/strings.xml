@@ -115,6 +115,7 @@
     <string name="play_animation">Включить анимацию</string>
     <string name="map_type_header">Выберите тип карты</string>
     <string name="add_animation">Добавить анимацию</string>
+    <string name="error_empty_field">Поле пустое</string>
 
 
 </resources>

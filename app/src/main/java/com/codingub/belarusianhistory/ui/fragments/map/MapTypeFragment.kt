@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingub.belarusianhistory.data.models.map.MapTypeDto
 import com.codingub.belarusianhistory.data.remote.network.ServerResponse
 import com.codingub.belarusianhistory.databinding.FragmentMapTypeBinding
+import com.codingub.belarusianhistory.databinding.ItemPeriodBinding
+import com.codingub.belarusianhistory.ui.adapters.ShimmerContentListAdapter
+import com.codingub.belarusianhistory.ui.adapters.ShimmerMapTypeListAdapter
 import com.codingub.belarusianhistory.ui.adapters.TypeAdapter
 import com.codingub.belarusianhistory.ui.base.BaseFragment
 import com.codingub.belarusianhistory.ui.base.SharedViewModel
@@ -28,28 +31,47 @@ import kotlinx.coroutines.withContext
 @AndroidEntryPoint
 class MapTypeFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentMapTypeBinding
+    private var binding: FragmentMapTypeBinding? = null
     private val vm by viewModels<PeriodViewModel>()
     private val sharedVm by activityViewModels<SharedViewModel>()
     private val TAG = MapTypeFragment::class.java.name
 
-    private lateinit var typeAdapter: TypeAdapter
+    private var typeAdapter: TypeAdapter? = null
+    private var shimmerAdapter: ShimmerMapTypeListAdapter? = null
 
     override fun createView(inf: LayoutInflater, con: ViewGroup?, state: Bundle?): View {
         binding = FragmentMapTypeBinding.inflate(inf, con, false)
 
 
         setMainText()
+        setShimmer()
         observeChanges()
-        return binding.root
+        return binding!!.root
+    }
+
+    override fun destroyView() {
+        super.destroyView()
+        binding = null
+        shimmerAdapter = null
+        typeAdapter = null
     }
 
     private fun setMainText() {
-        binding.tvHeader.typeface = Font.SEMIBOLD
+        binding!!.tvHeader.typeface = Font.SEMIBOLD
+    }
+
+    private fun setShimmer() {
+        binding!!.rvShimmer.apply {
+            overScrollMode = View.OVER_SCROLL_NEVER
+            layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(createItemDecoration(10.dp))
+            shimmerAdapter = ShimmerMapTypeListAdapter()
+            adapter = shimmerAdapter
+        }
     }
 
     private fun setTypes(types: List<MapTypeDto>) {
-        binding.rvTypes.apply {
+        binding!!.rvTypes.apply {
             overScrollMode = View.OVER_SCROLL_NEVER
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(createItemDecoration(10.dp))
@@ -64,20 +86,17 @@ class MapTypeFragment : BaseFragment() {
 
     override fun observeChanges() {
         with(vm) {
-            lifecycleScope.launch(Dispatchers.IO) {
+            lifecycleScope.launch {
                 types.collectLatest { result ->
                     when (result) {
                         is ServerResponse.OK -> {
-                            withContext(Dispatchers.Main){
+                            binding!!.rvShimmer.visibility = View.GONE
+
                                 setTypes(result.value!!)
-                            }
+
                         }
 
-                        is ServerResponse.Loading -> {
-                            /*
-                                Loading
-                             */
-                        }
+                        is ServerResponse.Loading -> {}
 
                         is ServerResponse.Error -> {
                             Log.d(TAG, result.errorMessage)

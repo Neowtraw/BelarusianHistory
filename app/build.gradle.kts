@@ -41,7 +41,7 @@ android {
 
             buildConfigField("String",
                 "history_endpoint",
-                    "\"http://192.168.171.251:8080/\"")
+                    "\"http://192.168.111.228:8080/\"")
         }
         release {
             isDebuggable = false
@@ -88,6 +88,13 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // exoplayer
+    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
+    val mediaVersion = "1.2.1"
+    implementation("androidx.media3:media3-exoplayer:$mediaVersion")
+    implementation("androidx.media3:media3-ui:$mediaVersion")
+    implementation("androidx.media3:media3-exoplayer-dash:$mediaVersion")
 
     //ktx
     implementation("androidx.core:core-ktx:1.12.0")

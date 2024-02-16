@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/main_padding"
     android:background="@color/bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/main_padding">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvHeader"
@@ -15,9 +15,26 @@
         android:textColor="@color/text_color"
         android:textSize="@dimen/header_text" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTypes"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTypes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- shimmer -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvShimmer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </FrameLayout>
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.codingub.belarusianhistory.ui.viewmodels.map
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingub.belarusianhistory.data.local.prefs.UserConfig
@@ -63,25 +62,39 @@ class MapViewModel @Inject constructor(
     }
 
     private fun addLabel() {
-            viewModelScope.launch(Dispatchers.IO) {
-                Log.d("", "оно сюда заходит")
-                onLabelAddedEvent(
-                    LabelAddedEvent.OnResponseReceived(
-                        addLabelOnMapUseCase(
-                            MapLabelDto(
-                                x = addedState.value.x !!,
-                                y = addedState.value.y!!,
-                                title = addedState.value.title !!,
-                                description = addedState.value.description!!,
-                                animation = addedState.value.animation,
-                                image = addedState.value.image,
-                                creatorLogin = UserConfig.getLogin(),
-                                mapId = (map.value as ServerResponse.OK).value!!.id
-                            )
+
+        val titleValid = addedState.value.title != null
+        val descValid = addedState.value.description != null
+        val hasError = listOf(titleValid, descValid).any { !it }
+
+        if(hasError) {
+            _addedState.update {
+                it.copy(
+                   titleError = titleValid,
+                    descriptionError = descValid
+                )
+            }
+            return
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            onLabelAddedEvent(
+                LabelAddedEvent.OnResponseReceived(
+                    addLabelOnMapUseCase(
+                        MapLabelDto(
+                            x = addedState.value.x!!,
+                            y = addedState.value.y!!,
+                            title = addedState.value.title!!,
+                            description = addedState.value.description!!,
+                            animation = addedState.value.animation,
+                            image = addedState.value.image,
+                            creatorLogin = UserConfig.getLogin(),
+                            mapId = (map.value as ServerResponse.OK).value!!.id
                         )
                     )
                 )
-            }
+            )
+        }
 
     }
 
@@ -163,6 +176,20 @@ class MapViewModel @Inject constructor(
 
     fun onLabelAddedEvent(event: LabelAddedEvent) {
         when (event) {
+            is LabelAddedEvent.OnLabelInfoReset -> {
+                _addedState.update {
+                    it.copy(
+                        title = null,
+                        description = null,
+                        x = null,
+                        y = null,
+                        image = null,
+                        animation = null,
+                        response = null
+                    )
+                }
+            }
+
             is LabelAddedEvent.OnTitleSet -> {
                 _addedState.update {
                     it.copy(
@@ -170,6 +197,7 @@ class MapViewModel @Inject constructor(
                     )
                 }
             }
+
             is LabelAddedEvent.OnDescriptionSet -> {
                 _addedState.update {
                     it.copy(
@@ -177,16 +205,19 @@ class MapViewModel @Inject constructor(
                     )
                 }
             }
+
             is LabelAddedEvent.OnSetCoordinates -> {
                 _addedState.update {
                     it.copy(x = event.x, y = event.y)
                 }
             }
+
             is LabelAddedEvent.OnSetImage -> {
                 _addedState.update {
                     it.copy(image = event.image)
                 }
             }
+
             is LabelAddedEvent.OnSetAnimation -> {
                 _addedState.update {
                     it.copy(animation = event.animation)
@@ -225,7 +256,9 @@ class MapViewModel @Inject constructor(
 
     data class LabelAddedState(
         var title: String? = null,
+        var titleError: Boolean = false,
         val description: String? = null,
+        val descriptionError: Boolean = false,
         val x: Float? = null,
         val y: Float? = null,
         val image: String? = null,
@@ -239,7 +272,7 @@ class MapViewModel @Inject constructor(
     )
 
     sealed class LabelUpdatedEvent {
-        data class OnLabelUpdated(val label: MapLabelDto) : LabelUpdatedEvent()
+        data class OnLabelUpdated(val label: MapLabelDto?) : LabelUpdatedEvent()
         data class OnResponseReceived(val response: ServerResponse<Unit>) : LabelUpdatedEvent()
     }
 
@@ -250,11 +283,12 @@ class MapViewModel @Inject constructor(
 
 
     sealed class LabelAddedEvent {
-        data class OnTitleSet(val title: String?): LabelAddedEvent()
-        data class OnDescriptionSet(val description: String?): LabelAddedEvent()
-        data class OnSetCoordinates(val x: Float, val y: Float): LabelAddedEvent()
-        data class OnSetImage(val image: String?): LabelAddedEvent()
-        data class OnSetAnimation(val animation: String?): LabelAddedEvent()
+        data object OnLabelInfoReset : LabelAddedEvent()
+        data class OnTitleSet(val title: String?) : LabelAddedEvent()
+        data class OnDescriptionSet(val description: String?) : LabelAddedEvent()
+        data class OnSetCoordinates(val x: Float, val y: Float) : LabelAddedEvent()
+        data class OnSetImage(val image: String?) : LabelAddedEvent()
+        data class OnSetAnimation(val animation: String?) : LabelAddedEvent()
         data class OnResponseReceived(val response: ServerResponse<Unit>) : LabelAddedEvent()
     }
 }

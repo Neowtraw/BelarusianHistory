@@ -47,6 +47,16 @@
 
     </FrameLayout>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/errorTitle"
+        android:text="@string/error_empty_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/add_text"
+        android:visibility="gone"
+        android:textColor="@color/contrast"
+        android:gravity="start"/>
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -61,6 +71,16 @@
         android:padding="@dimen/main_divider"
         android:textColor="@color/main_color"
         android:textSize="@dimen/main_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/errorDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/add_text"
+        android:visibility="gone"
+        android:text="@string/error_empty_field"
+        android:textColor="@color/contrast"
+        android:gravity="start"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/description"

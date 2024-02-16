@@ -72,7 +72,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/labelInfo"
         android:visibility="gone"
-        android:layout_width="wrap_content"
+        android:layout_width="282dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:layout_margin="@dimen/main_padding"
@@ -127,7 +127,7 @@
             android:textSize="@dimen/main_text" />
 
         <Button
-            android:id="@+id/flAnimation"
+            android:id="@+id/btnGoToAnimation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/item_rounded_contrast"

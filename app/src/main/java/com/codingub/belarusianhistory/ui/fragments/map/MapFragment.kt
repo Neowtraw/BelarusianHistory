@@ -3,7 +3,6 @@ package com.codingub.belarusianhistory.ui.fragments.map
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -20,6 +19,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.media3.exoplayer.ExoPlayer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.codingub.belarusianhistory.R
@@ -64,15 +64,19 @@ class MapFragment : BaseFragment() {
 
     override fun destroyView() {
         super.destroyView()
+        binding = null
+        pickMedia = null
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     private fun setGeneralUI() {
-        binding?.flAnimation?.typeface = Font.REGULAR
+        binding?.btnGoToAnimation?.typeface = Font.REGULAR
         binding?.title?.typeface = Font.SEMIBOLD
         binding?.description?.typeface = Font.REGULAR
         binding?.adAddLabel?.title?.typeface = Font.SEMIBOLD
         binding?.adAddLabel?.description?.typeface = Font.REGULAR
+        binding?.adAddLabel?.errorTitle?.typeface = Font.SEMIBOLD
+        binding?.adAddLabel?.errorDescription?.typeface = Font.SEMIBOLD
 
         binding?.adAddLabel?.labelInfo?.visibility = View.GONE
     }
@@ -106,33 +110,30 @@ class MapFragment : BaseFragment() {
         }
 
         binding?.interactiveMap?.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                val x = event.rawX.toInt() - binding?.adAddLabel?.labelInfo!!.left
-                val y = event.rawY.toInt() - binding?.adAddLabel?.labelInfo!!.top
+            val x = event.rawX.toInt() - binding?.adAddLabel?.labelInfo!!.left
+            val y = event.rawY.toInt() - binding?.adAddLabel?.labelInfo!!.top
 
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (vm.updatedState.value.label != null && vm.isUpdatedAvailable.value) {
+                    hide(binding?.labelInfo!!)
+                    vm.onLabelUpdatedEvent(MapViewModel.LabelUpdatedEvent.OnLabelUpdated(null))
+                    vm.changeUpdatedAvailable(false)
+                }
+
+                if (vm.isAddedAvailable.value)
+                    showAddedAlertDialog(event.x, event.y)
+            }
+
+            if (event.action == MotionEvent.ACTION_DOWN) {
                 if (!isPointInsideView(
                         x,
                         y,
                         binding?.adAddLabel?.labelInfo!!
                     ) && binding?.adAddLabel?.labelInfo!!.isVisible
-                ) {
-                    AnimationUtils.loadAnimation(requireContext(), R.anim.dialog_out).also {
-                        it.setAnimationListener(object : Animation.AnimationListener {
-                            override fun onAnimationEnd(animation: Animation?) {
-                                binding?.adAddLabel?.labelInfo?.visibility = View.GONE
-                                changeAddBtnState(false)
-                            }
+                ) changeAddBtnState(false)
 
-                            override fun onAnimationStart(animation: Animation?) {}
-                            override fun onAnimationRepeat(animation: Animation?) {}
-                        })
-                        binding?.adAddLabel?.labelInfo?.startAnimation(it)
-                    }
-                }
             }
 
-            if (vm.isAddedAvailable.value)
-                showAddedAlertDialog(event.x, event.y)
             true
         }
 
@@ -156,14 +157,13 @@ class MapFragment : BaseFragment() {
             )
         }
         binding?.adAddLabel?.btnAccept!!.setOnClickListener {
-            Log.d("", "и здемь")
             vm.onEvent(MenuEvent.LabelAdded)
         }
     }
 
     private fun showAddedAlertDialog(x: Float, y: Float) {
         binding?.adAddLabel?.labelInfo!!.visibility = View.VISIBLE
-        vm.onLabelAddedEvent(MapViewModel.LabelAddedEvent.OnSetCoordinates(x,y))
+        vm.onLabelAddedEvent(MapViewModel.LabelAddedEvent.OnSetCoordinates(x, y))
     }
 
 
@@ -193,22 +193,41 @@ class MapFragment : BaseFragment() {
                                         x = label.x
                                         y = label.y
                                         layoutParams = ViewGroup.LayoutParams(100.dp, 100.dp)
+
                                         setOnClickListener {
-                                            vm.changeUpdatedAvailable(!vm.isUpdatedAvailable.value)
-                                            if (vm.isUpdatedAvailable.value) {
+                                            binding?.image?.visibility =
+                                                if (label.image == null) View.GONE else View.VISIBLE
+                                            binding?.btnGoToAnimation?.visibility =
+                                                if (label.animation == null) View.GONE else View.VISIBLE
+
+                                            if (label.id == vm.updatedState.value.label?.id) return@setOnClickListener
+
+                                            if (vm.updatedState.value.label?.id != label.id) {
                                                 binding?.title?.text = label.title
-                                                binding?.description?.text =
-                                                    label.description
+                                                binding?.description?.text = label.description
                                                 activity?.let {
                                                     Glide.with(requireContext().applicationContext)
                                                         .load(label.image)
                                                         .into(binding?.image!!)
                                                 }
                                                 show(binding?.labelInfo!!)
-                                                return@setOnClickListener
+                                                vm.onLabelUpdatedEvent(
+                                                    MapViewModel.LabelUpdatedEvent.OnLabelUpdated(
+                                                        label
+                                                    )
+                                                )
+                                                vm.changeUpdatedAvailable(true)
                                             }
-                                            hide(binding?.labelInfo!!)
+                                            binding?.btnGoToAnimation?.setOnClickListener {
+                                                val fragment = VideoFragment().apply {
+                                                    val args = Bundle()
+                                                    args.putString("video",label.animation!!)
+                                                    arguments = args
+                                                }
+                                                pushFragment(fragment,"video")
+                                            }
                                         }
+
                                     }
                                     binding?.labelContainer?.addView(imageView)
                                 }
@@ -247,10 +266,18 @@ class MapFragment : BaseFragment() {
                             .into(binding?.adAddLabel!!.animation)
                     }
 
+                    if (result.titleError) binding?.adAddLabel?.errorTitle?.visibility = View.VISIBLE
+                     else binding?.adAddLabel?.errorTitle?.visibility = View.GONE
+
+                    if (result.descriptionError) binding?.adAddLabel?.errorDescription?.visibility = View.VISIBLE
+                    else binding?.adAddLabel?.errorDescription?.visibility = View.GONE
+
+
                     if (result.response != null) {
                         when (result.response) {
                             is ServerResponse.OK -> {
                                 binding?.loading?.visibility = View.GONE
+
                                 vm.getMap(sharedVm.mapType.value!!.periods.first().id) // temporary
                                 changeAddBtnState(false)
                             }
@@ -318,6 +345,53 @@ class MapFragment : BaseFragment() {
         Additional
      */
 
+    // right label on screen
+    private fun show(view: View) {
+        val animation = TranslateAnimation(
+            Animation.RELATIVE_TO_PARENT, 1.0f,
+            Animation.RELATIVE_TO_PARENT, 0.0f,
+            Animation.RELATIVE_TO_PARENT, 0.0f,
+            Animation.RELATIVE_TO_PARENT, 0.0f
+        ).apply {
+            duration = 400L
+            fillAfter = true
+        }
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+                view.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {}
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
+
+        view.startAnimation(animation)
+    }
+
+    // right label on screen
+    private fun hide(view: View, onAnimationEnd: () -> Unit = {}) {
+        val animation = TranslateAnimation(
+            Animation.RELATIVE_TO_PARENT, 0.0f,
+            Animation.RELATIVE_TO_PARENT, 1.0f,
+            Animation.RELATIVE_TO_PARENT, 0.0f,
+            Animation.RELATIVE_TO_PARENT, 0.0f
+        ).apply {
+            duration = 400L
+            fillAfter = true
+        }
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) = Unit
+            override fun onAnimationRepeat(animation: Animation?) = Unit
+
+            override fun onAnimationEnd(animation: Animation?) {
+                view.visibility = View.INVISIBLE
+                onAnimationEnd()
+            }
+        })
+
+        view.startAnimation(animation)
+    }
+
     private fun changeAddBtnState(state: Boolean) {
         vm.changeAddedAvailable(state)
         val rotateAnimation =
@@ -333,6 +407,10 @@ class MapFragment : BaseFragment() {
                     }
                     delay(100L)
                 }
+
+                if (binding?.adAddLabel?.labelInfo!!.isVisible) {
+                    hideAddView()
+                }
             }
 
             override fun onAnimationRepeat(animation: Animation?) = Unit
@@ -340,48 +418,19 @@ class MapFragment : BaseFragment() {
         binding?.btnAdd?.startAnimation(rotateAnimation)
     }
 
-    private fun show(view: View) {
-        val animation = TranslateAnimation(
-            Animation.RELATIVE_TO_PARENT, 1.0f,
-            Animation.RELATIVE_TO_PARENT, 0.0f,
-            Animation.RELATIVE_TO_PARENT, 0.0f,
-            Animation.RELATIVE_TO_PARENT, 0.0f
-        ).apply {
-            duration = 500L
-            fillAfter = true
+    private fun hideAddView() {
+        AnimationUtils.loadAnimation(requireContext(), R.anim.dialog_out).also {
+            it.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationEnd(animation: Animation?) {
+                    binding?.adAddLabel?.labelInfo?.visibility = View.GONE
+                    vm.onLabelAddedEvent(MapViewModel.LabelAddedEvent.OnLabelInfoReset)
+                }
+
+                override fun onAnimationStart(animation: Animation?) = Unit
+                override fun onAnimationRepeat(animation: Animation?) = Unit
+            })
+            binding?.adAddLabel?.labelInfo?.startAnimation(it)
         }
-        animation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation?) {
-                view.visibility = View.VISIBLE
-            }
-
-            override fun onAnimationEnd(animation: Animation?) {}
-            override fun onAnimationRepeat(animation: Animation?) {}
-        })
-
-        view.startAnimation(animation)
-    }
-
-    private fun hide(view: View) {
-        val animation = TranslateAnimation(
-            Animation.RELATIVE_TO_PARENT, 0.0f,
-            Animation.RELATIVE_TO_PARENT, 1.0f,
-            Animation.RELATIVE_TO_PARENT, 0.0f,
-            Animation.RELATIVE_TO_PARENT, 0.0f
-        ).apply {
-            duration = 500L
-            fillAfter = true
-        }
-        animation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation?) {}
-            override fun onAnimationRepeat(animation: Animation?) {}
-
-            override fun onAnimationEnd(animation: Animation?) {
-                view.visibility = View.INVISIBLE
-            }
-        })
-
-        view.startAnimation(animation)
     }
 
     private fun isPointInsideView(x: Int, y: Int, view: View): Boolean {
